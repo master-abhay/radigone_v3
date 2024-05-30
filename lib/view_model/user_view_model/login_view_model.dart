@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:radigone_v3/models/user_models/login_user.dart';
 import 'package:radigone_v3/view_model/user_view_model/save_user_details.dart';
 
-import '../../repositories/user/user_repository.dart';
+import '../../repositories/user/auth_repository.dart';
 import '../services/alert_services.dart';
 import '../services/flutter_secure_storage/secure_storage.dart';
 import '../services/navigation_services.dart';
@@ -63,7 +63,7 @@ class LoginUserProvider with ChangeNotifier {
 
 
 
-final _myRepo = UserRepository();
+final _myRepo = UserAuthRepository();
 
 
   // Now of No Use:

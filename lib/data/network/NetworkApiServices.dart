@@ -27,7 +27,7 @@ class NetworkApiServices extends BaseApiServices {
       dynamic url, Map<String, String> fields, List<http.MultipartFile> files) async {
     dynamic responseJson;
 
-    var request = await http.MultipartRequest('POST', Uri.parse(url));
+    var request =  http.MultipartRequest('POST', Uri.parse(url));
 
     // Add fields
     request.fields.addAll(fields);

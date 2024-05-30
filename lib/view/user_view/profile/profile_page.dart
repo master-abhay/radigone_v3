@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
+import '../../../data/response/status.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/components/constants.dart';
 import '../../../view_model/services/navigation_services.dart';
 import '../../../view_model/user_view_model/profile_view_model.dart';
-
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -15,11 +15,7 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-
-
 class _ProfilePageState extends State<ProfilePage> {
-
-
   late NavigationServices _navigationServices;
 
   @override
@@ -29,16 +25,15 @@ class _ProfilePageState extends State<ProfilePage> {
     final GetIt _getIt = GetIt.instance;
     _navigationServices = _getIt.get<NavigationServices>();
 
-    WidgetsBinding.instance.addPostFrameCallback((_)async{
-      final provider = Provider.of<UserProfileInformationProvider>(context,listen: false);
-     await provider.setUsername();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final provider =
+          Provider.of<UserProfileInformationProvider>(context, listen: false);
+      await provider.setUsername();
       await provider.setPassword();
-     await provider.setToken();
+      await provider.setToken();
       await provider.profileInformation(context);
     });
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -64,44 +59,32 @@ class _ProfilePageState extends State<ProfilePage> {
               borderRadius:
                   BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
         ),
+        Container(
+          height: double.infinity,
+          width: double.infinity,
+          margin: const EdgeInsets.only(top: 50, bottom: 50),
+          padding: const EdgeInsets.only(left: 30, right: 30),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                //header to display page name:
+                header(),
 
-        Consumer<UserProfileInformationProvider>(builder: (context, providerValue, Widget? child){
+                // Edit Button
+                edit(),
 
-          if(providerValue.isLoading){
-           return const  Center(child: CircularProgressIndicator(color: Colors.white,strokeWidth: 1.5,
+                //Profile Image:
+                profileImage(),
 
-            ),);
-          }
-          return
-          Container(
-            height: double.infinity,
-            width: double.infinity,
-            margin: const EdgeInsets.only(top: 50, bottom: 50),
-            padding: const EdgeInsets.only(left: 30, right: 30),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  //header to display page name:
-                  header(),
+                //App User Information:
+                appUserInformation(),
 
-                  // Edit Button
-                  edit(),
-
-                  //Profile Image:
-                  profileImage(),
-
-                  //App User Information:
-                  appUserInformation(),
-
-                  //footer : Change password and Start Survey Button
-                  footer()
-                ],
-              ),
+                //footer : Change password and Start Survey Button
+                footer()
+              ],
             ),
-          );
-
-        })
-
+          ),
+        )
       ],
     );
   }
@@ -245,32 +228,93 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget appUserInformation() {
 
 
-    return Consumer<UserProfileInformationProvider>(
-      builder: (context,providerValue,Widget? child){
-        return Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              userInformation(title: "Name", field: '${providerValue.userProfileInformation?.firstname.toString()} ${providerValue.userProfileInformation?.lastname}'),
-              userInformation(title: "E-mail", field: '${providerValue.userProfileInformation?.email}'),
-              userInformation(title: "Phone", field: '${providerValue.userProfileInformation?.mobile}'),
-              userInformation(title: "Country", field: '${providerValue.userProfileInformation?.address?.country}'),
-              userInformation(title: "Balance", field: '${providerValue.userProfileInformation?.balance}'),
-              userInformation(title: "Status", field: providerValue.userProfileInformation?.status == 1 ?   "Active" : "Not Active"),
-            ],
-          ),
-        );
-      }
-    );
+  return  Consumer<UserProfileInformationProvider>(
+        builder: (context, providerValue, Widget? child) {
+          switch (providerValue.profileInfo.status) {
+            case Status.LOADING:
+              return const SizedBox(
+                height: 300,
+                child:  Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 1.5,
+                  ),
+                ),
+              );
 
+            case Status.ERROR:
+              return const Padding(
+                padding:  EdgeInsets.only(top: 8, bottom: 8),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SizedBox(
+                        height: 300,child: Text("Please Check Your Internet Connection"))
+                  ],
+                ),
+              );
+
+
+            case Status.COMPLETED:
+              return Padding(
+                padding: const EdgeInsets.only(top: 8, bottom: 8),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    userInformation(
+                        title: "Name",
+                        field:
+                        '${providerValue.profileInfo.data?.firstname} ${providerValue.profileInfo.data?.lastname}'),
+                    userInformation(
+                        title: "E-mail",
+                        field: '${providerValue.profileInfo.data?.email}'),
+                    userInformation(
+                        title: "Phone",
+                        field: '${providerValue.profileInfo.data?.mobile}'),
+                    userInformation(
+                        title: "Country",
+                        field:
+                        '${providerValue.profileInfo.data?.address?.country}'),
+                    userInformation(
+                        title: "Balance",
+                        field: '${providerValue.profileInfo.data?.balance}'),
+                    userInformation(
+                        title: "Status",
+                        field: providerValue.userProfileInformation?.status == 1
+                            ? "Active"
+                            : "Not Active"),
+                  ],
+                ),
+              );
+
+
+
+            case null:
+              return const Center(
+                child: Text("Null Values Found. Please contact Support"),
+              );
+          }
+        });
+
+
+
+
+  //
+  //   return Consumer<UserProfileInformationProvider>(
+  //       builder: (context, providerValue, Widget? child) {
+  //   });
   }
 
-  Widget footerButton({required String buttonName, required IconData icon,required void Function() onTap}) {
+  Widget footerButton(
+      {required String buttonName,
+      required IconData icon,
+      required void Function() onTap}) {
     return GestureDetector(
-onTap: onTap,
+      onTap: onTap,
       child: Material(
         color: Colors.black.withOpacity(0.1),
         shadowColor: const Color(0xffFDD900).withOpacity(0.1),
@@ -317,10 +361,16 @@ onTap: onTap,
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            footerButton(buttonName: "Change Password", icon: Icons.lock,onTap: (){
-              _navigationServices.pushNamed('/changePassword');
-            }),
-            footerButton(buttonName: "Start Survey", icon: Icons.question_mark,onTap: (){}),
+            footerButton(
+                buttonName: "Change Password",
+                icon: Icons.lock,
+                onTap: () {
+                  _navigationServices.pushNamed('/changePassword');
+                }),
+            footerButton(
+                buttonName: "Start Survey",
+                icon: Icons.question_mark,
+                onTap: () {}),
           ],
         ));
   }

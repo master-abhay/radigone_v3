@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
+import 'package:radigone_v3/data/response/ApiResponse.dart';
+import 'package:radigone_v3/repositories/user/home_repository.dart';
 
 import '../../models/user_models/dashboard_ads_list_user.dart';
-import '../../repositories/user/user_repository.dart';
+import '../../repositories/user/auth_repository.dart';
 import '../services/alert_services.dart';
 import '../services/flutter_secure_storage/secure_storage.dart';
 import '../services/navigation_services.dart';
@@ -12,10 +14,10 @@ class DashboardUserProvider with ChangeNotifier {
   String? _username;
   String? _password;
   String? _token;
-  UserDashboard _userDashboard = UserDashboard();
+  // UserDashboard _userDashboard = UserDashboard();
   bool _isLoading = true;
 
-  UserDashboard get userDashboard => _userDashboard;
+  // UserDashboard get userDashboard => _userDashboard;
 
   setUsername() async {
     _username = await SecureStorage().readSecureData('username');
@@ -32,10 +34,10 @@ class DashboardUserProvider with ChangeNotifier {
     // print('Token value fetched in Dashboard Provoder: $_token');
   }
 
-  void setUserDashboard(var responseBody) {
-    _userDashboard = UserDashboard.fromJson(responseBody);
-    notifyListeners();
-  }
+  // void setUserDashboard(var responseBody) {
+  //   _userDashboard = UserDashboard.fromJson(responseBody);
+  //   notifyListeners();
+  // }
 
   void setIsLoading(bool val) {
     _isLoading = val;
@@ -56,32 +58,62 @@ class DashboardUserProvider with ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-  Uri uri = Uri.parse('http://radigone.com/api/v1/user/dashboard');
 
-  final _myRepo = UserRepository();
+  final _myRepo = UserHomeRepository();
 
-  loginUserDashboard(BuildContext context) async {
-    setIsLoading(true);
+  ApiResponse<UserDashboard> adsList = ApiResponse.loading();
+
+  setAdsList(ApiResponse<UserDashboard> response){
+
+    adsList = response;
+    notifyListeners();
+  }
+
+  loginUserDashboard(BuildContext context) async{
+    setAdsList(ApiResponse.loading());
 
     Map headers = <String, String>{
       "Authorization": _token!,
       'username': _username!,
       'password': _password!,
     };
+
     if (_username != null && _password != null) {
-      _myRepo.userDashboardAdsListApi(headers).then((responseBody) {
-        setUserDashboard(responseBody['data']);
+      _myRepo.userDashboardAdsListApi(headers).then((value){
+        setAdsList(ApiResponse.completed(value));
         _alertServices.flushBarErrorMessages("Fresh Data Fetched", context);
 
-        setIsLoading(false);
-      }).onError((error, stackTrace) {
+      }).onError((error,stackTrace){
+      setAdsList(ApiResponse.error(error.toString()));
         _alertServices.flushBarErrorMessages(error.toString(), context);
-
-        print(error.toString());
-        setIsLoading(false);
       });
+
     }
   }
+
+
+  // loginUserDashboard(BuildContext context) async {
+  //   setIsLoading(true);
+  //
+  //   Map headers = <String, String>{
+  //     "Authorization": _token!,
+  //     'username': _username!,
+  //     'password': _password!,
+  //   };
+  //   if (_username != null && _password != null) {
+  //     _myRepo.userDashboardAdsListApi(headers).then((value) {
+  //
+  //       _alertServices.flushBarErrorMessages("Fresh Data Fetched", context);
+  //
+  //       setIsLoading(false);
+  //     }).onError((error, stackTrace) {
+  //       _alertServices.flushBarErrorMessages(error.toString(), context);
+  //
+  //       print(error.toString());
+  //       setIsLoading(false);
+  //     });
+  //   }
+  // }
 }
 
 //Note: I had Created the functions in such a way so that response body is returned when api hit.

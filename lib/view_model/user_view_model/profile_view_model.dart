@@ -4,9 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
+import 'package:radigone_v3/data/response/ApiResponse.dart';
 
 import '../../models/user_models/profile_user.dart';
-import '../../repositories/user/user_repository.dart';
+import '../../repositories/user/auth_repository.dart';
+import '../../repositories/user/profile_repository.dart';
 import '../services/alert_services.dart';
 import '../services/flutter_secure_storage/secure_storage.dart';
 import '../services/navigation_services.dart';
@@ -238,7 +240,7 @@ class UserProfileInformationProvider with ChangeNotifier {
   }
 
 
-  final _myRepo = UserRepository();
+
 
 
   late AlertServices _alertServices;
@@ -253,23 +255,26 @@ class UserProfileInformationProvider with ChangeNotifier {
         getIt.get<UserLocalDataSaverSharedPreferences>();
     _navigationServices = getIt.get<NavigationServices>();
   }
+  final _myRepo = UserProfileRepository();
 
+   ApiResponse<UserProfileInformation> profileInfo = ApiResponse.loading();
 
+  setUserProfileInfo(ApiResponse<UserProfileInformation> response){
+    profileInfo = response;
+    notifyListeners();
+  }
 
   profileInformation(BuildContext context) async {
-
-
-    setLoading(true);
-
     Map headers = <String, String>{
       "Authorization": _token!,
       'username': _username!,
       'password': _password!,
     };
+
     if (_username != null && _password != null) {
-      _myRepo.userProfileApi(headers).then((responseBody) {
-        var data = UserProfileInformation.fromJson(responseBody['data']);
-        setUserProfileInformation(data);
+      _myRepo.userProfileApi(headers).then((value) {
+        setUserProfileInfo(ApiResponse.completed(value));
+        setUserProfileInformation(value);
         setLoading(false);
         _alertServices.flushBarErrorMessages("Profile Fetched", context);
 
@@ -278,10 +283,40 @@ class UserProfileInformationProvider with ChangeNotifier {
           print(error.toString());
         }
         setLoading(false);
+
+        setUserProfileInfo(ApiResponse.error(error.toString()));
+
         _alertServices.flushBarErrorMessages(error.toString(), context);
 
       });
     }
-
   }
+
+  // profileInformation(BuildContext context) async {
+  //
+  //   setLoading(true);
+  //
+  //   Map headers = <String, String>{
+  //     "Authorization": _token!,
+  //     'username': _username!,
+  //     'password': _password!,
+  //   };
+  //   if (_username != null && _password != null) {
+  //     _myRepo.userProfileApi(headers).then((responseBody) {
+  //       var data = UserProfileInformation.fromJson(responseBody['data']);
+  //       setUserProfileInformation(data);
+  //       setLoading(false);
+  //       _alertServices.flushBarErrorMessages("Profile Fetched", context);
+  //
+  //     }).onError((error, stackTrace) {
+  //       if(kDebugMode){
+  //         print(error.toString());
+  //       }
+  //       setLoading(false);
+  //       _alertServices.flushBarErrorMessages(error.toString(), context);
+  //
+  //     });
+  //   }
+  //
+  // }
 }

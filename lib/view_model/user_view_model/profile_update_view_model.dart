@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
-import 'package:radigone_v3/repositories/user/user_repository.dart';
+import 'package:radigone_v3/repositories/user/auth_repository.dart';
 
 import '../../models/user_models/profile_user.dart';
+import '../../repositories/user/profile_repository.dart';
 import '../services/alert_services.dart';
 import '../services/flutter_secure_storage/secure_storage.dart';
 
@@ -317,7 +318,7 @@ class UserprofileUpdateProvider with ChangeNotifier {
       'password': _password!,
     };
 
-    final _myRepo = UserRepository();
+    final _myRepo = UserProfileRepository();
 
     if (_username != null && _password != null) {
       _myRepo.userProfileUpdateApi(headers, body).then((value) {
