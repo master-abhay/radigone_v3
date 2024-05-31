@@ -28,7 +28,7 @@ class NavigationServices {
   final Map<String, Widget Function(BuildContext context)> _routes = {
 
 
-    // "/changePassword": (context) => const ChangePassword(),
+    "/changePassword": (context) => const ChangePassword(),
     "/profileEditPage": (context) => const ProfileEditPage(),
     // "/videoPlayerPage": (context) => const VideoPlayerPage(),
     "/selectRegistrationPage": (context) => const SelectRegistrationPage(),

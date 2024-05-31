@@ -37,7 +37,8 @@ class UserProfileInformationProvider with ChangeNotifier {
       _reAccountNumber,
       _bankIfsc,
       _balance,
-      _status;
+      _status,
+  _image;
 
   void setFirstName(String? element) {
     _firstName = element;
@@ -153,6 +154,10 @@ class UserProfileInformationProvider with ChangeNotifier {
     _status = element;
     notifyListeners();
   }
+  void setImage(element) {
+    _image = element;
+    notifyListeners();
+  }
 
   String? get firstName => _firstName;
   String? get lastName => _lastName;
@@ -177,6 +182,8 @@ class UserProfileInformationProvider with ChangeNotifier {
   String? get bankIfsc => _bankIfsc;
   String? get balance => _balance;
   String? get status => _status;
+  String? get image => _status;
+
 
   // Needed to hit api:
   String? _username;
@@ -227,6 +234,7 @@ class UserProfileInformationProvider with ChangeNotifier {
       setBankIfsc(_userProfileInformation?.bankIfsc);
       setBalance(_userProfileInformation?.balance);
       setStatus(_userProfileInformation?.status.toString());
+      setImage(_userProfileInformation.image.toString());
     }
   }
 
@@ -276,7 +284,7 @@ class UserProfileInformationProvider with ChangeNotifier {
         setUserProfileInfo(ApiResponse.completed(value));
         setUserProfileInformation(value);
         setLoading(false);
-        _alertServices.flushBarErrorMessages("Profile Fetched", context);
+        // _alertServices.flushBarErrorMessages("Profile Fetched", context);
 
       }).onError((error, stackTrace) {
         if(kDebugMode){
@@ -286,7 +294,7 @@ class UserProfileInformationProvider with ChangeNotifier {
 
         setUserProfileInfo(ApiResponse.error(error.toString()));
 
-        _alertServices.flushBarErrorMessages(error.toString(), context);
+        // _alertServices.flushBarErrorMessages(error.toString(), context);
 
       });
     }

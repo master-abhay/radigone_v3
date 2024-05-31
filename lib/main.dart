@@ -134,12 +134,15 @@ import 'package:provider/provider.dart';
 
 import 'package:radigone_v3/view_model/services/getIt_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
+import 'package:radigone_v3/view_model/user_view_model/change_password_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/dashboard_ads_list_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/login_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/logout_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/profile_update_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/profile_view_model.dart';
+import 'package:radigone_v3/view_model/user_view_model/radigonePoint_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/save_user_details.dart';
+import 'package:radigone_v3/view_model/user_view_model/user_points_view_model.dart';
 
 
 Future<void> main() async {
@@ -197,18 +200,11 @@ class _MyAppState extends State<MyApp> {
         // ChangeNotifierProvider(create: (_) => LogOutSponserProvider()),
         // ChangeNotifierProvider(create: (_) => RegisterSponsorProvider()),
         ChangeNotifierProvider(create: (_) => DashboardUserProvider()),
+        ChangeNotifierProvider(create: (_) => UserRadigonePointViewModel()),
+        ChangeNotifierProvider(create: (_) => UserPointsViewModel()),
         ChangeNotifierProvider(create: (_) => UserProfileInformationProvider()),
         ChangeNotifierProvider(create: (_) => UserprofileUpdateProvider()),
-        // ChangeNotifierProvider(create: (_) => ChangePasswordUserProvider()),
-        // ChangeNotifierProvider(create: (_) => UserRadigonePointsProvider()),
-
-
-
-
-
-
-
-
+        ChangeNotifierProvider(create: (_) => ChangePasswordUserProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

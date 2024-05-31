@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/view_model/services/media_services.dart';
 
 import '../../../resources/colors.dart';
 import '../../../resources/components/constants.dart';
@@ -13,7 +16,6 @@ import '../../../resources/components/custom_phone_input.dart';
 import '../../../view_model/services/navigation_services.dart';
 import '../../../view_model/user_view_model/profile_update_view_model.dart';
 import '../../../view_model/user_view_model/profile_view_model.dart';
-
 
 //
 enum MaritalStatus { single, married }
@@ -34,6 +36,8 @@ class ProfileEditPage extends StatefulWidget {
 }
 
 class _ProfileEditPageState extends State<ProfileEditPage> {
+  File? selectedProfileImage;
+
   //Update user form key:
   final GlobalKey<FormState> _updateUserFormKey = GlobalKey<FormState>();
 
@@ -43,6 +47,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
   //services:
   late NavigationServices _navigationServices;
+  late MediaServices _mediaServices;
   late Future<void> _initialization;
 
   Future<void> _initializeData() async {
@@ -61,6 +66,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     final GetIt _getIt = GetIt.instance;
 
     _navigationServices = _getIt.get<NavigationServices>();
+    _mediaServices = _getIt.get<MediaServices>();
 
     _initialization = _initializeData();
 
@@ -121,7 +127,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         FutureBuilder<void>(
           future: _initialization,
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
+            if (snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none) {
               return const Center(
                 child: CircularProgressIndicator(
                   color: Colors.white,
@@ -553,7 +559,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                                         : null;
                                                   },
                                                   obscureText: false,
-                                                  isNumber: true),
+                                                  isNumber: false),
                                             ),
                                           ),
                                         ],
@@ -998,7 +1004,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                             _updateUserFormKey.currentState
                                                 ?.save();
 
-                                            updateProvider.profileUpdate(context);
+                                            updateProvider
+                                                .profileUpdate(context);
 
                                             // Reloading the data:
                                             await _initializeData();
@@ -1024,28 +1031,73 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     );
   }
 
+  // Widget profileImage() {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(top: 15, bottom: 15),
+  //     child: Material(
+  //       elevation: 1,
+  //       borderRadius: BorderRadius.circular(180),
+  //       color: Colors.grey,
+  //       child: Container(
+  //           width: 80,
+  //           height: 80,
+  //           decoration: BoxDecoration(
+  //             color: Colors.grey,
+  //             borderRadius: BorderRadius.circular(180),
+  //           ),
+  //           child: Image.asset(
+  //             "images/profileImage.png",
+  //             fit: BoxFit.cover,
+  //             errorBuilder: (context, object, stacktrace) {
+  //               return Image.network(PLACEHOLDER_PFP, fit: BoxFit.cover);
+  //             },
+  //           )),
+  //     ),
+  //   );
+  // }
+
   Widget profileImage() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 15, bottom: 15),
-      child: Material(
-        elevation: 1,
-        borderRadius: BorderRadius.circular(180),
-        color: Colors.grey,
-        child: Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(180),
-            ),
-            child: Image.asset(
-              "images/profileImage.png",
-              fit: BoxFit.cover,
-              errorBuilder: (context, object, stacktrace) {
-                return Image.network(PLACEHOLDER_PFP, fit: BoxFit.cover);
-              },
-            )),
-      ),
-    );
+    return Consumer<UserProfileInformationProvider>(builder: (context,infoProvider,_){
+
+    return Consumer<UserprofileUpdateProvider>(builder: (context,providerValue,_){
+
+        return GestureDetector(
+            onTap: () async {
+              File? file = await _mediaServices.getImageFromGallery();
+              if (file != null) {
+                providerValue.setProfileImage(file);
+                setState(() {
+                  selectedProfileImage = file;
+                });
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15, bottom: 15),
+              child: Material(
+                elevation: 1,
+                borderRadius: BorderRadius.circular(180),
+                color: Colors.grey,
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(180),
+                  ),
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: selectedProfileImage != null
+                        ? FileImage(selectedProfileImage!)
+                        // :  NetworkImage(infoProvider.image!) as ImageProvider,
+                          :  NetworkImage(PLACEHOLDER_PFP) as ImageProvider,
+
+                ),
+                ),
+              ),
+            ));
+      });
+
+    });
+
   }
 }

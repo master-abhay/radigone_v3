@@ -1,12 +1,8 @@
 // Creating the services with the help of the state management using the providerState management:
 
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/models/user_models/login_user.dart';
 import 'package:radigone_v3/view_model/user_view_model/save_user_details.dart';
@@ -16,7 +12,6 @@ import '../services/alert_services.dart';
 import '../services/flutter_secure_storage/secure_storage.dart';
 import '../services/navigation_services.dart';
 import '../services/shared_preferences_data_services/user_localDataSaver_sharedPreferences.dart';
-
 
 class LoginUserProvider with ChangeNotifier {
   String? _username;
@@ -61,59 +56,54 @@ class LoginUserProvider with ChangeNotifier {
 
   //Creating a object which can take care of data of profile as usual for now we need only token and token type to implement the logout functionality:
 
-
-
-final _myRepo = UserAuthRepository();
-
+  final _myRepo = UserAuthRepository();
 
   // Now of No Use:
-  Future<void> saveDetails(dynamic value)async{
+  Future<void> saveDetails(dynamic value) async {
     // print("printing in the save detatil:    ${value['token']}");
     // await _userLocalDataSaverSharedPreferences.setUserToken(value['token']);
     //
     // String? tokenResult = await _userLocalDataSaverSharedPreferences.getUserToken();
     // print("--------Printing from latest:  $tokenResult");
 
-  // Saving the user password in secure storage to login dashboard
-  SecureStorage().writeSecureData('username', _username!);
-  SecureStorage().writeSecureData('password', _password!);
-  SecureStorage().writeSecureData('token', '${value['token_type']} ${value['token']}');
+    // Saving the user password in secure storage to login dashboard
+    await SecureStorage().writeSecureData('username', _username!);
+    await SecureStorage().writeSecureData('password', _password!);
+    await SecureStorage()
+        .writeSecureData('token', '${value['token_type']} ${value['token']}');
+    await SecureStorage()
+        .writeSecureData('mobile', '${value['data']['mobile']}');
 
-
-  print(SecureStorage().readSecureData('username'));
-  print(SecureStorage().readSecureData('password'));
-  print(SecureStorage().readSecureData('token'));
-  //
-  //
+    if (kDebugMode) {
+      print(await SecureStorage().readSecureData('username'));
+      print(await SecureStorage().readSecureData('password'));
+      print(await SecureStorage().readSecureData('token'));
+      print(await SecureStorage().readSecureData('mobile'));
+    }
   }
 
-
   Future<bool> loginUser(BuildContext context) async {
-
     setLoading(true);
 
     Map data = {"username": _username, "password": _password};
 
-    _myRepo.userLoginApi(data).then((value){
-      final provider = Provider.of<SaveUserDetails>(context,listen: false);
+    _myRepo.userLoginApi(data).then((value) {
+      saveDetails(value);
+      final provider = Provider.of<SaveUserDetails>(context, listen: false);
 
-      if(kDebugMode){
+      if (kDebugMode) {
         print(value.toString());
         print('---------printing from Ligin model: ${value['token']}');
-
       }
-      provider.saveUser(LoginUserModel(token: value['token'],tokenType: value['token_type']));
+      provider.saveUser(LoginUserModel(
+          token: value['token'], tokenType: value['token_type']));
       saveDetails(value);
-
-
-
 
       _navigationServices.goBack();
       _navigationServices.pushReplacementNamed('/userMainView');
       _alertServices.flushBarErrorMessages("Login Successfully", context);
 
       setLoading(false);
-
     }).onError((error, stackTrace) {
       setLoading(false);
 

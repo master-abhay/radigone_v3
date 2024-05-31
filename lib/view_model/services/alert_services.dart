@@ -21,14 +21,21 @@ class AlertServices {
       DelightToastBar(
           autoDismiss: true,
           position: DelightSnackbarPosition.top,
+
           builder: (context) {
             return ToastCard(
-              title: Container(
-                  padding: EdgeInsets.zero,
-                  margin: EdgeInsets.zero,
-                  alignment: Alignment.center,
-                  child: Text(message)),
-              color: const Color(0xffffffff),
+              leading: const Icon(
+                Icons.notifications_active_outlined,
+                size: 28,
+                color: Colors.white,
+              ),
+              // title: Container(
+              //     padding: EdgeInsets.zero,
+              //     margin: EdgeInsets.zero,
+              //     alignment: Alignment.center,
+              //     ),
+              title: Text(message,style: const TextStyle(color: Colors.white),),
+              color:  Colors.black87,
             );
           }).show(_navigationServices.navigationStateKey.currentState!.context);
     } catch (error) {
@@ -57,9 +64,11 @@ class AlertServices {
             color: Colors.white,
           ),
           flushbarPosition: FlushbarPosition.TOP,
-          margin: EdgeInsets.symmetric(
-              vertical: MediaQuery.sizeOf(context).width * 0.02,
-              horizontal: MediaQuery.sizeOf(context).width * 0.04),
+          margin: const EdgeInsets.symmetric(
+              // vertical: MediaQuery.sizeOf(context).width * 0.02,
+              // horizontal: MediaQuery.sizeOf(context).width * 0.04),
+      vertical: 5,
+     horizontal: 5)
         )..show(context));
   }
 

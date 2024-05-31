@@ -25,6 +25,12 @@ class UserAuthRepository {
     }
   }
 
-
-
+  Future<dynamic> userChangePasswordApi(dynamic headers, dynamic body) async {
+    try {
+      dynamic response = await _apiServices.getPostApiHeadersBodyServices(AppUrls.userChangePasswordUrl, headers, body);
+      return response;
+    } catch (e) {
+      throw e;
+    }
+  }
 }

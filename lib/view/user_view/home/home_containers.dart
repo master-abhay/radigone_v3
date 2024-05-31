@@ -89,10 +89,23 @@ class _HomeContainersState extends State<HomeContainers> {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(7.38)),
-                child: Text(
-                  widget.containerValue,
-                  style: const TextStyle(
-                      fontSize: 12.31, fontWeight: FontWeight.w600),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5,right: 5),
+                        child: Text(
+                          widget.containerValue,
+                          style: const TextStyle(
+                              fontSize: 12.31, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],

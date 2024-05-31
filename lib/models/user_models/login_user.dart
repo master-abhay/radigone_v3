@@ -9,7 +9,7 @@ class LoginUserModel {
   LoginUserModel({
     bool? success,
     String? message,
-    Data? data,
+    dynamic data,
     String? token,
     String? tokenType,
   }) {
