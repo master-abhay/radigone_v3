@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/view_model/services/navigation_services.dart';
 
 import '../../view_model/user_view_model/logout_view_model.dart';
 
@@ -22,6 +24,19 @@ class UserSideBar extends StatefulWidget {
 }
 
 class _UserSideBarState extends State<UserSideBar> {
+
+
+
+  late NavigationServices _navigationServices;
+  @override
+  void initState() {
+    super.initState();
+    final GetIt _getIt = GetIt.instance;
+
+    _navigationServices = _getIt.get<NavigationServices>();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -122,6 +137,21 @@ class _UserSideBarState extends State<UserSideBar> {
                     dense: true,
                     horizontalTitleGap: 5,
                     onTap: () {},
+                  ),
+                  ListTile(
+                    // minTileHeight: MediaQuery.of(context).size.width * 0.12,
+                    title: const Text(
+                      "Redeem Radigone Points",
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    ),
+                    leading: SvgPicture.asset(
+                        "images/images_user_sidebar/recharge_wallet.svg"),
+                    dense: true,
+                    horizontalTitleGap: 5,
+                    onTap: () {
+                      _navigationServices.goBack();
+                      _navigationServices.pushNamed("/redeemRadigonePoints");
+                    },
                   ),
                   ListTile(
                     // minTileHeight: MediaQuery.of(context).size.width * 0.12,

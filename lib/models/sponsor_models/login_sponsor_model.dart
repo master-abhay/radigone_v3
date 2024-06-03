@@ -5,11 +5,11 @@
 /// token_type : "Bearer"
 library;
 
-class LoginSponserModel {
-  LoginSponserModel({
+class LoginSponsorModel {
+  LoginSponsorModel({
     bool? success,
     String? message,
-    Data? data,
+    dynamic data,
     String? token,
     String? tokenType,}){
     _success = success;
@@ -19,7 +19,7 @@ class LoginSponserModel {
     _tokenType = tokenType;
   }
 
-  LoginSponserModel.fromJson(dynamic json) {
+  LoginSponsorModel.fromJson(dynamic json) {
     _success = json['success'];
     _message = json['message'];
     _data = json['data'] != null ? Data.fromJson(json['data']) : null;
@@ -31,12 +31,12 @@ class LoginSponserModel {
   Data? _data;
   String? _token;
   String? _tokenType;
-  LoginSponserModel copyWith({  bool? success,
+  LoginSponsorModel copyWith({  bool? success,
     String? message,
     Data? data,
     String? token,
     String? tokenType,
-  }) => LoginSponserModel(  success: success ?? _success,
+  }) => LoginSponsorModel(  success: success ?? _success,
     message: message ?? _message,
     data: data ?? _data,
     token: token ?? _token,

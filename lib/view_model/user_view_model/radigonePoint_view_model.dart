@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:radigone_v3/data/response/ApiResponse.dart';
 import 'package:radigone_v3/models/user_models/user_radigone_point-model.dart';
@@ -52,10 +53,13 @@ class UserRadigonePointViewModel with ChangeNotifier {
     if (_username != null && _password != null) {
       _myRepo.userRadigonePointApi(headers: headers).then((value) {
         setUserRadigonePointViewModel(ApiResponse.completed(value));
-        // _alertServices.flushBarErrorMessages("Radigone Points Data Fetched", context);
+        _alertServices.flushBarErrorMessages("Radigone Points Data Fetched", context);
       }).onError((error, stackTrace) {
         print(error.toString());
         setUserRadigonePointViewModel(ApiResponse.error(error.toString()));
+        if(kDebugMode){
+          print(error.toString());
+        }
         _alertServices.flushBarErrorMessages(error.toString(), context);
       });
     }

@@ -134,6 +134,8 @@ import 'package:provider/provider.dart';
 
 import 'package:radigone_v3/view_model/services/getIt_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
+import 'package:radigone_v3/view_model/sponsor_view_model/login_view_model.dart';
+import 'package:radigone_v3/view_model/sponsor_view_model/save_sponsor_details.dart';
 import 'package:radigone_v3/view_model/user_view_model/change_password_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/dashboard_ads_list_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/login_view_model.dart';
@@ -142,6 +144,7 @@ import 'package:radigone_v3/view_model/user_view_model/profile_update_view_model
 import 'package:radigone_v3/view_model/user_view_model/profile_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/radigonePoint_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/save_user_details.dart';
+import 'package:radigone_v3/view_model/user_view_model/side_menu_bar_view_models/redeem_radigonePoints_viewModel.dart';
 import 'package:radigone_v3/view_model/user_view_model/user_points_view_model.dart';
 
 
@@ -194,9 +197,10 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => LoginUserProvider()),
-        ChangeNotifierProvider(create: (_) => SaveUserDetails()),
+        // ChangeNotifierProvider(create: (_) => SaveUserDetails()),
         ChangeNotifierProvider(create: (_) => LogoutUserProvider()),
-        // ChangeNotifierProvider(create: (_) => LoginSponserProvider()),
+        ChangeNotifierProvider(create: (_) => LoginSponsorProvider()),
+        // ChangeNotifierProvider(create: (_) => SaveSponsorDetails()),
         // ChangeNotifierProvider(create: (_) => LogOutSponserProvider()),
         // ChangeNotifierProvider(create: (_) => RegisterSponsorProvider()),
         ChangeNotifierProvider(create: (_) => DashboardUserProvider()),
@@ -205,6 +209,10 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => UserProfileInformationProvider()),
         ChangeNotifierProvider(create: (_) => UserprofileUpdateProvider()),
         ChangeNotifierProvider(create: (_) => ChangePasswordUserProvider()),
+        ChangeNotifierProvider(create: (_) => RedeemRadigonePointsViewModel()),
+
+
+
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

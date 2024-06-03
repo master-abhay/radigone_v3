@@ -45,14 +45,12 @@ class DashboardUserProvider with ChangeNotifier {
   }
 
   late AlertServices _alertServices;
-  late UserLocalDataSaverSharedPreferences _userLocalDataSaverSharedPreferences;
   late NavigationServices _navigationServices;
 
   DashboardUserProvider() {
     final GetIt getIt = GetIt.instance;
     _alertServices = getIt.get<AlertServices>();
-    _userLocalDataSaverSharedPreferences =
-        getIt.get<UserLocalDataSaverSharedPreferences>();
+
     _navigationServices = getIt.get<NavigationServices>();
   }
 

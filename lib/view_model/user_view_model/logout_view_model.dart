@@ -5,38 +5,44 @@ import 'package:radigone_v3/repositories/user/auth_repository.dart';
 import 'package:radigone_v3/view_model/services/flutter_secure_storage/secure_storage.dart';
 
 import '../services/alert_services.dart';
+import '../services/auth_services.dart';
 import '../services/navigation_services.dart';
-import '../services/shared_preferences_data_services/user_localDataSaver_sharedPreferences.dart';
 
 class LogoutUserProvider with ChangeNotifier {
   late AlertServices _alertServices;
-  late UserLocalDataSaverSharedPreferences _userLocalDataSaverSharedPreferences;
   late NavigationServices _navigationServices;
+
+  late AuthService _authService;
 
   LogoutUserProvider() {
     final GetIt getIt = GetIt.instance;
     _alertServices = getIt.get<AlertServices>();
-    _userLocalDataSaverSharedPreferences =
-        getIt.get<UserLocalDataSaverSharedPreferences>();
+    _authService = getIt.get<AuthService>();
+
     _navigationServices = getIt.get<NavigationServices>();
   }
 
+  Future<void> deleteUserDetails() async {
+    if (kDebugMode) {
+      print("Deleting the user Details by loggin out");
+    }
+    await _authService.clearAllTokens();
 
-
-  Future<void> deleteUserDetails()async{
-    await _userLocalDataSaverSharedPreferences.removeUserToken();
+    //Deleting full data from SecureStorage
+    await SecureStorage().deleteAllSecureData();
     await SecureStorage().deleteSecureData('username');
     await SecureStorage().deleteSecureData('password');
     await SecureStorage().deleteSecureData('token');
-
+    await SecureStorage().deleteSecureData('id');
+    // LoginUserModel() = LoginUserModel();
   }
 
   final _myRepo = UserAuthRepository();
 
   Future<bool> logOutUser(BuildContext context) async {
-    final String? logoutToken =
-        await _userLocalDataSaverSharedPreferences.getUserToken();
-    Map data = <String, String>{"Authorization": logoutToken!};
+    String? logoutToken = await _authService.getUserToken();
+
+    Map data = <String, String>{"Authorization": logoutToken ?? ''};
 
     _myRepo.userLogoutApi(data).then((value) {
       deleteUserDetails();
@@ -44,8 +50,7 @@ class LogoutUserProvider with ChangeNotifier {
       _navigationServices.pushReplacementNamed('/loginRegistration');
       _alertServices.flushBarErrorMessages("Logout Successfully", context);
     }).onError((error, stackTrace) {
-
-      if(kDebugMode){
+      if (kDebugMode) {
         print(error.toString());
       }
       _alertServices.flushBarErrorMessages(error.toString(), context);

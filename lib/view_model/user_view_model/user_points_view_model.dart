@@ -70,14 +70,15 @@ class UserPointsViewModel with ChangeNotifier{
         if(kDebugMode){
           print("Api hit");
         }
-        _alertServices.flushBarErrorMessages("User Points Fetched", context);
+        // _alertServices.showToast(message: "User Points Fetched");
+        // _alertServices.flushBarErrorMessages("User Points Fetched", context);
       }).onError((error, stackTrace) {
         if(kDebugMode){
           print(error.toString());
         }
         setUserPointsViewModel(ApiResponse.error(error.toString()));
 
-        _alertServices.flushBarErrorMessages(error.toString(), context);
+        // _alertServices.flushBarErrorMessages(error.toString(), context);
       });
     }
   }

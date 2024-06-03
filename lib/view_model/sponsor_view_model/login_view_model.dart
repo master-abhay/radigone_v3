@@ -3,14 +3,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:radigone_v3/models/sponsor_models/login_sponsor_model.dart';
 
-import '../../repositories/user/auth_repository.dart';
+import '../../repositories/sponsor/auth_repository.dart';
 import '../services/alert_services.dart';
 import '../services/auth_services.dart';
 import '../services/flutter_secure_storage/secure_storage.dart';
 import '../services/navigation_services.dart';
 
-class LoginUserProvider with ChangeNotifier {
+class LoginSponsorProvider with ChangeNotifier {
   String? _username;
   String? _password;
 
@@ -47,26 +48,24 @@ class LoginUserProvider with ChangeNotifier {
   late NavigationServices _navigationServices;
   late AuthService _authService;
 
-  LoginUserProvider() {
+  LoginSponsorProvider() {
     final GetIt getIt = GetIt.instance;
     _alertServices = getIt.get<AlertServices>();
-    _authService = getIt.get<AuthService>();
     _navigationServices = getIt.get<NavigationServices>();
+    _authService = getIt.get<AuthService>();
   }
 
-  Future<void> saveDetails(dynamic value) async {
-    // Saving the user password in secure storage to login dashboard
+  Future<void> saveDetails(LoginSponsorModel value) async {
     await SecureStorage().writeSecureData('username', _username!);
     await SecureStorage().writeSecureData('password', _password!);
     await SecureStorage()
-        .writeSecureData('token', '${value['token_type']} ${value['token']}');
+        .writeSecureData('token', '${value.tokenType} ${value.token}');
     await SecureStorage()
-        .writeSecureData('mobile', '${value['data']['mobile']}');
-    await SecureStorage().writeSecureData('id', '${value['data']['id']}');
-
+        .writeSecureData('mobile', value.data!.mobile.toString());
+    await SecureStorage().writeSecureData('id', value.data!.id.toString());
     //Saving token in sharedPreferences:
-    await _authService
-        .saveUserToken('${value['token_type']} ${value['token']}');
+    await _authService.saveSponsorToken(
+        '${value.tokenType.toString()} ${value.token.toString()}');
 
     if (kDebugMode) {
       print(await SecureStorage().readSecureData('username'));
@@ -77,17 +76,22 @@ class LoginUserProvider with ChangeNotifier {
     }
   }
 
-  final _myRepo = UserAuthRepository();
+  final _myRepo = SponsorAuthRepository();
 
-  Future<bool> loginUser(BuildContext context) async {
+  Future<bool> loginSponsor(BuildContext context) async {
     setLoading(true);
 
-    Map data = {"username": _username, "password": _password};
+    Map body = {"username": _username, "password": _password};
 
-    _myRepo.userLoginApi(data).then((value) {
+    _myRepo.sponsorLoginApi(body: body).then((value) {
       saveDetails(value);
+
       _navigationServices.goBack();
-      _navigationServices.pushReplacementNamed('/userMainView');
+      _navigationServices.pushReplacementNamed('/sponsorMainView');
+      if (kDebugMode) {
+        print("Sponsor logged in Successfully");
+      }
+
       setLoading(false);
     }).onError((error, stackTrace) {
       setLoading(false);

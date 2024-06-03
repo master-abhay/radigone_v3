@@ -16,7 +16,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   late NavigationServices _navigationServices;
-  late UserLocalDataSaverSharedPreferences _userLocalDataSaverSharedPreferences;
+
 
   final GetIt _getIt = GetIt.instance;
 
@@ -36,8 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
   SplashServices _splashServices = SplashServices();
   @override
   void initState() {
-    _userLocalDataSaverSharedPreferences =
-        _getIt.get<UserLocalDataSaverSharedPreferences>();
+
     _navigationServices = _getIt.get<NavigationServices>();
 
     super.initState();

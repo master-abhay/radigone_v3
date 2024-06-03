@@ -26,13 +26,11 @@ class _LoginPageState extends State<LoginPage> {
   final GetIt _getIt = GetIt.instance;
 
   late NavigationServices _navigationServices;
-  late UserLocalDataSaverSharedPreferences _userLocalDataSaverSharedPreferences;
   late AlertServices _alertServices;
 
   @override
   void initState() {
     _navigationServices = _getIt.get<NavigationServices>();
-    _userLocalDataSaverSharedPreferences = _getIt.get<UserLocalDataSaverSharedPreferences>();
     _alertServices = _getIt.get<AlertServices>();
 
     _loginFormState = GlobalKey<FormState>();

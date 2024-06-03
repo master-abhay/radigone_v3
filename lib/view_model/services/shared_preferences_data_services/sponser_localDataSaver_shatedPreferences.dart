@@ -1,56 +1,80 @@
-import 'package:shared_preferences/shared_preferences.dart';
-
-class SponserLocalDataSaverSharedPreferences {
-  // initializing the keys to get rid of the typo mistakes:
-  static const String isSponserLoggedInKey = 'issponserLoggedInKey';
-  static const String loginToken = 'loginToken';
-
-  late SharedPreferences _sharedPreferences;
-
-  SponserLocalDataSaverSharedPreferences() {
-    //Calling initialization method of the sponserSharedPreferences:
-    initializesponserSharedPreferences();
-  }
-
-  Future<void> initializesponserSharedPreferences() async {
-    print("--------------initializing the sponser Shared Preferences");
-    _sharedPreferences = await SharedPreferences.getInstance();
-  }
-
-  //Function to save the sponserState:
-  Future<bool> setsponserState(bool sponserLogin) async {
-    await initializesponserSharedPreferences();
-    print(
-        "----saving the sponserLogin state in sponserLocalDataSaverSharedPreferences");
-    return await _sharedPreferences.setBool(isSponserLoggedInKey, sponserLogin);
-  }
-
-  //Function to save the sponserToken:
-  Future<bool> setsponserToken(String token) async {
-    await initializesponserSharedPreferences();
-    print(
-        "----saving the sponserLogin state in sponserLocalDataSaverSharedPreferences");
-    return await _sharedPreferences.setString(loginToken, token);
-  }
-
-  // Function to share the sponserState:
-
-  Future<bool?> getsponserState() async {
-    await initializesponserSharedPreferences();
-    return _sharedPreferences.getBool(isSponserLoggedInKey);
-  }
-
-
-  // Function to share the loginToken:
-
-  Future<String?> getsponserToken() async {
-    await initializesponserSharedPreferences();
-    return _sharedPreferences.getString(loginToken);
-  }
-
-  Future<bool?> removesponserState() async {
-    //verify instance is created:
-    await initializesponserSharedPreferences();
-    return _sharedPreferences.remove(isSponserLoggedInKey);
-  }
-}
+// // import 'package:shared_preferences/shared_preferences.dart';
+// //
+// // class SponsorLocalDataSaverSharedPreferences {
+// //   // initializing the keys to get rid of the typo mistakes:
+// //   static const String loginToken = 'loginToken';
+// //
+// //   late SharedPreferences _sharedPreferences;
+// //
+// //   SponsorLocalDataSaverSharedPreferences() {
+// //     //Calling initialization method of the SponsorSharedPreferences:
+// //     initializeSponsorSharedPreferences();
+// //   }
+// //
+// //   Future<void> initializeSponsorSharedPreferences() async {
+// //     _sharedPreferences = await SharedPreferences.getInstance();
+// //   }
+// //
+// //
+// //   //Function to save the SponsorToken:
+// //   Future<bool> setSponsorToken(String token) async {
+// //     await initializeSponsorSharedPreferences();
+// //     return await _sharedPreferences.setString(loginToken, token);
+// //   }
+// //
+// //   // Function to share the loginToken:
+// //
+// //   Future<String?> getSponsorToken() async {
+// //     await initializeSponsorSharedPreferences();
+// //     return _sharedPreferences.getString(loginToken);
+// //   }
+// //
+// //   Future<bool?> removeSponsorToken() async {
+// //     await initializeSponsorSharedPreferences();
+// //     return _sharedPreferences.remove(loginToken);
+// //   }
+// //
+// // }
+//
+// import 'package:shared_preferences/shared_preferences.dart';
+//
+// class SponsorLocalDataSaverSharedPreferences {
+//   // initializing the keys to get rid of the typo mistakes:
+//   // static const String isUserLoggedInKey = 'isUserLoggedInKey';
+//   static const String token = 'loginToken';
+//
+//   late SharedPreferences _sharedPreferences;
+//
+//   SponsorLocalDataSaverSharedPreferences() {
+//     //Calling initialization method of the userSharedPreferences:
+//     initializeUserSharedPreferences();
+//   }
+//
+//   Future<void> initializeUserSharedPreferences() async {
+//     print("--------------initializing the user Shared Preferences");
+//     _sharedPreferences = await SharedPreferences.getInstance();
+//   }
+//
+//   //Function to save the userToken:
+//   Future<bool> setSponsorToken(String element) async {
+//     await initializeUserSharedPreferences();
+//     print(
+//         "----saving the userLogin state in UserLocalDataSaverSharedPreferences");
+//     return await _sharedPreferences.setString(token, element);
+//   }
+//
+//   // Function to share the loginToken:
+//
+//   Future<String?> getSponsorToken() async {
+//     await initializeUserSharedPreferences();
+//     return _sharedPreferences.getString(token);
+//   }
+//
+//   Future<bool?> removeSponsorToken() async {
+//     //verify instance is created:
+//     await initializeUserSharedPreferences();
+//     return _sharedPreferences.remove(token);
+//   }
+//
+// }
+//

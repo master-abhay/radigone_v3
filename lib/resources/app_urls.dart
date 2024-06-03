@@ -9,6 +9,18 @@ class AppUrls {
   static get userChangePasswordUrl => 'http://radigone.com/api/v1/user/change-password';
   static get userRadigonePointUrl => 'http://radigone.com/api/v1/user/radigone-point';
   static get userUserPointUrl => 'http://radigone.com/api/user-points';
+  static get userRedeemRadigonePointsUrl => 'http://radigone.com/api/redeeme-points';
+
+
+
+  static get sponsorLoginUrl => 'http://radigone.com/api/v1/surveys/login';
+
+
+
+
+
+
+
 
 
 

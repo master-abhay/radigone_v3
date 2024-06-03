@@ -192,12 +192,19 @@ dynamic returnResponse(http.Response response) {
       } catch (e) {
         throw FormatException('Failed to parse response as JSON: ${response.body}');
       }
+
+    case 400:
+      throw BadRequestException(
+          "${jsonDecode(response.body)['message']}");
     case 401:
       throw UnAuthorizedException(
-          "Authentication Failed ${jsonDecode(response.body)['message']}");
+          "${jsonDecode(response.body)['message']}");
+    case 404:
+      throw UserNotFoundException(
+          "${jsonDecode(response.body)['message']}");
     case 500:
-      throw UnAuthorizedException(
-          "Internal Server Error ${jsonDecode(response.body)['message']}");
+      throw InternalServerErrorException(
+          "${jsonDecode(response.body)['message']}");
     default:
       throw FetchDataException(
           'Error occurred while communicating with server ' +

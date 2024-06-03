@@ -829,10 +829,6 @@ Widget AdsSection(BuildContext context) {
                   // itemCount: UserDashboardModelObject.userDashboard.data?.length,
                   itemCount: providerValue.adsList.data!.data!.length,
                   itemBuilder: (context, index) {
-                    if (kDebugMode) {
-                      print(
-                          "-----------------printing the length of the AdsData :");
-                    }
                     var item = providerValue.adsList.data!.data?[index];
                     return Container(
                         margin: const EdgeInsets.only(right: 13),

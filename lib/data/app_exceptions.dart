@@ -19,13 +19,23 @@ class FetchDataException extends AppExceptions{
 }
 
 class BadRequestException extends AppExceptions {
-  BadRequestException([String? message]) : super(message, 'Invalid Request');
+  BadRequestException([String? message]) : super(message, 'Invalid Request ');
 }
 
 class UnAuthorizedException extends AppExceptions {
   UnAuthorizedException([String? message])
-      : super(message, 'UnAuthorized Request');
+      : super(message, 'UnAuthorized Request Exception ');
 }
+
+class UserNotFoundException extends AppExceptions {
+  UserNotFoundException([String? message])
+      : super(message, 'User Not Found Exception ');
+}
+class InternalServerErrorException extends AppExceptions {
+  InternalServerErrorException([String? message])
+      : super(message, 'Internal Server Error Exception ');
+}
+
 class InvalidInputException extends AppExceptions {
-  InvalidInputException([String? message]) : super(message, 'Invalid Input');
+  InvalidInputException([String? message]) : super(message, 'Invalid Input Exception ');
 }
