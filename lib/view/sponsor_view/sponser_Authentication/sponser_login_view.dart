@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
-import 'package:radigone_v3/view_model/services/shared_preferences_data_services/sponser_localDataSaver_shatedPreferences.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/login_view_model.dart';
 
 import '../../../resources/colors.dart';

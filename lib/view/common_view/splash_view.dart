@@ -4,7 +4,6 @@ import 'package:radigone_v3/view_model/services/splash_services.dart';
 
 import '../../resources/colors.dart';
 import '../../view_model/services/navigation_services.dart';
-import '../../view_model/services/shared_preferences_data_services/user_localDataSaver_sharedPreferences.dart';
 
 
 class SplashScreen extends StatefulWidget {
