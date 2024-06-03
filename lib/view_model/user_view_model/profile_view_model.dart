@@ -280,7 +280,7 @@ class UserProfileInformationProvider with ChangeNotifier {
     };
 
     if (_username != null && _password != null) {
-      _myRepo.userProfileApi(headers).then((value) {
+      _myRepo.userProfileApi(headers: headers).then((value) {
         setUserProfileInfo(ApiResponse.completed(value));
         setUserProfileInformation(value);
         setLoading(false);

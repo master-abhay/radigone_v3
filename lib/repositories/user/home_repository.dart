@@ -9,20 +9,20 @@ import '../../resources/app_urls.dart';
 class UserHomeRepository {
   final BaseApiServices _apiServices = NetworkApiServices();
 
-  Future<UserDashboard> userDashboardAdsListApi(dynamic headers) async {
+  Future<UserDashboard> userDashboardAdsListApi({required dynamic headers}) async {
     try {
-      dynamic response = await _apiServices.getGetApiServices(
-          AppUrls.userDashboardAdsUrl, headers);
+      dynamic response = await _apiServices.getGetApiServices(url:
+          AppUrls.userDashboardAdsUrl,headers:  headers);
       return response = UserDashboard.fromJson(response['data']);
     } catch (e) {
       throw e;
     }
   }
 
-  Future<UserRadigonePointModel> userRadigonePointApi(dynamic headers) async {
+  Future<UserRadigonePointModel> userRadigonePointApi({required dynamic headers}) async {
     try {
-      dynamic response = await _apiServices.getGetApiServices(
-          AppUrls.userRadigonePointUrl, headers);
+      dynamic response = await _apiServices.getGetApiServices(url:
+          AppUrls.userRadigonePointUrl,headers:  headers);
       return response = UserRadigonePointModel.fromJson(response);
     } catch (e) {
       throw e;
@@ -30,10 +30,11 @@ class UserHomeRepository {
   }
 
 
-  Future<UserPointsModel> userUserPointsApi(dynamic header,dynamic body)async{
+  Future<UserPointsModel> userUserPointsApi(
+      {required dynamic header,required dynamic body})async{
     try {
       dynamic response =
-      await _apiServices.getPostApiHeadersBodyServices(AppUrls.userUserPointUrl, header,body);
+      await _apiServices.getPostApiHeadersBodyServices(url: AppUrls.userUserPointUrl,headers:  header,body: body);
       return UserPointsModel.fromJson(response);
     } catch (e) {
       throw e;

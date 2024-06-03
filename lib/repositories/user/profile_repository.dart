@@ -8,10 +8,10 @@ import '../../resources/app_urls.dart';
 class UserProfileRepository {
   final BaseApiServices _apiServices = NetworkApiServices();
 
-  Future<UserProfileInformation> userProfileApi(dynamic headers) async {
+  Future<UserProfileInformation> userProfileApi({required dynamic headers}) async {
     try {
       dynamic response =
-          await _apiServices.getGetApiServices(AppUrls.userProfileUrl, headers);
+          await _apiServices.getGetApiServices(url: AppUrls.userProfileUrl,headers:  headers);
       return response = UserProfileInformation.fromJson(response['data']);
     } catch (e) {
       throw e;

@@ -10,7 +10,7 @@ import '../app_exceptions.dart';
 
 class NetworkApiServices extends BaseApiServices {
   @override
-  Future getGetApiServices(url, headers) async {
+  Future getGetApiServices({required url, required headers}) async {
     dynamic responseJson;
     try {
       final response = await http
@@ -87,7 +87,7 @@ class NetworkApiServices extends BaseApiServices {
 
 
   @override
-  Future getPostApiBodyServices(url, body) async {
+  Future getPostApiBodyServices({required url,required body}) async {
     dynamic responseJson;
     try {
       final response = await http
@@ -102,7 +102,7 @@ class NetworkApiServices extends BaseApiServices {
   }
 
   @override
-  Future getPostApiHeadersServices(url, headers) async {
+  Future getPostApiHeadersServices({required url,required headers}) async {
     dynamic responseJson;
     try {
       final response = await http
@@ -117,7 +117,7 @@ class NetworkApiServices extends BaseApiServices {
   }
 
   @override
-  Future getPostApiHeadersBodyServices(url, headers, body) async {
+  Future getPostApiHeadersBodyServices({required url,required headers,required body}) async {
     dynamic responseJson;
     try {
       final response = await http

@@ -65,7 +65,7 @@ class UserPointsViewModel with ChangeNotifier{
 
 
     if (_username != null && _mobile != null) {
-      _myRepo.userUserPointsApi(header,body).then((value) {
+      _myRepo.userUserPointsApi(header: header,body: body).then((value) {
         setUserPointsViewModel(ApiResponse.completed(value));
         if(kDebugMode){
           print("Api hit");

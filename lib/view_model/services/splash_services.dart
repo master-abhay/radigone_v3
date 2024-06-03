@@ -22,11 +22,11 @@ class SplashServices {
           print(
               '------------->>>>>>>>>>>>>>>printing in the SplashServices : ${value.token}');
         }
-        Future.delayed(const Duration(seconds: 2));
+        Future.delayed(const Duration(seconds: 3));
 
         _navigationServices.pushReplacementNamed('/loginRegistration');
       } else {
-        Future.delayed(const Duration(seconds: 2));
+        Future.delayed(const Duration(seconds: 3));
 
         _navigationServices.pushReplacementNamed('/userMainView');
       }

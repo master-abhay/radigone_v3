@@ -8,7 +8,7 @@ class UserAuthRepository {
   Future<dynamic> userLoginApi(dynamic body) async {
     try {
       dynamic response =
-          await _apiServices.getPostApiBodyServices(AppUrls.userLoginUrl, body);
+          await _apiServices.getPostApiBodyServices( url:  AppUrls.userLoginUrl,body:  body);
       return response;
     } catch (e) {
       throw e;
@@ -17,8 +17,8 @@ class UserAuthRepository {
 
   Future<dynamic> userLogoutApi(dynamic headers) async {
     try {
-      dynamic response = await _apiServices.getPostApiHeadersServices(
-          AppUrls.userLogoutUrl, headers);
+      dynamic response = await _apiServices.getPostApiHeadersServices(url:
+          AppUrls.userLogoutUrl,headers:  headers);
       return response;
     } catch (e) {
       throw e;
@@ -27,7 +27,7 @@ class UserAuthRepository {
 
   Future<dynamic> userChangePasswordApi(dynamic headers, dynamic body) async {
     try {
-      dynamic response = await _apiServices.getPostApiHeadersBodyServices(AppUrls.userChangePasswordUrl, headers, body);
+      dynamic response = await _apiServices.getPostApiHeadersBodyServices(url : AppUrls.userChangePasswordUrl, headers: headers,body:  body);
       return response;
     } catch (e) {
       throw e;

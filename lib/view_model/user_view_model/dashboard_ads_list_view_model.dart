@@ -79,7 +79,7 @@ class DashboardUserProvider with ChangeNotifier {
     };
 
     if (_username != null && _password != null) {
-      _myRepo.userDashboardAdsListApi(headers).then((value){
+      _myRepo.userDashboardAdsListApi(headers: headers).then((value){
         setAdsList(ApiResponse.completed(value));
         // _alertServices.flushBarErrorMessages("Fresh Data Fetched", context);
 

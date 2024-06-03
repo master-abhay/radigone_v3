@@ -1,13 +1,22 @@
-
 import 'package:http/http.dart' as http;
 
 abstract class BaseApiServices {
-  Future<dynamic> getGetApiServices(dynamic url, dynamic headers);
-  Future<dynamic> getPostApiBodyServices(dynamic url,dynamic body);
-  Future<dynamic> getPostApiHeadersServices(dynamic url,dynamic headers);
-  Future<dynamic> getPostApiHeadersBodyServices(dynamic url, dynamic headers, dynamic body);
-  Future<dynamic> getMultipartApiServices({required String url,
+  Future<dynamic> getGetApiServices(
+      {required dynamic url, required dynamic headers});
+
+  Future<dynamic> getPostApiBodyServices(
+      {required dynamic url, required dynamic body});
+
+  Future<dynamic> getPostApiHeadersServices(
+      {required dynamic url, required dynamic headers});
+
+  Future<dynamic> getPostApiHeadersBodyServices(
+      {required dynamic url, required dynamic headers, required dynamic body});
+
+  Future<dynamic> getMultipartApiServices({
+    required String url,
     required Map<String, String> field,
     required List<http.MultipartFile> file,
-    required Map<String, String> header,});
+    required Map<String, String> header,
+  });
 }
