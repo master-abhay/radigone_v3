@@ -28,5 +28,37 @@ class MyColorScheme {
     Color(0xff252A2F),
   ], begin: Alignment.topCenter, end: Alignment.bottomCenter);
 
+  static  TextStyle statusTextStyle() {
+    return const TextStyle(
+        fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xff2BD41C));
+  }
+
+  static  TextStyle titleTextStyle() {
+    return const TextStyle(
+        fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white );
+  }
+
+  static  TextStyle subTitleTextStyle() {
+    return  TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 13);
+  }
+
+  static TextStyle detailTitleTextStyle() {
+    return TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: Colors.black.withOpacity(0.35));
+  }
+
+  static TextStyle detailFieldTextStyle() {
+    return const TextStyle(
+        fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black);
+  }
+
+  static TextStyle detailStatusTextStyle() {
+    return const TextStyle(
+        fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xff2BD41C));
+  }
+
+
 
 }

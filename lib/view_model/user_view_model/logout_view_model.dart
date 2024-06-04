@@ -27,6 +27,7 @@ class LogoutUserProvider with ChangeNotifier {
       print("Deleting the user Details by loggin out");
     }
     await _authService.clearAllTokens();
+    await _authService.clearAllUserData();
 
     //Deleting full data from SecureStorage
     await SecureStorage().deleteAllSecureData();

@@ -1,3 +1,4 @@
+import 'package:radigone_v3/models/user_models/side_menu_bar/UserTransactionModel.dart';
 import 'package:radigone_v3/models/user_models/side_menu_bar/redeem_radigone_points.dart';
 import 'package:radigone_v3/resources/app_urls.dart';
 
@@ -17,4 +18,16 @@ class userSidebarRepository {
       throw e;
     }
   }
+
+
+  Future<UserTransactionModel> userTransactionApi(
+      {required dynamic header}) async {
+    try {
+      dynamic response = await _apiServices.getGetApiServices(url: AppUrls.userTransactionUrl, headers: header);
+      return response = UserTransactionModel.fromJson(response);
+    } catch (e) {
+      throw e;
+    }
+  }
+
 }

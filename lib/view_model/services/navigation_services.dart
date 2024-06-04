@@ -9,7 +9,10 @@ import '../../view/common_view/splash_view.dart';
 import '../../view/sponsor_view/sponser_Authentication/sponser_login_view.dart';
 import '../../view/sponsor_view/sponser_main_screes_with_bottom_bar.dart';
 import '../../view/user_view/profile/profile_edit_page.dart';
+import '../../view/user_view/profile/profile_page.dart';
+import '../../view/user_view/side_menu_bar_views/create_ticket_view.dart';
 import '../../view/user_view/side_menu_bar_views/redeem_radigone_points_view.dart';
+import '../../view/user_view/side_menu_bar_views/transaction_view.dart';
 import '../../view/user_view/user_authentication_view/change_password_view.dart';
 import '../../view/user_view/user_authentication_view/forgot_password_view.dart';
 import '../../view/user_view/user_authentication_view/login_view.dart';
@@ -32,8 +35,14 @@ class NavigationServices {
 
 
 
-    "/redeemRadigonePoints": (context) => const RedeemRadigonePoints(),
 
+
+
+
+    "/createTicketView": (context) => const CreateTicketView(),
+    "/userProfilePage": (context) => const ProfilePage(),
+    "/transactionView": (context) => const TransactionView(),
+    "/redeemRadigonePoints": (context) => const RedeemRadigonePoints(),
     "/changePassword": (context) => const ChangePassword(),
     "/profileEditPage": (context) => const ProfileEditPage(),
     // "/videoPlayerPage": (context) => const VideoPlayerPage(),

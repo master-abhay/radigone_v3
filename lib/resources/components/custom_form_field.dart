@@ -43,6 +43,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
       textAlign: TextAlign.justify,
       textCapitalization: widget.textCapitalization == true ? TextCapitalization.sentences : TextCapitalization.none,
       initialValue: widget.initialValue,
+
       decoration: InputDecoration(
           errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
           contentPadding: EdgeInsets.symmetric(
@@ -86,9 +87,9 @@ class _CustomFormFieldState extends State<CustomFormField> {
           // return null;
         }
       } : null,
-      // onFieldSubmitted: (_){
-      //   FocusScope.of(context).nextFocus();
-      // },
+      onFieldSubmitted: (_){
+        FocusScope.of(context).unfocus();
+      },
 
     );
   }

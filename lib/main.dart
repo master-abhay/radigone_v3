@@ -145,6 +145,7 @@ import 'package:radigone_v3/view_model/user_view_model/profile_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/radigonePoint_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/save_user_details.dart';
 import 'package:radigone_v3/view_model/user_view_model/side_menu_bar_view_models/redeem_radigonePoints_viewModel.dart';
+import 'package:radigone_v3/view_model/user_view_model/side_menu_bar_view_models/transaction_viewModel.dart';
 import 'package:radigone_v3/view_model/user_view_model/user_points_view_model.dart';
 
 
@@ -210,6 +211,10 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => UserprofileUpdateProvider()),
         ChangeNotifierProvider(create: (_) => ChangePasswordUserProvider()),
         ChangeNotifierProvider(create: (_) => RedeemRadigonePointsViewModel()),
+        ChangeNotifierProvider(create: (_) => TransactionViewModel()),
+
+
+
 
 
 

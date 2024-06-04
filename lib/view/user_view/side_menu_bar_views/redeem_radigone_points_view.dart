@@ -97,7 +97,7 @@ class _RedeemRadigonePointsState extends State<RedeemRadigonePoints> {
                                                             provider.setPointsRedeemed(value.toString());
                                                           },
                                                           obscureText: false,
-                                                          isNumber: false,
+                                                          isNumber: true,
                                                           textCapitalization: false,)),
                                                     const SizedBox(height: 15),
                                                     SizedBox(

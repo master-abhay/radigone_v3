@@ -67,6 +67,10 @@ class LoginUserProvider with ChangeNotifier {
     //Saving token in sharedPreferences:
     await _authService
         .saveUserToken('${value['token_type']} ${value['token']}');
+    await _authService.saveUserName(
+        '${value['data']['firstname']} ${value['data']['lastname']}');
+    await _authService.saveUserEmail('${value['data']['email']}');
+    await _authService.saveUserImageLink('${value['data']['image']}');
 
     if (kDebugMode) {
       print(await SecureStorage().readSecureData('username'));
