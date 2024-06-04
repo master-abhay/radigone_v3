@@ -1068,9 +1068,11 @@ class UserprofileUpdateProvider with ChangeNotifier {
 
     // Add image file if selected
     if (_profileImage != null) {
-      print(
-          'printing the profile image while uploading..........$_profileImage');
-      var stream = await http.ByteStream(_profileImage!.openRead());
+     if(kDebugMode) {
+        print(
+            'printing the profile image while uploading..........$_profileImage');
+      }
+      var stream =  http.ByteStream(_profileImage!.openRead());
       var length = await _profileImage!.length();
       // var multipartFile = http.MultipartFile('image', stream, length,
       //     filename: _profileImage!.path.split('/').last,
