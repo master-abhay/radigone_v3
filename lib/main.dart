@@ -131,6 +131,7 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/view/common_view/video_player_view.dart';
 
 import 'package:radigone_v3/view_model/services/getIt_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
@@ -145,6 +146,7 @@ import 'package:radigone_v3/view_model/user_view_model/profile_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/radigonePoint_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/save_user_details.dart';
 import 'package:radigone_v3/view_model/user_view_model/side_menu_bar_view_models/create_ticket_viewModel.dart';
+import 'package:radigone_v3/view_model/user_view_model/side_menu_bar_view_models/my_tickets_viewModel.dart';
 import 'package:radigone_v3/view_model/user_view_model/side_menu_bar_view_models/redeem_radigonePoints_viewModel.dart';
 import 'package:radigone_v3/view_model/user_view_model/side_menu_bar_view_models/transaction_viewModel.dart';
 import 'package:radigone_v3/view_model/user_view_model/user_points_view_model.dart';
@@ -214,6 +216,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => RedeemRadigonePointsViewModel()),
         ChangeNotifierProvider(create: (_) => TransactionViewModel()),
         ChangeNotifierProvider(create: (_) => CreateTicketViewModel()),
+        ChangeNotifierProvider(create: (_) => MyTicketsViewModel()),
+
 
 
 

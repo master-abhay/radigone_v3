@@ -1,32 +1,29 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../colors.dart';
 
+class CustomListTile extends StatefulWidget {
+  String? title, remark, value, time;
+  Widget? leading;
 
-
-class TransactionTile extends StatefulWidget {
-
-  String? title, remark, amount,time;
-
-   TransactionTile({super.key,
-
-     this.title,
-     this.remark,
-     this.amount,
-     this.time
-
-   });
+  CustomListTile({
+    super.key,
+    this.leading,
+    this.title,
+    this.remark,
+    this.value,
+    this.time,
+  });
 
   @override
-  State<TransactionTile> createState() => _TransactionTileState();
+  State<CustomListTile> createState() => _CustomListTileState();
 }
 
-class _TransactionTileState extends State<TransactionTile> {
+class _CustomListTileState extends State<CustomListTile> {
   @override
   Widget build(BuildContext context) {
-       return SizedBox(
+    return SizedBox(
       child: Padding(
           padding: const EdgeInsets.only(bottom: 8, top: 1),
           child: Container(
@@ -38,64 +35,58 @@ class _TransactionTileState extends State<TransactionTile> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Container(
-                        height: 50,
-                        width: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.green.withOpacity(0.7),
-                            borderRadius:
-                            BorderRadius.circular(180)),
-                        child: SvgPicture.asset(
-                          "images/coin.svg",
-                          height: 30,
-                          width: 30,
-                        ),
+                      widget.leading ??
+                          Container(
+                            height: 50,
+                            width: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: Colors.green.withOpacity(0.7),
+                                borderRadius: BorderRadius.circular(180)),
+                            child: SvgPicture.asset(
+                              "images/coin.svg",
+                              height: 32,
+                              width: 32,
+                            ),
+                          ),
+                      const SizedBox(
+                        width: 5,
                       ),
-                      const SizedBox(width: 5,),
                       Column(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.title ?? "Transaction Id",
+                            widget.title ?? "Title",
                             style: MyColorScheme.titleTextStyle(),
                           ),
                           Text(
-                            widget.remark ?? "Payment Remark",
-                            style:
-                            MyColorScheme.subTitleTextStyle(),
+                            widget.remark ?? "Remark",
+                            style: MyColorScheme.subTitleTextStyle(),
                           )
                         ],
                       ),
                     ],
                   ),
-
                   Column(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        widget.amount ?? "Amount",
+                        widget.value ?? "Value",
                         style: MyColorScheme.statusTextStyle(),
                       ),
                       Text(
                         widget.time ?? "Date and Time",
-                        style:
-                        MyColorScheme.subTitleTextStyle(),
+                        style: MyColorScheme.subTitleTextStyle(),
                       )
                     ],
                   ),

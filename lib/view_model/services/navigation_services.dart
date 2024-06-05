@@ -11,6 +11,7 @@ import '../../view/sponsor_view/sponser_main_screes_with_bottom_bar.dart';
 import '../../view/user_view/profile/profile_edit_page.dart';
 import '../../view/user_view/profile/profile_page.dart';
 import '../../view/user_view/side_menu_bar_views/create_ticket_view.dart';
+import '../../view/user_view/side_menu_bar_views/my_tickets_view.dart';
 import '../../view/user_view/side_menu_bar_views/redeem_radigone_points_view.dart';
 import '../../view/user_view/side_menu_bar_views/transaction_view.dart';
 import '../../view/user_view/user_authentication_view/change_password_view.dart';
@@ -39,6 +40,8 @@ class NavigationServices {
 
 
 
+
+    "/myTicketView": (context) => const MyTicketsView(),
     "/createTicketView": (context) => const CreateTicketView(),
     "/userProfilePage": (context) => const ProfilePage(),
     "/transactionView": (context) => const TransactionView(),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/resources/components/background_designs.dart';
 import 'package:radigone_v3/resources/components/custom_header.dart';
-import 'package:radigone_v3/resources/components/custom_transationTile.dart';
+import 'package:radigone_v3/resources/components/custom_list_tile.dart';
 import 'package:radigone_v3/view/user_view/side_menu_bar_views/transaction_detail_view.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
 import 'package:radigone_v3/view_model/user_view_model/side_menu_bar_view_models/transaction_viewModel.dart';
@@ -101,10 +102,24 @@ class _TransactionViewState extends State<TransactionView> {
                                           createdAt: item.createdAt,
                                         )));
                               },
-                              child: TransactionTile(
+                              child: CustomListTile(
+                                  leading: Container(
+                                    height: 50,
+                                    width: 50,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: Colors.green.withOpacity(0.7),
+                                        borderRadius:
+                                            BorderRadius.circular(180)),
+                                    child: SvgPicture.asset(
+                                      "images/coin.svg",
+                                      height: 32,
+                                      width: 32,
+                                    ),
+                                  ),
                                   title: transactionId,
                                   remark: detail,
-                                  amount: amount,
+                                  value: amount,
                                   time: createdAt),
                             );
                           });

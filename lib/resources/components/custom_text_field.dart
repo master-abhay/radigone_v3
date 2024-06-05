@@ -39,10 +39,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
       controller: widget.controller,
       autofocus: widget.autofocus ?? false,
       maxLines: widget.maxLines,
+      textCapitalization: widget.textCapitalization == true ? TextCapitalization.sentences : TextCapitalization.none,
       decoration: InputDecoration(
         errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
         contentPadding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.02),
+            horizontal: MediaQuery.of(context).size.width * 0.02,
+            vertical: MediaQuery.of(context).size.width * 0.01
+        ),
         suffix: widget.icon,
         alignLabelWithHint: true,
         hintText: widget.hintText.toLowerCase(),

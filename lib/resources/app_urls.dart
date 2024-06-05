@@ -11,7 +11,8 @@ class AppUrls {
   static get userUserPointUrl => 'http://radigone.com/api/user-points';
   static get userRedeemRadigonePointsUrl => 'http://radigone.com/api/redeeme-points';
   static get userTransactionUrl => 'http://radigone.com/api/v1/user/transaction/history';
-  static get userCreateSupportTicket => 'http://radigone.com/api/v1/user/support-ticket/store';
+  static get userCreateSupportTicketUrl => 'http://radigone.com/api/v1/user/support-ticket/store';
+  static get userMyTicketsUrl => 'http://radigone.com/api/v1/user/support-tickets';
 
 
 

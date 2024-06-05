@@ -396,10 +396,12 @@
 // // }
 //
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/view/common_view/video_player_view.dart';
+import 'package:radigone_v3/view_model/services/navigation_services.dart';
 import 'package:radigone_v3/view_model/user_view_model/radigonePoint_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/user_points_view_model.dart';
 
@@ -419,6 +421,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+late NavigationServices _navigationServices;
+
 class _HomePageState extends State<HomePage> {
   //Defining Global Key to open the Drawer:
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
@@ -437,6 +441,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // _initialRadigonePointsData = _initializeData();
+    final GetIt getIt = GetIt.instance;
+    _navigationServices = getIt.get<NavigationServices>();
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final provider =
           Provider.of<DashboardUserProvider>(context, listen: false);
@@ -837,7 +844,14 @@ Widget AdsSection(BuildContext context) {
                           title: item?.name,
                           subtitle: item?.pSpecification,
                           radigonePoints: item?.pMrp,
-                          onTap: () {},
+                          onTap: () {
+                            _navigationServices.push(MaterialPageRoute(
+                                builder: (context) => VideoPlayerPage(
+                                      videoUrl: item?.videoUrl,
+                                      thumbnail:
+                                          'https://radigone.com${item?.image}',
+                                    )));
+                          },
                         ));
                   }),
             );

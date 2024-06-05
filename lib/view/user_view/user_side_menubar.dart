@@ -217,7 +217,10 @@ class _UserSideBarState extends State<UserSideBar> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          _navigationServices.goBack();
+                          _navigationServices.pushNamed('/myTicketView');
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: SizedBox(
@@ -230,7 +233,7 @@ class _UserSideBarState extends State<UserSideBar> {
                                     width: 10,
                                   ),
                                   const Text(
-                                    "My Ticket",
+                                    "My Tickets",
                                     style:
                                     TextStyle(color: Colors.white, fontSize: 14),
                                   )

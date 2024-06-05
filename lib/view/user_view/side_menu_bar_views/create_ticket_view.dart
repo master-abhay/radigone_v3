@@ -187,6 +187,7 @@ class _CreateTicketViewState extends State<CreateTicketView> {
                       maxLines: 5,
                       hintText: "Message",
                       isNumber: false,
+                      textCapitalization: true,
                       onChanged: (value) {
                         messageTextController.text = value!;
                       }),
