@@ -1,6 +1,7 @@
 import 'package:appinio_video_player/appinio_video_player.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:radigone_v3/resources/components/constants.dart';
 
 class VideoPlayerPage extends StatefulWidget {
   String? videoUrl;
@@ -16,7 +17,10 @@ String dummyUrl =
 // String videoUrl = "https://app2.radigone.com/slideshow/1691494087620.mp4";
 
 class _VideoPlayerPageState extends State<VideoPlayerPage> {
+  bool _isError = false;
+
   String assetVideoPath = 'assets/videos/9th-may.mp4';
+  String dummyThumbnail = PLACEHOLDER_PFP;
 
   late CachedVideoPlayerController _videoPlayerController;
 
@@ -36,7 +40,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
         showSeekButtons: true,
         thumbnailWidget: Image.network(
           widget.thumbnail ??
-              'https://radigone.com/uploads/campaigns/1689847706-serv.jpg',
+              dummyThumbnail,
           height: double.infinity,
           width: double.infinity,
           fit: BoxFit.fitWidth,
@@ -49,32 +53,53 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
       src: widget.videoUrl ?? dummyUrl,
       autoplay: true,
       thumbnailPath: widget.thumbnail ??
-          'https://radigone.com/uploads/campaigns/1689847706-serv.jpg',
+          dummyThumbnail,
     );
 
-    _videoPlayerController =
-        CachedVideoPlayerController.network(widget.videoUrl ?? dummyUrl)
-          ..initialize().then((onValue) => setState(() {}));
 
-    _customVideoPlayerController = CustomVideoPlayerController(
-        context: context,
-        videoPlayerController: _videoPlayerController,
-        customVideoPlayerSettings: _customVideoPlayerSettings);
+    initializedVideo();
 
-    _customVideoPlayerWebController = CustomVideoPlayerWebController(
-        webVideoPlayerSettings: _customVideoPlayerWebSettings);
+
   }
+
+  Future<void> initializedVideo()async{
+
+    try{
+
+      print('In Try block');
+      _videoPlayerController =
+      CachedVideoPlayerController.network(widget.videoUrl ?? dummyUrl)
+        ..initialize().then((onValue) => setState(() {}));
+
+
+      _customVideoPlayerController = CustomVideoPlayerController(
+          context: context,
+          videoPlayerController: _videoPlayerController,
+          customVideoPlayerSettings: _customVideoPlayerSettings);
+
+      _customVideoPlayerWebController = CustomVideoPlayerWebController(
+          webVideoPlayerSettings: _customVideoPlayerWebSettings);
+    }
+    catch(error){
+      print('Error in Intializing the video: ${error.toString()}');
+    }
+
+
+  }
+
 
   @override
   void dispose() {
     _customVideoPlayerController.dispose();
+    _videoPlayerController.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black12,
+      // backgroundColor: Colors.black12,
       body: SizedBox(
         height: double.infinity,
         width: double.infinity,
