@@ -279,7 +279,11 @@ class _UserSideBarState extends State<UserSideBar> {
                         "images/images_user_sidebar/ads_preferences.svg"),
                     dense: true,
                     horizontalTitleGap: 5,
-                    onTap: () {},
+                    onTap: () {
+
+                      _navigationServices.pushNamed('/adsPreferencesView');
+
+                    },
                   ),
                   ListTile(
                     // minTileHeight: MediaQuery.of(context).size.width * 0.12,

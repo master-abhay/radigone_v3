@@ -93,7 +93,7 @@ class ChangePasswordUserProvider with ChangeNotifier {
     }
 
 
-    _myRepo.userChangePasswordApi(headers, body).then((value) {
+    _myRepo.userChangePasswordApi(headers: headers,body:  body).then((value) {
       setLoading(false);
       _navigationServices.goBack();
       _alertServices.flushBarErrorMessages("Password Changed Successfully",context);

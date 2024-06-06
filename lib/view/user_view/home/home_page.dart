@@ -597,7 +597,7 @@ class _HomePageState extends State<HomePage> {
                           case Status.ERROR:
                             return const Text(
                               'Error',
-                              style: const TextStyle(
+                              style:  TextStyle(
                                   fontSize: 10, fontWeight: FontWeight.bold),
                             );
                           case Status.COMPLETED:

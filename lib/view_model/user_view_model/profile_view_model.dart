@@ -273,6 +273,7 @@ class UserProfileInformationProvider with ChangeNotifier {
 
   profileInformation(BuildContext context) async {
     Map headers = <String, String>{
+      'Content-Type': 'application/json',
       "Authorization": _token!,
       'username': _username!,
       'password': _password!,

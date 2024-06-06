@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:get_it/get_it.dart';
 import 'package:radigone_v3/view/user_view/profile/profile_page.dart';
 import 'package:radigone_v3/view/user_view/user_side_menubar.dart';
+import 'package:radigone_v3/view_model/services/auth_services.dart';
 
 import '../../resources/colors.dart';
 import 'coupons/coupos_page.dart';
@@ -17,6 +18,24 @@ class UserMainView extends StatefulWidget {
 }
 
 class _UserMainViewState extends State<UserMainView> {
+  String? _userName, _userEmail, _userImageLink;
+
+  late AuthService _authService;
+
+  @override
+  void initState() {
+    super.initState();
+    initializeValues();
+  }
+
+  Future<void> initializeValues() async {
+    final GetIt getIt = GetIt.instance;
+    _authService = getIt.get<AuthService>();
+
+    _userName = await _authService.getUserName();
+    _userEmail = await _authService.getUserEmail();
+    _userImageLink = await _authService.getUserImageLink();
+  }
 
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey<ScaffoldState>();
 
@@ -37,8 +56,32 @@ class _UserMainViewState extends State<UserMainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _drawerKey,
-        drawer: const UserSideBar(userName: "Afhjfkshfkdsfdsuhfskjfhsfhs",),
+        key: _drawerKey,
+        drawer: FutureBuilder(
+            future: initializeValues(),
+            builder: (context, snapshot) {
+              if(snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none){
+                return const UserSideBar(
+                  userName: "Fetching..",
+                  userEmail: "Fetching..",
+                  userProfileImageLink: null,
+                );
+
+              }
+              if(snapshot.hasError){
+                print(snapshot.error.toString());
+                return const UserSideBar(
+                  userName: "Error..",
+                  userEmail: "Error..",
+                  userProfileImageLink: null,
+                );
+              }
+              return  UserSideBar(
+                userName: 'Hi $_userName',
+                userEmail: _userEmail,
+                // userProfileImageLink: _userImageLink,
+              );
+            }),
         bottomNavigationBar: Container(
           height: 60,
           // padding: EdgeInsets.zero,

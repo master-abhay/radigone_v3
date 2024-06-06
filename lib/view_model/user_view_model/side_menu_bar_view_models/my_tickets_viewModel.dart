@@ -49,9 +49,9 @@ class MyTicketsViewModel with ChangeNotifier{
 
     setMyTickets(ApiResponse.loading());
     Map headers = <String, String>{
+      'Content-Type': 'application/json',
       "Authorization": _token!,
     };
-
 
     _myRepo.userMyTicketsApi(header: headers).then((value) {
       setMyTickets(ApiResponse.completed(value));

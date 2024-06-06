@@ -82,7 +82,7 @@ class _CustomListTileState extends State<CustomListTile> {
                     children: [
                       Text(
                         widget.value ?? "Value",
-                        style: MyColorScheme.statusTextStyle(),
+                        style: widget.value == 'Customer Reply' ? TextStyle(color: Colors.yellow.withOpacity(0.9)) : widget.value == 'Closed' || widget.value.toString().contains('-') ? MyColorScheme.statusClosedTextStyle() : MyColorScheme.statusTextStyle(),
                       ),
                       Text(
                         widget.time ?? "Date and Time",

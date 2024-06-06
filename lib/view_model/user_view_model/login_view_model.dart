@@ -1,5 +1,7 @@
 // Creating the services with the help of the state management using the providerState management:
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -11,14 +13,14 @@ import '../services/flutter_secure_storage/secure_storage.dart';
 import '../services/navigation_services.dart';
 
 class LoginUserProvider with ChangeNotifier {
-  String? _username;
+  String? _mobile;
   String? _password;
 
   void setUsername(String? username) {
     if (username != null && username.isNotEmpty) {
-      _username = username;
+      _mobile = '+91$username';
       if (kDebugMode) {
-        print("username set..");
+        print("Mobile set..");
       }
       notifyListeners();
     }
@@ -28,7 +30,7 @@ class LoginUserProvider with ChangeNotifier {
     if (password != null && password.isNotEmpty) {
       _password = password;
       if (kDebugMode) {
-        print("password set..");
+        print("Password set..");
       }
       notifyListeners();
     }
@@ -56,7 +58,7 @@ class LoginUserProvider with ChangeNotifier {
 
   Future<void> saveDetails(dynamic value) async {
     // Saving the user password in secure storage to login dashboard
-    await SecureStorage().writeSecureData('username', _username!);
+    await SecureStorage().writeSecureData('username', value['data']['username']);
     await SecureStorage().writeSecureData('password', _password!);
     await SecureStorage()
         .writeSecureData('token', '${value['token_type']} ${value['token']}');
@@ -86,9 +88,30 @@ class LoginUserProvider with ChangeNotifier {
   Future<bool> loginUser(BuildContext context) async {
     setLoading(true);
 
-    Map data = {"username": _username, "password": _password};
+    var header = {
+      'Content-Type': 'application/json',
+    };
+    var body =
+    jsonEncode({"mobile": _mobile, "password": _password})
 
-    _myRepo.userLoginApi(data).then((value) {
+    ;
+    //
+    // _myRepo.userLoginApi(body).then((value) {
+    //   saveDetails(value);
+    //   _navigationServices.goBack();
+    //   _navigationServices.pushReplacementNamed('/userMainView');
+    //   setLoading(false);
+    // }).onError((error, stackTrace) {
+    //   setLoading(false);
+    //
+    //   _alertServices.flushBarErrorMessages(error.toString(), context);
+    //   if (kDebugMode) {
+    //     print(error.toString());
+    //   }
+    // });
+
+
+    _myRepo.userLoginApi(headers: header,body: body).then((value) {
       saveDetails(value);
       _navigationServices.goBack();
       _navigationServices.pushReplacementNamed('/userMainView');

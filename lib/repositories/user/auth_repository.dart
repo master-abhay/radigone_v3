@@ -5,27 +5,39 @@ import 'package:radigone_v3/resources/app_urls.dart';
 class UserAuthRepository {
   final BaseApiServices _apiServices = NetworkApiServices();
 
-  Future<dynamic> userLoginApi(dynamic body) async {
+
+  Future<dynamic> userLoginApi({required dynamic headers,required dynamic body}) async {
     try {
       dynamic response =
-          await _apiServices.getPostApiBodyServices( url:  AppUrls.userLoginUrl,body:  body);
+      await _apiServices.getPostApiHeadersBodyServices(url: AppUrls.userLoginUrl, headers: headers, body: body);
       return response;
     } catch (e) {
       throw e;
     }
   }
 
-  Future<dynamic> userLogoutApi(dynamic headers) async {
+  // Future<dynamic> userLogoutApi(dynamic headers) async {
+  //   try {
+  //     dynamic response = await _apiServices.getPostApiHeadersServices(url:
+  //         AppUrls.userLogoutUrl,headers:  headers);
+  //     return response;
+  //   } catch (e) {
+  //     throw e;
+  //   }
+  // }
+
+
+  Future<dynamic> userLogoutApi({required dynamic headers,required dynamic body}) async {
     try {
-      dynamic response = await _apiServices.getPostApiHeadersServices(url:
-          AppUrls.userLogoutUrl,headers:  headers);
+      dynamic response = await _apiServices.getPostApiHeadersBodyServices(url:
+      AppUrls.userLogoutUrl,headers:  headers,body: body);
       return response;
     } catch (e) {
       throw e;
     }
   }
 
-  Future<dynamic> userChangePasswordApi(dynamic headers, dynamic body) async {
+  Future<dynamic> userChangePasswordApi({required dynamic headers,required dynamic body}) async {
     try {
       dynamic response = await _apiServices.getPostApiHeadersBodyServices(url : AppUrls.userChangePasswordUrl, headers: headers,body:  body);
       return response;

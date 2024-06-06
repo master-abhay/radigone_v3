@@ -56,7 +56,7 @@ class AlertServices {
           message: message,
           forwardAnimationCurve: Curves.decelerate,
           reverseAnimationCurve: Curves.easeInOut,
-          duration: const Duration(seconds: 2),
+          duration: const Duration(seconds: 5),
           borderRadius: BorderRadius.circular(15),
           icon: const Icon(
             Icons.notifications_active_outlined,

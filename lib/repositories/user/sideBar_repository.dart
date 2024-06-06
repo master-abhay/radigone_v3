@@ -10,11 +10,22 @@ import '../../data/network/NetworkApiServices.dart';
 class userSidebarRepository {
   final BaseApiServices _apiServices = NetworkApiServices();
 
+  // Future<RedeemRadigonePointsModel> userRedeemRadigonePointsApi(
+  //     {required dynamic body}) async {
+  //   try {
+  //     dynamic response = await _apiServices.getPostApiBodyServices(
+  //         url: AppUrls.userRedeemRadigonePointsUrl, body: body);
+  //     return response = RedeemRadigonePointsModel.fromJson(response);
+  //   } catch (e) {
+  //     throw e;
+  //   }
+  // }
+
   Future<RedeemRadigonePointsModel> userRedeemRadigonePointsApi(
-      {required dynamic body}) async {
+      {required dynamic header,required dynamic body}) async {
     try {
-      dynamic response = await _apiServices.getPostApiBodyServices(
-          url: AppUrls.userRedeemRadigonePointsUrl, body: body);
+      dynamic response = await _apiServices.getPostApiHeadersBodyServices(
+          url: AppUrls.userRedeemRadigonePointsUrl,headers: header, body: body);
       return response = RedeemRadigonePointsModel.fromJson(response);
     } catch (e) {
       throw e;
@@ -53,6 +64,16 @@ class userSidebarRepository {
     try {
       dynamic response = await _apiServices.getGetApiServices(url: AppUrls.userMyTicketsUrl, headers: header);
       return response = UserMyTicketsModel.fromJson(response);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<dynamic> userCloseTicketsApi(
+      {required dynamic ticketId,required dynamic header,required dynamic body}) async {
+    try {
+      dynamic response = await _apiServices.getPostApiHeadersBodyServices(url: AppUrls.userCloseTicketUrl+ticketId, headers: header,body: body);
+      return response = response;
     } catch (e) {
       throw e;
     }

@@ -12,6 +12,7 @@ import 'package:radigone_v3/view_model/services/navigation_services.dart';
 import 'package:radigone_v3/view_model/user_view_model/side_menu_bar_view_models/create_ticket_viewModel.dart';
 
 import '../../../resources/components/background_designs.dart';
+import '../../../resources/components/custom_file_upload_container.dart';
 import '../../../resources/components/custom_header.dart';
 import '../../../view_model/services/alert_services.dart';
 
@@ -130,7 +131,9 @@ class _CreateTicketViewState extends State<CreateTicketView> {
           title: "Create Support Ticket",
         ),
         Consumer<CreateTicketViewModel>(builder: (context, provider, _) {
-          return Container(
+
+        return  provider.isLoading ? const Center(child: CircularProgressIndicator(color: Colors.white,strokeWidth: 1.5,),)
+          : Container(
             margin: const EdgeInsets.only(top: 130, bottom: 10),
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: SingleChildScrollView(
@@ -181,7 +184,6 @@ class _CreateTicketViewState extends State<CreateTicketView> {
                   ),
                   CustomTextField(
                       currentFocusNode: messageFocusNode,
-                      // nextFocusNode: messageFocusNode,
                       controller: messageTextController,
                       obscureText: false,
                       maxLines: 5,
@@ -196,7 +198,9 @@ class _CreateTicketViewState extends State<CreateTicketView> {
                   ),
                   Column(
                     children: provider.selectedFiles
-                        .map((file) => FileUploadContainer(file: file!))
+                        .map((file) => CustomFileUploadContainer(file: file!,onTap: (){
+                          provider.removeFileFromList(file);
+                    },))
                         .toList(),
                   ),
                   const SizedBox(
@@ -224,13 +228,22 @@ class _CreateTicketViewState extends State<CreateTicketView> {
                               buttonName: "Submit",
                               isLoading: false,
                               isGradient: true,
-                              onTap: () {
+                              onTap: () async{
                                 provider.setName(nameTextController.text);
                                 provider.setEmail(emailTextController.text);
                                 provider.setSubject(subjectTextController.text);
                                 provider.setMessage(messageTextController.text);
 
-                                provider.createTicket(context);
+
+                               bool result = await provider.createTicket(context);
+                               print(result.toString());
+                               if(result){
+
+                                 setState(() {
+                                   subjectTextController.clear();
+                                   messageTextController.clear();
+                                 });
+                               }
                               })),
                       SizedBox(
                           width: 150,
@@ -240,6 +253,8 @@ class _CreateTicketViewState extends State<CreateTicketView> {
                               isGradient: false,
                               onTap: () {
                                 provider.clearSelectedFiles();
+                                subjectTextController.clear();
+                                messageTextController.clear();
                                 _navigationServices.goBack();
                               }))
                     ],
@@ -254,28 +269,3 @@ class _CreateTicketViewState extends State<CreateTicketView> {
   }
 }
 
-class FileUploadContainer extends StatelessWidget {
-  final File file;
-  const FileUploadContainer({required this.file, Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.purple.withOpacity(0.4)),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              file.path.split('/').last,
-              style: const TextStyle(color: Colors.black),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

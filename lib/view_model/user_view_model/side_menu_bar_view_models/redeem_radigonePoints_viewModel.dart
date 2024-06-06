@@ -57,13 +57,42 @@ class RedeemRadigonePointsViewModel with ChangeNotifier{
     await setUserId();
     print(await SecureStorage().readSecureData('id'));
 
-    dynamic body = {
+
+
+    // dynamic body = {
+    //   'user_id':_user_id ?? '',
+    //   'points_redeemed': _points_redeemed ?? '',
+    //   'desc': _desc ?? ''
+    // };
+
+
+
+    // _myRepo.userRedeemRadigonePointsApi(body: body).then((value){
+    //
+    //   setIsLoading(false);
+    //   _alertServices.flushBarErrorMessages(value.message.toString(), context);
+    //
+    //
+    // }).onError((error,stackTrace){
+    //   setIsLoading(false);
+    //   _alertServices.flushBarErrorMessages(error.toString(), context);
+    //   if(kDebugMode){
+    //     print(error.toString());
+    //     print('Api hitting Unsuccessful');
+    //   }
+    //
+    // });
+    var header = {
+      'Content-Type': 'application/json',
+    };
+    var body =
+    jsonEncode({
       'user_id':_user_id ?? '',
       'points_redeemed': _points_redeemed ?? '',
       'desc': _desc ?? ''
-    };
+    });
 
-    _myRepo.userRedeemRadigonePointsApi(body: body).then((value){
+    _myRepo.userRedeemRadigonePointsApi(header: header,body: body).then((value){
 
       setIsLoading(false);
       _alertServices.flushBarErrorMessages(value.message.toString(), context);
@@ -78,8 +107,6 @@ class RedeemRadigonePointsViewModel with ChangeNotifier{
       }
 
     });
-
-
 
   }
 

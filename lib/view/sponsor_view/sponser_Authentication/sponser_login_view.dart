@@ -21,7 +21,7 @@ class SponsorLoginPage extends StatefulWidget {
 class _SponsorLoginPageState extends State<SponsorLoginPage> {
   late GlobalKey<FormState> _loginFormState;
 
-  String? username, password;
+  // String? username, password;
 
   //Creating the instance of get_it package:
   final GetIt _getIt = GetIt.instance;
@@ -126,7 +126,8 @@ late AlertServices _alertServices;
                                                   provider.setUsername(value);
                                                 },
                                                 obscureText: false,
-                                                isNumber: false,
+                                                isNumber: true
+                                                ,
                                                 textCapitalization: false,)),
                                           const SizedBox(height: 15),
                                           SizedBox(

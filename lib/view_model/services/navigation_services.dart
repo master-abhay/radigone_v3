@@ -10,6 +10,8 @@ import '../../view/sponsor_view/sponser_Authentication/sponser_login_view.dart';
 import '../../view/sponsor_view/sponser_main_screes_with_bottom_bar.dart';
 import '../../view/user_view/profile/profile_edit_page.dart';
 import '../../view/user_view/profile/profile_page.dart';
+import '../../view/user_view/side_menu_bar_views/ad_preferences_view.dart';
+import '../../view/user_view/side_menu_bar_views/close_reply_ticket_view.dart';
 import '../../view/user_view/side_menu_bar_views/create_ticket_view.dart';
 import '../../view/user_view/side_menu_bar_views/my_tickets_view.dart';
 import '../../view/user_view/side_menu_bar_views/redeem_radigone_points_view.dart';
@@ -41,6 +43,7 @@ class NavigationServices {
 
 
 
+    "/adsPreferencesView": (context) => const AdsPreferencesView(),
     "/myTicketView": (context) => const MyTicketsView(),
     "/createTicketView": (context) => const CreateTicketView(),
     "/userProfilePage": (context) => const ProfilePage(),

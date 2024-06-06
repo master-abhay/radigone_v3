@@ -70,6 +70,7 @@ class DashboardUserProvider with ChangeNotifier {
     setAdsList(ApiResponse.loading());
 
     Map headers = <String, String>{
+      'Content-Type': 'application/json',
       "Authorization": _token!,
       'username': _username!,
       'password': _password!,

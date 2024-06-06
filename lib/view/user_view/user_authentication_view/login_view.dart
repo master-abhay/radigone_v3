@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                                                 provider.setUsername(value);
                                               },
                                               obscureText: false,
-                                              isNumber: false,
+                                              isNumber: true,
                                           textCapitalization: false,)),
                                       const SizedBox(height: 15),
                                       SizedBox(

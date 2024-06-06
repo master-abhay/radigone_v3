@@ -43,6 +43,7 @@ class TransactionViewModel with ChangeNotifier {
     setTransactionHistory(ApiResponse.loading());
 
     Map headers = <String, String>{
+      'Content-Type': 'application/json',
       "Authorization": _token!,
     };
 

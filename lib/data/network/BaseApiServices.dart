@@ -4,12 +4,6 @@ abstract class BaseApiServices {
   Future<dynamic> getGetApiServices(
       {required dynamic url, required dynamic headers});
 
-  Future<dynamic> getPostApiBodyServices(
-      {required dynamic url, required dynamic body});
-
-  Future<dynamic> getPostApiHeadersServices(
-      {required dynamic url, required dynamic headers});
-
   Future<dynamic> getPostApiHeadersBodyServices(
       {required dynamic url, required dynamic headers, required dynamic body});
 

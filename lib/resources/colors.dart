@@ -32,6 +32,14 @@ class MyColorScheme {
     return const TextStyle(
         fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xff2BD41C));
   }
+  static  TextStyle statusOpenTextStyle() {
+    return const TextStyle(
+        fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xff2BD41C));
+  }
+  static  TextStyle statusClosedTextStyle() {
+    return const TextStyle(
+        fontSize: 14, fontWeight: FontWeight.w500, color: Colors.orange);
+  }
 
   static  TextStyle titleTextStyle() {
     return const TextStyle(

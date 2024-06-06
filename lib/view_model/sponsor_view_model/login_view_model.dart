@@ -1,5 +1,7 @@
 // Creating the services with the help of the state management using the providerState management:
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -12,14 +14,14 @@ import '../services/flutter_secure_storage/secure_storage.dart';
 import '../services/navigation_services.dart';
 
 class LoginSponsorProvider with ChangeNotifier {
-  String? _username;
+  String? _mobile;
   String? _password;
 
   void setUsername(String? username) {
     if (username != null && username.isNotEmpty) {
-      _username = username;
+      _mobile = '+91$username';
       if (kDebugMode) {
-        print("username set..");
+        print("Mobile set..");
       }
       notifyListeners();
     }
@@ -56,7 +58,7 @@ class LoginSponsorProvider with ChangeNotifier {
   }
 
   Future<void> saveDetails(LoginSponsorModel value) async {
-    await SecureStorage().writeSecureData('username', _username!);
+    await SecureStorage().writeSecureData('username', value.data!.username!);
     await SecureStorage().writeSecureData('password', _password!);
     await SecureStorage()
         .writeSecureData('token', '${value.tokenType} ${value.token}');
@@ -66,6 +68,10 @@ class LoginSponsorProvider with ChangeNotifier {
     //Saving token in sharedPreferences:
     await _authService.saveSponsorToken(
         '${value.tokenType.toString()} ${value.token.toString()}');
+    await _authService.saveSponsorName(
+        '${value.data!.firstname} ${value.data!.lastname}');
+    await _authService.saveSponsorEmail('${value.data!.email}');
+    await _authService.saveSponsorImageLink('${value.data!.image}');
 
     if (kDebugMode) {
       print(await SecureStorage().readSecureData('username'));
@@ -81,9 +87,12 @@ class LoginSponsorProvider with ChangeNotifier {
   Future<bool> loginSponsor(BuildContext context) async {
     setLoading(true);
 
-    Map body = {"username": _username, "password": _password};
+    var header = {
+      'Content-Type': 'application/json',
+    };
+    var body = jsonEncode({"mobile": _mobile, "password": _password});
 
-    _myRepo.sponsorLoginApi(body: body).then((value) {
+    _myRepo.sponsorLoginApi(body: body,header: header).then((value) {
       saveDetails(value);
 
       _navigationServices.goBack();

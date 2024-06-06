@@ -43,9 +43,23 @@ class LogoutUserProvider with ChangeNotifier {
   Future<bool> logOutUser(BuildContext context) async {
     String? logoutToken = await _authService.getUserToken();
 
-    Map data = <String, String>{"Authorization": logoutToken ?? ''};
+    Map header = <String, String>{
+      'Content-Type': 'application/json',
+      "Authorization": logoutToken ?? ''};
 
-    _myRepo.userLogoutApi(data).then((value) {
+    // _myRepo.userLogoutApi(header).then((value) {
+    //   deleteUserDetails();
+    //   _navigationServices.goBack();
+    //   _navigationServices.pushReplacementNamed('/loginRegistration');
+    //   _alertServices.flushBarErrorMessages("Logout Successfully", context);
+    // }).onError((error, stackTrace) {
+    //   if (kDebugMode) {
+    //     print(error.toString());
+    //   }
+    //   _alertServices.flushBarErrorMessages(error.toString(), context);
+    // });
+
+    _myRepo.userLogoutApi(headers: header,body: null).then((value) {
       deleteUserDetails();
       _navigationServices.goBack();
       _navigationServices.pushReplacementNamed('/loginRegistration');

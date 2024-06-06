@@ -24,6 +24,13 @@ class CreateTicketViewModel with ChangeNotifier {
 
   String? _token, _name, _email, _subject, _message;
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+  void setLoading(bool loading) {
+    _isLoading = loading;
+    notifyListeners();
+  }
+
   setSelectedFiles(File file) {
     _selectedFiles.add(file);
     notifyListeners();
@@ -31,6 +38,11 @@ class CreateTicketViewModel with ChangeNotifier {
 
   clearSelectedFiles() {
     _selectedFiles.clear();
+    notifyListeners();
+  }
+
+  removeFileFromList(File file){
+    _selectedFiles.removeAt(_selectedFiles.indexOf(file));
     notifyListeners();
   }
 
@@ -68,22 +80,31 @@ class CreateTicketViewModel with ChangeNotifier {
 
   final _myRepo = userSidebarRepository();
 
-  Future<void> createTicket(BuildContext context) async {
+  Future<bool> createTicket(BuildContext context) async {
+    setLoading(true);
+
     if (_name == null || _name!.isEmpty) {
+      setLoading(false);
       _alertServices.flushBarErrorMessages("Name Required", context);
-      return;
+      return false;
     }
     if (_email == null || _email!.isEmpty) {
+      setLoading(false);
+
       _alertServices.flushBarErrorMessages("Email Required", context);
-      return;
+      return false;
     }
     if (_subject == null || _subject!.isEmpty) {
+      setLoading(false);
+
       _alertServices.flushBarErrorMessages("Subject Required", context);
-      return;
+      return false;
     }
     if (_message == null || _message!.isEmpty) {
+      setLoading(false);
+
       _alertServices.flushBarErrorMessages("Message Required", context);
-      return;
+      return false;
     }
 
     await setToken();
@@ -116,20 +137,25 @@ for(var file in _selectedFiles){
 
     _myRepo.userCreateTicket(fields: fields, files: files, headers: headers).then((value){
 
-      _navigationServices.goBack();
+      // _navigationServices.goBack();
       _alertServices.flushBarErrorMessages(value['message'], context);
       if(kDebugMode){
         print("Api hit");
       }
+      clearSelectedFiles();
+      setLoading(false);
+      return true;
     }).onError((error,stackTrace){
       if(kDebugMode){
         print(error.toString());
       }
+      setLoading(false);
+      return false;
     });
 
 
 
-
+return true;
 
 
 
