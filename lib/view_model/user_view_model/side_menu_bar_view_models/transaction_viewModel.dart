@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:radigone_v3/data/response/ApiResponse.dart';
 import 'package:radigone_v3/view_model/services/flutter_secure_storage/secure_storage.dart';
 
-import '../../../models/user_models/side_menu_bar/UserTransactionModel.dart';
+import '../../../models/user_models/side_menu_bar/User_transaction_model.dart';
 import '../../../repositories/user/sideBar_repository.dart';
 import '../../services/alert_services.dart';
 import '../../services/navigation_services.dart';

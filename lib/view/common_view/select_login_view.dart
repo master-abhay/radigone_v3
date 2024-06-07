@@ -146,7 +146,7 @@ class _SelectLoginPageState extends State<SelectLoginPage> {
                                   isLoadingLogin = true;
                                 });
 
-                                // _navigationServices.pushReplacementNamed("/loginPage");
+                                _navigationServices.pushReplacementNamed("/agentLoginView");
 
 
                                 setState(() {

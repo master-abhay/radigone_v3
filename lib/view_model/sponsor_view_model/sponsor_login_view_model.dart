@@ -17,9 +17,9 @@ class LoginSponsorProvider with ChangeNotifier {
   String? _mobile;
   String? _password;
 
-  void setUsername(String? username) {
-    if (username != null && username.isNotEmpty) {
-      _mobile = '+91$username';
+  void setUsername(String? mobile) {
+    if (mobile != null && mobile.isNotEmpty) {
+      _mobile = '+91$mobile';
       if (kDebugMode) {
         print("Mobile set..");
       }

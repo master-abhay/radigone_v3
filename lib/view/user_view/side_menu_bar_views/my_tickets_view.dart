@@ -91,7 +91,7 @@ class _MyTicketsViewState extends State<MyTicketsView> {
                                     ? item.subject.toString()
                                     : '${item.subject!.substring(0, 15)}..'
                                 : 'Subject';
-                            var status = item?.status == 3 ? 'Closed' : item?.status == 2 ? 'Customer Reply' : 'Open';
+                            var status = item?.status == 3 ? 'Closed' : item?.status == 2 ? 'Customer Reply' : item?.status == 1 ? 'Answered' : 'Open';
                             String? updatedAt;
                             if (item!.updatedAt!.length < 10) {
                               updatedAt = item.createdAt;

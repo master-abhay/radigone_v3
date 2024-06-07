@@ -196,50 +196,54 @@ class _UserSideBarState extends State<UserSideBar> {
                           _navigationServices.goBack();
                           _navigationServices.pushNamed('/createTicketView');
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                              width: MediaQuery.sizeOf(context).width * 0.5,
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                      "images/images_sponser_sidebar/deposit_dropdown.svg"),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Text(
-                                    "Create Ticket",
-                                    style:
-                                    TextStyle(color: Colors.white, fontSize: 14),
-                                  )
-                                ],
-                              )),
-                        ),
+                        child: Container(
+                          // color: Colors.green,
+                            padding:  const EdgeInsets.only(top:10.0,bottom: 10,left: 25),
+                            // width: MediaQuery.sizeOf(context).width * 0.5,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(
+                                    "images/images_sponser_sidebar/deposit_dropdown.svg"),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const Text(
+                                  "Create Ticket",
+                                  style:
+                                  TextStyle(color: Colors.white, fontSize: 14),
+                                )
+                              ],
+                            )),
                       ),
                       GestureDetector(
                         onTap: () {
                           _navigationServices.goBack();
                           _navigationServices.pushNamed('/myTicketView');
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                              width: MediaQuery.sizeOf(context).width * 0.5,
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                      "images/images_sponser_sidebar/deposit_dropdown.svg"),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Text(
-                                    "My Tickets",
-                                    style:
-                                    TextStyle(color: Colors.white, fontSize: 14),
-                                  )
-                                ],
-                              )),
-                        ),
+                        child: Container(
+                            padding:  const EdgeInsets.only(top:10.0,bottom: 10,left: 10),
+                            // width: MediaQuery.sizeOf(context).width * 0.5,
+                            // color: Colors.green,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(
+                                    "images/images_sponser_sidebar/deposit_dropdown.svg"),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const Text(
+                                  "My Tickets",
+                                  style:
+                                  TextStyle(color: Colors.white, fontSize: 14),
+                                )
+                              ],
+                            )),
                       ),
                     ],
                   ),

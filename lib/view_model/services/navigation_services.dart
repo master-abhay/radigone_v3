@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:radigone_v3/view/user_view/main_view_with_bottomBar_view.dart';
 
+import '../../view/agent_view/agent_authentication/agent_login_view.dart';
+import '../../view/agent_view/agent_main_view_with_bottom_bar.dart';
 import '../../view/common_view/login_registration_view.dart';
 import '../../view/common_view/select_login_view.dart';
 import '../../view/common_view/select_registration_view.dart';
 import '../../view/common_view/splash_view.dart';
 import '../../view/sponsor_view/sponser_Authentication/sponser_login_view.dart';
+import '../../view/sponsor_view/sponser_Authentication/sponser_registration_view.dart';
 import '../../view/sponsor_view/sponser_main_screes_with_bottom_bar.dart';
 import '../../view/user_view/profile/profile_edit_page.dart';
 import '../../view/user_view/profile/profile_page.dart';
@@ -43,6 +46,9 @@ class NavigationServices {
 
 
 
+
+    "/agentLoginView": (context) => const AgentLoginView(),
+    "/agentMainView": (context) => const AgentMainView(),
     "/adsPreferencesView": (context) => const AdsPreferencesView(),
     "/myTicketView": (context) => const MyTicketsView(),
     "/createTicketView": (context) => const CreateTicketView(),
@@ -53,7 +59,7 @@ class NavigationServices {
     "/profileEditPage": (context) => const ProfileEditPage(),
     // "/videoPlayerPage": (context) => const VideoPlayerPage(),
     "/selectRegistrationPage": (context) => const SelectRegistrationPage(),
-    // "/SponserRegistrationPage":(context)=> const SponserRegistrationPage(),
+    "/SponserRegistrationPage":(context)=> const SponserRegistrationPage(),
     "/selectLoginPage" : (context) =>  const SelectLoginPage(),
     "/sponsorLoginPage" : (context) => const SponsorLoginPage(),
     "/sponsorMainView" : (context) => const SponsorMainScreen(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/view_model/agent_view_model/agent_authentication_viewModels/agent_login_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_login_view_model.dart';
 
 import '../../../resources/colors.dart';
@@ -11,14 +12,14 @@ import '../../../view_model/services/navigation_services.dart';
 
 
 
-class SponsorLoginPage extends StatefulWidget {
-  const SponsorLoginPage({super.key});
+class AgentLoginView extends StatefulWidget {
+  const AgentLoginView({super.key});
 
   @override
-  State<SponsorLoginPage> createState() => _SponsorLoginPageState();
+  State<AgentLoginView> createState() => _AgentLoginViewState();
 }
 
-class _SponsorLoginPageState extends State<SponsorLoginPage> {
+class _AgentLoginViewState extends State<AgentLoginView> {
   late GlobalKey<FormState> _loginFormState;
 
   // String? username, password;
@@ -28,7 +29,7 @@ class _SponsorLoginPageState extends State<SponsorLoginPage> {
 
   late NavigationServices _navigationServices;
 
-late AlertServices _alertServices;
+  late AlertServices _alertServices;
 
 
   @override
@@ -88,7 +89,7 @@ late AlertServices _alertServices;
             ),
           ),
         ),
-        Consumer<LoginSponsorProvider>(
+        Consumer<AgentLoginViewModel>(
             builder: (context, provider, Widget? child) {
               return SizedBox(
                   height: double.infinity,
@@ -188,7 +189,7 @@ late AlertServices _alertServices;
                                                     _loginFormState.currentState!
                                                         .save();
 
-                                                    bool loginResult = await provider.loginSponsor(context);
+                                                    bool loginResult = await provider.loginAgent(context);
 
                                                     // if(loginResult){
                                                     //   // _navigationServices.pushNamed("/home");

@@ -132,11 +132,12 @@ import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/view/common_view/video_player_view.dart';
+import 'package:radigone_v3/view_model/agent_view_model/agent_authentication_viewModels/agent_login_viewModel.dart';
 
 import 'package:radigone_v3/view_model/services/getIt_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
-import 'package:radigone_v3/view_model/sponsor_view_model/login_view_model.dart';
-import 'package:radigone_v3/view_model/sponsor_view_model/save_sponsor_details.dart';
+import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_login_view_model.dart';
+import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_register_viewModel.dart';
 import 'package:radigone_v3/view_model/user_view_model/change_password_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/dashboard_ads_list_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/login_view_model.dart';
@@ -208,7 +209,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => LoginSponsorProvider()),
         // ChangeNotifierProvider(create: (_) => SaveSponsorDetails()),
         // ChangeNotifierProvider(create: (_) => LogOutSponserProvider()),
-        // ChangeNotifierProvider(create: (_) => RegisterSponsorProvider()),
+        ChangeNotifierProvider(create: (_) => RegisterSponsorProvider()),
         ChangeNotifierProvider(create: (_) => DashboardUserProvider()),
         ChangeNotifierProvider(create: (_) => UserRadigonePointViewModel()),
         ChangeNotifierProvider(create: (_) => UserPointsViewModel()),
@@ -220,7 +221,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => CreateTicketViewModel()),
         ChangeNotifierProvider(create: (_) => MyTicketsViewModel()),
         ChangeNotifierProvider(create: (_) => CloseReplyTicketViewmodel()),
-        ChangeNotifierProvider(create: (_) => AdsPreferencesViewModel()),
+        ChangeNotifierProvider(create: (_) => UserAdsPreferencesViewModel()),
+        ChangeNotifierProvider(create: (_) => AgentLoginViewModel()),
+
 
 
 

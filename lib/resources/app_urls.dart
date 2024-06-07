@@ -14,6 +14,14 @@ class AppUrls {
   static get userCreateSupportTicketUrl => 'http://radigone.com/api/v1/user/support-ticket/store';
   static get userMyTicketsUrl => 'http://radigone.com/api/v1/user/support-tickets';
   static get userCloseTicketUrl => 'http://radigone.com/api/v1/user/reply-ticket/';
+  static get userAllAdsPreferencesUrl => 'http://radigone.com/api/v1/all-ad-preferences';
+  static get userSelectedAdsPreferencesUrl => 'http://radigone.com/api/v1/user/ad-preference/list';
+
+
+
+
+
+
 
 
 
@@ -25,6 +33,13 @@ class AppUrls {
 
 
   static get sponsorLoginUrl => 'http://radigone.com/api/v1/surveys/login';
+  static get sponsorRegisterUrl => 'http://radigone.com/api/v1/surveys/register';
+
+
+
+
+  static get agentLoginUrl => 'http://radigone.com/api/v1/agent/login';
+
 
 
 

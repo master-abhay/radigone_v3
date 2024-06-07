@@ -1,7 +1,9 @@
 import 'package:http/http.dart' as http;
-import 'package:radigone_v3/models/user_models/side_menu_bar/UserMyTicketsModel.dart';
-import 'package:radigone_v3/models/user_models/side_menu_bar/UserTransactionModel.dart';
+import 'package:radigone_v3/models/user_models/side_menu_bar/User_myTickets_model.dart';
+import 'package:radigone_v3/models/user_models/side_menu_bar/User_transaction_model.dart';
 import 'package:radigone_v3/models/user_models/side_menu_bar/redeem_radigone_points.dart';
+import 'package:radigone_v3/models/user_models/side_menu_bar/user_all_ads_preferences_model.dart';
+import 'package:radigone_v3/models/user_models/side_menu_bar/user_selected_adsPreferences_model.dart';
 import 'package:radigone_v3/resources/app_urls.dart';
 
 import '../../data/network/BaseApiServices.dart';
@@ -78,5 +80,27 @@ class userSidebarRepository {
       throw e;
     }
   }
+
+  Future<UserAllAdsPreferencesModel> userAllAdsPreferencesApi(
+      {required dynamic header}) async {
+    try {
+      dynamic response = await _apiServices.getGetApiServices(url: AppUrls.userAllAdsPreferencesUrl, headers: header);
+      return response = UserAllAdsPreferencesModel.fromJson(response);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+
+  Future<UserSelectedAdsPreferencesModel> userSelectedAdsPreferencesApi(
+      {required dynamic header}) async {
+    try {
+      dynamic response = await _apiServices.getGetApiServices(url: AppUrls.userSelectedAdsPreferencesUrl, headers: header);
+      return response = UserSelectedAdsPreferencesModel.fromJson(response);
+    } catch (e) {
+      throw e;
+    }
+  }
+
 
 }
