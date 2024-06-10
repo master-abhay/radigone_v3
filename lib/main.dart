@@ -137,7 +137,9 @@ import 'package:radigone_v3/view_model/agent_view_model/agent_authentication_vie
 import 'package:radigone_v3/view_model/services/getIt_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_login_view_model.dart';
+import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_profile_information_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_register_viewModel.dart';
+import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_deposit_viewModel.dart';
 import 'package:radigone_v3/view_model/user_view_model/change_password_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/dashboard_ads_list_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/login_view_model.dart';
@@ -223,6 +225,15 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => CloseReplyTicketViewmodel()),
         ChangeNotifierProvider(create: (_) => UserAdsPreferencesViewModel()),
         ChangeNotifierProvider(create: (_) => AgentLoginViewModel()),
+        ChangeNotifierProvider(create: (_) => SponsorProfileInformationViewModel()),
+        ChangeNotifierProvider(create: (_) => SponsorDepositViewModel()),
+
+
+
+
+
+
+
 
 
 

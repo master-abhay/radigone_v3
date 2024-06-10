@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:radigone_v3/view/sponsor_view/profile/sponser_profile.dart';
-import 'package:radigone_v3/view/sponsor_view/sponser_side_menubar.dart';
+import 'package:get_it/get_it.dart';
+import 'package:radigone_v3/resources/components/constants.dart';
+import 'package:radigone_v3/view/sponsor_view/profile/sponser_profile_view.dart';
+import 'package:radigone_v3/view/sponsor_view/sponsor_side_menubar.dart';
+import 'package:radigone_v3/view_model/services/auth_services.dart';
 
 import '../../resources/colors.dart';
-import 'deposit/sponser_deposit.dart';
-import 'history/sponser_history.dart';
-import 'home/sponser_home.dart';
-
+import 'deposit/sponsor_deposit_view.dart';
+import 'history/sponsor_history_view.dart';
+import 'home/sponser_home_view.dart';
 
 class SponsorMainScreen extends StatefulWidget {
   const SponsorMainScreen({super.key});
@@ -17,7 +19,6 @@ class SponsorMainScreen extends StatefulWidget {
 }
 
 class _SponsorMainScreenState extends State<SponsorMainScreen> {
-
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey<ScaffoldState>();
 
   bool _sponsorHome = true;
@@ -26,28 +27,87 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
   bool _sponsorProfile = false;
 
   List<dynamic> screens = [
-    const SponserHome(),
-    const SponserDeposit(),
-    const SponserHistory(),
-    const SponserProfile()
+    const SponsorHomeView(),
+    const SponsorDepositView(),
+    const SponsorHistoryView(),
+    const SponsorProfileView()
   ];
 
-  int currentIndex = 0;
+  late AuthService _authService;
+  String? sponsorName,
+  sponsorEmail,
+   sponsorImageLink;
+
+ Future<void> _initializeValues() async {
+ 
+
+    // sponsorName = await _authService.getSponsorName() ?? "Sponsor Name";
+    // sponsorEmail = await _authService.getSponsorEmail() ?? "Sponsor Email";
+    sponsorName = await _authService.getSponsorName();
+    sponsorEmail = await _authService.getSponsorEmail();
+    sponsorImageLink =
+        await _authService.getSponsorImageLink() ?? PLACEHOLDER_PFP;
+  }
+
+  @override
+  void initState() {
+    // WidgetsBinding.instance.addPostFrameCallback((val) {
+    //   _initializeValues();
+    // });
+    super.initState();
+
+    final GetIt getIt = GetIt.instance;
+    _authService = getIt.get<AuthService>();
+    _initializeValues();
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         key: _drawerKey,
-        drawer: const SponserSideBar(),
+         drawer:
+        // SponsorSideBarView(
+        //   sponsorName: sponsorName,sponsorEmail: sponsorEmail,sponsorProfileImageLink: PLACEHOLDER_PFP,
+        // ),
+
+         FutureBuilder(
+             future: _initializeValues(),
+             builder: (context, snapshot) {
+               if(snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none){
+                 return const SponsorSideBarView(
+                   sponsorName: "Fetching..",
+                   sponsorEmail: "Fetching..",
+                   sponsorProfileImageLink: null,
+                 );
+
+               }
+               if(snapshot.hasError){
+                 print(snapshot.error.toString());
+                 return const SponsorSideBarView(
+                   sponsorName: "Error..",
+                   sponsorEmail: "Error..",
+                   sponsorProfileImageLink: null,
+                 );
+               }
+               return  SponsorSideBarView(
+                 sponsorName: 'Hi $sponsorName',
+                 sponsorEmail: sponsorEmail,
+                 sponsorProfileImageLink: sponsorEmail,
+               );
+             }),
+
         bottomNavigationBar: Container(
           height: 60,
           // padding: EdgeInsets.zero,
           decoration: const BoxDecoration(
+
+
             gradient: MyColorScheme.bottomNavigationBar,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            // mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.max,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
@@ -59,8 +119,9 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
                     _sponsorProfile = false;
                   });
                 },
-                child: SizedBox(
-                  width: MediaQuery.sizeOf(context).width*.25,
+                child: Container(
+                  color: Colors.green,
+                  width: MediaQuery.sizeOf(context).width * .25,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -88,8 +149,9 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
                     _sponsorProfile = false;
                   });
                 },
-                child: SizedBox(
-                  width: MediaQuery.sizeOf(context).width*.25,
+                child: Container(
+                  color: Colors.red,
+                  width: MediaQuery.sizeOf(context).width * .25,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +163,8 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
                       Text(
                         "Deposit",
                         style: TextStyle(
-                            color: _sponsorDeposit ? Colors.yellow : Colors.white,
+                            color:
+                                _sponsorDeposit ? Colors.yellow : Colors.white,
                             fontSize: 10),
                       ),
                     ],
@@ -117,8 +180,9 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
                     _sponsorProfile = false;
                   });
                 },
-                child: SizedBox(
-                  width: MediaQuery.sizeOf(context).width*.25,
+                child: Container(
+                  color: Colors.blue,
+                  width: MediaQuery.sizeOf(context).width * .25,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -130,7 +194,8 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
                       Text(
                         "History",
                         style: TextStyle(
-                            color: _sponsorHistory ? Colors.yellow : Colors.white,
+                            color:
+                                _sponsorHistory ? Colors.yellow : Colors.white,
                             fontSize: 10),
                       ),
                     ],
@@ -146,8 +211,9 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
                     _sponsorProfile = true;
                   });
                 },
-                child: SizedBox(
-                  width: MediaQuery.sizeOf(context).width*.25,
+                child: Container(
+                  color: Colors.purple,
+                  width: MediaQuery.sizeOf(context).width * .25,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -159,7 +225,8 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
                       Text(
                         "Profile",
                         style: TextStyle(
-                            color: _sponsorProfile ? Colors.yellow : Colors.white,
+                            color:
+                                _sponsorProfile ? Colors.yellow : Colors.white,
                             fontSize: 10),
                       ),
                     ],
@@ -186,4 +253,3 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
     return screens[0];
   }
 }
-

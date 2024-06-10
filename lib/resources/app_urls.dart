@@ -34,6 +34,8 @@ class AppUrls {
 
   static get sponsorLoginUrl => 'http://radigone.com/api/v1/surveys/login';
   static get sponsorRegisterUrl => 'http://radigone.com/api/v1/surveys/register';
+  static get sponsorProfileInformationUrl => 'http://radigone.com/api/v1/survey/survey-info';
+
 
 
 

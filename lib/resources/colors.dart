@@ -46,6 +46,11 @@ class MyColorScheme {
         fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white );
   }
 
+  static  TextStyle LargeHeadingTextStyle() {
+    return const TextStyle(
+        fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white );
+  }
+
   static  TextStyle subTitleTextStyle() {
     return  TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 13);
   }

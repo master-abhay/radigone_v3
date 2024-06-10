@@ -59,6 +59,7 @@ class AgentLoginViewModel with ChangeNotifier {
   }
 
   Future<void> saveDetails(AgentLoginModel value) async {
+
     await SecureStorage().writeSecureData('username', value.data!.username!);
     await SecureStorage().writeSecureData('password', _password!);
     await SecureStorage()

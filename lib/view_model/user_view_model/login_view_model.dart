@@ -57,6 +57,18 @@ class LoginUserProvider with ChangeNotifier {
   }
 
   Future<void> saveDetails(dynamic value) async {
+
+
+    // //Removing all the data first:
+    // await _authService.clearAllUserData();
+    // //Deleting full data from SecureStorage
+    // await SecureStorage().deleteAllSecureData();
+    // await SecureStorage().deleteSecureData('username');
+    // await SecureStorage().deleteSecureData('password');
+    // await SecureStorage().deleteSecureData('token');
+    // await SecureStorage().deleteSecureData('id');
+
+
     // Saving the user password in secure storage to login dashboard
     await SecureStorage().writeSecureData('username', value['data']['username']);
     await SecureStorage().writeSecureData('password', _password!);
@@ -111,8 +123,25 @@ class LoginUserProvider with ChangeNotifier {
     // });
 
 
-    _myRepo.userLoginApi(headers: header,body: body).then((value) {
-      saveDetails(value);
+    _myRepo.userLoginApi(headers: header,body: body).then((value) async{
+      // saveDetails(value);
+      // Future.delayed(Duration(seconds: 10));
+
+      await SecureStorage().writeSecureData('username', value['data']['username']);
+      await SecureStorage().writeSecureData('password', _password!);
+      await SecureStorage()
+          .writeSecureData('token', '${value['token_type']} ${value['token']}');
+      await SecureStorage()
+          .writeSecureData('mobile', '${value['data']['mobile']}');
+      await SecureStorage().writeSecureData('id', '${value['data']['id']}');
+
+      //Saving token in sharedPreferences:
+      await _authService
+          .saveUserToken('${value['token_type']} ${value['token']}');
+      await _authService.saveUserName(
+          '${value['data']['firstname']} ${value['data']['lastname']}');
+      await _authService.saveUserEmail('${value['data']['email']}');
+      await _authService.saveUserImageLink('${value['data']['image']}');
       _navigationServices.goBack();
       _navigationServices.pushReplacementNamed('/userMainView');
       setLoading(false);

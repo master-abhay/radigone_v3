@@ -11,14 +11,14 @@ import '../../../view_model/services/navigation_services.dart';
 
 
 
-class SponsorLoginPage extends StatefulWidget {
-  const SponsorLoginPage({super.key});
+class SponsorLoginView extends StatefulWidget {
+  const SponsorLoginView({super.key});
 
   @override
-  State<SponsorLoginPage> createState() => _SponsorLoginPageState();
+  State<SponsorLoginView> createState() => _SponsorLoginViewState();
 }
 
-class _SponsorLoginPageState extends State<SponsorLoginPage> {
+class _SponsorLoginViewState extends State<SponsorLoginView> {
   late GlobalKey<FormState> _loginFormState;
 
   // String? username, password;

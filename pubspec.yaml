@@ -54,6 +54,7 @@ dependencies:
   intl:
   fluttertoast: ^8.2.5
   another_flushbar: ^1.12.30
+  syncfusion_flutter_charts: ^25.2.7
 
 
 

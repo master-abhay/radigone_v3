@@ -92,9 +92,23 @@ class LoginSponsorProvider with ChangeNotifier {
     };
     var body = jsonEncode({"mobile": _mobile, "password": _password});
 
-    _myRepo.sponsorLoginApi(body: body,header: header).then((value) {
-      saveDetails(value);
-
+    _myRepo.sponsorLoginApi(body: body,header: header).then((value) async{
+      // saveDetails(value);
+      // Future.delayed(Duration(seconds: 3));
+      await SecureStorage().writeSecureData('username', value.data!.username!);
+      await SecureStorage().writeSecureData('password', _password!);
+      await SecureStorage()
+          .writeSecureData('token', '${value.tokenType} ${value.token}');
+      await SecureStorage()
+          .writeSecureData('mobile', value.data!.mobile.toString());
+      await SecureStorage().writeSecureData('id', value.data!.id.toString());
+      //Saving token in sharedPreferences:
+      await _authService.saveSponsorToken(
+          '${value.tokenType.toString()} ${value.token.toString()}');
+      await _authService.saveSponsorName(
+          '${value.data!.firstname} ${value.data!.lastname}');
+      await _authService.saveSponsorEmail('${value.data!.email}');
+      await _authService.saveSponsorImageLink('${value.data!.image}');
       _navigationServices.goBack();
       _navigationServices.pushReplacementNamed('/sponsorMainView');
       if (kDebugMode) {

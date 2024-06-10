@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:radigone_v3/resources/components/constants.dart';
 import 'package:radigone_v3/view/user_view/profile/profile_page.dart';
 import 'package:radigone_v3/view/user_view/user_side_menubar.dart';
 import 'package:radigone_v3/view_model/services/auth_services.dart';
@@ -24,17 +25,22 @@ class _UserMainViewState extends State<UserMainView> {
 
   @override
   void initState() {
+
     super.initState();
+    final GetIt getIt = GetIt.instance;
+    _authService = getIt.get<AuthService>();
+
     initializeValues();
   }
 
   Future<void> initializeValues() async {
-    final GetIt getIt = GetIt.instance;
-    _authService = getIt.get<AuthService>();
 
     _userName = await _authService.getUserName();
+    print(_userName);
     _userEmail = await _authService.getUserEmail();
-    _userImageLink = await _authService.getUserImageLink();
+    print(_userEmail);
+    _userImageLink = await _authService.getUserImageLink() ?? PLACEHOLDER_PFP;
+    print(_userImageLink);
   }
 
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey<ScaffoldState>();
@@ -57,7 +63,14 @@ class _UserMainViewState extends State<UserMainView> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _drawerKey,
-        drawer: FutureBuilder(
+        drawer:
+        // UserSideBar(
+        // userName: _userName,
+        // userEmail: _userEmail,
+        // userProfileImageLink: _userImageLink,),
+
+
+        FutureBuilder(
             future: initializeValues(),
             builder: (context, snapshot) {
               if(snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none){
@@ -83,14 +96,15 @@ class _UserMainViewState extends State<UserMainView> {
               );
             }),
         bottomNavigationBar: Container(
+
           height: 60,
           // padding: EdgeInsets.zero,
           decoration: const BoxDecoration(
             gradient: MyColorScheme.bottomNavigationBar,
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            // mainAxisSize: MainAxisSize.max,
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.max,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               GestureDetector(
@@ -102,21 +116,26 @@ class _UserMainViewState extends State<UserMainView> {
                     profile = false;
                   });
                 },
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      "images/homeIcon.svg",
-                      color: home ? Colors.yellow : Colors.white,
-                    ),
-                    Text(
-                      "Home",
-                      style: TextStyle(
-                          color: home ? Colors.yellow : Colors.white,
-                          fontSize: 10),
-                    ),
-                  ],
+                child: Container(
+                  color: Colors.red,
+                  width: MediaQuery.sizeOf(context).width * .25,
+
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        "images/homeIcon.svg",
+                        color: home ? Colors.yellow : Colors.white,
+                      ),
+                      Text(
+                        "Home",
+                        style: TextStyle(
+                            color: home ? Colors.yellow : Colors.white,
+                            fontSize: 10),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               GestureDetector(
@@ -128,21 +147,25 @@ class _UserMainViewState extends State<UserMainView> {
                     profile = false;
                   });
                 },
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      "images/coupons.svg",
-                      color: coupons ? Colors.yellow : Colors.white,
-                    ),
-                    Text(
-                      "Coupons",
-                      style: TextStyle(
-                          color: coupons ? Colors.yellow : Colors.white,
-                          fontSize: 10),
-                    ),
-                  ],
+                child: Container(
+                  width: MediaQuery.sizeOf(context).width * .25,
+                  color: Colors.green,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        "images/coupons.svg",
+                        color: coupons ? Colors.yellow : Colors.white,
+                      ),
+                      Text(
+                        "Coupons",
+                        style: TextStyle(
+                            color: coupons ? Colors.yellow : Colors.white,
+                            fontSize: 10),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               GestureDetector(
@@ -154,21 +177,26 @@ class _UserMainViewState extends State<UserMainView> {
                     profile = false;
                   });
                 },
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      "images/history.svg",
-                      color: history ? Colors.yellow : Colors.white,
-                    ),
-                    Text(
-                      "History",
-                      style: TextStyle(
-                          color: history ? Colors.yellow : Colors.white,
-                          fontSize: 10),
-                    ),
-                  ],
+                child: Container(
+                  color: Colors.blue,
+                  width: MediaQuery.sizeOf(context).width * .25,
+
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        "images/history.svg",
+                        color: history ? Colors.yellow : Colors.white,
+                      ),
+                      Text(
+                        "History",
+                        style: TextStyle(
+                            color: history ? Colors.yellow : Colors.white,
+                            fontSize: 10),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               GestureDetector(
@@ -180,21 +208,26 @@ class _UserMainViewState extends State<UserMainView> {
                     profile = true;
                   });
                 },
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      "images/profile.svg",
-                      color: profile ? Colors.yellow : Colors.white,
-                    ),
-                    Text(
-                      "Profile",
-                      style: TextStyle(
-                          color: profile ? Colors.yellow : Colors.white,
-                          fontSize: 10),
-                    ),
-                  ],
+                child: Container(
+                  color: Colors.deepOrange,
+                  width: MediaQuery.sizeOf(context).width * .25,
+
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        "images/profile.svg",
+                        color: profile ? Colors.yellow : Colors.white,
+                      ),
+                      Text(
+                        "Profile",
+                        style: TextStyle(
+                            color: profile ? Colors.yellow : Colors.white,
+                            fontSize: 10),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

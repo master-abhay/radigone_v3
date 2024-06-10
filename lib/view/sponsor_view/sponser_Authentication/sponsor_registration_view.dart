@@ -15,15 +15,15 @@ import '../../../view_model/services/media_services.dart';
 import '../../../view_model/services/navigation_services.dart';
 import '../../../view_model/sponsor_view_model/sponsor_register_viewModel.dart';
 
-class SponserRegistrationPage extends StatefulWidget {
-  const SponserRegistrationPage({super.key});
+class SponsorRegistrationView extends StatefulWidget {
+  const SponsorRegistrationView({super.key});
 
   @override
-  State<SponserRegistrationPage> createState() =>
-      _SponserRegistrationPageState();
+  State<SponsorRegistrationView> createState() =>
+      _SponsorRegistrationViewState();
 }
 
-class _SponserRegistrationPageState extends State<SponserRegistrationPage> {
+class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
   //Going to integrate userRegistration Api:
 
   bool isLoading = false;

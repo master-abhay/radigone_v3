@@ -140,6 +140,9 @@ class _CreateTicketViewState extends State<CreateTicketView> {
               padding: EdgeInsets.zero,
               child: Column(
                 children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
                   CustomTextField(
                       currentFocusNode: nameFocusNode,
                       nextFocusNode: emailFocusNode,

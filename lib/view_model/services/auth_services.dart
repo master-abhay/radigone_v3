@@ -35,13 +35,6 @@ class AuthService {
     return prefs.getString(_agentTokenKey);
   }
 
-  Future<void> clearAllTokens() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_userTokenKey);
-    await prefs.remove(_sponsorTokenKey);
-    await prefs.remove(_agentTokenKey);
-  }
-
 
 
   static const String _userNameKey = 'user_name';

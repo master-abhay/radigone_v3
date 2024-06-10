@@ -26,7 +26,6 @@ class LogoutUserProvider with ChangeNotifier {
     if (kDebugMode) {
       print("Deleting the user Details by loggin out");
     }
-    await _authService.clearAllTokens();
     await _authService.clearAllUserData();
 
     //Deleting full data from SecureStorage

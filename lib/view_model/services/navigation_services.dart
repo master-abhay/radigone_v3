@@ -8,9 +8,12 @@ import '../../view/common_view/login_registration_view.dart';
 import '../../view/common_view/select_login_view.dart';
 import '../../view/common_view/select_registration_view.dart';
 import '../../view/common_view/splash_view.dart';
-import '../../view/sponsor_view/sponser_Authentication/sponser_login_view.dart';
-import '../../view/sponsor_view/sponser_Authentication/sponser_registration_view.dart';
-import '../../view/sponsor_view/sponser_main_screes_with_bottom_bar.dart';
+import '../../view/sponsor_view/side_menu_bar_view/sponsor_buyView_view.dart';
+import '../../view/sponsor_view/side_menu_bar_view/sponsor_deposit_log_view.dart';
+import '../../view/sponsor_view/side_menu_bar_view/sponsor_deposit_now_view.dart';
+import '../../view/sponsor_view/sponser_Authentication/sponsor_login_view.dart';
+import '../../view/sponsor_view/sponser_Authentication/sponsor_registration_view.dart';
+import '../../view/sponsor_view/sponsor_main_screens_with_bottom_bar.dart';
 import '../../view/user_view/profile/profile_edit_page.dart';
 import '../../view/user_view/profile/profile_page.dart';
 import '../../view/user_view/side_menu_bar_views/ad_preferences_view.dart';
@@ -46,7 +49,9 @@ class NavigationServices {
 
 
 
-
+    "/sponsorDepositLogView": (context) => const SponsorDepositLogView(),
+    "/sponsorBuyViewView": (context) => const SponsorBuyViewView(),
+    "/sponsorDepositNowView": (context) => const SponsorDepositNowView(),
     "/agentLoginView": (context) => const AgentLoginView(),
     "/agentMainView": (context) => const AgentMainView(),
     "/adsPreferencesView": (context) => const AdsPreferencesView(),
@@ -59,9 +64,9 @@ class NavigationServices {
     "/profileEditPage": (context) => const ProfileEditPage(),
     // "/videoPlayerPage": (context) => const VideoPlayerPage(),
     "/selectRegistrationPage": (context) => const SelectRegistrationPage(),
-    "/SponserRegistrationPage":(context)=> const SponserRegistrationPage(),
+    "/SponserRegistrationPage":(context)=> const SponsorRegistrationView(),
     "/selectLoginPage" : (context) =>  const SelectLoginPage(),
-    "/sponsorLoginPage" : (context) => const SponsorLoginPage(),
+    "/sponsorLoginPage" : (context) => const SponsorLoginView(),
     "/sponsorMainView" : (context) => const SponsorMainScreen(),
     "/userMainView": (context) => const UserMainView(),
     // "/resetPassword": (context) => const ResetPassword(),

@@ -30,7 +30,8 @@ class _CustomListTileState extends State<CustomListTile> {
             height: 80,
             decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.3),
-                borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(10)
+            ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(

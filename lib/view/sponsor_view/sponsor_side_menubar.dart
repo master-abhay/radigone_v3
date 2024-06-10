@@ -1,24 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/view_model/services/auth_services.dart';
 
-class SponserSideBar extends StatefulWidget {
-  final String? sponserName;
-  final String? sponserEmail;
-  final String? sponserProfileImageLink;
+import '../../view_model/services/navigation_services.dart';
 
-  const SponserSideBar({
+class SponsorSideBarView extends StatefulWidget {
+  final String? sponsorName;
+  final String? sponsorEmail;
+  final String? sponsorProfileImageLink;
+
+  const SponsorSideBarView({
     super.key,
-    this.sponserName,
-    this.sponserEmail,
-    this.sponserProfileImageLink,
+    this.sponsorName,
+    this.sponsorEmail,
+    this.sponsorProfileImageLink,
   });
 
   @override
-  State<SponserSideBar> createState() => _SponserSideBarState();
+  State<SponsorSideBarView> createState() => _SponsorSideBarViewState();
 }
 
-class _SponserSideBarState extends State<SponserSideBar> {
+class _SponsorSideBarViewState extends State<SponsorSideBarView> {
+
+  late NavigationServices _navigationServices;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    final GetIt getIt = GetIt.instance;
+    _navigationServices = getIt.get<NavigationServices>();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -48,8 +65,8 @@ class _SponserSideBarState extends State<SponserSideBar> {
                   children: [
                     ClipOval(
                       child: Image.network(
-                        // "images/images_sponser_sidebar/Ellipse 28.png",
-                        widget.sponserProfileImageLink ??
+                        // "images/images_sponsor_sidebar/Ellipse 28.png",
+                        widget.sponsorProfileImageLink ??
                             "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
                         fit: BoxFit.cover,
                         height: MediaQuery.sizeOf(context).width / 7,
@@ -79,7 +96,7 @@ class _SponserSideBarState extends State<SponserSideBar> {
                           children: [
                             Expanded(
                               child: Text(
-                                widget.sponserName ?? "Sponser Name",
+                                widget.sponsorName ?? "Sponser Name",
                                 style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
@@ -88,7 +105,7 @@ class _SponserSideBarState extends State<SponserSideBar> {
                             ),
                             Expanded(
                               child: SelectableText(
-                                widget.sponserEmail ?? "Sponser Email",
+                                widget.sponsorEmail ?? "Sponser Email",
                                 style: TextStyle(
                                     color: Colors.white.withOpacity(0.65)),
                               ),
@@ -135,71 +152,87 @@ class _SponserSideBarState extends State<SponserSideBar> {
               collapsedIconColor: Colors.white,
               children: <Widget>[
                 GestureDetector(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                        width: MediaQuery.sizeOf(context).width * 0.3,
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                                "images/images_sponser_sidebar/deposit_dropdown.svg"),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const Text(
-                              "Deposit Now",
-                              style:
-                              TextStyle(color: Colors.white, fontSize: 14),
-                            )
-                          ],
-                        )),
-                  ),
+                  onTap: () {
+                    // _navigationServices.goBack();
+                    _navigationServices.pushNamed('/sponsorDepositNowView');
+                  },
+                  child: Container(
+                    // color: Colors.green,
+                      padding:  const EdgeInsets.only(top:10.0,bottom: 10),
+                      // width: MediaQuery.sizeOf(context).width * 0.5,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                              "images/images_sponser_sidebar/deposit_dropdown.svg"),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Text(
+                            "Deposit Now",
+                            style:
+                            TextStyle(color: Colors.white, fontSize: 14),
+                          )
+                        ],
+                      )),
                 ),
                 GestureDetector(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                        width: MediaQuery.sizeOf(context).width * 0.3,
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                                "images/images_sponser_sidebar/deposit_dropdown.svg"),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const Text(
-                              "Deposit Log",
-                              style:
-                              TextStyle(color: Colors.white, fontSize: 14),
-                            )
-                          ],
-                        )),
-                  ),
+                  onTap: () {
+                    // _navigationServices.goBack();
+                    _navigationServices.pushNamed('/sponsorDepositLogView');
+                  },
+                  child: Container(
+                      padding:  const EdgeInsets.only(top:10.0,bottom: 10),
+                      // width: MediaQuery.sizeOf(context).width * 0.5,
+                      // color: Colors.green,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                              "images/images_sponser_sidebar/deposit_dropdown.svg"),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Text(
+                            "Deposit Log",
+                            style:
+                            TextStyle(color: Colors.white, fontSize: 14),
+                          )
+                        ],
+                      )),
                 ),
                 GestureDetector(
-                  onTap: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                        width: MediaQuery.sizeOf(context).width * 0.3,
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                                "images/images_sponser_sidebar/deposit_dropdown.svg"),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const Text(
-                              "Buy Views",
-                              style:
-                              TextStyle(color: Colors.white, fontSize: 14),
-                            )
-                          ],
-                        )),
-                  ),
+                  onTap: () {
+                    // _navigationServices.goBack();
+                    _navigationServices.pushNamed('/sponsorBuyViewView');
+                  },
+                  child: Container(
+                      padding:  const EdgeInsets.only(top:10.0,bottom: 10),
+                      // width: MediaQuery.sizeOf(context).width * 0.5,
+                      // color: Colors.green,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                              "images/images_sponser_sidebar/deposit_dropdown.svg"),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Text(
+                            "Buy Views",
+                            style:
+                            TextStyle(color: Colors.white, fontSize: 14),
+                          )
+                        ],
+                      )),
                 ),
+
               ],
             ),
 
@@ -223,11 +256,17 @@ class _SponserSideBarState extends State<SponserSideBar> {
               collapsedIconColor: Colors.white,
               children: <Widget>[
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+
+                    _navigationServices.goBack();
+                    _navigationServices.pushNamed('/sponsorDepositNowView');
+
+
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                        width: MediaQuery.sizeOf(context).width * 0.3,
+                    child: Container(
+                        // width: MediaQuery.sizeOf(context).width * 0.3,
                         child: Row(
                           children: [
                             SvgPicture.asset(
