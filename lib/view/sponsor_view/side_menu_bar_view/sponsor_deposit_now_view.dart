@@ -52,7 +52,8 @@ class _SponsorDepositNowViewState extends State<SponsorDepositNowView> {
     amount = amount * 100;
 
     var options = {
-      'key': 'rzp_test_1DP5mmOlF5G5ag',
+      // 'key': 'rzp_test_1DP5mmOlF5G5ag',
+      'key':'rzp_test_WY8eAGLUsaD2Iq',//my personal test key
       'amount': amount,
       'name': 'Abhay Kumar',
       'prefill': {'contact': '8091771052', 'email': 'abhay71052@gmail.com'},
