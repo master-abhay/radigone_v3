@@ -80,8 +80,10 @@
 //   }
 //
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../view/sponsor_view/sponsor_main_screens_with_bottom_bar.dart';
 import 'auth_services.dart';
 import 'navigation_services.dart';
 
@@ -104,6 +106,9 @@ class SplashServices {
       _navigationServices.pushReplacementNamed('/userMainView');
     } else if (sponsorToken != null && sponsorToken.isNotEmpty) {
       _navigationServices.pushReplacementNamed('/sponsorMainView');
+      // _navigationServices.goBack();
+      // _navigationServices.push(MaterialPageRoute(builder: (context)=>const SponsorMainScreen(sponsorHome: true, sponsorDeposit: false, sponsorHistory: false, sponsorProfile: false)));
+
     } else if (agentToken != null && agentToken.isNotEmpty) {
       _navigationServices.pushReplacementNamed('/agentMainView');
     } else {

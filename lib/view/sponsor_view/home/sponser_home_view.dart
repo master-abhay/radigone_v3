@@ -498,7 +498,7 @@ class _SponsorHomeViewState extends State<SponsorHomeView> {
           return  SponsorSideBarView(
             sponsorName: 'Hi $sponsorName',
             sponsorEmail: sponsorEmail,
-            sponsorProfileImageLink: sponsorEmail,
+            sponsorProfileImageLink: null,
           );
         }),
 

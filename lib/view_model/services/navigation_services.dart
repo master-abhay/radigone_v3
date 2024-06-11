@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:radigone_v3/view/sponsor_view/profile/sponser_profile_view.dart';
 import 'package:radigone_v3/view/user_view/main_view_with_bottomBar_view.dart';
 
 import '../../view/agent_view/agent_authentication/agent_login_view.dart';
@@ -8,9 +9,18 @@ import '../../view/common_view/login_registration_view.dart';
 import '../../view/common_view/select_login_view.dart';
 import '../../view/common_view/select_registration_view.dart';
 import '../../view/common_view/splash_view.dart';
+import '../../view/sponsor_view/history/sponsor_history_view.dart';
 import '../../view/sponsor_view/side_menu_bar_view/sponsor_buyView_view.dart';
+import '../../view/sponsor_view/side_menu_bar_view/sponsor_calendar_view.dart';
+import '../../view/sponsor_view/side_menu_bar_view/sponsor_close_reply_ticket_view.dart';
+import '../../view/sponsor_view/side_menu_bar_view/sponsor_create_ticket_view.dart';
 import '../../view/sponsor_view/side_menu_bar_view/sponsor_deposit_log_view.dart';
 import '../../view/sponsor_view/side_menu_bar_view/sponsor_deposit_now_view.dart';
+import '../../view/sponsor_view/side_menu_bar_view/sponsor_myTickets_view.dart';
+import '../../view/sponsor_view/side_menu_bar_view/sponsor_report_view.dart';
+import '../../view/sponsor_view/side_menu_bar_view/sponsor_sidebar_profile_view.dart';
+import '../../view/sponsor_view/side_menu_bar_view/sponsor_transaction_view.dart';
+import '../../view/sponsor_view/sponser_Authentication/sponsor_change_password_view.dart';
 import '../../view/sponsor_view/sponser_Authentication/sponsor_login_view.dart';
 import '../../view/sponsor_view/sponser_Authentication/sponsor_registration_view.dart';
 import '../../view/sponsor_view/sponsor_main_screens_with_bottom_bar.dart';
@@ -46,9 +56,15 @@ class NavigationServices {
 
 
 
-
-
-
+    "/sponsorCalendarView": (context) => const SponsorCalendarView(),
+    "/sponsorChangePasswordView": (context) => const SponsorChangePasswordView(),
+    "/sponsorMyTicketsView": (context) => const SponsorMyTicketsView(),
+    "/sponsorCreateTicketView": (context) => const SponsorCreateTicketView(),
+    "/sponsorSidebarProfileView": (context) => const SponsorSidebarProfileView(),
+    "/sponsorProfileView": (context) => const SponsorProfileView(),
+    "/sponsorTransactionView": (context) => const SponsorTransactionView(),
+    "/sponsorHistoryView": (context) => const SponsorHistoryView(),
+    "/sponsorReportView": (context) => const SponsorReportView(),
     "/sponsorDepositLogView": (context) => const SponsorDepositLogView(),
     "/sponsorBuyViewView": (context) => const SponsorBuyViewView(),
     "/sponsorDepositNowView": (context) => const SponsorDepositNowView(),

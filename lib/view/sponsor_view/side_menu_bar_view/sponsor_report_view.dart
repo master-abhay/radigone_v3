@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/resources/components/custom_deposit_log_tile.dart';
-import 'package:radigone_v3/resources/components/custom_transaction_tile.dart';
+import 'package:radigone_v3/resources/components/custom_report_tile.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_deposit_viewModel.dart';
 
 import '../../../resources/components/background_designs.dart';
 import '../../../resources/components/custom_header.dart';
-import '../../../view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_transaction_viewModel.dart';
 
-class SponsorHistoryView extends StatefulWidget {
-  const SponsorHistoryView({super.key});
+class SponsorReportView extends StatefulWidget {
+  const SponsorReportView({super.key});
 
   @override
-  State<SponsorHistoryView> createState() => _SponsorHistoryViewState();
+  State<SponsorReportView> createState() => _SponsorReportViewState();
 }
 
-class _SponsorHistoryViewState extends State<SponsorHistoryView> {
+class _SponsorReportViewState extends State<SponsorReportView> {
+  FocusNode _currentFocusNode = FocusNode();
+  TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +30,14 @@ class _SponsorHistoryViewState extends State<SponsorHistoryView> {
       children: [
         const LowerBackgroundDesign(),
         const UpperBackgroundDesign(),
-        CustomHeader(
-          title: "Transactions",
+        CustomHeaderWithBackButton(
+          title: "Deposit Log",
         ),
-        Consumer<SponsorHistoryViewModel>(builder: (context, provider, _) {
+        Consumer<SponsorDepositViewModel>(builder: (context, provider, _) {
           return Container(
               height: double.infinity,
               width: double.infinity,
-              margin: const EdgeInsets.only(top: 120, bottom: 0),
+              margin: const EdgeInsets.only(top: 120, bottom: 10),
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: SingleChildScrollView(
                   padding: EdgeInsets.zero,
@@ -50,15 +51,7 @@ class _SponsorHistoryViewState extends State<SponsorHistoryView> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: 20,
                             itemBuilder: (context, index) {
-                              return CustomTransactionTile(
-                                  transactionId: "KQPPK7813E",
-                                  transactionType: "-",
-                                  username: "AbhayKumar11",
-                                  date: '12 JULY 2023',
-                                  day: "Monday",
-                                  amount: "1000000",
-                                  status: "Failed",
-                                  onTap: () {});
+                              return CustomReportTile(name: "Master Com", date: "31 July 2002", totalQuestions: "10", campaignCategory: "Business", imageUrl: null, onTap: (){});
                             })
                       ])));
         })

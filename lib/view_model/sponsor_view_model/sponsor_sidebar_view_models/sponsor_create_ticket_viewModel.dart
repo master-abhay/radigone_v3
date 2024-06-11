@@ -6,15 +6,16 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
-import '../../../repositories/user/sideBar_repository.dart';
 import '../../services/alert_services.dart';
 import '../../services/flutter_secure_storage/secure_storage.dart';
 import '../../services/navigation_services.dart';
 
-class CreateTicketViewModel with ChangeNotifier {
+
+class SponsorCreateTicketViewModel with ChangeNotifier{
+
   late AlertServices _alertServices;
   late NavigationServices _navigationServices;
-  CreateTicketViewModel() {
+  SponsorCreateTicketViewModel() {
     final GetIt getIt = GetIt.instance;
     _alertServices = getIt.get<AlertServices>();
     _navigationServices = getIt.get<NavigationServices>();
@@ -41,10 +42,12 @@ class CreateTicketViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  removeFileFromList(File file) {
+  removeFileFromList(File file){
     _selectedFiles.removeAt(_selectedFiles.indexOf(file));
     notifyListeners();
   }
+
+
 
   Future<void> setToken() async {
     _token = await SecureStorage().readSecureData('token');
@@ -75,7 +78,7 @@ class CreateTicketViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  final _myRepo = userSidebarRepository();
+  // final _myRepo = userSidebarRepository();
 
   Future<bool> createTicket(BuildContext context) async {
     setLoading(true);
@@ -129,25 +132,27 @@ class CreateTicketViewModel with ChangeNotifier {
       files.add(multipartFile);
     }
 
-    _myRepo
-        .userCreateTicket(fields: fields, files: files, headers: headers)
-        .then((value) {
-      // _navigationServices.goBack();
-      _alertServices.flushBarErrorMessages(value['message'], context);
-      if (kDebugMode) {
-        print("Api hit");
-      }
-      clearSelectedFiles();
-      setLoading(false);
-      return true;
-    }).onError((error, stackTrace) {
-      if (kDebugMode) {
-        print(error.toString());
-      }
-      setLoading(false);
-      return false;
-    });
+    // _myRepo
+    //     .userCreateTicket(fields: fields, files: files, headers: headers)
+    //     .then((value) {
+    //   // _navigationServices.goBack();
+    //   _alertServices.flushBarErrorMessages(value['message'], context);
+    //   if (kDebugMode) {
+    //     print("Api hit");
+    //   }
+    //   clearSelectedFiles();
+    //   setLoading(false);
+    //   return true;
+    // }).onError((error, stackTrace) {
+    //   if (kDebugMode) {
+    //     print(error.toString());
+    //   }
+    //   setLoading(false);
+    //   return false;
+    // });
 
     return true;
   }
+
+
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
-import 'package:radigone_v3/resources/components/background_designs.dart';
 import 'package:radigone_v3/resources/components/custom_header.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_profile_information_viewModel.dart';
 
@@ -11,14 +10,14 @@ import '../../../resources/components/constants.dart';
 import '../../../view_model/services/navigation_services.dart';
 import '../../../view_model/user_view_model/profile_view_model.dart';
 
-class SponsorProfileView extends StatefulWidget {
-  const SponsorProfileView({super.key});
+class SponsorSidebarProfileView extends StatefulWidget {
+  const SponsorSidebarProfileView({super.key});
 
   @override
-  State<SponsorProfileView> createState() => _SponsorProfileViewState();
+  State<SponsorSidebarProfileView> createState() => _SponsorSidebarProfileViewState();
 }
 
-class _SponsorProfileViewState extends State<SponsorProfileView> {
+class _SponsorSidebarProfileViewState extends State<SponsorSidebarProfileView> {
   late NavigationServices _navigationServices;
 
   @override
@@ -49,8 +48,18 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
   Widget _buildUI() {
     return Stack(
       children: [
-        const LowerBackgroundDesign(),
-        const UpperBackgroundDesign(),
+        Container(
+          height: double.infinity,
+          decoration: const BoxDecoration(color: MyColorScheme.lightGrey0),
+        ),
+        Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height / 8,
+          decoration: const BoxDecoration(
+              gradient: MyColorScheme.yellowLinearGradient,
+              borderRadius:
+              BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
+        ),
         //header to display page name:
         header(),
 
@@ -125,7 +134,7 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
     //     ),
     //   ),
     // );
-   return CustomHeader(title: "Profile Settings",);
+    return CustomHeaderWithBackButton(title: "Profile Settings",);
   }
 
   Widget edit() {

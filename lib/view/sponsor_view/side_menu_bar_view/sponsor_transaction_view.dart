@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/resources/components/custom_deposit_log_tile.dart';
-import 'package:radigone_v3/resources/components/custom_transaction_tile.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_deposit_viewModel.dart';
 
 import '../../../resources/components/background_designs.dart';
 import '../../../resources/components/custom_header.dart';
+import '../../../resources/components/custom_transaction_tile.dart';
 import '../../../view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_transaction_viewModel.dart';
 
-class SponsorHistoryView extends StatefulWidget {
-  const SponsorHistoryView({super.key});
+class SponsorTransactionView extends StatefulWidget {
+  const SponsorTransactionView({super.key});
 
   @override
-  State<SponsorHistoryView> createState() => _SponsorHistoryViewState();
+  State<SponsorTransactionView> createState() => _SponsorTransactionViewState();
 }
 
-class _SponsorHistoryViewState extends State<SponsorHistoryView> {
+class _SponsorTransactionViewState extends State<SponsorTransactionView> {
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class _SponsorHistoryViewState extends State<SponsorHistoryView> {
       children: [
         const LowerBackgroundDesign(),
         const UpperBackgroundDesign(),
-        CustomHeader(
+        CustomHeaderWithBackButton(
           title: "Transactions",
         ),
         Consumer<SponsorHistoryViewModel>(builder: (context, provider, _) {
@@ -52,11 +52,11 @@ class _SponsorHistoryViewState extends State<SponsorHistoryView> {
                             itemBuilder: (context, index) {
                               return CustomTransactionTile(
                                   transactionId: "KQPPK7813E",
-                                  transactionType: "-",
+                                  transactionType: "+",
                                   username: "AbhayKumar11",
                                   date: '12 JULY 2023',
                                   day: "Monday",
-                                  amount: "1000000",
+                                  amount: "100000",
                                   status: "Failed",
                                   onTap: () {});
                             })

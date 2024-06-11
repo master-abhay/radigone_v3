@@ -12,7 +12,10 @@ import 'history/sponsor_history_view.dart';
 import 'home/sponser_home_view.dart';
 
 class SponsorMainScreen extends StatefulWidget {
-  const SponsorMainScreen({super.key});
+
+  // final bool sponsorHome,sponsorDeposit,sponsorHistory,sponsorProfile;
+  //  const SponsorMainScreen({super.key,required this.sponsorHome, required this.sponsorDeposit, required this.sponsorHistory,required this.sponsorProfile});
+   const SponsorMainScreen({super.key});
 
   @override
   State<SponsorMainScreen> createState() => _SponsorMainScreenState();
@@ -25,6 +28,13 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
   bool _sponsorDeposit = false;
   bool _sponsorHistory = false;
   bool _sponsorProfile = false;
+
+  //
+  // bool _sponsorHome = false;
+  // bool _sponsorDeposit = false;
+  // bool _sponsorHistory = false;
+  // bool _sponsorProfile = false;
+
 
   List<dynamic> screens = [
     const SponsorHomeView(),
@@ -47,10 +57,17 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
     sponsorEmail = await _authService.getSponsorEmail();
     sponsorImageLink =
         await _authService.getSponsorImageLink() ?? PLACEHOLDER_PFP;
+
+
+
   }
 
   @override
   void initState() {
+    // _sponsorHome = widget.sponsorHome;
+    // _sponsorDeposit = widget.sponsorDeposit;
+    // _sponsorHistory = widget.sponsorHistory;
+    // _sponsorProfile = widget.sponsorProfile;
     // WidgetsBinding.instance.addPostFrameCallback((val) {
     //   _initializeValues();
     // });
@@ -93,7 +110,7 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
                return  SponsorSideBarView(
                  sponsorName: 'Hi $sponsorName',
                  sponsorEmail: sponsorEmail,
-                 sponsorProfileImageLink: sponsorEmail,
+                 sponsorProfileImageLink: null,
                );
              }),
 

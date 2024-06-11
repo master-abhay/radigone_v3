@@ -196,15 +196,14 @@ class _UserSideBarState extends State<UserSideBar> {
                           _navigationServices.goBack();
                           _navigationServices.pushNamed('/createTicketView');
                         },
-                        child: Container(
-                          // color: Colors.green,
-                            padding:  const EdgeInsets.only(top:10.0,bottom: 10,left: 25),
-                            // width: MediaQuery.sizeOf(context).width * 0.5,
+                        child:Container(
+                          color: Colors.transparent,
+                            padding: const EdgeInsets.all(8),
+                            // width: MediaQuery.sizeOf(context).width * 0.3,
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                SizedBox(width: MediaQuery.of(context).size.width*0.2,),
                                 SvgPicture.asset(
                                     "images/images_sponser_sidebar/deposit_dropdown.svg"),
                                 const SizedBox(
@@ -224,14 +223,13 @@ class _UserSideBarState extends State<UserSideBar> {
                           _navigationServices.pushNamed('/myTicketView');
                         },
                         child: Container(
-                            padding:  const EdgeInsets.only(top:10.0,bottom: 10,left: 10),
-                            // width: MediaQuery.sizeOf(context).width * 0.5,
-                            // color: Colors.green,
+                          color: Colors.transparent,
+                            padding: const EdgeInsets.all(8),
+                            // width: MediaQuery.sizeOf(context).width * 0.3,
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                SizedBox(width: MediaQuery.of(context).size.width*0.2,),
                                 SvgPicture.asset(
                                     "images/images_sponser_sidebar/deposit_dropdown.svg"),
                                 const SizedBox(

@@ -4,8 +4,10 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:radigone_v3/models/sponsor_models/login_sponsor_model.dart';
+import 'package:radigone_v3/view/sponsor_view/sponsor_main_screens_with_bottom_bar.dart';
 
 import '../../repositories/sponsor/auth_repository.dart';
 import '../services/alert_services.dart';
@@ -111,6 +113,7 @@ class LoginSponsorProvider with ChangeNotifier {
       await _authService.saveSponsorImageLink('${value.data!.image}');
       _navigationServices.goBack();
       _navigationServices.pushReplacementNamed('/sponsorMainView');
+      // _navigationServices.push(MaterialPageRoute(builder: (context)=>const SponsorMainScreen(sponsorHome: true, sponsorDeposit: false, sponsorHistory: false, sponsorProfile: false)));
       if (kDebugMode) {
         print("Sponsor logged in Successfully");
       }
