@@ -140,7 +140,7 @@ class _CustomTransactionTileState extends State<CustomTransactionTile> {
                         widget.amount!.length < 7
                             ? widget.transactionType! + widget.amount!
                             : '${widget.transactionType!  + widget.amount!.substring(0, 6)}..' ?? "Amount",
-                        style: widget.transactionType == '+' ?  MyColorScheme.transactionAdd() : MyColorScheme.transactionMinus()
+                        style: widget.transactionType == '+' ?  MyColorScheme.detailStatusTextStyle() : MyColorScheme.transactionMinus()
     ,
                       ),
                     ],

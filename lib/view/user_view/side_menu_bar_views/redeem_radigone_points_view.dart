@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/resources/components/background_designs.dart';
+import 'package:radigone_v3/resources/components/custom_header.dart';
 import 'package:radigone_v3/view_model/user_view_model/side_menu_bar_view_models/redeem_radigonePoints_viewModel.dart';
 
 import '../../../resources/colors.dart';
@@ -33,31 +35,32 @@ class _RedeemRadigonePointsState extends State<RedeemRadigonePoints> {
   Widget _buildUI(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          height: double.infinity,
-          decoration: const BoxDecoration(color: MyColorScheme.lightGrey0),
-        ),
-        Container(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height / 8,
-          decoration: const BoxDecoration(
-              gradient: MyColorScheme.yellowLinearGradient,
-              borderRadius:
-              BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
-        ),
+        // Container(
+        //   height: double.infinity,
+        //   decoration: const BoxDecoration(color: MyColorScheme.lightGrey0),
+        // ),
+        // Container(
+        //   width: double.infinity,
+        //   height: MediaQuery.of(context).size.height / 8,
+        //   decoration: const BoxDecoration(
+        //       gradient: MyColorScheme.yellowLinearGradient,
+        //       borderRadius:
+        //       BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
+        // ),
+        LowerBackgroundDesign(),
+        UpperBackgroundDesign(),
+        CustomHeaderWithBackButton(title: "Redeem Radigone Points",),
+
 
         Container(
           height: double.infinity,
           width: double.infinity,
-          margin: const EdgeInsets.only(top: 60, bottom: 50),
+          margin: const EdgeInsets.only(top: 100, bottom: 50),
           padding: const EdgeInsets.only(left: 30, right: 30),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                //header to display page name:
-                header(context),
-
-                Container(
+                SizedBox(
                   height: 500,
                   child: Consumer<RedeemRadigonePointsViewModel>(
                       builder: (context, provider, Widget? child) {
@@ -160,33 +163,33 @@ class _RedeemRadigonePointsState extends State<RedeemRadigonePoints> {
     );
   }
 
-  Widget header(BuildContext context) {
-    return Material(
-      elevation: 1,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        width: MediaQuery.sizeOf(context).width * 0.9,
-        height: MediaQuery.sizeOf(context).width * 0.15,
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              "Redeem Radigone Points",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget header(BuildContext context) {
+  //   return Material(
+  //     elevation: 1,
+  //     borderRadius: BorderRadius.circular(12),
+  //     child: Container(
+  //       width: MediaQuery.sizeOf(context).width * 0.9,
+  //       height: MediaQuery.sizeOf(context).width * 0.15,
+  //       decoration: BoxDecoration(
+  //         color: Colors.black,
+  //         borderRadius: BorderRadius.circular(12),
+  //       ),
+  //       child: const Row(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         crossAxisAlignment: CrossAxisAlignment.center,
+  //         children: [
+  //           Text(
+  //             "Redeem Radigone Points",
+  //             style: TextStyle(
+  //                 color: Colors.white,
+  //                 fontSize: 20,
+  //                 fontWeight: FontWeight.w600),
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }
 
 

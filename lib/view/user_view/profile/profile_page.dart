@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 
 import '../../../data/response/status.dart';
 import '../../../resources/colors.dart';
+import '../../../resources/components/background_designs.dart';
 import '../../../resources/components/constants.dart';
+import '../../../resources/components/custom_header.dart';
 import '../../../view_model/services/navigation_services.dart';
 import '../../../view_model/user_view_model/profile_view_model.dart';
 
@@ -35,6 +37,15 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  Future<void> _onRefresh()async{
+    final provider =
+    Provider.of<UserProfileInformationProvider>(context, listen: false);
+    await provider.setUsername();
+    await provider.setPassword();
+    await provider.setToken();
+    await provider.profileInformation(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     // final provider = Provider.of<LogoutUserProvider>(context);
@@ -47,41 +58,48 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildUI() {
     return Stack(
       children: [
+        const LowerBackgroundDesign(),
+        const UpperBackgroundDesign(),
+        //header to display page name:
+         CustomHeader(title: "Profile Settings",),
         Container(
-          height: double.infinity,
-          decoration: const BoxDecoration(color: MyColorScheme.lightGrey0),
-        ),
-        Container(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height / 8,
-          decoration: const BoxDecoration(
-              gradient: MyColorScheme.yellowLinearGradient,
-              borderRadius:
-                  BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
-        ),
-        Container(
-          height: double.infinity,
-          width: double.infinity,
-          margin: const EdgeInsets.only(top: 50, bottom: 50),
-          padding: const EdgeInsets.only(left: 30, right: 30),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                //header to display page name:
-                header(),
+            // height: double.infinity,
+            // width: double.infinity,
+            margin: const EdgeInsets.only(top: 120, bottom: 50),
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child:
 
-                // Edit Button
-                edit(),
+            RefreshIndicator(
+              backgroundColor: Colors.black,
+              color: Colors.white,
+              displacement: 40,
+              strokeWidth: 1.5,
+              onRefresh: _onRefresh,
+              child: SingleChildScrollView(
+              child: Column(
+                children: [
 
-                //Profile Image:
-                profileImage(),
 
-                //App User Information:
-                appUserInformation(),
+                      // Edit Button
+                      edit(),
 
-                //footer : Change password and Start Survey Button
-                footer()
-              ],
+                      //Profile Image:
+                      profileImage(),
+
+                      //App User Information:
+                      appUserInformation(),
+
+                      //footer : Change password and Start Survey Button
+                      footer(),
+
+                  ////just to make enable pull to refresh: Bad Approach
+                  const SizedBox(height: 120,)
+
+
+
+
+                ],
+              ),
             ),
           ),
         )
@@ -89,50 +107,6 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  TextStyle titleTextStyle() {
-    return TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
-        color: Colors.black.withOpacity(0.35));
-  }
-
-  TextStyle fieldTextStyle() {
-    return const TextStyle(
-        fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black);
-  }
-
-  TextStyle statusTextStyle() {
-    return const TextStyle(
-        fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xff2BD41C));
-  }
-
-  Widget header() {
-    return Material(
-      elevation: 1,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        width: MediaQuery.sizeOf(context).width * 0.9,
-        height: MediaQuery.sizeOf(context).width * 0.15,
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              "Profile Settings",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600),
-            )
-          ],
-        ),
-      ),
-    );
-  }
 
   Widget edit() {
     return GestureDetector(
@@ -199,7 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Text(
               "$title : ",
-              style: titleTextStyle(),
+              style: MyColorScheme.detailTitleTextStyle(),
             ),
             SizedBox(
                 height: 20,
@@ -211,8 +185,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       Expanded(
                           child: Text(field,
                               style: title != 'Status'
-                                  ? fieldTextStyle()
-                                  : statusTextStyle())),
+                                  ? MyColorScheme.detailFieldTextStyle()
+                                  : MyColorScheme.detailStatusTextStyle())),
                     ],
                   ),
                 )),
@@ -300,13 +274,6 @@ class _ProfilePageState extends State<ProfilePage> {
           }
         });
 
-
-
-
-  //
-  //   return Consumer<UserProfileInformationProvider>(
-  //       builder: (context, providerValue, Widget? child) {
-  //   });
   }
 
   Widget footerButton(

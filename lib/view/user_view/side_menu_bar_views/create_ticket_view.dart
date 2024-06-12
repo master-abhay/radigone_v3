@@ -61,11 +61,11 @@ class _CreateTicketViewState extends State<CreateTicketView> {
   @override
   void initState() {
     super.initState();
-    final GetIt _getIt = GetIt.instance;
-    _authService = _getIt.get<AuthService>();
-    _mediaServices = _getIt.get<MediaServices>();
-    _navigationServices = _getIt.get<NavigationServices>();
-    _alertServices = _getIt.get<AlertServices>();
+    final GetIt getIt = GetIt.instance;
+    _authService = getIt.get<AuthService>();
+    _mediaServices = getIt.get<MediaServices>();
+    _navigationServices = getIt.get<NavigationServices>();
+    _alertServices = getIt.get<AlertServices>();
 
     // Initialize the controllers synchronously
     nameTextController = TextEditingController();
@@ -116,7 +116,6 @@ class _CreateTicketViewState extends State<CreateTicketView> {
 
   @override
   Widget build(BuildContext context) {
-    print("Build");
     return Scaffold(
       body: _buildUI(context),
     );
@@ -127,7 +126,7 @@ class _CreateTicketViewState extends State<CreateTicketView> {
       children: [
         const LowerBackgroundDesign(),
         const UpperBackgroundDesign(),
-        CustomHeader(
+        CustomHeaderWithBackButton(
           title: "Create Support Ticket",
         ),
         Consumer<CreateTicketViewModel>(builder: (context, provider, _) {
@@ -239,7 +238,7 @@ class _CreateTicketViewState extends State<CreateTicketView> {
 
 
                                bool result = await provider.createTicket(context);
-                               print(result.toString());
+                               debugPrint(result.toString());
                                if(result){
 
                                  setState(() {

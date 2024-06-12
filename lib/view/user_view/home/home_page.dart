@@ -400,6 +400,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/resources/components/background_designs.dart';
 import 'package:radigone_v3/view/common_view/video_player_view.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
 import 'package:radigone_v3/view_model/user_view_model/radigonePoint_view_model.dart';
@@ -472,6 +473,29 @@ class _HomePageState extends State<HomePage> {
     _initializeValues();
   }
 
+  Future<void> _onRefresh()async{
+    final provider =
+    Provider.of<DashboardUserProvider>(context, listen: false);
+    await provider.setUsername();
+    await provider.setPassword();
+    await provider.setToken();
+    await provider.loginUserDashboard(context);
+
+    final provider1 =
+    Provider.of<UserRadigonePointViewModel>(context, listen: false);
+    await provider1.setUsername();
+    await provider1.setPassword();
+    await provider1.setToken();
+    await provider1.fetchUserRadigonePoint(context);
+
+    final provider2 =
+    Provider.of<UserPointsViewModel>(context, listen: false);
+    await provider2.setUsername();
+    await provider2.setMobile();
+    await provider2.fetchUserPoints(context);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     print("Build");
@@ -516,10 +540,8 @@ class _HomePageState extends State<HomePage> {
   Widget buildUI() {
     return Stack(
       children: [
-        Container(
-          height: double.infinity,
-          decoration: const BoxDecoration(color: MyColorScheme.lightGrey0),
-        ),
+
+        const LowerBackgroundDesign(),
         Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height / 3.75,
@@ -532,23 +554,35 @@ class _HomePageState extends State<HomePage> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-              height: double.infinity,
-              width: double.infinity,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    //To show the Status of the Account
-                    const AccountStatus(), //To show App Bar of the app:
-                    headerText(),
+              // height: double.infinity,
+              // width: double.infinity,
+              child:
 
-                    //MainContainers:
-                    mainOutlinedContainer(context),
+                  RefreshIndicator(
+                    backgroundColor: Colors.black,
+                    color: Colors.white,
+                    displacement: 40,
+                    strokeWidth: 1.5,
 
-                    //Ads Section:
-                    AdsSection(context),
-                  ],
-                ),
-              ),
+                    onRefresh: _onRefresh,
+                    child:
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          //To show the Status of the Account
+                          const AccountStatus(), //To show App Bar of the app:
+                          headerText(),
+
+                          //MainContainers:
+                          mainOutlinedContainer(context),
+
+                          //Ads Section:
+                          AdsSection(context),
+                        ],
+                      ),
+                    ),
+    ),
+
             ),
           ),
         )
@@ -946,6 +980,8 @@ Widget AdsSection(BuildContext context) {
         }
       }),
 
+
+      // Currently of No Use so Commented.
       SizedBox(
         height: MediaQuery.of(context).size.height * 0.02,
       ),
@@ -996,37 +1032,3 @@ Widget AdsSection(BuildContext context) {
     ],
   );
 }
-
-// import 'package:flutter/foundation.dart';
-// import 'package:flutter/material.dart';
-// import 'package:radigone_v3/view_model/services/flutter_secure_storage/secure_storage.dart';
-//
-// class HomePage extends StatefulWidget {
-//   const HomePage({super.key});
-//
-//   @override
-//   State<HomePage> createState() => _HomePageState();
-// }
-//
-// class _HomePageState extends State<HomePage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(appBar: AppBar(title: Text("home page"),
-//     ),
-//
-//     body: Center(
-//       child: TextButton(onPressed: ()async{
-//        var username =  await SecureStorage().readSecureData('username');
-//        var password =  await SecureStorage().readSecureData('password');
-//        var token =  await SecureStorage().readSecureData('token');
-//
-//        if(kDebugMode){
-//          print(username);
-//          print(password);
-//          print(token);
-//
-//        }
-//       },child: Text("print Secure data"),),
-//     ),);
-//   }
-// }

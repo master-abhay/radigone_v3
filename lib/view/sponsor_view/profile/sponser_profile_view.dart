@@ -9,7 +9,6 @@ import '../../../data/response/status.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/components/constants.dart';
 import '../../../view_model/services/navigation_services.dart';
-import '../../../view_model/user_view_model/profile_view_model.dart';
 
 class SponsorProfileView extends StatefulWidget {
   const SponsorProfileView({super.key});
@@ -29,12 +28,21 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
     _navigationServices = _getIt.get<NavigationServices>();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final provider =
-      Provider.of<SponsorProfileInformationViewModel>(context, listen: false);
+      final provider = Provider.of<SponsorProfileInformationViewModel>(context,
+          listen: false);
 
       // await provider.setToken();
       await provider.fetchProfileInformation(context);
     });
+  }
+
+  Future<void> _onRefresh() async {
+    // await Future.delayed(const Duration(seconds: 2));
+    final provider =
+        Provider.of<SponsorProfileInformationViewModel>(context, listen: false);
+
+    // await provider.setToken();
+    await provider.fetchProfileInformation(context);
   }
 
   @override
@@ -52,80 +60,46 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
         const LowerBackgroundDesign(),
         const UpperBackgroundDesign(),
         //header to display page name:
-        header(),
-
+//header to display page name:
+        CustomHeader(
+          title: "Profile Settings",
+        ),
         Container(
-          height: double.infinity,
-          width: double.infinity,
-          margin: const EdgeInsets.only(top: 120, bottom: 50),
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
+            // height: double.infinity,
+            // width: double.infinity,
+            margin: const EdgeInsets.only(top: 120, bottom: 50),
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: RefreshIndicator(
+              backgroundColor: Colors.black,
+              color: Colors.white,
+              displacement: 40,
+              strokeWidth: 1.5,
+              onRefresh: _onRefresh,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // Edit Button
+                    edit(),
 
-                // Edit Button
-                edit(),
+                    //Profile Image:
+                    profileImage(),
 
-                //Profile Image:
-                profileImage(),
+                    //App User Information:
+                    appUserInformation(),
 
-                //App User Information:
-                appUserInformation(),
+                    //footer : Change password and Start Survey Button
+                    footer(),
 
-                //footer : Change password and Start Survey Button
-                footer()
-              ],
-            ),
-          ),
-        )
+                    ////just to make enable pull to refresh: Bad Approach
+                    const SizedBox(
+                      height: 120,
+                    )
+                  ],
+                ),
+              ),
+            ))
       ],
     );
-  }
-
-  TextStyle titleTextStyle() {
-    return TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
-        color: Colors.black.withOpacity(0.35));
-  }
-
-  TextStyle fieldTextStyle() {
-    return const TextStyle(
-        fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black);
-  }
-
-  TextStyle statusTextStyle() {
-    return const TextStyle(
-        fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xff2BD41C));
-  }
-
-  Widget header() {
-    // return Material(
-    //   elevation: 1,
-    //   borderRadius: BorderRadius.circular(12),
-    //   child: Container(
-    //     width: MediaQuery.sizeOf(context).width * 0.9,
-    //     height: MediaQuery.sizeOf(context).width * 0.15,
-    //     decoration: BoxDecoration(
-    //       color: Colors.black,
-    //       borderRadius: BorderRadius.circular(12),
-    //     ),
-    //     child: const Row(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       crossAxisAlignment: CrossAxisAlignment.center,
-    //       children: [
-    //         Text(
-    //           "Profile Settings",
-    //           style: TextStyle(
-    //               color: Colors.white,
-    //               fontSize: 20,
-    //               fontWeight: FontWeight.w600),
-    //         )
-    //       ],
-    //     ),
-    //   ),
-    // );
-   return CustomHeader(title: "Profile Settings",);
   }
 
   Widget edit() {
@@ -147,7 +121,9 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
                   fontWeight: FontWeight.w600,
                   fontSize: 15),
             ),
-            SizedBox(width: 1,),
+            SizedBox(
+              width: 1,
+            ),
             Icon(
               Icons.edit,
               color: Colors.yellow,
@@ -194,7 +170,7 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
           children: [
             Text(
               "$title : ",
-              style: titleTextStyle(),
+              style: MyColorScheme.detailTitleTextStyle(),
             ),
             SizedBox(
                 height: 20,
@@ -206,8 +182,8 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
                       Expanded(
                           child: Text(field,
                               style: title != 'Status'
-                                  ? fieldTextStyle()
-                                  : statusTextStyle())),
+                                  ? MyColorScheme.detailFieldTextStyle()
+                                  : MyColorScheme.detailStatusTextStyle())),
                     ],
                   ),
                 )),
@@ -221,82 +197,78 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
   }
 
   Widget appUserInformation() {
-
-
-    return  Consumer<SponsorProfileInformationViewModel>(
+    return Consumer<SponsorProfileInformationViewModel>(
         builder: (context, providerValue, Widget? child) {
-          switch (providerValue.profileInfo.status) {
-            case Status.LOADING:
-              return const SizedBox(
-                height: 300,
-                child:  Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                    strokeWidth: 1.5,
-                  ),
-                ),
-              );
+      switch (providerValue.profileInfo.status) {
+        case Status.LOADING:
+          return const SizedBox(
+            height: 300,
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 1.5,
+              ),
+            ),
+          );
 
-            case Status.ERROR:
-              return const Padding(
-                padding:  EdgeInsets.only(top: 8, bottom: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SizedBox(
-                        height: 300,child: Text("Please Check Your Internet Connection"))
-                  ],
-                ),
-              );
+        case Status.ERROR:
+          return const Padding(
+            padding: EdgeInsets.only(top: 8, bottom: 8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                SizedBox(
+                    height: 300,
+                    child: Text("Please Check Your Internet Connection"))
+              ],
+            ),
+          );
 
-
-            case Status.COMPLETED:
-              return Padding(
-                padding: const EdgeInsets.only(top: 8, bottom: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    userInformation(
-                        title: "Name",
-                        field:
+        case Status.COMPLETED:
+          return Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                userInformation(
+                    title: "Name",
+                    field:
                         '${providerValue.profileInfo.data!.surveyor!.firstname.toString()} ${providerValue.profileInfo.data!.surveyor!.lastname.toString()}'),
-                    userInformation(
-                        title: "E-mail",
-                        field: providerValue.profileInfo.data!.surveyor!.email.toString()),
-                    userInformation(
-                        title: "Phone",
-                        field: providerValue.profileInfo.data!.surveyor!.mobile.toString()),
-                    userInformation(
-                        title: "Country",
-                        field:
+                userInformation(
+                    title: "E-mail",
+                    field: providerValue.profileInfo.data!.surveyor!.email
+                        .toString()),
+                userInformation(
+                    title: "Phone",
+                    field: providerValue.profileInfo.data!.surveyor!.mobile
+                        .toString()),
+                userInformation(
+                    title: "Country",
+                    field:
                         '${providerValue.profileInfo.data?.surveyor!.address!.country.toString()}'),
-                    userInformation(
-                        title: "Balance",
-                        field: '${providerValue.profileInfo.data?.surveyor!.balance.toString()}'),
-                    userInformation(
-                        title: "Status",
-                        field: providerValue.profileInfo.data!.surveyor!.status == 1
-                            ? "Active"
-                            : "Not Active"),
-                  ],
-                ),
-              );
+                userInformation(
+                    title: "Balance",
+                    field:
+                        '${providerValue.profileInfo.data?.surveyor!.balance.toString()}'),
+                userInformation(
+                    title: "Status",
+                    field: providerValue.profileInfo.data!.surveyor!.status == 1
+                        ? "Active"
+                        : "Not Active"),
+              ],
+            ),
+          );
 
-
-
-            case null:
-              return const Center(
-                child: Text("Null Values Found. Please contact Support"),
-              );
-          }
-        });
-
-
-
+        case null:
+          return const Center(
+            child: Text("Null Values Found. Please contact Support"),
+          );
+      }
+    });
 
     //
     //   return Consumer<UserProfileInformationProvider>(
@@ -306,8 +278,8 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
 
   Widget footerButton(
       {required String buttonName,
-        required IconData icon,
-        required void Function() onTap}) {
+      required IconData icon,
+      required void Function() onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: Material(

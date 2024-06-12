@@ -89,7 +89,7 @@ class NavigationServices {
     // "/forgotPassword": (context) => const ForgotPassword(),
     // "/otpVerification": (context) => OtpVerification(),
     "/loginPage": (context) => const LoginPage(),
-    // "/registrationPage": (context) => const RegistrationPage(),
+    "/registrationPage": (context) => const RegistrationPage(),
     "/loginRegistration": (context) => const LoginRegistration(),
     "/splashScreen": (context) => const SplashScreen(),
     // "/home": (context) => const HomePage(),

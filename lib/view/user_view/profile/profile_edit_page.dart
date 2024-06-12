@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/resources/components/custom_header.dart';
 import 'package:radigone_v3/view_model/services/media_services.dart';
 
 import '../../../resources/colors.dart';
+import '../../../resources/components/background_designs.dart';
 import '../../../resources/components/constants.dart';
 import '../../../resources/components/custom_DatePicker.dart';
 import '../../../resources/components/custom_button.dart';
@@ -112,18 +114,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   Widget _buildUI() {
     return Stack(
       children: [
-        Container(
-          height: double.infinity,
-          decoration: const BoxDecoration(color: MyColorScheme.lightGrey0),
-        ),
-        Container(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height / 8,
-          decoration: const BoxDecoration(
-              gradient: MyColorScheme.yellowLinearGradient,
-              borderRadius:
-                  BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
-        ),
+        const LowerBackgroundDesign(),
+        const UpperBackgroundDesign(),
+        //header to display page name:
+        const CustomHeaderWithBackButton(title: "Edit Profile"),
+
         FutureBuilder<void>(
           future: _initialization,
           builder: (context, snapshot) {
@@ -154,14 +149,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     return Container(
                       height: double.infinity,
                       width: double.infinity,
-                      margin: const EdgeInsets.only(top: 50, bottom: 50),
-                      padding: const EdgeInsets.only(left: 30, right: 30),
+                      margin: const EdgeInsets.only(top: 120, bottom: 50),
+                      padding: const EdgeInsets.only(left: 20, right: 20),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            //header to display page name:
-                            header(),
-
                             //profilePic:
                             profileImage(),
 
@@ -181,51 +173,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     );
   }
 
-  Widget header() {
-    return Material(
-      elevation: 1,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        width: MediaQuery.sizeOf(context).width * 0.9,
-        height: MediaQuery.sizeOf(context).width * 0.15,
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            const Text(
-              "Edit Profile",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      _navigationServices.goBack();
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   Widget profileUpdateForm() {
     return SingleChildScrollView(
@@ -1072,7 +1019,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               }
             },
             child: Padding(
-              padding: const EdgeInsets.only(top: 15, bottom: 15),
+              padding: const EdgeInsets.only(top: 30),
               child: Material(
                 elevation: 1,
                 borderRadius: BorderRadius.circular(180),
@@ -1089,7 +1036,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     backgroundImage: selectedProfileImage != null
                         ? FileImage(selectedProfileImage!)
                         // :  NetworkImage(infoProvider.image!) as ImageProvider,
-                          :  NetworkImage(PLACEHOLDER_PFP) as ImageProvider,
+                          :  const NetworkImage(PLACEHOLDER_PFP) as ImageProvider,
 
                 ),
                 ),

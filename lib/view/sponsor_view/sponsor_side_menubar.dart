@@ -125,7 +125,10 @@ class _SponsorSideBarViewState extends State<SponsorSideBarView> {
                   SvgPicture.asset("images/images_agent_sidebar/dashboard.svg"),
               dense: true,
               horizontalTitleGap: 5,
-              onTap: () {},
+              onTap: () {
+                _navigationServices.goBack();
+                _navigationServices.pushNamed('/sponsorMainView');
+              },
             ),
 
             //Deposit Expansion
@@ -348,103 +351,96 @@ class _SponsorSideBarViewState extends State<SponsorSideBarView> {
                 // _navigationServices.push(MaterialPageRoute(builder: (context)=>const SponsorMainScreen(sponsorHome: false, sponsorDeposit: false, sponsorHistory: true, sponsorProfile: false)));
               },
             ),
+
+
+            //Phase-2
+            //// Commented for phase 2
+
+            // ExpansionTile(
+            //   title: Row(
+            //     children: [
+            //       SvgPicture.asset(
+            //         "images/images_user_sidebar/coupons.svg",
+            //         // Adjust the icon size if needed
+            //       ),
+            //       const SizedBox(width: 13),
+            //       // Adjust the space between icon and text
+            //       const Text(
+            //         "Support Ticket",
+            //         style: TextStyle(color: Colors.white, fontSize: 14),
+            //       ),
+            //     ],
+            //   ),
+            //   iconColor: Colors.white,
+            //   collapsedIconColor: Colors.white,
+            //   children: <Widget>[
+            //     GestureDetector(
+            //       onTap: () {
+            //         _navigationServices.pushNamed('/sponsorCreateTicketView');
+            //
+            //       },
+            //       child:Container(
+            //           color: Colors.transparent,
+            //           padding: const EdgeInsets.all(8),
+            //           // width: MediaQuery.sizeOf(context).width * 0.3,
+            //           child: Row(
+            //             mainAxisSize: MainAxisSize.max,
+            //             children: [
+            //               SizedBox(width: MediaQuery.of(context).size.width*0.2,),
+            //               SvgPicture.asset(
+            //                   "images/images_sponser_sidebar/deposit_dropdown.svg"),
+            //               const SizedBox(
+            //                 width: 10,
+            //               ),
+            //               const Text(
+            //                 "Create Ticket",
+            //                 style:
+            //                 TextStyle(color: Colors.white, fontSize: 14),
+            //               )
+            //             ],
+            //           )),
+            //     ),
+            //     GestureDetector(
+            //       onTap: () {
+            //         _navigationServices.pushNamed('/sponsorMyTicketsView');
+            //       },
+            //       child: Container(
+            //         color: Colors.transparent,
+            //           padding: const EdgeInsets.all(8),
+            //           // width: MediaQuery.sizeOf(context).width * 0.3,
+            //           child: Row(
+            //             mainAxisSize: MainAxisSize.max,
+            //             children: [
+            //               SizedBox(width: MediaQuery.of(context).size.width*0.2,),
+            //               SvgPicture.asset(
+            //                   "images/images_sponser_sidebar/deposit_dropdown.svg"),
+            //               const SizedBox(
+            //                 width: 10,
+            //               ),
+            //               const Text(
+            //                 "My Tickets",
+            //                 style:
+            //                 TextStyle(color: Colors.white, fontSize: 14),
+            //               )
+            //             ],
+            //           )),
+            //     ),
+            //   ],
+            // ),
+
+            ////2FA Phase-2
             // ListTile(
             //   // minTileHeight: MediaQuery.of(context).size.width * 0.12,
             //   title: const Text(
-            //     "Support Ticket",
+            //     "2FA Security",
             //     style: TextStyle(color: Colors.white, fontSize: 14),
             //   ),
             //   leading: SvgPicture.asset(
-            //       "images/images_sponser_sidebar/supportTicket.svg"),
+            //       "images/images_sponser_sidebar/twoFASecurity.svg"),
             //   dense: true,
             //   horizontalTitleGap: 5,
             //   onTap: () {},
             // ),
-
-            ExpansionTile(
-              title: Row(
-                children: [
-                  SvgPicture.asset(
-                    "images/images_user_sidebar/coupons.svg",
-                    // Adjust the icon size if needed
-                  ),
-                  const SizedBox(width: 13),
-                  // Adjust the space between icon and text
-                  const Text(
-                    "Support Ticket",
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                  ),
-                ],
-              ),
-              iconColor: Colors.white,
-              collapsedIconColor: Colors.white,
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    _navigationServices.pushNamed('/sponsorCreateTicketView');
-
-                  },
-                  child:Container(
-                      color: Colors.transparent,
-                      padding: const EdgeInsets.all(8),
-                      // width: MediaQuery.sizeOf(context).width * 0.3,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          SizedBox(width: MediaQuery.of(context).size.width*0.2,),
-                          SvgPicture.asset(
-                              "images/images_sponser_sidebar/deposit_dropdown.svg"),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text(
-                            "Create Ticket",
-                            style:
-                            TextStyle(color: Colors.white, fontSize: 14),
-                          )
-                        ],
-                      )),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    _navigationServices.pushNamed('/sponsorMyTicketsView');
-                  },
-                  child: Container(
-                    color: Colors.transparent,
-                      padding: const EdgeInsets.all(8),
-                      // width: MediaQuery.sizeOf(context).width * 0.3,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          SizedBox(width: MediaQuery.of(context).size.width*0.2,),
-                          SvgPicture.asset(
-                              "images/images_sponser_sidebar/deposit_dropdown.svg"),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text(
-                            "My Tickets",
-                            style:
-                            TextStyle(color: Colors.white, fontSize: 14),
-                          )
-                        ],
-                      )),
-                ),
-              ],
-            ),
-
-            ListTile(
-              // minTileHeight: MediaQuery.of(context).size.width * 0.12,
-              title: const Text(
-                "2FA Security",
-                style: TextStyle(color: Colors.white, fontSize: 14),
-              ),
-              leading: SvgPicture.asset(
-                  "images/images_sponser_sidebar/twoFASecurity.svg"),
-              dense: true,
-              horizontalTitleGap: 5,
-              onTap: () {},
-            ),
             ListTile(
               // minTileHeight: MediaQuery.of(context).size.width * 0.12,
               title: const Text(

@@ -45,7 +45,7 @@ class _MyTicketsViewState extends State<MyTicketsView> {
       children: [
         const LowerBackgroundDesign(),
         const UpperBackgroundDesign(),
-        CustomHeader(
+        CustomHeaderWithBackButton(
           title: "My Tickets",
         ),
         Container(
