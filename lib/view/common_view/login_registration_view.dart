@@ -62,7 +62,7 @@ class _LoginRegistrationState extends State<LoginRegistration> {
               MediaQuery.sizeOf(context).width / 13,
               MediaQuery.sizeOf(context).height / 3.12,
               MediaQuery.sizeOf(context).width / 13,
-              MediaQuery.sizeOf(context).height / 3.3),
+              MediaQuery.sizeOf(context).height / 4),
           child: Center(
             child: Material(
               elevation: 3,

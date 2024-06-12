@@ -62,7 +62,7 @@ class _SelectLoginPageState extends State<SelectLoginPage> {
               MediaQuery.sizeOf(context).width / 13,
               MediaQuery.sizeOf(context).height / 3.12,
               MediaQuery.sizeOf(context).width / 13,
-              MediaQuery.sizeOf(context).height / 4),
+              MediaQuery.sizeOf(context).height / 5),
           child: Center(
             child: Material(
               elevation: 3,
@@ -135,6 +135,7 @@ class _SelectLoginPageState extends State<SelectLoginPage> {
                                 });
 
                               })),
+
                       SizedBox(
                           width: MediaQuery.of(context).size.width / 1.3,
                           child: CustomButton(

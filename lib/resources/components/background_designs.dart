@@ -14,7 +14,7 @@ class _UpperBackgroundDesignState extends State<UpperBackgroundDesign> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height / 8,
+      height: MediaQuery.of(context).size.width / 4,
       decoration: const BoxDecoration(
           gradient: MyColorScheme.yellowLinearGradient,
           borderRadius:

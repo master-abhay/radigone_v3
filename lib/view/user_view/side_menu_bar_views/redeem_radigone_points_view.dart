@@ -49,7 +49,7 @@ class _RedeemRadigonePointsState extends State<RedeemRadigonePoints> {
         // ),
         LowerBackgroundDesign(),
         UpperBackgroundDesign(),
-        CustomHeaderWithBackButton(title: "Redeem Radigone Points",),
+        CustomHeaderWithBackButton(title: "Redeem Points",),
 
 
         Container(

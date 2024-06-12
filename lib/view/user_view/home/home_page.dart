@@ -473,28 +473,25 @@ class _HomePageState extends State<HomePage> {
     _initializeValues();
   }
 
-  Future<void> _onRefresh()async{
-    final provider =
-    Provider.of<DashboardUserProvider>(context, listen: false);
+  Future<void> _onRefresh() async {
+    final provider = Provider.of<DashboardUserProvider>(context, listen: false);
     await provider.setUsername();
     await provider.setPassword();
     await provider.setToken();
     await provider.loginUserDashboard(context);
 
     final provider1 =
-    Provider.of<UserRadigonePointViewModel>(context, listen: false);
+        Provider.of<UserRadigonePointViewModel>(context, listen: false);
     await provider1.setUsername();
     await provider1.setPassword();
     await provider1.setToken();
     await provider1.fetchUserRadigonePoint(context);
 
-    final provider2 =
-    Provider.of<UserPointsViewModel>(context, listen: false);
+    final provider2 = Provider.of<UserPointsViewModel>(context, listen: false);
     await provider2.setUsername();
     await provider2.setMobile();
     await provider2.fetchUserPoints(context);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -502,37 +499,29 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       key: _drawerKey,
-      drawer:
-
-          // UserSideBar(
-          //   userName:_userName,
-          //   userEmail: _userEmail,
-          //   userProfileImageLink: _userImageLink,
-          // ),
-          FutureBuilder(
-              future: _initializeValues(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting ||
-                    snapshot.connectionState == ConnectionState.none) {
-                  return const UserSideBar(
-                    userName: "Fetching..",
-                    userEmail: "Fetching..",
-                    userProfileImageLink: null,
-                  );
-                }
-                if (snapshot.hasError) {
-                  print(snapshot.error.toString());
-                  return const UserSideBar(
-                    userName: "Error..",
-                    userEmail: "Error..",
-                    userProfileImageLink: null,
-                  );
-                }
-                return UserSideBar(
-                  userName: 'Hi $_userName', userEmail: _userEmail,
-                  // userProfileImageLink: _userImageLink,
-                );
-              }),
+      drawer: FutureBuilder(
+          future: _initializeValues(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting ||
+                snapshot.connectionState == ConnectionState.none) {
+              return const UserSideBar(
+                userName: "Fetching..",
+                userEmail: "Fetching..",
+                userProfileImageLink: null,
+              );
+            }
+            if (snapshot.hasError) {
+              return const UserSideBar(
+                userName: "Error..",
+                userEmail: "Error..",
+                userProfileImageLink: null,
+              );
+            }
+            return UserSideBar(
+              userName: 'Hi $_userName', userEmail: _userEmail,
+              // userProfileImageLink: _userImageLink,
+            );
+          }),
       body: buildUI(),
     );
   }
@@ -540,11 +529,10 @@ class _HomePageState extends State<HomePage> {
   Widget buildUI() {
     return Stack(
       children: [
-
         const LowerBackgroundDesign(),
         Container(
           width: double.infinity,
-          height: MediaQuery.of(context).size.height / 3.75,
+          height: MediaQuery.of(context).size.width * 0.5,
           decoration: const BoxDecoration(
               gradient: MyColorScheme.yellowLinearGradient,
               borderRadius:
@@ -556,33 +544,32 @@ class _HomePageState extends State<HomePage> {
             child: SizedBox(
               // height: double.infinity,
               // width: double.infinity,
-              child:
+              child: RefreshIndicator(
+                backgroundColor: Colors.black,
+                color: Colors.white,
+                displacement: 40,
+                strokeWidth: 1.5,
+                onRefresh: _onRefresh,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      //To show the Status of the Account
+                      const AccountStatus(), //To show App Bar of the app:
+                      headerText(),
 
-                  RefreshIndicator(
-                    backgroundColor: Colors.black,
-                    color: Colors.white,
-                    displacement: 40,
-                    strokeWidth: 1.5,
-
-                    onRefresh: _onRefresh,
-                    child:
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          //To show the Status of the Account
-                          const AccountStatus(), //To show App Bar of the app:
-                          headerText(),
-
-                          //MainContainers:
-                          mainOutlinedContainer(context),
-
-                          //Ads Section:
-                          AdsSection(context),
-                        ],
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-    ),
 
+                      //MainContainers:
+                      mainOutlinedContainer(context),
+
+                      //Ads Section:
+                      AdsSection(context),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
         )
@@ -599,43 +586,6 @@ class _HomePageState extends State<HomePage> {
       child: Stack(
         alignment: Alignment.centerRight,
         children: [
-          // Row(
-          //   mainAxisSize: MainAxisSize.max,
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   children: [
-          //     // Hamburger:
-          //     GestureDetector(
-          //       onTap: () {
-          //         _drawerKey.currentState!.openDrawer();
-          //         //implement drawer Functionality:
-          //       },
-          //       child: SizedBox(
-          //         height: 12,
-          //         width: 16,
-          //         child: SvgPicture.asset("images/hamburger.svg"),
-          //       ),
-          //     ),
-          //
-          //     //Radigone Icon:
-          //
-          //     Image.asset(
-          //       "images/splash_logo.png",
-          //       height: 23,
-          //     ),
-          //
-          //     Stack(
-          //       alignment: Alignment.center,
-          //       children: [
-          //         Container(
-          //           height: 12,
-          //           color: Colors.transparent,
-          //           width: 16,
-          //         ),
-          //       ],
-          //     ),
-          //   ],
-          // ),
           Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -685,7 +635,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-
           Stack(
             alignment: Alignment.centerRight,
             children: [
@@ -757,162 +706,160 @@ class _HomePageState extends State<HomePage> {
 
 // This is the Main Container which stores the information of the Total Balance and ... Completed Survey etc....
 Widget mainOutlinedContainer(BuildContext context) {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 25),
-    height: MediaQuery.sizeOf(context).height * 0.42,
-    width: MediaQuery.sizeOf(context).width /
-        1.15, // color: Colors.blue.withOpacity(0.5),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            //Total Balance container:
-            Consumer<UserRadigonePointViewModel>(
-                builder: (context, providerValue, _) {
-              switch (providerValue.userRadigonePointViewModel.status) {
-                case Status.LOADING:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset("images/total_balance.svg"),
-                      iconRadius: 180,
-                      text: "Total\nBalance",
-                      containerValue: "Fetching..");
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    mainAxisSize: MainAxisSize.max,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          //Total Balance container:
+          Consumer<UserRadigonePointViewModel>(
+              builder: (context, providerValue, _) {
+            switch (providerValue.userRadigonePointViewModel.status) {
+              case Status.LOADING:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/total_balance.svg"),
+                    iconRadius: 180,
+                    text: "Total\nBalance",
+                    containerValue: "Fetching..");
 
-                case Status.ERROR:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset("images/total_balance.svg"),
-                      iconRadius: 180,
-                      text: "Total\nBalance",
-                      containerValue: "Error");
-                case Status.COMPLETED:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset("images/total_balance.svg"),
-                      iconRadius: 180,
-                      text: "Total\nBalance",
-                      containerValue: providerValue
-                          .userRadigonePointViewModel.data!.user!.balance!);
-                case null:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset("images/total_balance.svg"),
-                      iconRadius: 180,
-                      text: "Total\nBalance",
-                      containerValue: "Null");
-              }
-            }),
+              case Status.ERROR:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/total_balance.svg"),
+                    iconRadius: 180,
+                    text: "Total\nBalance",
+                    containerValue: "Error");
+              case Status.COMPLETED:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/total_balance.svg"),
+                    iconRadius: 180,
+                    text: "Total\nBalance",
+                    containerValue: providerValue
+                        .userRadigonePointViewModel.data!.user!.balance!);
+              case null:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/total_balance.svg"),
+                    iconRadius: 180,
+                    text: "Total\nBalance",
+                    containerValue: "Null");
+            }
+          }),
 
-            //Completed Survey container:
-            Consumer<UserRadigonePointViewModel>(
-                builder: (context, providerValue, _) {
-              switch (providerValue.userRadigonePointViewModel.status) {
-                case Status.LOADING:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset("images/completed_survey.svg"),
-                      iconRadius: 2,
-                      text: "Completed\nSurvey",
-                      containerValue: "Fetching..");
+          //Completed Survey container:
+          Consumer<UserRadigonePointViewModel>(
+              builder: (context, providerValue, _) {
+            switch (providerValue.userRadigonePointViewModel.status) {
+              case Status.LOADING:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/completed_survey.svg"),
+                    iconRadius: 2,
+                    text: "Completed\nSurvey",
+                    containerValue: "Fetching..");
 
-                case Status.ERROR:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset("images/completed_survey.svg"),
-                      iconRadius: 2,
-                      text: "Completed\nSurvey",
-                      containerValue: "Error");
-                case Status.COMPLETED:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset("images/completed_survey.svg"),
-                      iconRadius: 2,
-                      text: "Completed\nSurvey",
-                      containerValue: providerValue.userRadigonePointViewModel
-                          .data!.user!.completedSurvey
-                          .toString());
-                case null:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset("images/completed_survey.svg"),
-                      iconRadius: 2,
-                      text: "Completed\nSurvey",
-                      containerValue: "Null");
-              }
-            }),
-          ],
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            //Total Withdraw container
-            Consumer<UserRadigonePointViewModel>(
-                builder: (context, providerValue, _) {
-              switch (providerValue.userRadigonePointViewModel.status) {
-                case Status.LOADING:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset("images/total_withdraw.svg"),
-                      iconRadius: 180,
-                      text: "Total\nWithdraw",
-                      containerValue: "Fetching..");
+              case Status.ERROR:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/completed_survey.svg"),
+                    iconRadius: 2,
+                    text: "Completed\nSurvey",
+                    containerValue: "Error");
+              case Status.COMPLETED:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/completed_survey.svg"),
+                    iconRadius: 2,
+                    text: "Completed\nSurvey",
+                    containerValue: providerValue
+                        .userRadigonePointViewModel.data!.user!.completedSurvey
+                        .toString());
+              case null:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/completed_survey.svg"),
+                    iconRadius: 2,
+                    text: "Completed\nSurvey",
+                    containerValue: "Null");
+            }
+          }),
+        ],
+      ),
+      const SizedBox(
+        height: 10,
+      ),
+      Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          //Total Withdraw container
+          Consumer<UserRadigonePointViewModel>(
+              builder: (context, providerValue, _) {
+            switch (providerValue.userRadigonePointViewModel.status) {
+              case Status.LOADING:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/total_withdraw.svg"),
+                    iconRadius: 180,
+                    text: "Total\nWithdraw",
+                    containerValue: "Fetching..");
 
-                case Status.ERROR:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset("images/total_withdraw.svg"),
-                      iconRadius: 180,
-                      text: "Total\nWithdraw",
-                      containerValue: "Error");
-                case Status.COMPLETED:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset("images/total_withdraw.svg"),
-                      iconRadius: 180,
-                      text: "Total\nWithdraw",
-                      containerValue: providerValue
-                          .userRadigonePointViewModel.data!.totalWithdraw
-                          .toString());
-                case null:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset("images/total_withdraw.svg"),
-                      iconRadius: 180,
-                      text: "Total\nWithdraw",
-                      containerValue: "Null");
-              }
-            }),
+              case Status.ERROR:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/total_withdraw.svg"),
+                    iconRadius: 180,
+                    text: "Total\nWithdraw",
+                    containerValue: "Error");
+              case Status.COMPLETED:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/total_withdraw.svg"),
+                    iconRadius: 180,
+                    text: "Total\nWithdraw",
+                    containerValue: providerValue
+                        .userRadigonePointViewModel.data!.totalWithdraw
+                        .toString());
+              case null:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/total_withdraw.svg"),
+                    iconRadius: 180,
+                    text: "Total\nWithdraw",
+                    containerValue: "Null");
+            }
+          }),
 
-            //completed Transaction Container:
-            Consumer<UserRadigonePointViewModel>(
-                builder: (context, providerValue, _) {
-              switch (providerValue.userRadigonePointViewModel.status) {
-                case Status.LOADING:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset('images/data_transfer.svg'),
-                      iconRadius: 180,
-                      text: "Completed\nTransaction",
-                      containerValue: "Fetching..");
+          //completed Transaction Container:
+          Consumer<UserRadigonePointViewModel>(
+              builder: (context, providerValue, _) {
+            switch (providerValue.userRadigonePointViewModel.status) {
+              case Status.LOADING:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset('images/data_transfer.svg'),
+                    iconRadius: 180,
+                    text: "Completed\nTransaction",
+                    containerValue: "Fetching..");
 
-                case Status.ERROR:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset('images/data_transfer.svg'),
-                      iconRadius: 180,
-                      text: "Completed\nTransaction",
-                      containerValue: "Error");
-                case Status.COMPLETED:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset('images/data_transfer.svg'),
-                      iconRadius: 180,
-                      text: "Completed\nTransaction",
-                      containerValue: providerValue
-                          .userRadigonePointViewModel.data!.totalTransaction
-                          .toString());
-                case null:
-                  return DashboardInformationContainer(
-                      icon: SvgPicture.asset('images/data_transfer.svg'),
-                      iconRadius: 180,
-                      text: "Completed\nTransaction",
-                      containerValue: "Null");
-              }
-            }),
-          ],
-        ),
-      ],
-    ),
+              case Status.ERROR:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset('images/data_transfer.svg'),
+                    iconRadius: 180,
+                    text: "Completed\nTransaction",
+                    containerValue: "Error");
+              case Status.COMPLETED:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset('images/data_transfer.svg'),
+                    iconRadius: 180,
+                    text: "Completed\nTransaction",
+                    containerValue: providerValue
+                        .userRadigonePointViewModel.data!.totalTransaction
+                        .toString());
+              case null:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset('images/data_transfer.svg'),
+                    iconRadius: 180,
+                    text: "Completed\nTransaction",
+                    containerValue: "Null");
+            }
+          }),
+        ],
+      ),
+    ],
   );
 }
 
@@ -920,7 +867,7 @@ Widget mainOutlinedContainer(BuildContext context) {
 Widget AdsSection(BuildContext context) {
   return Column(
     mainAxisSize: MainAxisSize.min,
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       //Showing the Ad_specification: Upcoming specified:
@@ -934,7 +881,7 @@ Widget AdsSection(BuildContext context) {
         switch (providerValue.adsList.status) {
           case Status.LOADING:
             return SizedBox(
-                height: MediaQuery.of(context).size.height * 0.27,
+                height: MediaQuery.of(context).size.width * 0.60,
                 child: const Center(
                   child: CircularProgressIndicator(
                     color: Colors.white,
@@ -944,12 +891,12 @@ Widget AdsSection(BuildContext context) {
 
           case Status.ERROR:
             return SizedBox(
-                height: MediaQuery.of(context).size.height * 0.27,
+                height: MediaQuery.of(context).size.width * 0.60,
                 child: const Center(
                     child: Text('Check Your Internet Connection')));
           case Status.COMPLETED:
             return SizedBox(
-              height: MediaQuery.of(context).size.height * 0.27,
+              height: MediaQuery.of(context).size.width * 0.60,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   // itemCount: UserDashboardModelObject.userDashboard.data?.length,
@@ -980,7 +927,6 @@ Widget AdsSection(BuildContext context) {
         }
       }),
 
-
       // Currently of No Use so Commented.
       SizedBox(
         height: MediaQuery.of(context).size.height * 0.02,
@@ -993,7 +939,7 @@ Widget AdsSection(BuildContext context) {
       ),
 
       SizedBox(
-        height: MediaQuery.of(context).size.height * 0.27,
+        height: MediaQuery.of(context).size.width * 0.60,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: 20,
@@ -1017,7 +963,7 @@ Widget AdsSection(BuildContext context) {
       ),
 
       SizedBox(
-        height: MediaQuery.of(context).size.height * 0.27,
+        height: MediaQuery.of(context).size.width * 0.60,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: 20,

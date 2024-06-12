@@ -31,8 +31,8 @@ class _AdContainerState extends State<AdContainer> {
       // color: Colors.grey.withOpacity(0.02),
 
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.27,
-        width: MediaQuery.of(context).size.height * 0.18,
+        // height: MediaQuery.of(context).size.width * 0.60,
+        width: MediaQuery.of(context).size.width * 0.40,
         decoration: BoxDecoration(
             color: const Color(0xff818285),
             borderRadius: BorderRadius.circular(12)),
@@ -40,7 +40,14 @@ class _AdContainerState extends State<AdContainer> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
+            Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                  color: Colors.green,
+
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12))
+              ),
               height: MediaQuery.sizeOf(context).height *
                   0.16, // width: MediaQuery.sizeOf(context).height*0.8,
               child: ClipRRect(
@@ -54,7 +61,8 @@ class _AdContainerState extends State<AdContainer> {
                   errorBuilder: (context, object,stackTrace){
                           return Image.asset(
                             "images/dummy_add_image.png",
-                            fit: BoxFit.fill,
+                            fit: BoxFit.fill
+                            ,
                           );
                   },
                       )
@@ -116,10 +124,12 @@ class _AdContainerState extends State<AdContainer> {
               ),
             ),
             SizedBox(
-              width: MediaQuery.sizeOf(context).width * 0.23,
+              width: MediaQuery.sizeOf(context).width * 0.28,
+              height: MediaQuery.sizeOf(context).width * 0.1,
+
               child: Padding(
                 padding:
-                    EdgeInsets.all(MediaQuery.of(context).size.width * 0.015),
+                    EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
                 child: CustomButton(
                     buttonName: "View Ad",
                     fontSize: 15,

@@ -3,9 +3,9 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data/response/status.dart';
-import '../../../resources/colors.dart';
 import '../../../resources/components/background_designs.dart';
 import '../../../resources/components/constants.dart';
+import '../../../resources/components/custom_basic_information_field.dart';
 import '../../../resources/components/custom_header.dart';
 import '../../../view_model/services/navigation_services.dart';
 import '../../../view_model/user_view_model/profile_view_model.dart';
@@ -37,9 +37,9 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
-  Future<void> _onRefresh()async{
+  Future<void> _onRefresh() async {
     final provider =
-    Provider.of<UserProfileInformationProvider>(context, listen: false);
+        Provider.of<UserProfileInformationProvider>(context, listen: false);
     await provider.setUsername();
     await provider.setPassword();
     await provider.setToken();
@@ -61,43 +61,34 @@ class _ProfilePageState extends State<ProfilePage> {
         const LowerBackgroundDesign(),
         const UpperBackgroundDesign(),
         //header to display page name:
-         CustomHeader(title: "Profile Settings",),
+        CustomHeader(
+          title: "Profile Settings",
+        ),
         Container(
-            // height: double.infinity,
-            // width: double.infinity,
-            margin: const EdgeInsets.only(top: 120, bottom: 50),
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child:
-
-            RefreshIndicator(
-              backgroundColor: Colors.black,
-              color: Colors.white,
-              displacement: 40,
-              strokeWidth: 1.5,
-              onRefresh: _onRefresh,
-              child: SingleChildScrollView(
+          // height: double.infinity,
+          // width: double.infinity,
+          margin: const EdgeInsets.only(top: 120, bottom: 0),
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: RefreshIndicator(
+            backgroundColor: Colors.black,
+            color: Colors.white,
+            displacement: 40,
+            strokeWidth: 1.5,
+            onRefresh: _onRefresh,
+            child: SingleChildScrollView(
               child: Column(
                 children: [
+                  // Edit Button
+                  edit(),
 
+                  //Profile Image:
+                  profileImage(),
 
-                      // Edit Button
-                      edit(),
+                  //App User Information:
+                  appUserInformation(),
 
-                      //Profile Image:
-                      profileImage(),
-
-                      //App User Information:
-                      appUserInformation(),
-
-                      //footer : Change password and Start Survey Button
-                      footer(),
-
-                  ////just to make enable pull to refresh: Bad Approach
-                  const SizedBox(height: 120,)
-
-
-
-
+                  //footer : Change password and Start Survey Button
+                  footer(),
                 ],
               ),
             ),
@@ -106,7 +97,6 @@ class _ProfilePageState extends State<ProfilePage> {
       ],
     );
   }
-
 
   Widget edit() {
     return GestureDetector(
@@ -163,117 +153,82 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget userInformation({required String title, required String field}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8, bottom: 8),
-      child: Column(children: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "$title : ",
-              style: MyColorScheme.detailTitleTextStyle(),
-            ),
-            SizedBox(
-                height: 20,
-                width: MediaQuery.sizeOf(context).width * 0.65,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Column(
-                    children: [
-                      Expanded(
-                          child: Text(field,
-                              style: title != 'Status'
-                                  ? MyColorScheme.detailFieldTextStyle()
-                                  : MyColorScheme.detailStatusTextStyle())),
-                    ],
-                  ),
-                )),
-          ],
-        ),
-        Divider(
-          color: Colors.white.withOpacity(0.7),
-        )
-      ]),
-    );
-  }
-
   Widget appUserInformation() {
-
-
-  return  Consumer<UserProfileInformationProvider>(
+    return Consumer<UserProfileInformationProvider>(
         builder: (context, providerValue, Widget? child) {
-          switch (providerValue.profileInfo.status) {
-            case Status.LOADING:
-              return const SizedBox(
-                height: 300,
-                child:  Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                    strokeWidth: 1.5,
-                  ),
-                ),
-              );
+      switch (providerValue.profileInfo.status) {
+        case Status.LOADING:
+          return const SizedBox(
+            height: 300,
+            child: Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 1.5,
+              ),
+            ),
+          );
 
-            case Status.ERROR:
-              return const Padding(
-                padding:  EdgeInsets.only(top: 8, bottom: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SizedBox(
-                        height: 300,child: Text("Please Check Your Internet Connection"))
-                  ],
-                ),
-              );
+        case Status.ERROR:
+          return const Padding(
+            padding: EdgeInsets.only(top: 8, bottom: 8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                SizedBox(
+                    height: 300,
+                    child: Text("Please Check Your Internet Connection"))
+              ],
+            ),
+          );
 
+        case Status.COMPLETED:
+          return Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                CustomBasicInformationField(
+                    title: "Name",
+                    field:
+                        '${providerValue.profileInfo.data?.firstname} ${providerValue.profileInfo.data?.lastname}',
+                    context: context),
+                CustomBasicInformationField(
+                    title: "E-mail",
+                    field: '${providerValue.profileInfo.data?.email}',
+                    context: context),
+                CustomBasicInformationField(
+                    title: "Phone",
+                    field: '${providerValue.profileInfo.data?.mobile}',
+                    context: context),
+                CustomBasicInformationField(
+                    title: "Country",
+                    field:
+                        '${providerValue.profileInfo.data?.address?.country}',
+                    context: context),
+                CustomBasicInformationField(
+                    title: "Balance",
+                    field: '${providerValue.profileInfo.data?.balance}',
+                    context: context),
+                CustomBasicInformationField(
+                    title: "Status",
+                    field: providerValue.userProfileInformation?.status == 1
+                        ? "Active"
+                        : "Not Active",
+                    context: context),
+              ],
+            ),
+          );
 
-            case Status.COMPLETED:
-              return Padding(
-                padding: const EdgeInsets.only(top: 8, bottom: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    userInformation(
-                        title: "Name",
-                        field:
-                        '${providerValue.profileInfo.data?.firstname} ${providerValue.profileInfo.data?.lastname}'),
-                    userInformation(
-                        title: "E-mail",
-                        field: '${providerValue.profileInfo.data?.email}'),
-                    userInformation(
-                        title: "Phone",
-                        field: '${providerValue.profileInfo.data?.mobile}'),
-                    userInformation(
-                        title: "Country",
-                        field:
-                        '${providerValue.profileInfo.data?.address?.country}'),
-                    userInformation(
-                        title: "Balance",
-                        field: '${providerValue.profileInfo.data?.balance}'),
-                    userInformation(
-                        title: "Status",
-                        field: providerValue.userProfileInformation?.status == 1
-                            ? "Active"
-                            : "Not Active"),
-                  ],
-                ),
-              );
-
-
-
-            case null:
-              return const Center(
-                child: Text("Null Values Found. Please contact Support"),
-              );
-          }
-        });
-
+        case null:
+          return const Center(
+            child: Text("Null Values Found. Please contact Support"),
+          );
+      }
+    });
   }
 
   Widget footerButton(

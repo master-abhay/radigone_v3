@@ -717,11 +717,12 @@ Widget mainOutlinedContainer(BuildContext context) {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         //Total Balance and Total Deposit
         Row(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             //Total Balance container
             Consumer<UserRadigonePointViewModel>(
@@ -799,7 +800,7 @@ Widget mainOutlinedContainer(BuildContext context) {
         // Total Transaction and Total Approved Campaign
         Row(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Consumer<UserRadigonePointViewModel>(
                 builder: (context, providerValue, _) {
@@ -876,7 +877,7 @@ Widget mainOutlinedContainer(BuildContext context) {
         //Pending Campaign and Rejected Campaign
         Row(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             //Pending Campaign
             Consumer<UserRadigonePointViewModel>(
@@ -954,7 +955,7 @@ Widget mainOutlinedContainer(BuildContext context) {
         //Bought Views and pending Views
         Row(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             //Total Withdraw container
             Consumer<UserRadigonePointViewModel>(

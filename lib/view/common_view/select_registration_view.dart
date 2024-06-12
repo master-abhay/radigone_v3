@@ -62,7 +62,7 @@ class _SelectRegistrationPageState extends State<SelectRegistrationPage> {
               MediaQuery.sizeOf(context).width / 13,
               MediaQuery.sizeOf(context).height / 3.12,
               MediaQuery.sizeOf(context).width / 13,
-              MediaQuery.sizeOf(context).height / 4),
+              MediaQuery.sizeOf(context).height / 5),
           child: Center(
             child: Material(
               elevation: 3,

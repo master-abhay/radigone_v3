@@ -8,6 +8,7 @@ import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_profile_inform
 import '../../../data/response/status.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/components/constants.dart';
+import '../../../resources/components/custom_basic_information_field.dart';
 import '../../../view_model/services/navigation_services.dart';
 
 class SponsorProfileView extends StatefulWidget {
@@ -67,7 +68,7 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
         Container(
             // height: double.infinity,
             // width: double.infinity,
-            margin: const EdgeInsets.only(top: 120, bottom: 50),
+            margin: const EdgeInsets.only(top: 120, bottom: 0),
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: RefreshIndicator(
               backgroundColor: Colors.black,
@@ -90,10 +91,6 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
                     //footer : Change password and Start Survey Button
                     footer(),
 
-                    ////just to make enable pull to refresh: Bad Approach
-                    const SizedBox(
-                      height: 120,
-                    )
                   ],
                 ),
               ),
@@ -105,7 +102,6 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
   Widget edit() {
     return GestureDetector(
       onTap: () {
-        _navigationServices.pushNamed("/profileEditPage");
       },
       child: const Padding(
         padding: const EdgeInsets.only(top: 8, bottom: 8),
@@ -160,42 +156,6 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
     );
   }
 
-  Widget userInformation({required String title, required String field}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8, bottom: 8),
-      child: Column(children: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "$title : ",
-              style: MyColorScheme.detailTitleTextStyle(),
-            ),
-            SizedBox(
-                height: 20,
-                width: MediaQuery.sizeOf(context).width * 0.65,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Column(
-                    children: [
-                      Expanded(
-                          child: Text(field,
-                              style: title != 'Status'
-                                  ? MyColorScheme.detailFieldTextStyle()
-                                  : MyColorScheme.detailStatusTextStyle())),
-                    ],
-                  ),
-                )),
-          ],
-        ),
-        Divider(
-          color: Colors.white.withOpacity(0.7),
-        )
-      ]),
-    );
-  }
-
   Widget appUserInformation() {
     return Consumer<SponsorProfileInformationViewModel>(
         builder: (context, providerValue, Widget? child) {
@@ -234,31 +194,31 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                userInformation(
+                CustomBasicInformationField(
                     title: "Name",
                     field:
-                        '${providerValue.profileInfo.data!.surveyor!.firstname.toString()} ${providerValue.profileInfo.data!.surveyor!.lastname.toString()}'),
-                userInformation(
+                        '${providerValue.profileInfo.data!.surveyor!.firstname.toString()} ${providerValue.profileInfo.data!.surveyor!.lastname.toString()}', context: context),
+                CustomBasicInformationField(
                     title: "E-mail",
                     field: providerValue.profileInfo.data!.surveyor!.email
-                        .toString()),
-                userInformation(
+                        .toString(), context: context),
+                CustomBasicInformationField(
                     title: "Phone",
                     field: providerValue.profileInfo.data!.surveyor!.mobile
-                        .toString()),
-                userInformation(
+                        .toString(), context: context),
+                CustomBasicInformationField(
                     title: "Country",
                     field:
-                        '${providerValue.profileInfo.data?.surveyor!.address!.country.toString()}'),
-                userInformation(
+                        '${providerValue.profileInfo.data?.surveyor!.address!.country.toString()}', context: context),
+                CustomBasicInformationField(
                     title: "Balance",
                     field:
-                        '${providerValue.profileInfo.data?.surveyor!.balance.toString()}'),
-                userInformation(
+                        '${providerValue.profileInfo.data?.surveyor!.balance.toString()}', context: context),
+                CustomBasicInformationField(
                     title: "Status",
                     field: providerValue.profileInfo.data!.surveyor!.status == 1
                         ? "Active"
-                        : "Not Active"),
+                        : "Not Active", context: context),
               ],
             ),
           );
@@ -270,10 +230,6 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
       }
     });
 
-    //
-    //   return Consumer<UserProfileInformationProvider>(
-    //       builder: (context, providerValue, Widget? child) {
-    //   });
   }
 
   Widget footerButton(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:radigone_v3/resources/colors.dart';
 
 import '../../../resources/components/background_designs.dart';
+import '../../../resources/components/custom_basic_information_field.dart';
 import '../../../resources/components/custom_header.dart';
 
 class TransactionDetailView extends StatefulWidget {
@@ -32,7 +33,7 @@ class _TransactionDetailViewState extends State<TransactionDetailView> {
       children: [
         const LowerBackgroundDesign(),
         const UpperBackgroundDesign(),
-        CustomHeaderWithBackButton(
+        const CustomHeaderWithBackButton(
           title: "Transaction Detail",
         ),
         Container(
@@ -59,29 +60,30 @@ class _TransactionDetailViewState extends State<TransactionDetailView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
-          transactionInformation(
+          CustomBasicInformationField(
               title: 'Amount',
               field: widget.amount ?? "Amount",
               context: context),
-          transactionInformation(
+          CustomBasicInformationField(
               title: 'Bank Charge',
               field: widget.bankCharge ?? 'Bank Charge',
               context: context),
-          transactionInformation(
+          CustomBasicInformationField(
               title: 'Post Balance',
               field: widget.postBalance ?? "Post Balance",
               context: context),
-          transactionInformation(
+          CustomBasicInformationField(
               title: 'Transaction Id',
               field: widget.transactionId ?? "Transaction Id",
               context: context),
-          transactionInformation(
+          CustomBasicInformationField(
               title: "Details",
               field: widget.details ?? "Details",
               context: context),
-          transactionInformation(
+          CustomBasicInformationField(
               title: 'Created At',
               field: widget.createdAt ?? 'createdAt',
+
               context: context)
         ],
       ),
@@ -91,41 +93,3 @@ class _TransactionDetailViewState extends State<TransactionDetailView> {
 
 
 
-Widget transactionInformation(
-    {required String title,
-    required String field,
-    required BuildContext context}) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 8, bottom: 8),
-    child: Column(children: [
-      Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            "$title : ",
-            style: MyColorScheme.detailTitleTextStyle(),
-          ),
-          SizedBox(
-              height: 20,
-              width: MediaQuery.sizeOf(context).width * 0.65,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Column(
-                  children: [
-                    Expanded(
-                        child: Text(field,
-                            style: title != 'Status'
-                                ? MyColorScheme.detailFieldTextStyle()
-                                : MyColorScheme.detailStatusTextStyle()),)
-                  ],
-                ),
-              )),
-        ],
-      ),
-      Divider(
-        color: Colors.white.withOpacity(0.7),
-      )
-    ]),
-  );
-}
