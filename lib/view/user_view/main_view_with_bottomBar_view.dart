@@ -117,7 +117,7 @@ class _UserMainViewState extends State<UserMainView> {
                   });
                 },
                 child: Container(
-                  color: Colors.red,
+                  color: Colors.transparent,
                   width: MediaQuery.sizeOf(context).width * .25,
 
                   child: Column(
@@ -149,7 +149,7 @@ class _UserMainViewState extends State<UserMainView> {
                 },
                 child: Container(
                   width: MediaQuery.sizeOf(context).width * .25,
-                  color: Colors.green,
+                  color: Colors.transparent,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -178,7 +178,7 @@ class _UserMainViewState extends State<UserMainView> {
                   });
                 },
                 child: Container(
-                  color: Colors.blue,
+                  color: Colors.transparent,
                   width: MediaQuery.sizeOf(context).width * .25,
 
                   child: Column(
@@ -209,7 +209,7 @@ class _UserMainViewState extends State<UserMainView> {
                   });
                 },
                 child: Container(
-                  color: Colors.deepOrange,
+                  color: Colors.transparent,
                   width: MediaQuery.sizeOf(context).width * .25,
 
                   child: Column(

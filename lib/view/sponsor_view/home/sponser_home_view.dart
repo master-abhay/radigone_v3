@@ -407,6 +407,7 @@ import 'package:radigone_v3/view_model/user_view_model/user_points_view_model.da
 import '../../../data/response/status.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/components/account_Status.dart';
+import '../../../resources/components/background_designs.dart';
 import '../../../resources/components/constants.dart';
 import '../../../resources/components/dashboard_info_container.dart';
 import '../../../view_model/services/auth_services.dart';
@@ -470,6 +471,31 @@ class _SponsorHomeViewState extends State<SponsorHomeView> {
     _initializeValues();
   }
 
+  Future<void> _onRefresh()async{
+    // await Future.delayed(const Duration(seconds: 2));
+
+    final provider =
+    Provider.of<DashboardUserProvider>(context, listen: false);
+    await provider.setUsername();
+    await provider.setPassword();
+    await provider.setToken();
+    await provider.loginUserDashboard(context);
+
+    final provider1 =
+    Provider.of<UserRadigonePointViewModel>(context, listen: false);
+    await provider1.setUsername();
+    await provider1.setPassword();
+    await provider1.setToken();
+    await provider1.fetchUserRadigonePoint(context);
+
+    final provider2 =
+    Provider.of<UserPointsViewModel>(context, listen: false);
+    await provider2.setUsername();
+    await provider2.setMobile();
+    await provider2.fetchUserPoints(context);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -509,10 +535,7 @@ class _SponsorHomeViewState extends State<SponsorHomeView> {
   Widget buildUI() {
     return Stack(
       children: [
-        Container(
-          height: double.infinity,
-          decoration: const BoxDecoration(color: MyColorScheme.lightGrey0),
-        ),
+        const LowerBackgroundDesign(),
         Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height / 3.75,
@@ -521,22 +544,33 @@ class _SponsorHomeViewState extends State<SponsorHomeView> {
               borderRadius:
                   BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
         ),
+
+
+
         SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
               height: double.infinity,
               width: double.infinity,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    //To show the Status of the Account
-                    const AccountStatus(), //To show App Bar of the app:
-                    headerText(),
+              child: RefreshIndicator(
+                backgroundColor: Colors.black,
+                color: Colors.white,
+                displacement: 40,
+                strokeWidth: 1.5,
 
-                    //MainContainers:
-                    mainOutlinedContainer(context),
-                  ],
+                onRefresh: _onRefresh,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      //To show the Status of the Account
+                      const AccountStatus(), //To show App Bar of the app:
+                      headerText(),
+
+                      //MainContainers:
+                      mainOutlinedContainer(context),
+                    ],
+                  ),
                 ),
               ),
             ),

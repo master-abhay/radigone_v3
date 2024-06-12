@@ -162,8 +162,10 @@ class _UserSideBarState extends State<UserSideBar> {
                       "Transaction",
                       style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
-                    leading: SvgPicture.asset(
-                        "images/images_user_sidebar/recharge_wallet.svg"),
+                    leading:
+                    // SvgPicture.asset("images/images_user_sidebar/recharge_wallet.svg"),
+                    SvgPicture.asset("images/coin.svg",height: 19,width: 19,),
+
                     dense: true,
                     horizontalTitleGap: 5,
                     onTap: () {
@@ -172,121 +174,121 @@ class _UserSideBarState extends State<UserSideBar> {
                     },
                   ),
 
+//// Will be used in Phase 2
+//                   ExpansionTile(
+//                     title: Row(
+//                       children: [
+//                         SvgPicture.asset(
+//                           "images/images_user_sidebar/coupons.svg",
+//                           // Adjust the icon size if needed
+//                         ),
+//                         const SizedBox(width: 13),
+//                         // Adjust the space between icon and text
+//                         const Text(
+//                           "Support Ticket",
+//                           style: TextStyle(color: Colors.white, fontSize: 14),
+//                         ),
+//                       ],
+//                     ),
+//                     iconColor: Colors.white,
+//                     collapsedIconColor: Colors.white,
+//                     children: <Widget>[
+//                       GestureDetector(
+//                         onTap: () {
+//                           _navigationServices.goBack();
+//                           _navigationServices.pushNamed('/createTicketView');
+//                         },
+//                         child:Container(
+//                           color: Colors.transparent,
+//                             padding: const EdgeInsets.all(8),
+//                             // width: MediaQuery.sizeOf(context).width * 0.3,
+//                             child: Row(
+//                               mainAxisSize: MainAxisSize.max,
+//                               children: [
+//                                 SizedBox(width: MediaQuery.of(context).size.width*0.2,),
+//                                 SvgPicture.asset(
+//                                     "images/images_sponser_sidebar/deposit_dropdown.svg"),
+//                                 const SizedBox(
+//                                   width: 10,
+//                                 ),
+//                                 const Text(
+//                                   "Create Ticket",
+//                                   style:
+//                                   TextStyle(color: Colors.white, fontSize: 14),
+//                                 )
+//                               ],
+//                             )),
+//                       ),
+//                       GestureDetector(
+//                         onTap: () {
+//                           _navigationServices.goBack();
+//                           _navigationServices.pushNamed('/myTicketView');
+//                         },
+//                         child: Container(
+//                           color: Colors.transparent,
+//                             padding: const EdgeInsets.all(8),
+//                             // width: MediaQuery.sizeOf(context).width * 0.3,
+//                             child: Row(
+//                               mainAxisSize: MainAxisSize.max,
+//                               children: [
+//                                 SizedBox(width: MediaQuery.of(context).size.width*0.2,),
+//                                 SvgPicture.asset(
+//                                     "images/images_sponser_sidebar/deposit_dropdown.svg"),
+//                                 const SizedBox(
+//                                   width: 10,
+//                                 ),
+//                                 const Text(
+//                                   "My Tickets",
+//                                   style:
+//                                   TextStyle(color: Colors.white, fontSize: 14),
+//                                 )
+//                               ],
+//                             )),
+//                       ),
+//                     ],
+//                   ),
 
-                  ExpansionTile(
-                    title: Row(
-                      children: [
-                        SvgPicture.asset(
-                          "images/images_user_sidebar/coupons.svg",
-                          // Adjust the icon size if needed
-                        ),
-                        const SizedBox(width: 13),
-                        // Adjust the space between icon and text
-                        const Text(
-                          "Support Ticket",
-                          style: TextStyle(color: Colors.white, fontSize: 14),
-                        ),
-                      ],
-                    ),
-                    iconColor: Colors.white,
-                    collapsedIconColor: Colors.white,
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          _navigationServices.goBack();
-                          _navigationServices.pushNamed('/createTicketView');
-                        },
-                        child:Container(
-                          color: Colors.transparent,
-                            padding: const EdgeInsets.all(8),
-                            // width: MediaQuery.sizeOf(context).width * 0.3,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                SizedBox(width: MediaQuery.of(context).size.width*0.2,),
-                                SvgPicture.asset(
-                                    "images/images_sponser_sidebar/deposit_dropdown.svg"),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                const Text(
-                                  "Create Ticket",
-                                  style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
-                                )
-                              ],
-                            )),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _navigationServices.goBack();
-                          _navigationServices.pushNamed('/myTicketView');
-                        },
-                        child: Container(
-                          color: Colors.transparent,
-                            padding: const EdgeInsets.all(8),
-                            // width: MediaQuery.sizeOf(context).width * 0.3,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                SizedBox(width: MediaQuery.of(context).size.width*0.2,),
-                                SvgPicture.asset(
-                                    "images/images_sponser_sidebar/deposit_dropdown.svg"),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                const Text(
-                                  "My Tickets",
-                                  style:
-                                  TextStyle(color: Colors.white, fontSize: 14),
-                                )
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
 
-
-                  ListTile(
-                    // minTileHeight: MediaQuery.of(context).size.width * 0.12,
-                    title: const Text(
-                      "Earning",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                    leading: SvgPicture.asset(
-                        "images/images_user_sidebar/earning.svg"),
-                    dense: true,
-                    horizontalTitleGap: 5,
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    // minTileHeight: MediaQuery.of(context).size.width * 0.12,
-                    title: const Text(
-                      "Coupons",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                    leading: SvgPicture.asset(
-                        "images/images_user_sidebar/coupons.svg"),
-                    dense: true,
-                    horizontalTitleGap: 5,
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    // minTileHeight: MediaQuery.of(context).size.width * 0.12,
-                    title: const Text(
-                      "Ads Preferences",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                    leading: SvgPicture.asset(
-                        "images/images_user_sidebar/ads_preferences.svg"),
-                    dense: true,
-                    horizontalTitleGap: 5,
-                    onTap: () {
-
-                      _navigationServices.pushNamed('/adsPreferencesView');
-
-                    },
-                  ),
+                  // ListTile(
+                  //   // minTileHeight: MediaQuery.of(context).size.width * 0.12,
+                  //   title: const Text(
+                  //     "Earning",
+                  //     style: TextStyle(color: Colors.white, fontSize: 14),
+                  //   ),
+                  //   leading: SvgPicture.asset(
+                  //       "images/images_user_sidebar/earning.svg"),
+                  //   dense: true,
+                  //   horizontalTitleGap: 5,
+                  //   onTap: () {},
+                  // ),
+                  // ListTile(
+                  //   // minTileHeight: MediaQuery.of(context).size.width * 0.12,
+                  //   title: const Text(
+                  //     "Coupons",
+                  //     style: TextStyle(color: Colors.white, fontSize: 14),
+                  //   ),
+                  //   leading: SvgPicture.asset(
+                  //       "images/images_user_sidebar/coupons.svg"),
+                  //   dense: true,
+                  //   horizontalTitleGap: 5,
+                  //   onTap: () {},
+                  // ),
+                  // ListTile(
+                  //   // minTileHeight: MediaQuery.of(context).size.width * 0.12,
+                  //   title: const Text(
+                  //     "Ads Preferences",
+                  //     style: TextStyle(color: Colors.white, fontSize: 14),
+                  //   ),
+                  //   leading: SvgPicture.asset(
+                  //       "images/images_user_sidebar/ads_preferences.svg"),
+                  //   dense: true,
+                  //   horizontalTitleGap: 5,
+                  //   onTap: () {
+                  //
+                  //     _navigationServices.pushNamed('/adsPreferencesView');
+                  //
+                  //   },
+                  // ),
                   ListTile(
                     // minTileHeight: MediaQuery.of(context).size.width * 0.12,
                     title: const Text(
@@ -299,18 +301,18 @@ class _UserSideBarState extends State<UserSideBar> {
                     horizontalTitleGap: 5,
                     onTap: () {},
                   ),
-                  ListTile(
-                    // minTileHeight: MediaQuery.of(context).size.width * 0.12,
-                    title: const Text(
-                      "Recharge Wallet",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                    leading: SvgPicture.asset(
-                        "images/images_user_sidebar/recharge_wallet.svg"),
-                    dense: true,
-                    horizontalTitleGap: 5,
-                    onTap: () {},
-                  ),
+                  // ListTile(
+                  //   // minTileHeight: MediaQuery.of(context).size.width * 0.12,
+                  //   title: const Text(
+                  //     "Recharge Wallet",
+                  //     style: TextStyle(color: Colors.white, fontSize: 14),
+                  //   ),
+                  //   leading: SvgPicture.asset(
+                  //       "images/images_user_sidebar/recharge_wallet.svg"),
+                  //   dense: true,
+                  //   horizontalTitleGap: 5,
+                  //   onTap: () {},
+                  // ),
                 ],
               ),
             ],

@@ -32,7 +32,7 @@ class _TransactionDetailViewState extends State<TransactionDetailView> {
       children: [
         const LowerBackgroundDesign(),
         const UpperBackgroundDesign(),
-        CustomHeader(
+        CustomHeaderWithBackButton(
           title: "Transaction Detail",
         ),
         Container(

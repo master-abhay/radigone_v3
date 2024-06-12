@@ -51,8 +51,8 @@ class _CustomHeaderState extends State<CustomHeader> {
 }
 
 class CustomHeaderWithBackButton extends StatefulWidget {
-  String? title;
-  CustomHeaderWithBackButton({super.key, this.title});
+  final String title;
+  const CustomHeaderWithBackButton({super.key, required this.title});
 
   @override
   State<CustomHeaderWithBackButton> createState() =>
@@ -73,61 +73,106 @@ class _CustomHeaderWithBackButtonState
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 60, bottom: 40),
-      padding: const EdgeInsets.only(left: 30, right: 30),
-      child: Material(
-        elevation: 1,
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          width: MediaQuery.sizeOf(context).width * 0.9,
-          height: MediaQuery.sizeOf(context).width * 0.15,
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            // mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 2,
-                  child: Container(
-                    // color: Colors.white,
-                    child: IconButton(
-                      onPressed: () {
-                        _navigationServices.goBack();
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back_ios_new,
-                        color: Colors.white,
+        margin: const EdgeInsets.only(top: 60, bottom: 40),
+        padding: const EdgeInsets.only(left: 30, right: 30),
+        child:
+
+            ////Now below code is deprecated....
+            // Material(
+            //   elevation: 1,
+            //   borderRadius: BorderRadius.circular(12),
+            //   child: Container(
+            //     width: MediaQuery.sizeOf(context).width * 0.9,
+            //     height: MediaQuery.sizeOf(context).width * 0.15,
+            //     decoration: BoxDecoration(
+            //       color: Colors.black,
+            //       borderRadius: BorderRadius.circular(12),
+            //     ),
+            //     child: Row(
+            //       mainAxisSize: MainAxisSize.max,
+            //       // mainAxisAlignment: MainAxisAlignment.center,
+            //       // crossAxisAlignment: CrossAxisAlignment.center,
+            //       children: [
+            //         Expanded(
+            //           flex: 2,
+            //             child: Container(
+            //               // color: Colors.white,
+            //               child: IconButton(
+            //                 onPressed: () {
+            //                   _navigationServices.goBack();
+            //                 },
+            //                 icon: const Icon(
+            //                   Icons.arrow_back_ios_new,
+            //                   color: Colors.white,
+            //                 ),
+            //               ),
+            //             )),
+            //         Expanded(
+            //           flex: 20,
+            //           child: Container(
+            //             // color: Colors.green,
+            //             child: Row(
+            //               mainAxisSize: MainAxisSize.max,
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               crossAxisAlignment: CrossAxisAlignment.center,
+            //               children: [
+            //                 Text(
+            //                   widget.title ?? "Title",
+            //                   style: const TextStyle(
+            //                       color: Colors.white,
+            //                       fontSize: 20,
+            //                       fontWeight: FontWeight.w600),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            Material(
+          elevation: 1,
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            width: MediaQuery.sizeOf(context).width * 0.9,
+            height: MediaQuery.sizeOf(context).width * 0.15,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Text(
+                  widget.title,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back_ios_new,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          _navigationServices.goBack();
+                        },
                       ),
                     ),
-                  )),
-              Expanded(
-                flex: 20,
-                child: Container(
-                  // color: Colors.green,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        widget.title ?? "Title",
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
-              )
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

@@ -33,10 +33,6 @@ class MyColorScheme {
         fontSize: 14, fontWeight: FontWeight.w500, color: Color(0xff2BD41C));
   }
 
-  static  TextStyle transactionAdd() {
-    return const TextStyle(
-        fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xff2BD41C));
-  }
   static  TextStyle transactionMinus() {
     return const TextStyle(
         fontSize: 14, fontWeight: FontWeight.w600, color: Colors.redAccent);

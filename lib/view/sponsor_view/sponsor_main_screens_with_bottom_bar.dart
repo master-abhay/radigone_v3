@@ -137,7 +137,7 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
                   });
                 },
                 child: Container(
-                  color: Colors.green,
+                  color: Colors.transparent,
                   width: MediaQuery.sizeOf(context).width * .25,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -167,7 +167,7 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
                   });
                 },
                 child: Container(
-                  color: Colors.red,
+                  color: Colors.transparent,
                   width: MediaQuery.sizeOf(context).width * .25,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -198,7 +198,7 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
                   });
                 },
                 child: Container(
-                  color: Colors.blue,
+                  color: Colors.transparent,
                   width: MediaQuery.sizeOf(context).width * .25,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -229,7 +229,7 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
                   });
                 },
                 child: Container(
-                  color: Colors.purple,
+                  color: Colors.transparent,
                   width: MediaQuery.sizeOf(context).width * .25,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
