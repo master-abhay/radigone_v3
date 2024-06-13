@@ -5,6 +5,8 @@ import 'package:radigone_v3/view/user_view/main_view_with_bottomBar_view.dart';
 
 import '../../view/agent_view/agent_authentication/agent_login_view.dart';
 import '../../view/agent_view/agent_main_view_with_bottom_bar.dart';
+import '../../view/agent_view/side_menu_bar_view/agent_earning_view.dart';
+import '../../view/agent_view/side_menu_bar_view/agent_referral_view.dart';
 import '../../view/common_view/login_registration_view.dart';
 import '../../view/common_view/select_login_view.dart';
 import '../../view/common_view/select_registration_view.dart';
@@ -55,7 +57,8 @@ class NavigationServices {
 
 
 
-
+    "/agentReferralView": (context) => const AgentReferralView(),
+    "/agentEarningView": (context) => const AgentEarningView(),
     "/sponsorCalendarView": (context) => const SponsorCalendarView(),
     "/sponsorChangePasswordView": (context) => const SponsorChangePasswordView(),
     "/sponsorMyTicketsView": (context) => const SponsorMyTicketsView(),

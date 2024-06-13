@@ -11,6 +11,7 @@ class CustomTextField extends StatefulWidget {
   bool? textCapitalization;
   Widget? icon;
   int? maxLines;
+  bool? filled;
   final void Function(String? value) onChanged;
 
   CustomTextField(
@@ -25,6 +26,7 @@ class CustomTextField extends StatefulWidget {
       required this.isNumber,
       this.icon,
       this.maxLines,
+        this.filled,
       required this.onChanged});
 
   @override
@@ -41,6 +43,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       maxLines: widget.maxLines,
       textCapitalization: widget.textCapitalization == true ? TextCapitalization.sentences : TextCapitalization.none,
       decoration: InputDecoration(
+
         errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
         contentPadding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.02,
@@ -70,7 +73,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         labelText: widget.hintText,
         labelStyle:
             TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 15),
-        filled: true,
+        filled: widget.filled ?? true,
         fillColor: Colors.black12,
       ),
       cursorColor: Colors.white,

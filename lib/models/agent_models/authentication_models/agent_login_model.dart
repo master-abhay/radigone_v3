@@ -1,7 +1,7 @@
 /// success : true
 /// message : "Agent Logged In Successfully"
-/// data : {"id":12,"user_id":"arunai234","firstname":"Arush","lastname":"Naik","username":"arushnaik","email":"admin@example.com","mobile":"916207638302","ref_by":null,"balance":"0.00000000","image":null,"address":{"address":"dgwyegfe3gf3","state":"madhya pradesh","zip":"2343535","country":"India","city":"eerbr"},"av":0,"status":1,"ev":1,"sv":1,"rv":1,"ver_code":null,"ver_code_send_at":null,"ts":0,"tv":1,"tsc":null,"provider":null,"provider_id":null,"bought_views":0,"total_views":0,"created_at":"2024-05-02T10:42:51.000000Z","updated_at":"2024-05-02T10:44:00.000000Z","title":"MR","business_cat":15,"business_subcat":"test1","profiling_service":null,"multi_login":0,"num_login":0,"registration_fees":0,"firm_name":"Abhay","firm_type":"Private limited","firm_gstin":"22AAAAA0000A1Z5","id_proof":"/uploads/agent/pan_card/1714646571-pan_card.png","is_check":1,"pan":null,"address_proof":"/uploads/agent/address_proof/1714646571-address_proof.png","designation":"Authorized person","isfirm":1}
-/// token : "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOWYzMGRiODA0NDc5YjY4OTU1NzM4ZDZhMmU1N2FjNjFmNjAzOWU2MDFiNzNjNGYwNjE1MDZhYWM5MjJkNzAwYzUyZmViMGQxNDM2ZTA0ZWQiLCJpYXQiOjE3MTc3Njg4ODcuMjI2ODA5OTc4NDg1MTA3NDIxODc1LCJuYmYiOjE3MTc3Njg4ODcuMjI2ODE0MDMxNjAwOTUyMTQ4NDM3NSwiZXhwIjoxNzQ5MzA0ODg3LjE5NzExODA0Mzg5OTUzNjEzMjgxMjUsInN1YiI6IjEyIiwic2NvcGVzIjpbXX0.M6jQfDTJRMp5he66Tf2iXMI7get7z237S-5Zp_CdXEMu_N3iF9Osdb37yj56hmXqxmw_h-icwItNm9VsZuMxQLL6nEHB6qzBTtgTnidc7bvsU33turQgaokMRd-MeHKbgIAFaGYGRaGl6ZT_YTVOkE9OhNoWJGAalyd-_Ssz0uGu76SOKX7MZvMNZQH8Iwy-oh1bQ_BzqJW1VHhqLu1uzuVyC9fmxFV7n-pjwDVHhk3iOkO_83Jn57wF-6VDgQjP4VWniXN6COa-CyQXjQy3w-Eq5CL0GfH7WU9UGhtz3kAAXZ-J9w3JjLCDDrN8CmJcc8ZWkA4dW1P1pkYueHQs_EXiAsIHPvYkZxmN3zVejFR0zp1C-OX4gBX-MxFOkuwg-w190Hr_FGjP6J1letKYRS6VyWFG8LT7OAc56XuliXjPnFaXInZ0CP8T0-HMKksFs2WA5NC1AYka8m93OE1Cy0ehToBrbSKo5rwB55i3oI8xWLDVIkLhDnlk5wRzi8TYjdU7v2NkXxOaQvGNvmMiXMcJonHyJYDlFOtLehyCHJpjchht2INCZn6Wcwu2L1yjremoI0JlW55kl1OOGTJAfOiL0pgtnD6e0ZaXBof2fGF5xK-xrhHec3mBMvIvJTBQR2F-hYg0QluxJkcSGUD9FooIDrbU1ym07oisqbV6hzQ"
+/// data : {"id":13,"user_id":"AbhKum177","firstname":"Abhay","lastname":"Kumar","username":"AbhayKumar11","email":"master.abhay71052@gmail.com","mobile":"918091771052","ref_by":null,"balance":"0.00000000","image":null,"address":{"address":"VPO Lahar","state":"HP","zip":"177044","country":"India","city":"Hamirpur"},"av":0,"status":1,"ev":1,"sv":1,"rv":1,"ver_code":null,"ver_code_send_at":null,"ts":0,"tv":1,"tsc":null,"provider":null,"provider_id":null,"bought_views":0,"total_views":0,"created_at":"2024-06-13T10:49:47.000000Z","updated_at":"2024-06-13T10:51:12.000000Z","title":"MR","business_cat":15,"business_subcat":null,"profiling_service":null,"multi_login":0,"num_login":0,"registration_fees":0,"firm_name":"Master","firm_type":"Partnership","firm_gstin":null,"id_proof":"/uploads/agent/pan_card/1718275787-pan_card.png","is_check":1,"pan":null,"address_proof":"/uploads/agent/address_proof/1718275787-address_proof.png","designation":"Authorized person","isfirm":1}
+/// token : "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNTY3MzJlZmQ1OTE5Njc0YWM1NjRhYzBjMTI1MTVlYTcwZWViYTJkZjM5NjgzZjA5YjYxNTUwNGNhODRkY2FkMzA2YWRkN2M3OGRmNjA4OWEiLCJpYXQiOjE3MTgyNzU4ODcuNzAzMjc0OTY1Mjg2MjU0ODgyODEyNSwibmJmIjoxNzE4Mjc1ODg3LjcwMzI3OTAxODQwMjA5OTYwOTM3NSwiZXhwIjoxNzQ5ODExODg3LjY2MTQ2MTExNDg4MzQyMjg1MTU2MjUsInN1YiI6IjEzIiwic2NvcGVzIjpbXX0.gy2amBpaag8Yq0blFLWoaAAQOOw2v2DSUOUib8OUAvcisshRfPreRr7aVXRdw_D3Z6e45_QdH4tWRaJGT0Au7u6KRF5_KBuucEHP8XU0gF2RpelrO8kNKyfBVxfTwSekiA9fpHmtzAX66XB6zMB5xQ45cLlhnYzFgQ66XTEV2yyQUiJWbG2w5F-TXBffc70SE0nkHG5x_4EN9OrC6lnKgXjOeVgYCiTZX2XONtpalAJiEObgJGXJ7yDCjK5MXYpTjQu6L904sH4LiiYMMEpZ5q4S1kNQonyg7868Y6r-YTESLKzM1yOJuNfdzwybLOy_v40bwA-k0jCHQShyF8jWD3b7QK1mzGiQVh8G1FPu1AuUcL_AZLgKhi1cLuGjOmKM7WQfpQqbcZMriXk1N3G4rVmPtzHoJz3MMIRd4qGvRNqBFzsbjqcqrcCh-w1zZjEHzevQLFJICG75hlYs1RikP7JTJ0UrN_BlrhkE_6Ci1gKDkJgrb0g36ve5CVlctslIXIS49xmymZ4lBuVJ6QYvkXzktPENBnbyAunhoAo37UCC4Aor4V_UBZtzoxWiSBc5fcodkqIfpgi7SL6Y24eriYITPmb9zNWm_2OGsw1uB353V5WinLciRDNhcfPDiST32uWa7EA2lOZdByEgiU4sMz49Yp_nGZg7_K7y_XCuqU8"
 /// token_type : "Bearer"
 
 class AgentLoginModel {
@@ -61,17 +61,17 @@ AgentLoginModel copyWith({  bool? success,
 
 }
 
-/// id : 12
-/// user_id : "arunai234"
-/// firstname : "Arush"
-/// lastname : "Naik"
-/// username : "arushnaik"
-/// email : "admin@example.com"
-/// mobile : "916207638302"
+/// id : 13
+/// user_id : "AbhKum177"
+/// firstname : "Abhay"
+/// lastname : "Kumar"
+/// username : "AbhayKumar11"
+/// email : "master.abhay71052@gmail.com"
+/// mobile : "918091771052"
 /// ref_by : null
 /// balance : "0.00000000"
 /// image : null
-/// address : {"address":"dgwyegfe3gf3","state":"madhya pradesh","zip":"2343535","country":"India","city":"eerbr"}
+/// address : {"address":"VPO Lahar","state":"HP","zip":"177044","country":"India","city":"Hamirpur"}
 /// av : 0
 /// status : 1
 /// ev : 1
@@ -86,22 +86,22 @@ AgentLoginModel copyWith({  bool? success,
 /// provider_id : null
 /// bought_views : 0
 /// total_views : 0
-/// created_at : "2024-05-02T10:42:51.000000Z"
-/// updated_at : "2024-05-02T10:44:00.000000Z"
+/// created_at : "2024-06-13T10:49:47.000000Z"
+/// updated_at : "2024-06-13T10:51:12.000000Z"
 /// title : "MR"
 /// business_cat : 15
-/// business_subcat : "test1"
+/// business_subcat : null
 /// profiling_service : null
 /// multi_login : 0
 /// num_login : 0
 /// registration_fees : 0
-/// firm_name : "Abhay"
-/// firm_type : "Private limited"
-/// firm_gstin : "22AAAAA0000A1Z5"
-/// id_proof : "/uploads/agent/pan_card/1714646571-pan_card.png"
+/// firm_name : "Master"
+/// firm_type : "Partnership"
+/// firm_gstin : null
+/// id_proof : "/uploads/agent/pan_card/1718275787-pan_card.png"
 /// is_check : 1
 /// pan : null
-/// address_proof : "/uploads/agent/address_proof/1714646571-address_proof.png"
+/// address_proof : "/uploads/agent/address_proof/1718275787-address_proof.png"
 /// designation : "Authorized person"
 /// isfirm : 1
 
@@ -136,14 +136,14 @@ class Data {
       String? updatedAt, 
       String? title, 
       num? businessCat, 
-      String? businessSubcat, 
+      dynamic businessSubcat, 
       dynamic profilingService, 
       num? multiLogin, 
       num? numLogin, 
       num? registrationFees, 
       String? firmName, 
       String? firmType, 
-      String? firmGstin, 
+      dynamic firmGstin, 
       String? idProof, 
       num? isCheck, 
       dynamic pan, 
@@ -269,14 +269,14 @@ class Data {
   String? _updatedAt;
   String? _title;
   num? _businessCat;
-  String? _businessSubcat;
+  dynamic _businessSubcat;
   dynamic _profilingService;
   num? _multiLogin;
   num? _numLogin;
   num? _registrationFees;
   String? _firmName;
   String? _firmType;
-  String? _firmGstin;
+  dynamic _firmGstin;
   String? _idProof;
   num? _isCheck;
   dynamic _pan;
@@ -312,14 +312,14 @@ Data copyWith({  num? id,
   String? updatedAt,
   String? title,
   num? businessCat,
-  String? businessSubcat,
+  dynamic businessSubcat,
   dynamic profilingService,
   num? multiLogin,
   num? numLogin,
   num? registrationFees,
   String? firmName,
   String? firmType,
-  String? firmGstin,
+  dynamic firmGstin,
   String? idProof,
   num? isCheck,
   dynamic pan,
@@ -399,14 +399,14 @@ Data copyWith({  num? id,
   String? get updatedAt => _updatedAt;
   String? get title => _title;
   num? get businessCat => _businessCat;
-  String? get businessSubcat => _businessSubcat;
+  dynamic get businessSubcat => _businessSubcat;
   dynamic get profilingService => _profilingService;
   num? get multiLogin => _multiLogin;
   num? get numLogin => _numLogin;
   num? get registrationFees => _registrationFees;
   String? get firmName => _firmName;
   String? get firmType => _firmType;
-  String? get firmGstin => _firmGstin;
+  dynamic get firmGstin => _firmGstin;
   String? get idProof => _idProof;
   num? get isCheck => _isCheck;
   dynamic get pan => _pan;
@@ -466,11 +466,11 @@ Data copyWith({  num? id,
 
 }
 
-/// address : "dgwyegfe3gf3"
-/// state : "madhya pradesh"
-/// zip : "2343535"
+/// address : "VPO Lahar"
+/// state : "HP"
+/// zip : "177044"
 /// country : "India"
-/// city : "eerbr"
+/// city : "Hamirpur"
 
 class Address {
   Address({

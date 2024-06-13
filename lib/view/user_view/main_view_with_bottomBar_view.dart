@@ -36,11 +36,8 @@ class _UserMainViewState extends State<UserMainView> {
   Future<void> initializeValues() async {
 
     _userName = await _authService.getUserName();
-    print(_userName);
     _userEmail = await _authService.getUserEmail();
-    print(_userEmail);
     _userImageLink = await _authService.getUserImageLink() ?? PLACEHOLDER_PFP;
-    print(_userImageLink);
   }
 
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey<ScaffoldState>();
@@ -64,11 +61,6 @@ class _UserMainViewState extends State<UserMainView> {
     return Scaffold(
         key: _drawerKey,
         drawer:
-        // UserSideBar(
-        // userName: _userName,
-        // userEmail: _userEmail,
-        // userProfileImageLink: _userImageLink,),
-
 
         FutureBuilder(
             future: initializeValues(),
@@ -103,9 +95,7 @@ class _UserMainViewState extends State<UserMainView> {
             gradient: MyColorScheme.bottomNavigationBar,
           ),
           child: Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
-            mainAxisSize: MainAxisSize.max,
-            // crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               GestureDetector(
                 onTap: () {

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
+
+import '../../view_model/services/navigation_services.dart';
 
 class AgentSideBar extends StatefulWidget {
   final String? agentName;
@@ -17,6 +20,18 @@ class AgentSideBar extends StatefulWidget {
 }
 
 class _AgentSideBarState extends State<AgentSideBar> {
+
+  late NavigationServices _navigationServices;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    final GetIt getIt = GetIt.instance;
+    _navigationServices = getIt.get<NavigationServices>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -130,18 +145,21 @@ class _AgentSideBarState extends State<AgentSideBar> {
                     horizontalTitleGap: 5,
                     onTap: () {},
                   ),
-                  ListTile(
-                    // minTileHeight: MediaQuery.of(context).size.width * 0.12,
-                    title: const Text(
-                      "2FA Security",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                    leading: SvgPicture.asset(
-                        "images/images_agent_sidebar/twoFASecurity.svg"),
-                    dense: true,
-                    horizontalTitleGap: 5,
-                    onTap: () {},
-                  ),
+
+                  ////Phase 2 Implementation:
+
+                  // ListTile(
+                  //   // minTileHeight: MediaQuery.of(context).size.width * 0.12,
+                  //   title: const Text(
+                  //     "2FA Security",
+                  //     style: TextStyle(color: Colors.white, fontSize: 14),
+                  //   ),
+                  //   leading: SvgPicture.asset(
+                  //       "images/images_agent_sidebar/twoFASecurity.svg"),
+                  //   dense: true,
+                  //   horizontalTitleGap: 5,
+                  //   onTap: () {},
+                  // ),
                   ListTile(
                     // minTileHeight: MediaQuery.of(context).size.width * 0.12,
                     title: const Text(
@@ -149,10 +167,12 @@ class _AgentSideBarState extends State<AgentSideBar> {
                       style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
                     leading: SvgPicture.asset(
-                        "images/images_agent_sidebar/earning.svg"),
+                        "images/images_agent_sidebar/earning.svg",height: 17,width: 17,),
                     dense: true,
                     horizontalTitleGap: 5,
-                    onTap: () {},
+                    onTap: () {
+                      _navigationServices.pushNamed('/agentEarningView');
+                    },
                   ),
                   ListTile(
                     // minTileHeight: MediaQuery.of(context).size.width * 0.12,

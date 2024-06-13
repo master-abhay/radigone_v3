@@ -5,9 +5,9 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
-import 'package:radigone_v3/models/agent_models/authentication_models/agent_login_model.dart';
 import 'package:radigone_v3/repositories/agent/agent_auth_repository.dart';
 
+import '../../../models/agent_models/authentication_models/agent_login_model.dart';
 import '../../services/alert_services.dart';
 import '../../services/auth_services.dart';
 import '../../services/flutter_secure_storage/secure_storage.dart';
@@ -20,7 +20,7 @@ class AgentLoginViewModel with ChangeNotifier {
 
   void setUsername(String? mobile) {
     if (mobile != null && mobile.isNotEmpty) {
-      _mobile = '+91$mobile';
+      _mobile = '91$mobile';
       if (kDebugMode) {
         print("Mobile set..");
       }
@@ -94,8 +94,22 @@ class AgentLoginViewModel with ChangeNotifier {
     };
     var body = jsonEncode({"mobile": _mobile, "password": _password});
 
-    _myRepo.agentLoginApi(body: body,header: header).then((value) {
-      saveDetails(value);
+    _myRepo.agentLoginApi(body: body,header: header).then((value) async{
+      // saveDetails(value);
+      await SecureStorage().writeSecureData('username', value.data!.username!);
+      await SecureStorage().writeSecureData('password', _password!);
+      await SecureStorage()
+          .writeSecureData('token', '${value.tokenType} ${value.token}');
+      await SecureStorage()
+          .writeSecureData('mobile', value.data!.mobile.toString());
+      await SecureStorage().writeSecureData('id', value.data!.id.toString());
+      //Saving token in sharedPreferences:
+      await _authService.saveAgentToken(
+          '${value.tokenType.toString()} ${value.token.toString()}');
+      await _authService.saveAgentName(
+          '${value.data!.firstname} ${value.data!.lastname}');
+      await _authService.saveAgentEmail('${value.data!.email}');
+      await _authService.saveAgentImageLink('${value.data!.image}');
 
       _navigationServices.goBack();
       _navigationServices.pushReplacementNamed('/agentMainView');

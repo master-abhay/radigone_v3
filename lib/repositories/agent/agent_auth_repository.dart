@@ -1,7 +1,6 @@
-import 'package:radigone_v3/models/agent_models/authentication_models/agent_login_model.dart';
-
 import '../../data/network/BaseApiServices.dart';
 import '../../data/network/NetworkApiServices.dart';
+import '../../models/agent_models/authentication_models/agent_login_model.dart';
 import '../../resources/app_urls.dart';
 
 class AgentAuthRepository {

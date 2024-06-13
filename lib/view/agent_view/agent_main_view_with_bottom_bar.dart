@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 
 import 'package:radigone_v3/view/agent_view/profile/agent_profile_view.dart';
 
 import '../../resources/colors.dart';
+import '../../resources/components/constants.dart';
+import '../../view_model/services/auth_services.dart';
 import 'agent_side_menubar.dart';
 import 'deposit/agent_deposit_view.dart';
 import 'history/agent_history_view.dart';
@@ -17,6 +20,28 @@ class AgentMainView extends StatefulWidget {
 }
 
 class _AgentMainViewState extends State<AgentMainView> {
+
+  String? _agentName, _agentEmail, _agentImageLink;
+
+  late AuthService _authService;
+
+  @override
+  void initState() {
+
+    super.initState();
+    final GetIt getIt = GetIt.instance;
+    _authService = getIt.get<AuthService>();
+
+    initializeValues();
+  }
+
+  Future<void> initializeValues() async {
+
+    _agentName = await _authService.getAgentName();
+    _agentEmail = await _authService.getAgentEmail();
+    _agentImageLink = await _authService.getAgentImageLink() ?? PLACEHOLDER_PFP;
+  }
+
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey<ScaffoldState>();
 
   bool _agentHome = true;
@@ -37,7 +62,32 @@ class _AgentMainViewState extends State<AgentMainView> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _drawerKey,
-        drawer: const AgentSideBar(),
+        drawer:         FutureBuilder(
+            future: initializeValues(),
+            builder: (context, snapshot) {
+              if(snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none){
+                return const AgentSideBar(
+                  agentName: "Fetching..",
+                  agentEmail: "Fetching..",
+                  agentProfileImageLink: null,
+                );
+
+              }
+              if(snapshot.hasError){
+                print(snapshot.error.toString());
+                return const AgentSideBar(
+                  agentName: "Error..",
+                  agentEmail: "Error..",
+                  agentProfileImageLink: null,
+                );
+              }
+              return  AgentSideBar(
+                agentName: 'Hi $_agentName',
+                agentEmail: _agentEmail,
+                // agentProfileImageLink: _agentImageLink,
+              );
+            })
+      ,
         bottomNavigationBar: Container(
           height: 60,
           // padding: EdgeInsets.zero,
@@ -58,7 +108,8 @@ class _AgentMainViewState extends State<AgentMainView> {
                     _agentProfile = false;
                   });
                 },
-                child: SizedBox(
+                child: Container(
+                  color: Colors.transparent,
                   width: MediaQuery.sizeOf(context).width * .25,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -87,7 +138,8 @@ class _AgentMainViewState extends State<AgentMainView> {
                     _agentProfile = false;
                   });
                 },
-                child: SizedBox(
+                child: Container(
+                  color: Colors.transparent,
                   width: MediaQuery.sizeOf(context).width * .25,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -116,7 +168,8 @@ class _AgentMainViewState extends State<AgentMainView> {
                     _agentProfile = false;
                   });
                 },
-                child: SizedBox(
+                child: Container(
+                  color: Colors.transparent,
                   width: MediaQuery.sizeOf(context).width * .25,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -145,7 +198,8 @@ class _AgentMainViewState extends State<AgentMainView> {
                     _agentProfile = true;
                   });
                 },
-                child: SizedBox(
+                child: Container(
+                  color: Colors.transparent,
                   width: MediaQuery.sizeOf(context).width * .25,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,

@@ -133,6 +133,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/view/common_view/video_player_view.dart';
 import 'package:radigone_v3/view_model/agent_view_model/agent_authentication_viewModels/agent_login_viewModel.dart';
+import 'package:radigone_v3/view_model/agent_view_model/agent_referralLink_viewModel.dart';
 
 import 'package:radigone_v3/view_model/services/getIt_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
@@ -236,26 +237,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => SponsorCreateTicketViewModel()),
         ChangeNotifierProvider(create: (_) => SponsorMyTicketsViewModel()),
         ChangeNotifierProvider(create: (_) => SponsorCloseReplyTicketViewModel()),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        ChangeNotifierProvider(create: (_) => AgentReferralLinkViewModel()),
 
 
 
