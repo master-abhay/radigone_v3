@@ -37,6 +37,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      readOnly: widget.controller.text.isNotEmpty ? true : false,
       focusNode: widget.currentFocusNode,
       controller: widget.controller,
       autofocus: widget.autofocus ?? false,

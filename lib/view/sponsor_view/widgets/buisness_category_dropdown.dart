@@ -227,6 +227,7 @@
 
 
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class BusinessCategoryDropdown extends StatefulWidget {
@@ -344,11 +345,14 @@ class _BusinessCategoryDropdownState extends State<BusinessCategoryDropdown> {
               onChanged: (newValue) {
                 setState(() {
                   _selectedBuisnessCategory = newValue!;
-                  print("--------printing the Buisness Category $_selectedBuisnessCategory");
+                  if(kDebugMode){
+                    print("--------printing the Buisness Category $_selectedBuisnessCategory");
+                  }
                   stateDependentDropdown(
                       buisnessCategoryMap[_selectedBuisnessCategory]);
                 });
               },
+              hint: Text("select Cat..".toLowerCase()),
               padding: EdgeInsets.zero,
               isExpanded: true,
               alignment: Alignment.center,
@@ -394,6 +398,7 @@ class _BusinessCategoryDropdownState extends State<BusinessCategoryDropdown> {
             ),
             const SizedBox(height: 10),
             DropdownButtonFormField<String>(
+              disabledHint: const Text('First Select Category'),
               value:
                   _selectedSubCategory.isNotEmpty ? _selectedSubCategory : null,
               items: _subCategoryList.map((element) {

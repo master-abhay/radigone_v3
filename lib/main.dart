@@ -144,6 +144,7 @@ import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_register_viewM
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_create_ticket_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_deposit_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_myTickets_viewModel.dart';
+import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_profile_update_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_transaction_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_close_reply_ticket_viewModel.dart';
 import 'package:radigone_v3/view_model/user_view_model/change_password_view_model.dart';
@@ -238,6 +239,13 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => SponsorMyTicketsViewModel()),
         ChangeNotifierProvider(create: (_) => SponsorCloseReplyTicketViewModel()),
         ChangeNotifierProvider(create: (_) => AgentReferralLinkViewModel()),
+        ChangeNotifierProvider(create: (_) => SponsorProfileUpdateViewModel()),
+        ChangeNotifierProvider(create: (_) => FetchSponsorInformation()),
+
+
+
+
+
 
 
 

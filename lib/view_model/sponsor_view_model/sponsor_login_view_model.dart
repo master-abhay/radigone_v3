@@ -16,6 +16,8 @@ import '../services/flutter_secure_storage/secure_storage.dart';
 import '../services/navigation_services.dart';
 
 class LoginSponsorProvider with ChangeNotifier {
+
+
   String? _mobile;
   String? _password;
 
@@ -59,30 +61,6 @@ class LoginSponsorProvider with ChangeNotifier {
     _authService = getIt.get<AuthService>();
   }
 
-  Future<void> saveDetails(LoginSponsorModel value) async {
-    await SecureStorage().writeSecureData('username', value.data!.username!);
-    await SecureStorage().writeSecureData('password', _password!);
-    await SecureStorage()
-        .writeSecureData('token', '${value.tokenType} ${value.token}');
-    await SecureStorage()
-        .writeSecureData('mobile', value.data!.mobile.toString());
-    await SecureStorage().writeSecureData('id', value.data!.id.toString());
-    //Saving token in sharedPreferences:
-    await _authService.saveSponsorToken(
-        '${value.tokenType.toString()} ${value.token.toString()}');
-    await _authService.saveSponsorName(
-        '${value.data!.firstname} ${value.data!.lastname}');
-    await _authService.saveSponsorEmail('${value.data!.email}');
-    await _authService.saveSponsorImageLink('${value.data!.image}');
-
-    if (kDebugMode) {
-      print(await SecureStorage().readSecureData('username'));
-      print(await SecureStorage().readSecureData('password'));
-      print(await SecureStorage().readSecureData('token'));
-      print(await SecureStorage().readSecureData('mobile'));
-      print(await SecureStorage().readSecureData('id'));
-    }
-  }
 
   final _myRepo = SponsorAuthRepository();
 
@@ -93,6 +71,9 @@ class LoginSponsorProvider with ChangeNotifier {
       'Content-Type': 'application/json',
     };
     var body = jsonEncode({"mobile": _mobile, "password": _password});
+
+
+
 
     _myRepo.sponsorLoginApi(body: body,header: header).then((value) async{
       // saveDetails(value);
@@ -111,6 +92,7 @@ class LoginSponsorProvider with ChangeNotifier {
           '${value.data!.firstname} ${value.data!.lastname}');
       await _authService.saveSponsorEmail('${value.data!.email}');
       await _authService.saveSponsorImageLink('${value.data!.image}');
+
       _navigationServices.goBack();
       _navigationServices.pushReplacementNamed('/sponsorMainView');
       // _navigationServices.push(MaterialPageRoute(builder: (context)=>const SponsorMainScreen(sponsorHome: true, sponsorDeposit: false, sponsorHistory: false, sponsorProfile: false)));

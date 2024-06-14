@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -69,7 +70,6 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
   };
 
   final List<String> _businessCategoryList = [];
-
   String _selectedSubCategory = '';
   var subCategoryMap = {
     'test1': 'Test11',
@@ -106,13 +106,11 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
     'abc': "others"
   };
   final List<String> _subCategoryList = [];
-
   void businessDependentDropdown() {
     businessCategoryMap.forEach((key, value) {
       _businessCategoryList.add(key);
     });
   }
-
   void stateDependentDropdown(String? categoryShortName) {
     _subCategoryList.clear(); // Clear previous states
     subCategoryMap.forEach((key, value) {
@@ -182,7 +180,6 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
 
   @override
   Widget build(BuildContext context) {
-    print("======================>>>>>>>>>>>>>>>>>>Build");
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: buildUI(),
@@ -841,6 +838,7 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
             mainAxisSize: MainAxisSize.min,
             children: [
               DropdownButtonFormField<String>(
+                hint: const Text("Select Business Category"),
                 value: _selectedbusinessCategory.isNotEmpty
                     ? _selectedbusinessCategory
                     : null,
@@ -857,8 +855,10 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
                   providerValue.businessCategory(newValue);
                   setState(() {
                     _selectedbusinessCategory = newValue!;
+                  if(kDebugMode){
                     print(
                         "--------printing the business Category $_selectedbusinessCategory");
+                  }
                     stateDependentDropdown(
                         businessCategoryMap[_selectedbusinessCategory]);
                   });

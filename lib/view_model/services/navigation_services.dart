@@ -12,6 +12,7 @@ import '../../view/common_view/select_login_view.dart';
 import '../../view/common_view/select_registration_view.dart';
 import '../../view/common_view/splash_view.dart';
 import '../../view/sponsor_view/history/sponsor_history_view.dart';
+import '../../view/sponsor_view/profile/sponsor_profile_update_view.dart';
 import '../../view/sponsor_view/side_menu_bar_view/sponsor_buyView_view.dart';
 import '../../view/sponsor_view/side_menu_bar_view/sponsor_calendar_view.dart';
 import '../../view/sponsor_view/side_menu_bar_view/sponsor_close_reply_ticket_view.dart';
@@ -57,6 +58,8 @@ class NavigationServices {
 
 
 
+
+    "/sponsorProfileUpdateView": (context) => const SponsorProfileUpdateView(),
     "/agentReferralView": (context) => const AgentReferralView(),
     "/agentEarningView": (context) => const AgentEarningView(),
     "/sponsorCalendarView": (context) => const SponsorCalendarView(),

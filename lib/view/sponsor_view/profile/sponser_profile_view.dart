@@ -102,6 +102,7 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
   Widget edit() {
     return GestureDetector(
       onTap: () {
+        _navigationServices.pushNamed('/sponsorProfileUpdateView');
       },
       child: const Padding(
         padding: const EdgeInsets.only(top: 8, bottom: 8),

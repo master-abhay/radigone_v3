@@ -89,6 +89,8 @@ class LoginUserProvider with ChangeNotifier {
     if (kDebugMode) {
       print(await SecureStorage().readSecureData('username'));
       print(await SecureStorage().readSecureData('password'));
+      print(await SecureStorage().readSecureData('mobile'));
+
       print(await SecureStorage().readSecureData('token'));
       print(await SecureStorage().readSecureData('mobile'));
       print(await SecureStorage().readSecureData('id'));

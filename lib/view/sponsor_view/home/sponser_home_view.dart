@@ -408,7 +408,6 @@ import '../../../data/response/status.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/components/account_Status.dart';
 import '../../../resources/components/background_designs.dart';
-import '../../../resources/components/constants.dart';
 import '../../../resources/components/dashboard_info_container.dart';
 import '../../../view_model/services/auth_services.dart';
 import '../../../view_model/user_view_model/dashboard_ads_list_view_model.dart';
@@ -436,8 +435,7 @@ class _SponsorHomeViewState extends State<SponsorHomeView> {
 
     sponsorName = await _authService.getSponsorName();
     sponsorEmail = await _authService.getSponsorEmail();
-    sponsorImageLink =
-        await _authService.getSponsorImageLink();
+    sponsorImageLink = await _authService.getSponsorImageLink();
   }
 
   @override
@@ -471,30 +469,27 @@ class _SponsorHomeViewState extends State<SponsorHomeView> {
     _initializeValues();
   }
 
-  Future<void> _onRefresh()async{
+  Future<void> _onRefresh() async {
     // await Future.delayed(const Duration(seconds: 2));
 
-    final provider =
-    Provider.of<DashboardUserProvider>(context, listen: false);
+    final provider = Provider.of<DashboardUserProvider>(context, listen: false);
     await provider.setUsername();
     await provider.setPassword();
     await provider.setToken();
     await provider.loginUserDashboard(context);
 
     final provider1 =
-    Provider.of<UserRadigonePointViewModel>(context, listen: false);
+        Provider.of<UserRadigonePointViewModel>(context, listen: false);
     await provider1.setUsername();
     await provider1.setPassword();
     await provider1.setToken();
     await provider1.fetchUserRadigonePoint(context);
 
-    final provider2 =
-    Provider.of<UserPointsViewModel>(context, listen: false);
+    final provider2 = Provider.of<UserPointsViewModel>(context, listen: false);
     await provider2.setUsername();
     await provider2.setMobile();
     await provider2.fetchUserPoints(context);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -502,31 +497,31 @@ class _SponsorHomeViewState extends State<SponsorHomeView> {
       key: _drawerKey,
       // drawer:  SponsorSideBarView(sponsorName: sponsorName,sponsorEmail: sponsorEmail,sponsorProfileImageLink: sponsorImageLink,),
 
-    drawer:          FutureBuilder(
-        future: _initializeValues(),
-        builder: (context, snapshot) {
-          if(snapshot.connectionState == ConnectionState.waiting || snapshot.connectionState == ConnectionState.none){
-            return const SponsorSideBarView(
-              sponsorName: "Fetching..",
-              sponsorEmail: "Fetching..",
+      drawer: FutureBuilder(
+          future: _initializeValues(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting ||
+                snapshot.connectionState == ConnectionState.none) {
+              return const SponsorSideBarView(
+                sponsorName: "Fetching..",
+                sponsorEmail: "Fetching..",
+                sponsorProfileImageLink: null,
+              );
+            }
+            if (snapshot.hasError) {
+              print(snapshot.error.toString());
+              return const SponsorSideBarView(
+                sponsorName: "Error..",
+                sponsorEmail: "Error..",
+                sponsorProfileImageLink: null,
+              );
+            }
+            return SponsorSideBarView(
+              sponsorName: 'Hi $sponsorName',
+              sponsorEmail: sponsorEmail,
               sponsorProfileImageLink: null,
             );
-
-          }
-          if(snapshot.hasError){
-            print(snapshot.error.toString());
-            return const SponsorSideBarView(
-              sponsorName: "Error..",
-              sponsorEmail: "Error..",
-              sponsorProfileImageLink: null,
-            );
-          }
-          return  SponsorSideBarView(
-            sponsorName: 'Hi $sponsorName',
-            sponsorEmail: sponsorEmail,
-            sponsorProfileImageLink: null,
-          );
-        }),
+          }),
 
       body: buildUI(),
     );
@@ -544,9 +539,6 @@ class _SponsorHomeViewState extends State<SponsorHomeView> {
               borderRadius:
                   BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
         ),
-
-
-
         SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -558,7 +550,6 @@ class _SponsorHomeViewState extends State<SponsorHomeView> {
                 color: Colors.white,
                 displacement: 40,
                 strokeWidth: 1.5,
-
                 onRefresh: _onRefresh,
                 child: SingleChildScrollView(
                   child: Column(
@@ -569,6 +560,7 @@ class _SponsorHomeViewState extends State<SponsorHomeView> {
 
                       //MainContainers:
                       mainOutlinedContainer(context),
+                      _monthlyCampaignResponse(context),
                     ],
                   ),
                 ),
@@ -1064,5 +1056,42 @@ Widget mainOutlinedContainer(BuildContext context) {
         }),
       ],
     ),
+  );
+}
+
+Widget _monthlyCampaignResponse(BuildContext context) {
+  return Column(
+    children: [
+      //Constant Text:
+      Container(
+          alignment: Alignment.centerLeft,
+          child: const Text(
+            "Monthly Campaign Response",
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+          )),
+      const SizedBox(
+        height: 10,
+      ),
+      Material(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.black.withOpacity(0.3),
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Container(
+            height: 200,
+            width: 200,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(180),
+            ),
+          ),
+        ),
+      )
+    ],
   );
 }

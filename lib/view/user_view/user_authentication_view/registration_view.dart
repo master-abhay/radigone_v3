@@ -90,7 +90,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("======================>>>>>>>>>>>>>>>>>>Build");
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: buildUI(),
@@ -623,34 +622,65 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
                                           }
 
-                                          _gender == null
-                                              ? _alertServices.showToast(
-                                                  message: "Select Gender")
-                                              : null;
-                                          _marriageStatus == null
-                                              ? _alertServices.showToast(
-                                                  message:
-                                                      "Select Marital Status")
-                                              : null;
-                                          _phoneNumber == null
-                                              ? _alertServices.showToast(
-                                                  message:
-                                                      "Select Country first then enter 10 digit phone Number")
-                                              : null;
-                                          _whatsappNumber == null
-                                              ? _alertServices.showToast(
-                                                  message:
-                                                      "Select Whatsapp Number Country first then enter 10 digit whatsApp Number")
-                                              : null;
-                                          selectedAddressProof == null
-                                              ? _alertServices.showToast(
-                                                  message:
-                                                      "Upload Address Proof")
-                                              : null;
-                                          selectedPanProof == null
-                                              ? _alertServices.showToast(
-                                                  message: "Upload pan card")
-                                              : null;
+
+                                          if(_gender == null){
+                                            setState(() {
+
+                                            });
+                                            _alertServices.showToast(
+                                                message: "Select Gender");
+                                            return;
+                                          }
+
+
+                                          if(_marriageStatus == null){
+                                            setState(() {
+
+                                            });
+                                            _alertServices.showToast(
+                                                message:
+                                                "Select Marital Status");
+                                            return;
+                                          }
+                                          if(_phoneNumber == null){
+                                            setState(() {
+
+                                            });
+                                            _alertServices.showToast(
+                                                message:
+                                                "Select Country first then enter 10 digit phone Number");
+                                            return;
+                                          }if(_whatsappNumber == null){
+                                            setState(() {
+
+                                            });
+                                            _alertServices.showToast(
+                                                message:
+                                                "Select Whatsapp Number Country first then enter 10 digit whatsApp Number");
+                                            return;
+                                          }if(selectedAddressProof == null){
+                                            setState(() {
+
+                                            });
+                                            _alertServices.showToast(
+                                                message:
+                                                "Upload Address Proof");
+                                            return;
+                                          }if(selectedPanProof == null){
+                                            setState(() {
+
+                                            });
+                                            _alertServices.showToast(
+                                                message: "Upload pan card");
+                                            return;
+                                          }
+
+
+
+
+
+
+
 
                                           if (_signUpFormKey.currentState!
                                                   .validate() &&
@@ -718,10 +748,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                                 request.fields['country'] =
                                                     _country!;
 
-                                                print(
-                                                    "Pan Proof Path: ${selectedPanProof!.path}");
-                                                print(
-                                                    "Address Proof Path: ${selectedAddressProof!.path}");
+                                    if(kDebugMode){
+                                      print(
+                                          "Pan Proof Path: ${selectedPanProof!.path}");
+                                      print(
+                                          "Address Proof Path: ${selectedAddressProof!.path}");
+                                    }
 
                                                 var panMultiPartFile =
                                                     http.MultipartFile(
@@ -773,8 +805,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                                   setState(() {
                                                     isLoading = false;
                                                   });
-                                                  print(
-                                                      "User Registered Successfully");
+                                                  if(kDebugMode){
+                                                    print(
+                                                        "User Registered Successfully");
+                                                  }
+
                                                   _alertServices.showToast(
                                                       message:
                                                           "User Registered Successfully. Login to Continue");
