@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
   final FocusNode currentFocusNode;
-   FocusNode? nextFocusNode;
-   bool? autofocus;
+  FocusNode? nextFocusNode;
+  bool? autofocus;
   final TextEditingController controller;
   final bool obscureText;
   final String hintText;
@@ -17,10 +17,10 @@ class CustomTextField extends StatefulWidget {
 
   CustomTextField(
       {super.key,
-        this.readOnly,
+      this.readOnly,
       required this.currentFocusNode,
-       this.nextFocusNode,
-        this.autofocus,
+      this.nextFocusNode,
+      this.autofocus,
       required this.controller,
       required this.obscureText,
       required this.hintText,
@@ -28,7 +28,7 @@ class CustomTextField extends StatefulWidget {
       required this.isNumber,
       this.icon,
       this.maxLines,
-        this.filled,
+      this.filled,
       required this.onChanged});
 
   @override
@@ -44,14 +44,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
       controller: widget.controller,
       autofocus: widget.autofocus ?? false,
       maxLines: widget.maxLines,
-      textCapitalization: widget.textCapitalization == true ? TextCapitalization.sentences : TextCapitalization.none,
+      textCapitalization: widget.textCapitalization == true
+          ? TextCapitalization.sentences
+          : TextCapitalization.none,
       decoration: InputDecoration(
-
         errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
         contentPadding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.02,
-            vertical: MediaQuery.of(context).size.width * 0.01
-        ),
+            vertical: MediaQuery.of(context).size.width * 0.01),
         suffix: widget.icon,
         alignLabelWithHint: true,
         hintText: widget.hintText.toLowerCase(),
@@ -83,9 +83,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       style: const TextStyle(color: Colors.white),
       keyboardType: widget.isNumber ? TextInputType.phone : TextInputType.text,
       onSubmitted: (_) {
-        widget.nextFocusNode != null ?
-
-        FocusScope.of(context).requestFocus(widget.nextFocusNode) :FocusScope.of(context).unfocus() ;
+        widget.nextFocusNode != null
+            ? FocusScope.of(context).requestFocus(widget.nextFocusNode)
+            : FocusScope.of(context).unfocus();
       },
     );
   }

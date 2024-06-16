@@ -287,7 +287,10 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
             future: _initialization,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return const SizedBox(
+                    height: 500,
+                    width: 100,
+                    child:  Center(child: CircularProgressIndicator(strokeWidth: 1.4,color: Colors.white,)));
               }
               if (snapshot.hasError) {
                 if(kDebugMode){
