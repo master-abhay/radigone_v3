@@ -12,10 +12,12 @@ class CustomTextField extends StatefulWidget {
   Widget? icon;
   int? maxLines;
   bool? filled;
+  bool? readOnly;
   final void Function(String? value) onChanged;
 
   CustomTextField(
       {super.key,
+        this.readOnly,
       required this.currentFocusNode,
        this.nextFocusNode,
         this.autofocus,
@@ -37,7 +39,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      readOnly: widget.controller.text.isNotEmpty ? true : false,
+      readOnly: widget.readOnly ?? false,
       focusNode: widget.currentFocusNode,
       controller: widget.controller,
       autofocus: widget.autofocus ?? false,

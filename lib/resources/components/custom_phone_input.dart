@@ -3,36 +3,47 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 
 class CustomPhoneFormInputField extends StatefulWidget {
-
   final String hintText;
   String? initialValue;
   bool? enabled;
+  FocusNode? focusNode;
+  FocusNode? nextFocusNode;
+
   final void Function(PhoneNumber? value) onSaved;
   final void Function(PhoneNumber? value) onChanged;
 
-
-   CustomPhoneFormInputField({super.key, required this.hintText, required this.onSaved, required this.onChanged, this.initialValue,this.enabled});
+  CustomPhoneFormInputField(
+      {super.key,
+      required this.hintText,
+      required this.onSaved,
+      required this.onChanged,
+      this.initialValue,
+       this.enabled,
+      this.focusNode,
+      this.nextFocusNode});
 
   @override
-  State<CustomPhoneFormInputField> createState() => _CustomPhoneFormInputFieldState();
+  State<CustomPhoneFormInputField> createState() =>
+      _CustomPhoneFormInputFieldState();
 }
 
 class _CustomPhoneFormInputFieldState extends State<CustomPhoneFormInputField> {
   @override
   Widget build(BuildContext context) {
     return IntlPhoneField(
-      enabled: widget.enabled ?? false,
-
+      focusNode: widget.focusNode,
+      enabled: widget.enabled ?? true,
       onSaved: widget.onSaved,
       cursorColor: Colors.white,
       style: const TextStyle(color: Colors.white),
       dropdownTextStyle: const TextStyle(color: Colors.white),
-      dropdownIcon: const Icon(Icons.arrow_drop_down,color: Colors.white,),
+      dropdownIcon: const Icon(
+        Icons.arrow_drop_down,
+        color: Colors.white,
+      ),
       disableLengthCheck: false,
       initialCountryCode: 'IN',
       initialValue: widget.initialValue,
-
-
       validator: (value) {
         if (value != null && value.isValidNumber()) {
           return null;
@@ -42,7 +53,6 @@ class _CustomPhoneFormInputFieldState extends State<CustomPhoneFormInputField> {
         }
       },
       onChanged: widget.onChanged,
-
       decoration: InputDecoration(
           errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
           contentPadding: EdgeInsets.symmetric(
@@ -52,7 +62,7 @@ class _CustomPhoneFormInputFieldState extends State<CustomPhoneFormInputField> {
           hintText: widget.hintText.toLowerCase(),
           hintFadeDuration: const Duration(milliseconds: 500),
           hintStyle:
-          TextStyle(color: Colors.white.withOpacity(0.1), fontSize: 15),
+              TextStyle(color: Colors.white.withOpacity(0.1), fontSize: 15),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide.none),
@@ -70,9 +80,14 @@ class _CustomPhoneFormInputFieldState extends State<CustomPhoneFormInputField> {
               borderSide: const BorderSide(color: Colors.white)),
           labelText: widget.hintText,
           labelStyle:
-          TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 15),
+              TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 15),
           filled: true,
           fillColor: Colors.black.withOpacity(0.3)),
+      onSubmitted: (_) {
+        widget.nextFocusNode != null
+            ? FocusScope.of(context).requestFocus(widget.nextFocusNode)
+            : FocusScope.of(context).unfocus();
+      },
     );
   }
 }

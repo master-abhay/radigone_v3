@@ -34,7 +34,7 @@ class FetchSponsorInformation with ChangeNotifier {
 
   Future<bool> loginSponsor(BuildContext context) async {
     try {
-      setLoading(true);
+      // setLoading(true);
       await setMobileAndPassword();
 
       var header = {'Content-Type': 'application/json'};
@@ -43,19 +43,19 @@ class FetchSponsorInformation with ChangeNotifier {
       final value = await _myRepo.sponsorLoginApi(body: body, header: header);
 
       loginSponsorModel = value;
-      setLoading(false);
+      // setLoading(false);
       return true;
     } catch (error) {
-      setLoading(false);
+      // setLoading(false);
       _alertServices.flushBarErrorMessages(error.toString(), context);
       return false;
     }
   }
 
-  void setLoading(bool loading) {
-    _isLoading = loading;
-    notifyListeners();
-  }
+  // void setLoading(bool loading) {
+  //   _isLoading = loading;
+  //   notifyListeners();
+  // }
 }
 
 

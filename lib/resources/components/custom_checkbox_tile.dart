@@ -4,8 +4,9 @@ class CustomCheckBoxTile extends StatelessWidget {
 
   bool isChecked;
   String title;
+  ListTileControlAffinity? controlAffinity;
   void Function(bool? value) onChanged;
-    CustomCheckBoxTile({super.key,required this.isChecked,required this.title,required this.onChanged});
+    CustomCheckBoxTile({super.key,required this.isChecked,required this.title,required this.onChanged,this.controlAffinity});
 
 
 
@@ -30,7 +31,7 @@ class CustomCheckBoxTile extends StatelessWidget {
 
 
       CheckboxListTile(
-          controlAffinity: ListTileControlAffinity.leading,
+          controlAffinity: controlAffinity ??  ListTileControlAffinity.leading,
           dense: true,
           fillColor: _getFillColor(),
           splashRadius: 10,
