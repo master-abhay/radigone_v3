@@ -908,7 +908,7 @@ Widget AdsSection(BuildContext context) {
                         child: AdContainer(
                           imageUrl: 'https://radigone.com${item?.image}',
                           title: item?.name,
-                          subtitle: item?.pSpecification,
+                          subtitle: item?.pName,
                           radigonePoints: item?.pMrp,
                           onTap: () {
                             _navigationServices.push(MaterialPageRoute(

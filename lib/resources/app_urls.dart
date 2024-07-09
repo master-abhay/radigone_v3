@@ -1,21 +1,24 @@
 class AppUrls {
-  
 
-  static get userLoginUrl => 'http://radigone.com/api/v1/user/login';
-  static get userLogoutUrl => "http://radigone.com/api/v1/logout";
-  static get userDashboardAdsUrl => 'http://radigone.com/api/v1/user/dashboard';
-  static get userProfileUrl => 'http://radigone.com/api/v1/user/profile-info';
-  static get userProfileUpdateUrl => 'http://radigone.com/api/v1/user/profile-update';
-  static get userChangePasswordUrl => 'http://radigone.com/api/v1/user/change-password';
-  static get userRadigonePointUrl => 'http://radigone.com/api/v1/user/radigone-point';
-  static get userUserPointUrl => 'http://radigone.com/api/user-points';
-  static get userRedeemRadigonePointsUrl => 'http://radigone.com/api/redeeme-points';
-  static get userTransactionUrl => 'http://radigone.com/api/v1/user/transaction/history';
-  static get userCreateSupportTicketUrl => 'http://radigone.com/api/v1/user/support-ticket/store';
-  static get userMyTicketsUrl => 'http://radigone.com/api/v1/user/support-tickets';
-  static get userCloseTicketUrl => 'http://radigone.com/api/v1/user/reply-ticket/';
+  static const String baseUrl = "https://radigone.com/api/";
+  static const String viewerBaseUrl = "https://radigone.com/api/v1/user/";
+
+  static get userLoginUrl => '${viewerBaseUrl}login';
+  static get userLogoutUrl => "${baseUrl}v1/logout";
+  static get userDashboardAdsUrl => '${viewerBaseUrl}dashboard';
+  static get userProfileUrl => '${viewerBaseUrl}profile-info';
+  static get userProfileUpdateUrl => '${viewerBaseUrl}profile-update';
+  static get userChangePasswordUrl => '${viewerBaseUrl}change-password';
+  static get userRadigonePointUrl => '${viewerBaseUrl}radigone-point';
+  static get userUserPointUrl => '${baseUrl}user-points';
+  static get userRedeemRadigonePointsUrl => '${baseUrl}redeeme-points';
+  static get userTransactionUrl => '${viewerBaseUrl}transaction/history';
+  static get userCreateSupportTicketUrl => '${viewerBaseUrl}support-ticket/store';
+  static get userMyTicketsUrl => '${viewerBaseUrl}support-tickets';
+  static get userCloseTicketUrl => '${viewerBaseUrl}reply-ticket/';
   static get userAllAdsPreferencesUrl => 'http://radigone.com/api/v1/all-ad-preferences';
-  static get userSelectedAdsPreferencesUrl => 'http://radigone.com/api/v1/user/ad-preference/list';
+  static get userSelectedAdsPreferencesUrl => '${viewerBaseUrl}ad-preference/list';
+
 
 
 

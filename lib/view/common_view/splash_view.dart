@@ -37,10 +37,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
 
     _navigationServices = _getIt.get<NavigationServices>();
+    _splashServices.checkUserAuthentication();
+
 
     super.initState();
 
-    _splashServices.checkUserAuthentication();
 
     // getUserSharedData().then((value) => Future.delayed(const Duration(seconds: 2))
     //     .then((value) => (isUserLogged != null && isUserLogged != '')

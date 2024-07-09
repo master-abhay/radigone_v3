@@ -243,16 +243,6 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => AgentReferralLinkViewModel()),
         ChangeNotifierProvider(create: (_) => SponsorProfileUpdateViewModel()),
         ChangeNotifierProvider(create: (_) => FetchSponsorInformation()),
-
-
-
-
-
-
-
-
-
-
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
