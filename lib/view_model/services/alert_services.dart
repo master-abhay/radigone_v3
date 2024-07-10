@@ -27,7 +27,7 @@ class AlertServices {
               leading: const Icon(
                 Icons.notifications_active_outlined,
                 size: 28,
-                color: Colors.white,
+                color: Colors.amber,
               ),
               // title: Container(
               //     padding: EdgeInsets.zero,
@@ -36,9 +36,9 @@ class AlertServices {
               //     ),
               title: Text(
                 message,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.black),
               ),
-              color: Colors.black87,
+              color: Colors.white,
             );
           }).show(_navigationServices.navigationStateKey.currentState!.context);
     } catch (error) {

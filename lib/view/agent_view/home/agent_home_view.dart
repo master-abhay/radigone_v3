@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/resources/components/custom_button.dart';
 import 'package:radigone_v3/resources/components/custom_text_field.dart';
+import 'package:radigone_v3/utils/constants.dart';
 import 'package:radigone_v3/view/agent_view/agent_side_menubar.dart';
 import 'package:radigone_v3/view_model/agent_view_model/agent_referralLink_viewModel.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
@@ -14,7 +15,6 @@ import '../../../data/response/status.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/components/account_Status.dart';
 import '../../../resources/components/background_designs.dart';
-import '../../../resources/components/constants.dart';
 import '../../../resources/components/dashboard_info_container.dart';
 import '../../../view_model/services/auth_services.dart';
 import '../../../view_model/user_view_model/dashboard_ads_list_view_model.dart';
@@ -41,7 +41,7 @@ class _AgentHomeViewState extends State<AgentHomeView> {
 
     _agentName = await _authService.getAgentName();
     _agentEmail = await _authService.getAgentEmail();
-    _agentImageLink = await _authService.getAgentImageLink() ?? PLACEHOLDER_PFP;
+    _agentImageLink = await _authService.getAgentImageLink() ?? Constants.PLACEHOLDER_PFP;
   }
 
   @override
@@ -577,7 +577,6 @@ class _AgentHomeViewState extends State<AgentHomeView> {
           maxLines: 1,
           filled: false,
           autofocus: false,
-          isNumber: false,
           onChanged: (value) {
             provider.setTextControllerValue(value!);
           });

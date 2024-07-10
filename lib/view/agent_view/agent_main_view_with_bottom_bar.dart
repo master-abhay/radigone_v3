@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:radigone_v3/view/agent_view/profile/agent_profile_view.dart';
 
 import '../../resources/colors.dart';
-import '../../resources/components/constants.dart';
+import '../../utils/constants.dart';
 import '../../view_model/services/auth_services.dart';
 import 'agent_side_menubar.dart';
 import 'deposit/agent_deposit_view.dart';
@@ -39,7 +39,7 @@ class _AgentMainViewState extends State<AgentMainView> {
 
     _agentName = await _authService.getAgentName();
     _agentEmail = await _authService.getAgentEmail();
-    _agentImageLink = await _authService.getAgentImageLink() ?? PLACEHOLDER_PFP;
+    _agentImageLink = await _authService.getAgentImageLink() ?? Constants.PLACEHOLDER_PFP;
   }
 
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey<ScaffoldState>();

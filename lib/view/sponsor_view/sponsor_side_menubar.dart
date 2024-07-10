@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:radigone_v3/resources/components/constants.dart';
 
+import '../../utils/constants.dart';
 import '../../view_model/services/navigation_services.dart';
 
 class SponsorSideBarView extends StatefulWidget {
@@ -63,13 +63,13 @@ class _SponsorSideBarViewState extends State<SponsorSideBarView> {
                     ClipOval(
                       child: Image.network(
                         // "images/images_sponsor_sidebar/Ellipse 28.png",
-                        widget.sponsorProfileImageLink ?? PLACEHOLDER_PFP,
+                        widget.sponsorProfileImageLink ?? Constants.PLACEHOLDER_PFP,
                         fit: BoxFit.cover,
                         height: MediaQuery.sizeOf(context).width / 7,
                         width: MediaQuery.sizeOf(context).width / 7,
                         errorBuilder: (context, object, _) {
                           return Image.network(
-                            PLACEHOLDER_PFP,
+                            Constants.PLACEHOLDER_PFP,
                             fit: BoxFit.cover,
                             height: MediaQuery.sizeOf(context).width / 7,
                             width: MediaQuery.sizeOf(context).width / 7,

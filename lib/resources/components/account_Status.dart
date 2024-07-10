@@ -12,7 +12,7 @@ class _AccountStatusState extends State<AccountStatus> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(right: 10),
-      height: 20,
+      // height: 20,
       child: const Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.end,

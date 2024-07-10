@@ -111,7 +111,6 @@ class _CloseReplyTicketViewState extends State<CloseReplyTicketView> {
                             controller: replyController,
                             obscureText: false,
                             hintText: "Reply",
-                            isNumber: false,
                             maxLines: 7,
                             textCapitalization: true,
                             onChanged: (value) {

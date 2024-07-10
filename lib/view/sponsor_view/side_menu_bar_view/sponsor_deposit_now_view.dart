@@ -150,7 +150,7 @@ class _SponsorDepositNowViewState extends State<SponsorDepositNowView> {
                             controller: _textEditingController,
                             obscureText: false,
                             hintText: "Enter Amount Here",
-                            isNumber: true,
+                            textInputType: TextInputType.number,
                             onChanged: (value) {
                               setState(() {
                                 _textEditingController.text = value!;

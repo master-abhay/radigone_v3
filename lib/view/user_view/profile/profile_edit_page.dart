@@ -9,12 +9,12 @@ import 'package:radigone_v3/view_model/services/media_services.dart';
 
 import '../../../resources/colors.dart';
 import '../../../resources/components/background_designs.dart';
-import '../../../resources/components/constants.dart';
 import '../../../resources/components/custom_DatePicker.dart';
 import '../../../resources/components/custom_button.dart';
 import '../../../resources/components/custom_dropdown.dart';
 import '../../../resources/components/custom_form_field.dart';
 import '../../../resources/components/custom_phone_input.dart';
+import '../../../utils/constants.dart';
 import '../../../view_model/services/navigation_services.dart';
 import '../../../view_model/user_view_model/profile_update_view_model.dart';
 import '../../../view_model/user_view_model/profile_view_model.dart';
@@ -1036,7 +1036,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                     backgroundImage: selectedProfileImage != null
                         ? FileImage(selectedProfileImage!)
                         // :  NetworkImage(infoProvider.image!) as ImageProvider,
-                          :  const NetworkImage(PLACEHOLDER_PFP) as ImageProvider,
+                          :  const NetworkImage(Constants.PLACEHOLDER_PFP) as ImageProvider,
 
                 ),
                 ),

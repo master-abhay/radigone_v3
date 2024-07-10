@@ -7,7 +7,7 @@ import '../../../resources/colors.dart';
 import '../../../resources/components/custom_button.dart';
 import '../../../resources/components/custom_form_field.dart';
 import '../../../view_model/services/navigation_services.dart';
-import '../../../view_model/user_view_model/change_password_view_model.dart';
+import '../../../view_model/user_view_model/auth_viewModels/change_password_view_model.dart';
 
 
 class ChangePassword extends StatefulWidget {

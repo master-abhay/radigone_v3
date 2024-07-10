@@ -6,11 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../repositories/user/auth_repository.dart';
-import '../services/alert_services.dart';
-import '../services/auth_services.dart';
-import '../services/flutter_secure_storage/secure_storage.dart';
-import '../services/navigation_services.dart';
+import '../../../repositories/user/auth_repository.dart';
+import '../../services/alert_services.dart';
+import '../../services/auth_services.dart';
+import '../../services/flutter_secure_storage/secure_storage.dart';
+import '../../services/navigation_services.dart';
 
 class LoginUserProvider with ChangeNotifier {
   String? _mobile;

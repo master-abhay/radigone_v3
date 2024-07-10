@@ -149,7 +149,6 @@ class _CreateTicketViewState extends State<CreateTicketView> {
                       obscureText: false,
                       autofocus: false,
                       hintText: "Name",
-                      isNumber: false,
                       onChanged: (value) {
                         nameTextController.text = value!;
                       }),
@@ -163,7 +162,6 @@ class _CreateTicketViewState extends State<CreateTicketView> {
                       obscureText: false,
                       autofocus: false,
                       hintText: "Email",
-                      isNumber: false,
                       onChanged: (value) {
                         emailTextController.text = value!;
                       }),
@@ -177,7 +175,6 @@ class _CreateTicketViewState extends State<CreateTicketView> {
                       obscureText: false,
                       autofocus: true,
                       hintText: "Subject",
-                      isNumber: false,
                       onChanged: (value) {
                         subjectTextController.text = value!;
                       }),
@@ -190,7 +187,6 @@ class _CreateTicketViewState extends State<CreateTicketView> {
                       obscureText: false,
                       maxLines: 5,
                       hintText: "Message",
-                      isNumber: false,
                       textCapitalization: true,
                       onChanged: (value) {
                         messageTextController.text = value!;

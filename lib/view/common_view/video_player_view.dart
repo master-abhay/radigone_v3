@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
-import 'package:radigone_v3/resources/components/constants.dart';
 import 'package:radigone_v3/view_model/services/alert_services.dart';
+
+import '../../utils/constants.dart';
 
 class VideoPlayerPage extends StatefulWidget {
 
@@ -31,7 +32,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
   bool _isError = false;
 
   String assetVideoPath = 'assets/videos/9th-may.mp4';
-  String dummyThumbnail = PLACEHOLDER_PFP;
+  String dummyThumbnail = Constants.PLACEHOLDER_PFP;
 
   late CachedVideoPlayerController _videoPlayerController;
 

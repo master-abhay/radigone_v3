@@ -133,6 +133,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/tester.dart';
 import 'package:radigone_v3/view/common_view/video_player_view.dart';
+import 'package:radigone_v3/view/user_view/user_authentication_view/reset_password_view.dart';
 import 'package:radigone_v3/view_model/agent_view_model/agent_authentication_viewModels/agent_login_viewModel.dart';
 import 'package:radigone_v3/view_model/agent_view_model/agent_referralLink_viewModel.dart';
 
@@ -148,10 +149,10 @@ import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_m
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_profile_update_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_transaction_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_close_reply_ticket_viewModel.dart';
-import 'package:radigone_v3/view_model/user_view_model/change_password_view_model.dart';
+import 'package:radigone_v3/view_model/user_view_model/auth_viewModels/change_password_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/dashboard_ads_list_view_model.dart';
-import 'package:radigone_v3/view_model/user_view_model/login_view_model.dart';
-import 'package:radigone_v3/view_model/user_view_model/logout_view_model.dart';
+import 'package:radigone_v3/view_model/user_view_model/auth_viewModels/login_view_model.dart';
+import 'package:radigone_v3/view_model/user_view_model/auth_viewModels/logout_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/profile_update_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/profile_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/radigonePoint_view_model.dart';

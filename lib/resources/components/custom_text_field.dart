@@ -7,8 +7,8 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final bool obscureText;
   final String hintText;
-  final bool isNumber;
   bool? textCapitalization;
+  TextInputType? textInputType;
   Widget? icon;
   int? maxLines;
   bool? filled;
@@ -25,7 +25,7 @@ class CustomTextField extends StatefulWidget {
       required this.obscureText,
       required this.hintText,
       this.textCapitalization,
-      required this.isNumber,
+        this.textInputType,
       this.icon,
       this.maxLines,
       this.filled,
@@ -44,6 +44,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       controller: widget.controller,
       autofocus: widget.autofocus ?? false,
       maxLines: widget.maxLines,
+      obscureText: widget.obscureText,
       textCapitalization: widget.textCapitalization == true
           ? TextCapitalization.sentences
           : TextCapitalization.none,
@@ -81,7 +82,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       ),
       cursorColor: Colors.white,
       style: const TextStyle(color: Colors.white),
-      keyboardType: widget.isNumber ? TextInputType.phone : TextInputType.text,
+      keyboardType:  widget.textInputType ?? TextInputType.text,
       onSubmitted: (_) {
         widget.nextFocusNode != null
             ? FocusScope.of(context).requestFocus(widget.nextFocusNode)

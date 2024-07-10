@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:radigone_v3/resources/components/constants.dart';
 import 'package:radigone_v3/view/sponsor_view/profile/sponser_profile_view.dart';
 import 'package:radigone_v3/view/sponsor_view/sponsor_side_menubar.dart';
 import 'package:radigone_v3/view_model/services/auth_services.dart';
 
 import '../../resources/colors.dart';
+import '../../utils/constants.dart';
 import 'deposit/sponsor_deposit_view.dart';
 import 'history/sponsor_history_view.dart';
 import 'home/sponser_home_view.dart';
@@ -56,7 +56,7 @@ class _SponsorMainScreenState extends State<SponsorMainScreen> {
     sponsorName = await _authService.getSponsorName();
     sponsorEmail = await _authService.getSponsorEmail();
     sponsorImageLink =
-        await _authService.getSponsorImageLink() ?? PLACEHOLDER_PFP;
+        await _authService.getSponsorImageLink() ?? Constants.PLACEHOLDER_PFP;
 
 
 

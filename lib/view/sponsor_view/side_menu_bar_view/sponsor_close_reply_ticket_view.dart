@@ -112,7 +112,6 @@ class _SponsorCloseReplyTicketViewState extends State<SponsorCloseReplyTicketVie
                         controller: replyController,
                         obscureText: false,
                         hintText: "Reply",
-                        isNumber: false,
                         maxLines: 7,
                         textCapitalization: true,
                         onChanged: (value) {

@@ -3,8 +3,16 @@ class AppUrls {
   static const String baseUrl = "https://radigone.com/api/";
   static const String viewerBaseUrl = "https://radigone.com/api/v1/user/";
 
+
+
+
+
   static get userLoginUrl => '${viewerBaseUrl}login';
+  static get userForgetPasswordUrl => '${viewerBaseUrl}forgetpassword';
+  static get userVerifyCode => '${viewerBaseUrl}verifycode';
+  static get userResetPassword => '${viewerBaseUrl}resetpassword';
   static get userLogoutUrl => "${baseUrl}v1/logout";
+
   static get userDashboardAdsUrl => '${viewerBaseUrl}dashboard';
   static get userProfileUrl => '${viewerBaseUrl}profile-info';
   static get userProfileUpdateUrl => '${viewerBaseUrl}profile-update';

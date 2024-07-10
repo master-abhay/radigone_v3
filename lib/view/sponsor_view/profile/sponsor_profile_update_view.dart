@@ -13,8 +13,8 @@ import 'package:radigone_v3/view_model/services/media_services.dart';
 
 import '../../../resources/colors.dart';
 import '../../../resources/components/background_designs.dart';
-import '../../../resources/components/constants.dart';
 import '../../../resources/components/custom_dependent_dropdown.dart';
+import '../../../utils/constants.dart';
 import '../../../view_model/services/navigation_services.dart';
 import '../../../view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_profile_update_viewModel.dart';
 import '../../../view_model/user_view_model/profile_update_view_model.dart';
@@ -328,7 +328,6 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                             controller: _firstName,
                                             obscureText: false,
                                             hintText: "First Name",
-                                            isNumber: false,
                                             onChanged: (value) {
                                               _firstName.text = value!;
                                             },
@@ -344,7 +343,6 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                             controller: _lastName,
                                             obscureText: false,
                                             hintText: "Last Name",
-                                            isNumber: false,
                                             onChanged: (value) {
                                               _lastName.text = value!;
                                             },
@@ -364,7 +362,6 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                       controller: _email,
                                       obscureText: false,
                                       hintText: "Email",
-                                      isNumber: false,
                                       onChanged: (value) {
                                         setState(() {
                                           _email.text = value!;
@@ -432,7 +429,6 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                       controller: _profilingServices,
                                       obscureText: false,
                                       hintText: "Profiling Services",
-                                      isNumber: false,
                                       onChanged: (value) {
                                         _profilingServices.text = value!;
                                       },
@@ -449,7 +445,6 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                       controller: _pan,
                                       obscureText: false,
                                       hintText: "Pan",
-                                      isNumber: false,
                                       onChanged: (value) {
                                         setState(() {
                                           _pan.text = value!;
@@ -468,7 +463,6 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                       controller: _optOutMessage,
                                       obscureText: false,
                                       hintText: "Opt Out Message",
-                                      isNumber: false,
                                       onChanged: (value) {
                                         setState(() {
                                           _optOutMessage.text = value!;
@@ -505,7 +499,6 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                         controller: _firmName,
                                         obscureText: false,
                                         hintText: "Firm Name",
-                                        isNumber: false,
                                         onChanged: (value) {
                                           setState(() {
                                             _firmName.text = value!;
@@ -529,7 +522,6 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                         controller: _firmType,
                                         obscureText: false,
                                         hintText: "Firm Type",
-                                        isNumber: false,
                                         onChanged: (value) {
                                           setState(() {
                                             _firmType.text = value!;
@@ -553,7 +545,6 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                         controller: _designation,
                                         obscureText: false,
                                         hintText: "Designation",
-                                        isNumber: false,
                                         onChanged: (value) {
                                           setState(() {
                                             _designation.text = value!;
@@ -575,7 +566,6 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                       controller: _address,
                                       obscureText: false,
                                       hintText: "Address",
-                                      isNumber: false,
                                       onChanged: (value) {
                                         setState(() {
                                           _address.text = value!;
@@ -599,7 +589,6 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                           controller: _city,
                                           obscureText: false,
                                           hintText: "City",
-                                          isNumber: false,
                                           onChanged: (value) {
                                             setState(() {
                                               _city.text = value!;
@@ -618,7 +607,6 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                           controller: _state,
                                           obscureText: false,
                                           hintText: "State",
-                                          isNumber: false,
                                           onChanged: (value) {
                                             setState(() {
                                               _state.text = value!;
@@ -640,7 +628,7 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                       controller: _zip,
                                       obscureText: false,
                                       hintText: "Zip/Pin Code",
-                                      isNumber: false,
+                                      textInputType: TextInputType.number,
                                       onChanged: (value) {
                                         setState(() {
                                           _zip.text = value!;
@@ -697,7 +685,7 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                       radius: 50,
                       backgroundImage: selectedProfileImage != null
                           ? FileImage(selectedProfileImage!)
-                          : const NetworkImage(PLACEHOLDER_PFP)
+                          : const NetworkImage(Constants.PLACEHOLDER_PFP)
                               as ImageProvider,
                     ),
                   ),

@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
 
-import '../../view_model/user_view_model/logout_view_model.dart';
+import '../../view_model/user_view_model/auth_viewModels/logout_view_model.dart';
 
 
 class UserSideBar extends StatefulWidget {
@@ -126,21 +126,21 @@ class _UserSideBarState extends State<UserSideBar> {
               Column(
                 // mainAxisSize: MainAxisSize.max,
                 children: [
-                  ListTile(
-                    // minTileHeight: MediaQuery.of(context).size.width * 0.12,
-                    title: const Text(
-                      "Profile",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                    leading: SvgPicture.asset(
-                        "images/images_user_sidebar/profile.svg"),
-                    dense: true,
-                    horizontalTitleGap: 5,
-                    onTap: () {
-                      _navigationServices.goBack();
-                      _navigationServices.pushNamed("/userProfilePage");
-                    },
-                  ),
+                  // ListTile(
+                  //   // minTileHeight: MediaQuery.of(context).size.width * 0.12,
+                  //   title: const Text(
+                  //     "Profile",
+                  //     style: TextStyle(color: Colors.white, fontSize: 14),
+                  //   ),
+                  //   leading: SvgPicture.asset(
+                  //       "images/images_user_sidebar/profile.svg"),
+                  //   dense: true,
+                  //   horizontalTitleGap: 5,
+                  //   onTap: () {
+                  //     _navigationServices.goBack();
+                  //     _navigationServices.pushNamed("/userProfilePage");
+                  //   },
+                  // ),
                   ListTile(
                     // minTileHeight: MediaQuery.of(context).size.width * 0.12,
                     title: const Text(

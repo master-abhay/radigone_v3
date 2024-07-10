@@ -7,8 +7,8 @@ import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_profile_inform
 import '../../../data/response/status.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/components/background_designs.dart';
-import '../../../resources/components/constants.dart';
 import '../../../resources/components/custom_basic_information_field.dart';
+import '../../../utils/constants.dart';
 import '../../../view_model/services/navigation_services.dart';
 import '../../../view_model/user_view_model/profile_view_model.dart';
 
@@ -150,7 +150,7 @@ class _SponsorSidebarProfileViewState extends State<SponsorSidebarProfileView> {
               "images/profileImage.png",
               fit: BoxFit.cover,
               errorBuilder: (context, object, stacktrace) {
-                return Image.network(PLACEHOLDER_PFP, fit: BoxFit.cover);
+                return Image.network(Constants.PLACEHOLDER_PFP, fit: BoxFit.cover);
               },
             )),
       ),

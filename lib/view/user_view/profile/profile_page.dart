@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 
 import '../../../data/response/status.dart';
 import '../../../resources/components/background_designs.dart';
-import '../../../resources/components/constants.dart';
 import '../../../resources/components/custom_basic_information_field.dart';
 import '../../../resources/components/custom_header.dart';
+import '../../../utils/constants.dart';
 import '../../../view_model/services/navigation_services.dart';
 import '../../../view_model/user_view_model/profile_view_model.dart';
 
@@ -146,7 +146,7 @@ class _ProfilePageState extends State<ProfilePage> {
               "images/profileImage.png",
               fit: BoxFit.cover,
               errorBuilder: (context, object, stacktrace) {
-                return Image.network(PLACEHOLDER_PFP, fit: BoxFit.cover);
+                return Image.network(Constants.PLACEHOLDER_PFP, fit: BoxFit.cover);
               },
             )),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:radigone_v3/resources/components/constants.dart';
 
+import '../../utils/constants.dart';
 import '../colors.dart';
 
 class CustomSupportTicketTile extends StatefulWidget {
@@ -52,7 +52,7 @@ class _CustomSupportTicketTileState extends State<CustomSupportTicketTile> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: Image.network(
-                      widget.imageUrl ?? PLACEHOLDER_PFP, // height: 80,
+                      widget.imageUrl ?? Constants.PLACEHOLDER_PFP, // height: 80,
                       // width: 80,
                       fit: BoxFit.fill,
                       errorBuilder: (BuildContext context, object, stackTrace) {

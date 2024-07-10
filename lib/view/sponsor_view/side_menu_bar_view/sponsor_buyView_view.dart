@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:radigone_v3/resources/colors.dart';
 import 'package:radigone_v3/resources/components/custom_button.dart';
 import 'package:radigone_v3/resources/components/custom_text_field.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_deposit_viewModel.dart';
@@ -51,7 +50,6 @@ class _SponsorBuyViewViewState extends State<SponsorBuyViewView> {
                         const SizedBox(
                           height: 150,
                         ),
-
                         Container(
                           height: MediaQuery.sizeOf(context).width * 0.2,
                           width: MediaQuery.sizeOf(context).width * 0.9,
@@ -69,7 +67,7 @@ class _SponsorBuyViewViewState extends State<SponsorBuyViewView> {
                             controller: _textEditingController,
                             obscureText: false,
                             hintText: "Enter Amount Here",
-                            isNumber: true,
+                            textInputType: TextInputType.number,
                             onChanged: (value) {}),
                         const SizedBox(
                           height: 20,
