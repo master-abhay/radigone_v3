@@ -5,20 +5,25 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 
 import '../../../repositories/user/auth_repository.dart';
 import '../../services/alert_services.dart';
 import '../../services/auth_services.dart';
 import '../../services/flutter_secure_storage/secure_storage.dart';
 import '../../services/navigation_services.dart';
+import '../dashboard_ads_list_view_model.dart';
+import '../profile_view_model.dart';
+import '../radigonePoint_view_model.dart';
+import '../user_points_view_model.dart';
 
 class LoginUserProvider with ChangeNotifier {
   String? _mobile;
   String? _password;
 
-  void setUsername(String? username) {
-    if (username != null && username.isNotEmpty) {
-      _mobile = '+91$username';
+  void setMobile(String? mobile) {
+    if (mobile != null && mobile.isNotEmpty) {
+      _mobile = mobile;
       if (kDebugMode) {
         print("Mobile set..");
       }
@@ -103,7 +108,7 @@ class LoginUserProvider with ChangeNotifier {
     setLoading(true);
 
     var header = {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8'
     };
     var body =
     jsonEncode({"mobile": _mobile, "password": _password})
@@ -145,6 +150,23 @@ class LoginUserProvider with ChangeNotifier {
       await _authService.saveUserEmail('${value['data']['email']}');
       await _authService.saveUserImageLink('${value['data']['image']}');
       _navigationServices.goBack();
+
+
+//<----------------------------------------------------------------Initialization of Data------------------------>
+      await Provider.of<DashboardUserProvider>(context, listen: false)
+          .loginUserDashboard(context);
+
+      await Provider.of<UserRadigonePointViewModel>(context, listen: false)
+          .fetchUserRadigonePoint(context);
+
+      await Provider.of<UserPointsViewModel>(context, listen: false)
+          .fetchUserPoints(context);
+
+      await Provider.of<UserProfileInformationProvider>(context, listen: false)
+          .profileInformation(context);
+//<----------------------------------------------------------------Data Initialized>---------------------------------------------------------------->
+
+
       _navigationServices.pushReplacementNamed('/userMainView');
       setLoading(false);
     }).onError((error, stackTrace) {

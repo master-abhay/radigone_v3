@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
 
     _navigationServices = _getIt.get<NavigationServices>();
-    _splashServices.checkUserAuthentication();
+    _splashServices.checkUserAuthentication(context);
 
 
     super.initState();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:radigone_v3/view/sponsor_view/profile/sponser_profile_view.dart';
-import 'package:radigone_v3/view/user_view/main_view_with_bottomBar_view.dart';
+import 'package:radigone_v3/view/user_view/user_main_view_with_bottomBar_view.dart';
 
 import '../../view/agent_view/agent_authentication/agent_login_view.dart';
 import '../../view/agent_view/agent_main_view_with_bottom_bar.dart';
@@ -89,7 +89,7 @@ class NavigationServices {
     "/SponserRegistrationPage":(context)=> const SponsorRegistrationView(),
     "/selectLoginPage" : (context) =>  const SelectLoginPage(),
     "/sponsorLoginPage" : (context) => const SponsorLoginView(),
-    "/sponsorMainView" : (context) => const SponsorMainScreen(),
+    "/sponsorMainView" : (context) => const SponsorMainView(),
     "/userMainView": (context) => const UserMainView(),
     "/forgotPassword": (context) => const ForgotPassword(),
     "/loginPage": (context) => const LoginPage(),

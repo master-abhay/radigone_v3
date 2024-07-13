@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/view_model/services/auth_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
 
-import '../../view_model/user_view_model/auth_viewModels/logout_view_model.dart';
-
+import '../../view_model/common/logout_view_model.dart';
 
 class UserSideBar extends StatefulWidget {
   final String? userName;
@@ -24,17 +24,15 @@ class UserSideBar extends StatefulWidget {
 }
 
 class _UserSideBarState extends State<UserSideBar> {
-
-
-
   late NavigationServices _navigationServices;
+  late AuthService _authService;
   @override
   void initState() {
     super.initState();
-    final GetIt _getIt = GetIt.instance;
+    final GetIt getIt = GetIt.instance;
 
-    _navigationServices = _getIt.get<NavigationServices>();
-
+    _navigationServices = getIt.get<NavigationServices>();
+    _authService = getIt.get<AuthService>();
   }
 
   @override
@@ -81,7 +79,8 @@ class _UserSideBarState extends State<UserSideBar> {
                               "images/images_user_sidebar/profile.svg",
                               fit: BoxFit.cover,
                               height: MediaQuery.sizeOf(context).width / 7,
-                              width: MediaQuery.sizeOf(context).width / 7,);
+                              width: MediaQuery.sizeOf(context).width / 7,
+                            );
                           },
                         ),
                       ),
@@ -89,8 +88,8 @@ class _UserSideBarState extends State<UserSideBar> {
                         width: MediaQuery.sizeOf(context).width / 28,
                       ),
                       SizedBox(
-                        height: MediaQuery.sizeOf(context).width*0.12,
-                        width: MediaQuery.sizeOf(context).width*0.5,
+                        height: MediaQuery.sizeOf(context).width * 0.12,
+                        width: MediaQuery.sizeOf(context).width * 0.5,
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Column(
@@ -118,7 +117,6 @@ class _UserSideBarState extends State<UserSideBar> {
                           ),
                         ),
                       )
-
                     ],
                   ),
                 ),
@@ -163,8 +161,12 @@ class _UserSideBarState extends State<UserSideBar> {
                       style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
                     leading:
-                    // SvgPicture.asset("images/images_user_sidebar/recharge_wallet.svg"),
-                    SvgPicture.asset("images/coin.svg",height: 19,width: 19,),
+                        // SvgPicture.asset("images/images_user_sidebar/recharge_wallet.svg"),
+                        SvgPicture.asset(
+                      "images/coin.svg",
+                      height: 19,
+                      width: 19,
+                    ),
 
                     dense: true,
                     horizontalTitleGap: 5,
@@ -248,7 +250,6 @@ class _UserSideBarState extends State<UserSideBar> {
 //                     ],
 //                   ),
 
-
                   // ListTile(
                   //   // minTileHeight: MediaQuery.of(context).size.width * 0.12,
                   //   title: const Text(
@@ -319,21 +320,21 @@ class _UserSideBarState extends State<UserSideBar> {
           ),
           Consumer<LogoutUserProvider>(
               builder: (BuildContext context, value, Widget? child) {
-                return ListTile(
-                  title: const Text(
-                    "Logout",
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                  ),
-                  leading:
+            return ListTile(
+              title: const Text(
+                "Logout",
+                style: TextStyle(color: Colors.white, fontSize: 14),
+              ),
+              leading:
                   SvgPicture.asset("images/images_user_sidebar/logout.svg"),
-                  dense: true,
-                  horizontalTitleGap: 5,
-                  onTap: () async {
-                    bool result = await value.logOutUser(context);
-                  },
-                );
-              }),
-
+              dense: true,
+              horizontalTitleGap: 5,
+              onTap: () async {
+                String token = await _authService.getUserToken() ?? '';
+                await value.logOut(context, token: token);
+              },
+            );
+          }),
         ],
       ),
     );

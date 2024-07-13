@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/models/sponsor_models/login_sponsor_model.dart';
 import 'package:radigone_v3/resources/components/custom_checkbox_tile.dart';
@@ -124,53 +125,52 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
     if (!provider.isLoading) {
       LoginSponsorModel value = provider.loginSponsorModel;
 
-      _firstName.text = value.data?.firstname ?? '';
+      _firstName.text = value.data?.firstname.toString() ?? '';
       _firstNameReadOnly = _firstName.text.isNotEmpty;
 
-      _lastName.text = value.data?.lastname ?? '';
+      _lastName.text = value.data?.lastname.toString() ?? '';
       _lastNameReadOnly = _lastName.text.isNotEmpty;
 
-      _email.text = value.data?.email ?? '';
+      _email.text = value.data?.email.toString() ?? '';
       _emailReadOnly = _email.text.isNotEmpty;
 
-      _mobileNumber.text = value.data?.mobile ?? '';
+      _mobileNumber.text = value.data?.mobile.toString() ?? '';
       _mobileNumberReadOnly = _mobileNumber.text.isNotEmpty;
-      print('mobile number readonly is :----------->>>>>>>>${_mobileNumberReadOnly.toString()}');
 
-      _businessCategory.text = value.data?.businessCat ?? '';
+      _businessCategory.text = value.data?.businessCat.toString() ?? '';
       _businessCategoryReadOnly = _businessCategory.text.isNotEmpty;
 
-      _businessSubcategory.text = value.data?.businessSubcat ?? '';
+      _businessSubcategory.text = value.data?.businessSubcat.toString() ?? '';
       _businessSubcategoryReadOnly = _businessSubcategory.text.isNotEmpty;
 
-      _profilingServices.text = value.data?.profilingService ?? '';
+      _profilingServices.text = value.data?.profilingService.toString() ?? '';
       _profilingServicesReadOnly = _profilingServices.text.isNotEmpty;
 
-      _pan.text = value.data?.pan ?? '';
+      _pan.text = value.data?.pan.toString() ?? '';
       _panReadOnly = _pan.text.isNotEmpty;
 
-      _optOutMessage.text = value.data?.optOutMsg ?? '';
+      _optOutMessage.text = value.data?.optOutMsg.toString() ?? '';
       _optOutMessageReadOnly = _optOutMessage.text.isNotEmpty;
 
-      _firmName.text = value.data?.firmName ?? '';
+      _firmName.text = value.data?.firmName.toString() ?? '';
       _firmNameReadOnly = _firmName.text.isNotEmpty;
 
-      _firmType.text = value.data?.firmType ?? '';
+      _firmType.text = value.data?.firmType.toString() ?? '';
       _firmTypeReadOnly = _firmType.text.isNotEmpty;
 
-      _designation.text = value.data?.designation ?? '';
+      _designation.text = value.data?.designation.toString() ?? '';
       _designationReadOnly = _designation.text.isNotEmpty;
 
-      _address.text = value.data?.address?.address ?? '';
+      _address.text = value.data?.address?.address.toString() ?? '';
       _addressReadOnly = _address.text.isNotEmpty;
 
-      _city.text = value.data?.address?.city ?? '';
+      _city.text = value.data?.address?.city.toString() ?? '';
       _cityReadOnly = _city.text.isNotEmpty;
 
-      _state.text = value.data?.address?.state ?? '';
+      _state.text = value.data?.address?.state.toString() ?? '';
       _stateReadOnly = _state.text.isNotEmpty;
 
-      _zip.text = value.data?.address?.zip ?? '';
+      _zip.text = value.data?.address?.zip.toString() ?? '';
       _zipReadOnly = _zip.text.isNotEmpty;
 
       setState(() {});  // Update the state to reflect changes in the UI

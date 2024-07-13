@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
-import 'package:radigone_v3/resources/components/app_bar/custom_app_bar.dart';
 import 'package:radigone_v3/resources/components/background_designs.dart';
 import 'package:radigone_v3/view/common_view/video_player_view.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
@@ -12,7 +10,6 @@ import 'package:radigone_v3/view_model/user_view_model/user_points_view_model.da
 
 import '../../../data/response/status.dart';
 import '../../../resources/colors.dart';
-import '../../../resources/components/account_Status.dart';
 import '../../../resources/components/dashboard_info_container.dart';
 import '../../../view_model/services/auth_services.dart';
 import '../../../view_model/user_view_model/dashboard_ads_list_view_model.dart';
@@ -30,7 +27,6 @@ class HomePage extends StatefulWidget {
 late NavigationServices _navigationServices;
 
 class _HomePageState extends State<HomePage> {
-
   late AuthService _authService;
 
   String? _userName, _userEmail, _userImageLink;
@@ -52,47 +48,19 @@ class _HomePageState extends State<HomePage> {
     final GetIt getIt = GetIt.instance;
     _navigationServices = getIt.get<NavigationServices>();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final provider =
-          Provider.of<DashboardUserProvider>(context, listen: false);
-      await provider.setUsername();
-      await provider.setPassword();
-      await provider.setToken();
-      await provider.loginUserDashboard(context);
-
-      final provider1 =
-          Provider.of<UserRadigonePointViewModel>(context, listen: false);
-      await provider1.setUsername();
-      await provider1.setPassword();
-      await provider1.setToken();
-      await provider1.fetchUserRadigonePoint(context);
-
-      final provider2 =
-          Provider.of<UserPointsViewModel>(context, listen: false);
-      await provider2.setUsername();
-      await provider2.setMobile();
-      await provider2.fetchUserPoints(context);
+      _initializeValues();
     });
-    _initializeValues();
   }
 
   Future<void> _onRefresh() async {
-    final provider = Provider.of<DashboardUserProvider>(context, listen: false);
-    await provider.setUsername();
-    await provider.setPassword();
-    await provider.setToken();
-    await provider.loginUserDashboard(context);
+    await Provider.of<DashboardUserProvider>(context, listen: false)
+        .loginUserDashboard(context);
 
-    final provider1 =
-        Provider.of<UserRadigonePointViewModel>(context, listen: false);
-    await provider1.setUsername();
-    await provider1.setPassword();
-    await provider1.setToken();
-    await provider1.fetchUserRadigonePoint(context);
+    await Provider.of<UserRadigonePointViewModel>(context, listen: false)
+        .fetchUserRadigonePoint(context);
 
-    final provider2 = Provider.of<UserPointsViewModel>(context, listen: false);
-    await provider2.setUsername();
-    await provider2.setMobile();
-    await provider2.fetchUserPoints(context);
+    await Provider.of<UserPointsViewModel>(context, listen: false)
+        .fetchUserPoints(context);
   }
 
   @override
@@ -175,8 +143,6 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
-
-
 }
 
 // This is the Main Container which stores the information of the Total Balance and ... Completed Survey etc....

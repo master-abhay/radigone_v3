@@ -188,14 +188,8 @@ class _AgentLoginViewState extends State<AgentLoginView> {
                                                     //saving the username and password:
                                                     _loginFormState.currentState!
                                                         .save();
+                                                    await provider.loginAgent(context);
 
-                                                    bool loginResult = await provider.loginAgent(context);
-
-                                                    // if(loginResult){
-                                                    //   // _navigationServices.pushNamed("/home");
-                                                    //   _userLocalDataSaverSharedPreferences.setUserState(true);
-                                                    //   // _navigationServices.push(MaterialPageRoute(builder: (context)=>MainScreen()));
-                                                    // }
                                                   }
                                                 }),
                                           ),

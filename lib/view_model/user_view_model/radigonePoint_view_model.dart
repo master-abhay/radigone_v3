@@ -44,8 +44,12 @@ class UserRadigonePointViewModel with ChangeNotifier {
   fetchUserRadigonePoint(BuildContext context) async {
     setUserRadigonePointViewModel(ApiResponse.loading());
 
+    await setUsername();
+    await setPassword();
+    await setToken();
+
     Map headers = <String, String>{
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8',
       "Authorization": _token!,
       'username': _username!,
       'password': _password!,
@@ -54,8 +58,6 @@ class UserRadigonePointViewModel with ChangeNotifier {
     if (_username != null && _password != null) {
       _myRepo.userRadigonePointApi(headers: headers).then((value) {
         setUserRadigonePointViewModel(ApiResponse.completed(value));
-        // _alertServices.flushBarErrorMessages(
-        //     "Radigone Points Data Fetched", context);
       }).onError((error, stackTrace) {
         if (kDebugMode) {
           print(error.toString());

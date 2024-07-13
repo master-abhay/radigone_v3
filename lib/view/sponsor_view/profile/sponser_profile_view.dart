@@ -25,25 +25,15 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
   void initState() {
     super.initState();
 
-    final GetIt _getIt = GetIt.instance;
-    _navigationServices = _getIt.get<NavigationServices>();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final provider = Provider.of<SponsorProfileInformationViewModel>(context,
-          listen: false);
-
-      // await provider.setToken();
-      await provider.fetchProfileInformation(context);
-    });
+    final GetIt getIt = GetIt.instance;
+    _navigationServices = getIt.get<NavigationServices>();
   }
 
   Future<void> _onRefresh() async {
-    // await Future.delayed(const Duration(seconds: 2));
-    final provider =
-        Provider.of<SponsorProfileInformationViewModel>(context, listen: false);
+    await Provider
+        .of<SponsorProfileInformationViewModel>(context, listen: false)
+        .fetchProfileInformation(context);
 
-    // await provider.setToken();
-    await provider.fetchProfileInformation(context);
   }
 
   @override
@@ -90,7 +80,6 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
 
                     //footer : Change password and Start Survey Button
                     footer(),
-
                   ],
                 ),
               ),
@@ -150,7 +139,8 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
               "images/profileImage.png",
               fit: BoxFit.cover,
               errorBuilder: (context, object, stacktrace) {
-                return Image.network(Constants.PLACEHOLDER_PFP, fit: BoxFit.cover);
+                return Image.network(Constants.PLACEHOLDER_PFP,
+                    fit: BoxFit.cover);
               },
             )),
       ),
@@ -198,28 +188,34 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
                 CustomBasicInformationField(
                     title: "Name",
                     field:
-                        '${providerValue.profileInfo.data!.surveyor!.firstname.toString()} ${providerValue.profileInfo.data!.surveyor!.lastname.toString()}', context: context),
+                        '${providerValue.profileInfo.data!.surveyor!.firstname.toString()} ${providerValue.profileInfo.data!.surveyor!.lastname.toString()}',
+                    context: context),
                 CustomBasicInformationField(
                     title: "E-mail",
                     field: providerValue.profileInfo.data!.surveyor!.email
-                        .toString(), context: context),
+                        .toString(),
+                    context: context),
                 CustomBasicInformationField(
                     title: "Phone",
                     field: providerValue.profileInfo.data!.surveyor!.mobile
-                        .toString(), context: context),
+                        .toString(),
+                    context: context),
                 CustomBasicInformationField(
                     title: "Country",
                     field:
-                        '${providerValue.profileInfo.data?.surveyor!.address!.country.toString()}', context: context),
+                        '${providerValue.profileInfo.data?.surveyor!.address!.country.toString()}',
+                    context: context),
                 CustomBasicInformationField(
                     title: "Balance",
                     field:
-                        '${providerValue.profileInfo.data?.surveyor!.balance.toString()}', context: context),
+                        '${providerValue.profileInfo.data?.surveyor!.balance.toString()}',
+                    context: context),
                 CustomBasicInformationField(
                     title: "Status",
                     field: providerValue.profileInfo.data!.surveyor!.status == 1
                         ? "Active"
-                        : "Not Active", context: context),
+                        : "Not Active",
+                    context: context),
               ],
             ),
           );
@@ -230,7 +226,6 @@ class _SponsorProfileViewState extends State<SponsorProfileView> {
           );
       }
     });
-
   }
 
   Widget footerButton(

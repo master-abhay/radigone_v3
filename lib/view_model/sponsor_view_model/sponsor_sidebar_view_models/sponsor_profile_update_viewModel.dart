@@ -37,7 +37,10 @@ class FetchSponsorInformation with ChangeNotifier {
       // setLoading(true);
       await setMobileAndPassword();
 
-      var header = {'Content-Type': 'application/json'};
+      var header = {
+
+        'Content-Type': 'application/json; charset=UTF-8'
+      };
       var body = jsonEncode({"mobile": _mobile, "password": _password});
 
       final value = await _myRepo.sponsorLoginApi(body: body, header: header);
@@ -46,6 +49,8 @@ class FetchSponsorInformation with ChangeNotifier {
       // setLoading(false);
       return true;
     } catch (error) {
+
+      debugPrint("error is herer");
       // setLoading(false);
       _alertServices.flushBarErrorMessages(error.toString(), context);
       return false;

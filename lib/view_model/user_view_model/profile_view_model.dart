@@ -194,17 +194,14 @@ class UserProfileInformationProvider with ChangeNotifier {
 
   setUsername() async {
     _username = await SecureStorage().readSecureData('username');
-    // print('Username value fetched in Dashboard Provoder: $_username');
   }
 
   setPassword() async {
     _password = await SecureStorage().readSecureData('password');
-    // print('Password value fetched in Dashboard Provoder: $_password');
   }
 
   setToken() async {
     _token = await SecureStorage().readSecureData('token');
-    // print('Token value fetched in Dashboard Provoder: $_token');
   }
 
   setUserProfileInformation(var element) {
@@ -272,6 +269,11 @@ class UserProfileInformationProvider with ChangeNotifier {
   }
 
   profileInformation(BuildContext context) async {
+
+    await setUsername();
+    await setPassword();
+    await setToken();
+
     Map headers = <String, String>{
       'Content-Type': 'application/json',
       "Authorization": _token!,
@@ -300,31 +302,4 @@ class UserProfileInformationProvider with ChangeNotifier {
     }
   }
 
-  // profileInformation(BuildContext context) async {
-  //
-  //   setLoading(true);
-  //
-  //   Map headers = <String, String>{
-  //     "Authorization": _token!,
-  //     'username': _username!,
-  //     'password': _password!,
-  //   };
-  //   if (_username != null && _password != null) {
-  //     _myRepo.userProfileApi(headers).then((responseBody) {
-  //       var data = UserProfileInformation.fromJson(responseBody['data']);
-  //       setUserProfileInformation(data);
-  //       setLoading(false);
-  //       _alertServices.flushBarErrorMessages("Profile Fetched", context);
-  //
-  //     }).onError((error, stackTrace) {
-  //       if(kDebugMode){
-  //         print(error.toString());
-  //       }
-  //       setLoading(false);
-  //       _alertServices.flushBarErrorMessages(error.toString(), context);
-  //
-  //     });
-  //   }
-  //
-  // }
 }

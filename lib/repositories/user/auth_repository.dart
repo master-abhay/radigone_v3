@@ -66,7 +66,7 @@ class UserAuthRepository {
   Future<dynamic> userLogoutApi({required dynamic headers,required dynamic body}) async {
     try {
       dynamic response = await _apiServices.getPostApiHeadersBodyServices(url:
-      AppUrls.userLogoutUrl,headers:  headers,body: body);
+      AppUrls.logoutUrl,headers:  headers,body: body);
       return response;
     } catch (e) {
       throw e;

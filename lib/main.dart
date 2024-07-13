@@ -152,7 +152,7 @@ import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_m
 import 'package:radigone_v3/view_model/user_view_model/auth_viewModels/change_password_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/dashboard_ads_list_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/auth_viewModels/login_view_model.dart';
-import 'package:radigone_v3/view_model/user_view_model/auth_viewModels/logout_view_model.dart';
+import 'package:radigone_v3/view_model/common/logout_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/profile_update_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/profile_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/radigonePoint_view_model.dart';

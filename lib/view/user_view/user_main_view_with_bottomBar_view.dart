@@ -1,16 +1,17 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
-import 'package:radigone_v3/view/sponsor_view/profile/sponser_profile_view.dart';
-import 'package:radigone_v3/view/sponsor_view/sponsor_side_menubar.dart';
+import 'package:radigone_v3/resources/colors.dart';
+import 'package:radigone_v3/resources/components/app_bar/custom_app_bar.dart';
+import 'package:radigone_v3/view/user_view/profile/profile_page.dart';
+import 'package:radigone_v3/view/user_view/user_side_menubar.dart';
 import 'package:radigone_v3/view_model/services/auth_services.dart';
-
-import '../../resources/colors.dart';
-import '../../resources/components/app_bar/custom_app_bar.dart';
 import '../../utils/constants.dart';
-import 'deposit/sponsor_deposit_view.dart';
-import 'history/sponsor_history_view.dart';
-import 'home/sponser_home_view.dart';
+import 'coupons/coupos_page.dart';
+import 'history/history_page.dart';
+import 'home/home_page.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final Function(int) onTabSelected;
@@ -95,41 +96,40 @@ class CustomBottomNavigationBar extends StatelessWidget {
   }
 }
 
-class SponsorMainView extends StatefulWidget {
-  const SponsorMainView({super.key});
+class UserMainView extends StatefulWidget {
+  const UserMainView({super.key});
 
   @override
-  State<SponsorMainView> createState() => _SponsorMainViewState();
+  State<UserMainView> createState() => _UserMainViewState();
 }
 
-class _SponsorMainViewState extends State<SponsorMainView> {
-  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey<ScaffoldState>();
-
-  List<dynamic> screens = [
-    const SponsorHomeView(),
-    const SponsorDepositView(),
-    const SponsorHistoryView(),
-    const SponsorProfileView()
-  ];
+class _UserMainViewState extends State<UserMainView> {
+  String? _userName, _userEmail, _userImageLink;
 
   late AuthService _authService;
-  String? sponsorName, sponsorEmail, sponsorImageLink;
-
-  Future<void> _initializeValues() async {
-    sponsorName = await _authService.getSponsorName();
-    sponsorEmail = await _authService.getSponsorEmail();
-    sponsorImageLink =
-        await _authService.getSponsorImageLink() ?? Constants.PLACEHOLDER_PFP;
-  }
 
   @override
   void initState() {
     super.initState();
-
     final GetIt getIt = GetIt.instance;
     _authService = getIt.get<AuthService>();
-    _initializeValues();
+    initializeValues();
   }
+
+  Future<void> initializeValues() async {
+    _userName = await _authService.getUserName();
+    _userEmail = await _authService.getUserEmail();
+    _userImageLink = await _authService.getUserImageLink() ?? Constants.PLACEHOLDER_PFP;
+  }
+
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey<ScaffoldState>();
+
+  List<dynamic> screens = [
+    const HomePage(),
+    const CouponsPage(),
+    const HistoryPage(),
+    const ProfilePage()
+  ];
 
   int currentIndex = 0;
 
@@ -147,26 +147,27 @@ class _SponsorMainViewState extends State<SponsorMainView> {
       extendBody: true,
       drawer: Drawer(
         child: FutureBuilder(
-          future: _initializeValues(),
+          future: initializeValues(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting ||
                 snapshot.connectionState == ConnectionState.none) {
-              return const SponsorSideBarView(
-                sponsorName: "Fetching..",
-                sponsorEmail: "Fetching..",
-                sponsorProfileImageLink: null,
+              return const UserSideBar(
+                userName: "Fetching..",
+                userEmail: "Fetching..",
+                userProfileImageLink: null,
               );
             }
             if (snapshot.hasError) {
-              return const SponsorSideBarView(
-                sponsorName: "Error..",
-                sponsorEmail: "Error..",
-                sponsorProfileImageLink: null,
+              print(snapshot.error.toString());
+              return const UserSideBar(
+                userName: "Error..",
+                userEmail: "Error..",
+                userProfileImageLink: null,
               );
             }
-            return SponsorSideBarView(
-              sponsorName: 'Hi $sponsorName', sponsorEmail: sponsorEmail,
-              // sponsorProfileImageLink: sponsorImageLink,
+            return UserSideBar(
+              userName: 'Hi $_userName', userEmail: _userEmail,
+              // userProfileImageLink: _userImageLink,
             );
           },
         ),

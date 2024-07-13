@@ -90,7 +90,7 @@ class AgentLoginViewModel with ChangeNotifier {
     setLoading(true);
 
     var header = {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json; charset=UTF-8',
     };
     var body = jsonEncode({"mobile": _mobile, "password": _password});
 

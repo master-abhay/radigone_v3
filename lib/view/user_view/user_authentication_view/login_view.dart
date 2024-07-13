@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                                           child: CustomFormField(
                                               hintText: "Phone number",
                                               onSaved: (value) {
-                                                provider.setUsername(value);
+                                                provider.setMobile(value);
                                               },
                                               obscureText: false,
                                               isNumber: true,

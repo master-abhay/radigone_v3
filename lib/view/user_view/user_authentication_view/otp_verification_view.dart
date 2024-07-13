@@ -180,7 +180,7 @@ class _UserOtpVerificationState extends State<UserOtpVerification> {
           return SizedBox(
             width: 240,
             child: CustomButton(
-                buttonName: "Get OTP",
+                buttonName: "Submit OTP",
                 isLoading: provider.isLoading,
                 isGradient: true,
                 onTap: () async {

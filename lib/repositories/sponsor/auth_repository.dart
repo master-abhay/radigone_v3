@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:radigone_v3/data/network/BaseApiServices.dart';
 import 'package:radigone_v3/data/network/NetworkApiServices.dart';
@@ -12,7 +13,7 @@ class SponsorAuthRepository {
   Future<LoginSponsorModel> sponsorLoginApi({required dynamic header,required dynamic body}) async {
     try {
       dynamic response =
-      await _apiServices.getPostApiHeadersBodyServices( url:  AppUrls.sponsorLoginUrl,headers: header,body:  body);
+      await _apiServices.getPostApiHeadersBodyServices( url: AppUrls.sponsorLoginUrl.toString(),headers: header,body:  body);
       return LoginSponsorModel.fromJson(response);
     } catch (e) {
       throw e;
@@ -29,8 +30,8 @@ class SponsorAuthRepository {
 
       return response;
     } catch (e) {
-      print("Error thrown ........");
-      print(e.toString());
+      debugPrint("Error thrown ........");
+      debugPrint(e.toString());
       throw e;
     }
   }

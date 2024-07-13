@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/constants.dart';
+import '../../view_model/services/auth_services.dart';
 import '../../view_model/services/navigation_services.dart';
+import '../../view_model/common/logout_view_model.dart';
 
 class SponsorSideBarView extends StatefulWidget {
   final String? sponsorName;
@@ -23,6 +26,7 @@ class SponsorSideBarView extends StatefulWidget {
 
 class _SponsorSideBarViewState extends State<SponsorSideBarView> {
   late NavigationServices _navigationServices;
+  late AuthService _authService;
 
   @override
   void initState() {
@@ -31,6 +35,7 @@ class _SponsorSideBarViewState extends State<SponsorSideBarView> {
 
     final GetIt getIt = GetIt.instance;
     _navigationServices = getIt.get<NavigationServices>();
+    _authService = getIt.get<AuthService>();
   }
 
   @override
@@ -63,7 +68,8 @@ class _SponsorSideBarViewState extends State<SponsorSideBarView> {
                     ClipOval(
                       child: Image.network(
                         // "images/images_sponsor_sidebar/Ellipse 28.png",
-                        widget.sponsorProfileImageLink ?? Constants.PLACEHOLDER_PFP,
+                        widget.sponsorProfileImageLink ??
+                            Constants.PLACEHOLDER_PFP,
                         fit: BoxFit.cover,
                         height: MediaQuery.sizeOf(context).width / 7,
                         width: MediaQuery.sizeOf(context).width / 7,
@@ -157,7 +163,6 @@ class _SponsorSideBarViewState extends State<SponsorSideBarView> {
                   },
                   child: Container(
                       color: Colors.transparent,
-
                       padding: const EdgeInsets.all(8),
                       // width: MediaQuery.sizeOf(context).width * 0.3,
                       child: Row(
@@ -185,7 +190,6 @@ class _SponsorSideBarViewState extends State<SponsorSideBarView> {
                   },
                   child: Container(
                       color: Colors.transparent,
-
                       padding: const EdgeInsets.all(8),
                       // width: MediaQuery.sizeOf(context).width * 0.3,
                       child: Row(
@@ -213,7 +217,6 @@ class _SponsorSideBarViewState extends State<SponsorSideBarView> {
                   },
                   child: Container(
                       color: Colors.transparent,
-
                       padding: const EdgeInsets.all(8),
                       // width: MediaQuery.sizeOf(context).width * 0.3,
                       child: Row(
@@ -352,7 +355,6 @@ class _SponsorSideBarViewState extends State<SponsorSideBarView> {
               },
             ),
 
-
             //Phase-2
             //// Commented for phase 2
 
@@ -453,7 +455,6 @@ class _SponsorSideBarViewState extends State<SponsorSideBarView> {
               horizontalTitleGap: 5,
               onTap: () {
                 _navigationServices.pushNamed('/sponsorSidebarProfileView');
-
               },
             ),
             ListTile(
@@ -470,24 +471,23 @@ class _SponsorSideBarViewState extends State<SponsorSideBarView> {
                 _navigationServices.pushNamed('/sponsorChangePasswordView');
               },
             ),
-            // Consumer<LogOutSponserProvider>(
-            //     builder: (BuildContext context, value, Widget? child) {
-            //       return
-                  ListTile(
-                    title: const Text(
-                      "Logout",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                    leading:
+            Consumer<LogoutUserProvider>(
+                builder: (BuildContext context, value, Widget? child) {
+              return ListTile(
+                title: const Text(
+                  "Logout",
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
+                leading:
                     SvgPicture.asset("images/images_user_sidebar/logout.svg"),
-                    dense: true,
-                    horizontalTitleGap: 5,
-                    onTap: () async {
-                      // bool result = await value.logOutSponser();
-                    },
-                  )
-      // ;
-            //     }),
+                dense: true,
+                horizontalTitleGap: 5,
+                onTap: () async {
+                  String token = await _authService.getSponsorToken() ?? '';
+                  await value.logOut(context, token: token);
+                },
+              );
+            }),
           ],
         ),
       ),

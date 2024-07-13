@@ -587,8 +587,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                                                               .text
                                                               .toString());
 
-                                                      print(
-                                                          '--------------------->>>>>>>>>>>${profileProvider.dob.toString()}');
                                                     }
                                                   },
                                                   onSaved: (value) {
