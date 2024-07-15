@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 
+import '../../view_model/common_viewModel/logout_view_model.dart';
+import '../../view_model/services/auth_services.dart';
 import '../../view_model/services/navigation_services.dart';
 
 class AgentSideBar extends StatefulWidget {
@@ -22,14 +25,16 @@ class AgentSideBar extends StatefulWidget {
 class _AgentSideBarState extends State<AgentSideBar> {
 
   late NavigationServices _navigationServices;
+  late AuthService _authService;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     final GetIt getIt = GetIt.instance;
     _navigationServices = getIt.get<NavigationServices>();
+    _authService = getIt.get<AuthService>();
+
   }
 
   @override
@@ -214,16 +219,23 @@ class _AgentSideBarState extends State<AgentSideBar> {
               ),
             ],
           ),
-          ListTile(
-            title: const Text(
-              "Logout",
-              style: TextStyle(color: Colors.white, fontSize: 14),
-            ),
-            leading: SvgPicture.asset("images/images_agent_sidebar/logout.svg"),
-            dense: true,
-            horizontalTitleGap: 5,
-            onTap: () {},
-          ),
+          Consumer<LogoutProvider>(
+              builder: (BuildContext context, value, Widget? child) {
+                return ListTile(
+                  title: const Text(
+                    "Logout",
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  ),
+                  leading:
+                  SvgPicture.asset("images/images_user_sidebar/logout.svg"),
+                  dense: true,
+                  horizontalTitleGap: 5,
+                  onTap: () async {
+                    String token = await _authService.getSponsorToken() ?? '';
+                    await value.logOut(context, token: token);
+                  },
+                );
+              }),
         ],
       ),
     );

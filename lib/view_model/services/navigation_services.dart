@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:radigone_v3/view/agent_view/agent_authentication/agent_registration_view.dart';
 import 'package:radigone_v3/view/sponsor_view/profile/sponser_profile_view.dart';
 import 'package:radigone_v3/view/user_view/user_main_view_with_bottomBar_view.dart';
 
-import '../../view/agent_view/agent_authentication/agent_login_view.dart';
 import '../../view/agent_view/agent_main_view_with_bottom_bar.dart';
 import '../../view/agent_view/side_menu_bar_view/agent_earning_view.dart';
 import '../../view/agent_view/side_menu_bar_view/agent_referral_view.dart';
@@ -23,8 +23,6 @@ import '../../view/sponsor_view/side_menu_bar_view/sponsor_myTickets_view.dart';
 import '../../view/sponsor_view/side_menu_bar_view/sponsor_report_view.dart';
 import '../../view/sponsor_view/side_menu_bar_view/sponsor_sidebar_profile_view.dart';
 import '../../view/sponsor_view/side_menu_bar_view/sponsor_transaction_view.dart';
-import '../../view/sponsor_view/sponser_Authentication/sponsor_change_password_view.dart';
-import '../../view/sponsor_view/sponser_Authentication/sponsor_login_view.dart';
 import '../../view/sponsor_view/sponser_Authentication/sponsor_registration_view.dart';
 import '../../view/sponsor_view/sponsor_main_screens_with_bottom_bar.dart';
 import '../../view/user_view/profile/profile_edit_page.dart';
@@ -35,12 +33,12 @@ import '../../view/user_view/side_menu_bar_views/create_ticket_view.dart';
 import '../../view/user_view/side_menu_bar_views/my_tickets_view.dart';
 import '../../view/user_view/side_menu_bar_views/redeem_radigone_points_view.dart';
 import '../../view/user_view/side_menu_bar_views/transaction_view.dart';
-import '../../view/user_view/user_authentication_view/change_password_view.dart';
-import '../../view/user_view/user_authentication_view/forgot_password_view.dart';
-import '../../view/user_view/user_authentication_view/login_view.dart';
-import '../../view/user_view/user_authentication_view/otp_verification_view.dart';
+import '../../view/common_view/change_password_view.dart';
+import '../../view/common_view/forgot_password_view.dart';
+import '../../view/common_view/login_view.dart';
+import '../../view/common_view/otp_verification_view.dart';
 import '../../view/user_view/user_authentication_view/registration_view.dart';
-import '../../view/user_view/user_authentication_view/reset_password_view.dart';
+import '../../view/common_view/reset_password_view.dart';
 
 class NavigationServices {
 //Creating the global key for navigation State:
@@ -58,12 +56,11 @@ class NavigationServices {
 
 
 
-
+    "/agentRegistrationView": (context) => const AgentRegistrationView(),
     "/sponsorProfileUpdateView": (context) => const SponsorProfileUpdateView(),
     "/agentReferralView": (context) => const AgentReferralView(),
     "/agentEarningView": (context) => const AgentEarningView(),
     "/sponsorCalendarView": (context) => const SponsorCalendarView(),
-    "/sponsorChangePasswordView": (context) => const SponsorChangePasswordView(),
     "/sponsorMyTicketsView": (context) => const SponsorMyTicketsView(),
     "/sponsorCreateTicketView": (context) => const SponsorCreateTicketView(),
     "/sponsorSidebarProfileView": (context) => const SponsorSidebarProfileView(),
@@ -74,7 +71,6 @@ class NavigationServices {
     "/sponsorDepositLogView": (context) => const SponsorDepositLogView(),
     "/sponsorBuyViewView": (context) => const SponsorBuyViewView(),
     "/sponsorDepositNowView": (context) => const SponsorDepositNowView(),
-    "/agentLoginView": (context) => const AgentLoginView(),
     "/agentMainView": (context) => const AgentMainView(),
     "/adsPreferencesView": (context) => const AdsPreferencesView(),
     "/myTicketView": (context) => const MyTicketsView(),
@@ -86,13 +82,12 @@ class NavigationServices {
     "/profileEditPage": (context) => const ProfileEditPage(),
     // "/videoPlayerPage": (context) => const VideoPlayerPage(),
     "/selectRegistrationPage": (context) => const SelectRegistrationPage(),
-    "/SponserRegistrationPage":(context)=> const SponsorRegistrationView(),
+    "/sponsorRegistrationView":(context)=> const SponsorRegistrationView(),
     "/selectLoginPage" : (context) =>  const SelectLoginPage(),
-    "/sponsorLoginPage" : (context) => const SponsorLoginView(),
     "/sponsorMainView" : (context) => const SponsorMainView(),
     "/userMainView": (context) => const UserMainView(),
-    "/forgotPassword": (context) => const ForgotPassword(),
-    "/loginPage": (context) => const LoginPage(),
+    // "/forgotPassword": (context) => const ForgotPassword(),
+    // "/loginPage": (context) => const LoginPage(),
     "/registrationPage": (context) => const RegistrationPage(),
     "/loginRegistration": (context) => const LoginRegistration(),
     "/splashScreen": (context) => const SplashScreen(),

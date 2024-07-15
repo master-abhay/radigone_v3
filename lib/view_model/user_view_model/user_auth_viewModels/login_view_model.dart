@@ -104,8 +104,10 @@ class LoginUserProvider with ChangeNotifier {
 
   final _myRepo = UserAuthRepository();
 
-  Future<bool> loginUser(BuildContext context) async {
+  Future<bool> loginUser({required BuildContext context, required String mobile,required String password}) async {
     setLoading(true);
+    setMobile(mobile);
+    setPassword(password);
 
     var header = {
       'Content-Type': 'application/json; charset=UTF-8'
@@ -149,8 +151,6 @@ class LoginUserProvider with ChangeNotifier {
           '${value['data']['firstname']} ${value['data']['lastname']}');
       await _authService.saveUserEmail('${value['data']['email']}');
       await _authService.saveUserImageLink('${value['data']['image']}');
-      _navigationServices.goBack();
-
 
 //<----------------------------------------------------------------Initialization of Data------------------------>
       await Provider.of<DashboardUserProvider>(context, listen: false)

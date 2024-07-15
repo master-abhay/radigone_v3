@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:radigone_v3/view_model/services/auth_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
 
-import '../../view_model/common/logout_view_model.dart';
+import '../../view_model/common_viewModel/logout_view_model.dart';
+
 
 class UserSideBar extends StatefulWidget {
   final String? userName;
@@ -318,7 +319,7 @@ class _UserSideBarState extends State<UserSideBar> {
               ),
             ],
           ),
-          Consumer<LogoutUserProvider>(
+          Consumer<LogoutProvider>(
               builder: (BuildContext context, value, Widget? child) {
             return ListTile(
               title: const Text(

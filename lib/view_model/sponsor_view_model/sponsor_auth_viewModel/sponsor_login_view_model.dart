@@ -9,11 +9,11 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_profile_information_viewModel.dart';
 
-import '../../repositories/sponsor/auth_repository.dart';
-import '../services/alert_services.dart';
-import '../services/auth_services.dart';
-import '../services/flutter_secure_storage/secure_storage.dart';
-import '../services/navigation_services.dart';
+import '../../../repositories/sponsor/auth_repository.dart';
+import '../../services/alert_services.dart';
+import '../../services/auth_services.dart';
+import '../../services/flutter_secure_storage/secure_storage.dart';
+import '../../services/navigation_services.dart';
 
 class LoginSponsorProvider with ChangeNotifier {
   String? _mobile;
@@ -61,8 +61,10 @@ class LoginSponsorProvider with ChangeNotifier {
 
   final _myRepo = SponsorAuthRepository();
 
-  Future<bool> loginSponsor(BuildContext context) async {
+  Future<bool> loginSponsor({required BuildContext context, required String mobile,required String password}) async {
     setLoading(true);
+     setMobile(mobile);
+     setPassword(password);
 
     var header = {'Content-Type': 'application/json; charset=UTF-8'};
     var body = jsonEncode({"mobile": _mobile, "password": _password});
@@ -84,8 +86,6 @@ class LoginSponsorProvider with ChangeNotifier {
           .saveSponsorName('${value.data!.firstname} ${value.data!.lastname}');
       await _authService.saveSponsorEmail('${value.data!.email}');
       await _authService.saveSponsorImageLink('${value.data!.image}');
-
-      _navigationServices.goBack();
 
       //<----------------------------------------------------------------Initialization of Data------------------------>
       await Provider.of<SponsorProfileInformationViewModel>(context,

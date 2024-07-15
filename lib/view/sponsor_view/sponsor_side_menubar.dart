@@ -4,9 +4,9 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/constants.dart';
+import '../../view_model/common_viewModel/logout_view_model.dart';
 import '../../view_model/services/auth_services.dart';
 import '../../view_model/services/navigation_services.dart';
-import '../../view_model/common/logout_view_model.dart';
 
 class SponsorSideBarView extends StatefulWidget {
   final String? sponsorName;
@@ -30,7 +30,6 @@ class _SponsorSideBarViewState extends State<SponsorSideBarView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     final GetIt getIt = GetIt.instance;
@@ -471,7 +470,7 @@ class _SponsorSideBarViewState extends State<SponsorSideBarView> {
                 _navigationServices.pushNamed('/sponsorChangePasswordView');
               },
             ),
-            Consumer<LogoutUserProvider>(
+            Consumer<LogoutProvider>(
                 builder: (BuildContext context, value, Widget? child) {
               return ListTile(
                 title: const Text(

@@ -6,9 +6,9 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:radigone_v3/repositories/user/auth_repository.dart';
 
-import '../../services/alert_services.dart';
-import '../../services/flutter_secure_storage/secure_storage.dart';
-import '../../services/navigation_services.dart';
+import '../services/alert_services.dart';
+import '../services/flutter_secure_storage/secure_storage.dart';
+import '../services/navigation_services.dart';
 
 
 class ChangePasswordUserProvider with ChangeNotifier {

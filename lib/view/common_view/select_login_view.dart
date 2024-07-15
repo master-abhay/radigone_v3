@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:radigone_v3/view/common_view/login_view.dart';
 
 import '../../resources/colors.dart';
 import '../../resources/components/custom_button.dart';
 import '../../view_model/services/navigation_services.dart';
-
 
 class SelectLoginPage extends StatefulWidget {
   const SelectLoginPage({super.key});
@@ -14,24 +14,18 @@ class SelectLoginPage extends StatefulWidget {
 }
 
 class _SelectLoginPageState extends State<SelectLoginPage> {
-
   bool isLoadingLogin = false;
   bool isLoadingSignUp = false;
-
 
   late NavigationServices _navigationServices;
 
   final GetIt _getIt = GetIt.instance;
 
-
   @override
   void initState() {
-
     _navigationServices = _getIt.get<NavigationServices>();
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +48,7 @@ class _SelectLoginPageState extends State<SelectLoginPage> {
           decoration: const BoxDecoration(
               gradient: MyColorScheme.yellowLinearGradient,
               borderRadius:
-              BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
+                  BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
           child: Image.asset("images/login_registraion.png"),
         ),
         Container(
@@ -108,18 +102,20 @@ class _SelectLoginPageState extends State<SelectLoginPage> {
                                   isLoadingLogin = true;
                                 });
 
-                                _navigationServices.pushReplacementNamed("/loginPage");
-
+                                // _navigationServices
+                                //     .pushReplacementNamed("/loginPage");
+                                _navigationServices.push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const LoginView(flagType: "viewer")));
 
                                 setState(() {
                                   isLoadingLogin = false;
                                 });
-
                               })),
                       SizedBox(
                           width: MediaQuery.of(context).size.width / 1.3,
                           child: CustomButton(
-                              buttonName: "Sponser Login",
+                              buttonName: "Sponsor Login",
                               isLoading: isLoadingLogin,
                               isGradient: false,
                               onTap: () {
@@ -127,15 +123,14 @@ class _SelectLoginPageState extends State<SelectLoginPage> {
                                   isLoadingLogin = true;
                                 });
 
-                                _navigationServices.pushReplacementNamed("/sponsorLoginPage");
-
+                                _navigationServices.push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const LoginView(flagType: "sponsor")));
 
                                 setState(() {
                                   isLoadingLogin = false;
                                 });
-
                               })),
-
                       SizedBox(
                           width: MediaQuery.of(context).size.width / 1.3,
                           child: CustomButton(
@@ -147,16 +142,14 @@ class _SelectLoginPageState extends State<SelectLoginPage> {
                                   isLoadingLogin = true;
                                 });
 
-                                _navigationServices.pushReplacementNamed("/agentLoginView");
-
+                                _navigationServices.push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const LoginView(flagType: "agent")));
 
                                 setState(() {
                                   isLoadingLogin = false;
                                 });
-
                               })),
-
-
                     ],
                   ),
                 ),

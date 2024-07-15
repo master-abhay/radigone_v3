@@ -8,13 +8,13 @@ import '../services/alert_services.dart';
 import '../services/auth_services.dart';
 import '../services/navigation_services.dart';
 
-class LogoutUserProvider with ChangeNotifier {
+class LogoutProvider with ChangeNotifier {
   late AlertServices _alertServices;
   late NavigationServices _navigationServices;
 
   late AuthService _authService;
 
-  LogoutUserProvider() {
+  LogoutProvider() {
     final GetIt getIt = GetIt.instance;
     _alertServices = getIt.get<AlertServices>();
     _authService = getIt.get<AuthService>();

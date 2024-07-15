@@ -63,8 +63,6 @@ class SponsorProfileInformationViewModel with ChangeNotifier {
     };
 
     _myRepo.sponsorProfileApi(headers: headers).then((value) async {
-
-      _setProfileUpdateParameters(context:context,value: value);
       setSponsorProfileInfo(ApiResponse.completed(value));
       setLoading(false);
       // _alertServices.flushBarErrorMessages("Profile Fetched", context);
@@ -82,10 +80,3 @@ class SponsorProfileInformationViewModel with ChangeNotifier {
 }
 
 
-_setProfileUpdateParameters(
-    {required BuildContext context,required SponsorProfileInformationModel value})async{
-  final provider =
-  Provider.of<SponsorProfileUpdateViewModel>(context, listen: false);
-
-
-}

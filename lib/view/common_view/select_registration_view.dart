@@ -5,7 +5,6 @@ import '../../resources/colors.dart';
 import '../../resources/components/custom_button.dart';
 import '../../view_model/services/navigation_services.dart';
 
-
 class SelectRegistrationPage extends StatefulWidget {
   const SelectRegistrationPage({super.key});
 
@@ -14,24 +13,19 @@ class SelectRegistrationPage extends StatefulWidget {
 }
 
 class _SelectRegistrationPageState extends State<SelectRegistrationPage> {
-
-  bool isLoadingLogin = false;
-  bool isLoadingSignUp = false;
-
+  bool isLoadingViewer = false;
+  bool isLoadingSponsor = false;
+  bool isLoadingAgent = false;
 
   late NavigationServices _navigationServices;
 
   final GetIt _getIt = GetIt.instance;
 
-
   @override
   void initState() {
-
     _navigationServices = _getIt.get<NavigationServices>();
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +48,7 @@ class _SelectRegistrationPageState extends State<SelectRegistrationPage> {
           decoration: const BoxDecoration(
               gradient: MyColorScheme.yellowLinearGradient,
               borderRadius:
-              BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
+                  BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
           child: Image.asset("images/login_registraion.png"),
         ),
         Container(
@@ -101,61 +95,56 @@ class _SelectRegistrationPageState extends State<SelectRegistrationPage> {
                           width: MediaQuery.of(context).size.width / 1.3,
                           child: CustomButton(
                               buttonName: "User Registration",
-                              isLoading: isLoadingLogin,
+                              isLoading: isLoadingViewer,
                               isGradient: true,
                               onTap: () {
                                 setState(() {
-                                  isLoadingLogin = true;
+                                  isLoadingViewer = true;
                                 });
 
-                                _navigationServices.pushReplacementNamed("/registrationPage");
-
+                                _navigationServices
+                                    .pushReplacementNamed("/registrationPage");
 
                                 setState(() {
-                                  isLoadingLogin = false;
+                                  isLoadingViewer = false;
                                 });
-
                               })),
                       SizedBox(
                           width: MediaQuery.of(context).size.width / 1.3,
                           child: CustomButton(
-                              buttonName: "Sponser Registration",
-                              isLoading: isLoadingLogin,
+                              buttonName: "Sponsor Registration",
+                              isLoading: isLoadingSponsor,
                               isGradient: false,
                               onTap: () {
                                 setState(() {
-                                  isLoadingLogin = true;
+                                  isLoadingSponsor = true;
                                 });
 
-                                _navigationServices.pushReplacementNamed("/SponserRegistrationPage");
-
+                                _navigationServices.pushReplacementNamed(
+                                    "/sponsorRegistrationView");
 
                                 setState(() {
-                                  isLoadingLogin = false;
+                                  isLoadingSponsor = false;
                                 });
-
                               })),
                       SizedBox(
                           width: MediaQuery.of(context).size.width / 1.3,
                           child: CustomButton(
                               buttonName: "Agent Registration",
-                              isLoading: isLoadingLogin,
+                              isLoading: isLoadingAgent,
                               isGradient: false,
                               onTap: () {
                                 setState(() {
-                                  isLoadingLogin = true;
+                                  isLoadingAgent = true;
                                 });
 
-                                // _navigationServices.pushReplacementNamed("/loginPage");
-
+                                _navigationServices.pushReplacementNamed(
+                                    "/agentRegistrationView");
 
                                 setState(() {
-                                  isLoadingLogin = false;
+                                  isLoadingAgent = false;
                                 });
-
                               })),
-
-
                     ],
                   ),
                 ),

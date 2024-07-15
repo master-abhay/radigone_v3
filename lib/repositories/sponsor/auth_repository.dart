@@ -36,4 +36,17 @@ class SponsorAuthRepository {
     }
   }
 
+
+  Future<dynamic> sponsorForgotPasswordApi({required dynamic headers,required dynamic body}) async {
+
+  }
+
+  Future<dynamic> sponsorOtpVerificationApi({required dynamic headers,required dynamic body}) async {
+
+  }
+
+  Future<dynamic> sponsorResetPasswordApi({required dynamic headers,required dynamic body}) async {
+
+  }
+
 }

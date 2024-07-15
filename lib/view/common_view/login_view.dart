@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
-import '../../../resources/colors.dart';
-import '../../../resources/components/custom_button.dart';
-import '../../../resources/components/custom_form_field.dart';
-import '../../../view_model/services/alert_services.dart';
-import '../../../view_model/services/navigation_services.dart';
-import '../../../view_model/user_view_model/auth_viewModels/login_view_model.dart';
+import 'package:radigone_v3/view/common_view/forgot_password_view.dart';
 
+import '../../resources/colors.dart';
+import '../../resources/components/custom_button.dart';
+import '../../resources/components/custom_form_field.dart';
+import '../../view_model/agent_view_model/agent_auth_viewModels/agent_login_viewModel.dart';
+import '../../view_model/user_view_model/user_auth_viewModels/login_view_model.dart';
+import '../../view_model/services/alert_services.dart';
+import '../../view_model/services/navigation_services.dart';
+import '../../view_model/sponsor_view_model/sponsor_auth_viewModel/sponsor_login_view_model.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginView extends StatefulWidget {
+  final String flagType;
+  const LoginView({super.key, required this.flagType});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginViewState extends State<LoginView> {
   late GlobalKey<FormState> _loginFormState;
 
-  String? username, password;
+  String? mobile, password;
 
   //Creating the instance of get_it package:
   final GetIt _getIt = GetIt.instance;
@@ -121,24 +125,27 @@ class _LoginPageState extends State<LoginPage> {
                                       SizedBox(
                                           width: 294,
                                           child: CustomFormField(
-                                              hintText: "Phone number",
-                                              onSaved: (value) {
-                                                provider.setMobile(value);
-                                              },
-                                              obscureText: false,
-                                              isNumber: true,
-                                          textCapitalization: false,)),
+                                            hintText: "Phone number",
+                                            onSaved: (value) {
+                                              mobile = value!;
+                                            },
+                                            obscureText: false,
+                                            isNumber: true,
+                                            textCapitalization: false,
+                                          )),
                                       const SizedBox(height: 15),
                                       SizedBox(
-                                          width: 294, // height: 30,
-                                          child: CustomFormField(
-                                              hintText: "Password",
-                                              onSaved: (value) {
-                                                provider.setPassword(value);
-                                              },
-                                              obscureText: false,
-                                              isNumber: false,
-                                          textCapitalization: false,),),
+                                        width: 294, // height: 30,
+                                        child: CustomFormField(
+                                          hintText: "Password",
+                                          onSaved: (value) {
+                                            password = value!;
+                                          },
+                                          obscureText: false,
+                                          isNumber: false,
+                                          textCapitalization: false,
+                                        ),
+                                      ),
                                       const SizedBox(
                                         height: 8,
                                       ),
@@ -150,10 +157,13 @@ class _LoginPageState extends State<LoginPage> {
                                           children: [
                                             GestureDetector(
                                                 onTap: () {
-                                                  //Implement Forgot password Functionality:
-                                                  _navigationServices
-                                                      .pushReplacementNamed(
-                                                          "/forgotPassword");
+                                                  _navigationServices.goBack();
+                                                  _navigationServices.push(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ForgotPassword(
+                                                                  flagType: widget
+                                                                      .flagType)));
                                                 },
                                                 child: Text(
                                                   "Forgot password?",
@@ -187,13 +197,31 @@ class _LoginPageState extends State<LoginPage> {
                                                 _loginFormState.currentState!
                                                     .save();
 
-                                                bool loginResult = await provider.loginUser(context);
-
-                                                // if(loginResult){
-                                                //   // _navigationServices.pushNamed("/home");
-                                                //   _userLocalDataSaverSharedPreferences.setUserState(true);
-                                                //   // _navigationServices.push(MaterialPageRoute(builder: (context)=>MainScreen()));
-                                                // }
+                                                switch (widget.flagType) {
+                                                  case "viewer":
+                                                    await provider.loginUser(
+                                                        context: context,
+                                                        mobile: mobile!,
+                                                        password: password!);
+                                                  case "sponsor":
+                                                    Provider.of<LoginSponsorProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .loginSponsor(
+                                                            context: context,
+                                                            mobile: mobile!,
+                                                            password:
+                                                                password!);
+                                                  case "agent":
+                                                    Provider.of<AgentLoginViewModel>(
+                                                            context,
+                                                            listen: false)
+                                                        .loginAgent(
+                                                            context: context,
+                                                            mobile: mobile!,
+                                                            password:
+                                                                password!);
+                                                }
                                               }
                                             }),
                                       ),
@@ -214,10 +242,23 @@ class _LoginPageState extends State<LoginPage> {
                                               ),
                                               GestureDetector(
                                                   onTap: () {
-                                                    //Implement move to register Screen Functionality here:
-                                                    _navigationServices
-                                                        .pushReplacementNamed(
-                                                            "/registrationPage");
+                                                    switch (widget.flagType) {
+                                                      case "viewer":
+                                                        _navigationServices
+                                                            .pushReplacementNamed(
+                                                                "/registrationPage");
+                                                        break;
+                                                      case "sponsor":
+                                                        _navigationServices
+                                                            .pushReplacementNamed(
+                                                                "/sponsorRegistrationView");
+                                                        break;
+                                                      case "agent":
+                                                        _navigationServices
+                                                            .pushReplacementNamed(
+                                                                "/agentRegistrationView");
+                                                        break;
+                                                    }
                                                   },
                                                   child: const Text(
                                                     " Register",

@@ -132,15 +132,19 @@ import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/tester.dart';
+import 'package:radigone_v3/view/agent_view/agent_main_view_with_bottom_bar.dart';
 import 'package:radigone_v3/view/common_view/video_player_view.dart';
-import 'package:radigone_v3/view/user_view/user_authentication_view/reset_password_view.dart';
-import 'package:radigone_v3/view_model/agent_view_model/agent_authentication_viewModels/agent_login_viewModel.dart';
+import 'package:radigone_v3/view/common_view/reset_password_view.dart';
+import 'package:radigone_v3/view_model/agent_view_model/agent_auth_viewModels/agent_login_viewModel.dart';
 import 'package:radigone_v3/view_model/agent_view_model/agent_referralLink_viewModel.dart';
+import 'package:radigone_v3/view_model/common_viewModel/change_password_view_model.dart';
+import 'package:radigone_v3/view_model/user_view_model/user_auth_viewModels/login_view_model.dart';
+import 'package:radigone_v3/view_model/common_viewModel/logout_view_model.dart';
 
 import 'package:radigone_v3/view_model/services/getIt_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_change_password_viewModel.dart';
-import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_login_view_model.dart';
+import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_auth_viewModel/sponsor_login_view_model.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_profile_information_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_register_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_create_ticket_viewModel.dart';
@@ -149,10 +153,8 @@ import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_m
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_profile_update_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_transaction_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_close_reply_ticket_viewModel.dart';
-import 'package:radigone_v3/view_model/user_view_model/auth_viewModels/change_password_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/dashboard_ads_list_view_model.dart';
-import 'package:radigone_v3/view_model/user_view_model/auth_viewModels/login_view_model.dart';
-import 'package:radigone_v3/view_model/common/logout_view_model.dart';
+
 import 'package:radigone_v3/view_model/user_view_model/profile_update_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/profile_view_model.dart';
 import 'package:radigone_v3/view_model/user_view_model/radigonePoint_view_model.dart';
@@ -217,7 +219,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (_) => LoginUserProvider()),
         // ChangeNotifierProvider(create: (_) => SaveUserDetails()),
-        ChangeNotifierProvider(create: (_) => LogoutUserProvider()),
+        ChangeNotifierProvider(create: (_) => LogoutProvider()),
         ChangeNotifierProvider(create: (_) => LoginSponsorProvider()),
         // ChangeNotifierProvider(create: (_) => SaveSponsorDetails()),
         // ChangeNotifierProvider(create: (_) => LogOutSponserProvider()),
@@ -255,7 +257,7 @@ class _MyAppState extends State<MyApp> {
         ),
         navigatorKey: _navigationServices.navigationStateKey,
         routes: _navigationServices.routes,
-        // home:  DependentDropdownsScreen(),
+        // home:  AgentMainView(),
         // home: CustomBottomNavigationBar(),
         // initialRoute: "/splashScreen",
         initialRoute: "/splashScreen",

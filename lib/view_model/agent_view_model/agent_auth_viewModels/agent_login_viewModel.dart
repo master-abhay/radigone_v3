@@ -86,8 +86,10 @@ class AgentLoginViewModel with ChangeNotifier {
 
   final _myRepo = AgentAuthRepository();
 
-  Future<bool> loginAgent(BuildContext context) async {
+  Future<bool> loginAgent({required BuildContext context, required String mobile,required String password}) async {
     setLoading(true);
+    setUsername(mobile);
+    setPassword(password);
 
     var header = {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -110,8 +112,6 @@ class AgentLoginViewModel with ChangeNotifier {
           '${value.data!.firstname} ${value.data!.lastname}');
       await _authService.saveAgentEmail('${value.data!.email}');
       await _authService.saveAgentImageLink('${value.data!.image}');
-
-      _navigationServices.goBack();
       _navigationServices.pushReplacementNamed('/agentMainView');
       if (kDebugMode) {
         print("Agent logged in Successfully");

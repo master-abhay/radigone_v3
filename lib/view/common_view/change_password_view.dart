@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
-import '../../../resources/colors.dart';
-import '../../../resources/components/custom_button.dart';
-import '../../../resources/components/custom_form_field.dart';
-import '../../../view_model/services/navigation_services.dart';
-import '../../../view_model/user_view_model/auth_viewModels/change_password_view_model.dart';
+import '../../resources/colors.dart';
+import '../../resources/components/custom_button.dart';
+import '../../resources/components/custom_form_field.dart';
+import '../../view_model/common_viewModel/change_password_view_model.dart';
+import '../../view_model/services/navigation_services.dart';
 
 
 class ChangePassword extends StatefulWidget {

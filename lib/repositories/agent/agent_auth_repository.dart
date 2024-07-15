@@ -19,4 +19,17 @@ class AgentAuthRepository {
     }
   }
 
+
+  Future<dynamic> agentForgotPasswordApi({required dynamic headers,required dynamic body}) async {
+
+  }
+
+  Future<dynamic> agentOtpVerificationApi({required dynamic headers,required dynamic body}) async {
+
+  }
+
+  Future<dynamic> agentResetPasswordApi({required dynamic headers,required dynamic body}) async {
+
+  }
+
 }

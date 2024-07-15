@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/resources/components/custom_text_field.dart';
-import 'package:radigone_v3/view_model/user_view_model/auth_viewModels/forget_password_viewModel.dart';
 
-import '../../../resources/colors.dart';
-import '../../../resources/components/custom_button.dart';
-import '../../../view_model/services/navigation_services.dart';
+import '../../resources/colors.dart';
+import '../../resources/components/custom_button.dart';
+import '../../view_model/common_viewModel/forget_password_viewModel.dart';
+import '../../view_model/services/navigation_services.dart';
 import 'otp_verification_view.dart';
 
 class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({super.key});
+  final String flagType;
+  const ForgotPassword({super.key, required this.flagType});
 
   @override
   State<ForgotPassword> createState() => _ForgotPasswordState();
@@ -160,8 +161,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   Widget _sendOtpButton() {
     return ChangeNotifierProvider(
-        create: (context) => UserForgetPasswordViewModel(),
-        child: Consumer<UserForgetPasswordViewModel>(
+        create: (context) => ForgetPasswordViewModel(),
+        child: Consumer<ForgetPasswordViewModel>(
           builder: (context, provider, _) {
             return SizedBox(
               width: 240,
@@ -170,14 +171,31 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   isLoading: provider.isLoading,
                   isGradient: true,
                   onTap: () async {
-                    bool result = await provider.sendOtp(
-                        context: context, emailAddress: _emailController.text);
-                    print(result.toString());
-                    if (result) {
+                    bool? result;
+
+                    switch (widget.flagType) {
+                      case "viewer":
+                        result = await provider.sendViewerOtp(
+                            context: context,
+                            emailAddress: _emailController.text);
+                        break;
+                      case "sponsor":
+                        result = await provider.sendSponsorOtp(
+                            context: context,
+                            emailAddress: _emailController.text);
+                        break;
+                      case "agent":
+                        result = await provider.sendAgentOtp(
+                            context: context,
+                            emailAddress: _emailController.text);
+                        break;
+                    }
+                    if (result!) {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => UserOtpVerification(
+                              builder: (context) => UserOtpVerificationView(
+                                    flagType: widget.flagType,
                                     emailAddress: _emailController.text,
                                   )));
                     }

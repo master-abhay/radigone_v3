@@ -3,16 +3,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:radigone_v3/repositories/user/auth_repository.dart';
-import 'package:radigone_v3/view/user_view/user_authentication_view/otp_verification_view.dart';
 import 'package:radigone_v3/view_model/services/alert_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
 
-import '../../../utils/constants.dart';
+import '../../utils/constants.dart';
 
-class UserForgetPasswordViewModel with ChangeNotifier {
+class ForgetPasswordViewModel with ChangeNotifier {
   late NavigationServices _navigationServices;
   late AlertServices _alertServices;
-  UserForgetPasswordViewModel() {
+  ForgetPasswordViewModel() {
     final GetIt getIt = GetIt.instance;
     _navigationServices = getIt.get<NavigationServices>();
     _alertServices = getIt.get<AlertServices>();
@@ -34,7 +33,8 @@ class UserForgetPasswordViewModel with ChangeNotifier {
 
   final UserAuthRepository _myRepo = UserAuthRepository();
 
-  Future<bool> sendOtp({required BuildContext context, String? emailAddress}) async {
+  Future<bool> sendViewerOtp(
+      {required BuildContext context, String? emailAddress}) async {
     setIsLoading(true);
     setEmailAddress(emailAddress);
 
@@ -60,6 +60,16 @@ class UserForgetPasswordViewModel with ChangeNotifier {
       setIsLoading(false);
       return false;
     }
+    return true;
+  }
+
+  Future<bool> sendSponsorOtp(
+      {required BuildContext context, String? emailAddress}) async {
+    return true;
+  }
+
+  Future<bool> sendAgentOtp(
+      {required BuildContext context, String? emailAddress}) async {
     return true;
   }
 }

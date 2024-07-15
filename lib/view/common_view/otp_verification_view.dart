@@ -4,24 +4,27 @@ import 'package:get_it/get_it.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/resources/components/background_designs.dart';
-import 'package:radigone_v3/view_model/user_view_model/auth_viewModels/otp_verification_viewModel.dart';
 
-import '../../../resources/colors.dart';
-import '../../../resources/components/custom_button.dart';
-import '../../../utils/utils.dart';
-import '../../../view_model/services/navigation_services.dart';
-import '../../../view_model/user_view_model/auth_viewModels/forget_password_viewModel.dart';
+import '../../resources/colors.dart';
+import '../../resources/components/custom_button.dart';
+import '../../utils/utils.dart';
+import '../../view_model/common_viewModel/forget_password_viewModel.dart';
+import '../../view_model/common_viewModel/otp_verification_viewModel.dart';
+import '../../view_model/services/navigation_services.dart';
 
-class UserOtpVerification extends StatefulWidget {
+class UserOtpVerificationView extends StatefulWidget {
   final String emailAddress;
+  final String flagType;
 
-  const UserOtpVerification({super.key, required this.emailAddress});
+  const UserOtpVerificationView(
+      {super.key, required this.emailAddress, required this.flagType});
 
   @override
-  State<UserOtpVerification> createState() => _UserOtpVerificationState();
+  State<UserOtpVerificationView> createState() =>
+      _UserOtpVerificationViewState();
 }
 
-class _UserOtpVerificationState extends State<UserOtpVerification> {
+class _UserOtpVerificationViewState extends State<UserOtpVerificationView> {
   final GetIt _getIt = GetIt.instance;
 
   late NavigationServices _navigationServices;
@@ -145,9 +148,9 @@ class _UserOtpVerificationState extends State<UserOtpVerification> {
 
   Widget _otpSection() {
     return ChangeNotifierProvider(
-        create: (context) => UserOtpVerificationViewModel(),
-        child: Consumer<UserOtpVerificationViewModel>(
-            builder: (context, provider, _) {
+        create: (context) => OtpVerificationViewModel(),
+        child:
+            Consumer<OtpVerificationViewModel>(builder: (context, provider, _) {
           return SizedBox(
               width: 236,
               height: MediaQuery.of(context).size.width * 0.2,
@@ -159,14 +162,38 @@ class _UserOtpVerificationState extends State<UserOtpVerification> {
                     decoration: Utils.defaultPinTheme.decoration!
                         .copyWith(border: Border.all(color: Colors.green))),
                 // onCompleted: (pin) => debugPrint(pin),
-                onCompleted: (pin) async{
+                onCompleted: (pin) async {
                   //When password is filled completely perform operations and then move to the reset password Screen:
                   // if we are at signup page verification then need to go to the login Screen
 
                   setState(() {
                     otp = pin.toString();
                   });
-                  bool result = await provider.verifyOtp(context: context,emailAddress: widget.emailAddress,code: pin.toString());
+                  bool? result;
+
+                  switch (widget.flagType) {
+                    case "viewer":
+                      result = await provider.viewerVerifyOtp(
+                        flagType: widget.flagType,
+                          context: context,
+                          emailAddress: widget.emailAddress,
+                          code: pin.toString());
+                      break;
+                    case "sponsor":
+                      result = await provider.sponsorVerifyOtp(
+                        flagType: widget.flagType,
+                          context: context,
+                          emailAddress: widget.emailAddress,
+                          code: pin.toString());
+                      break;
+                    case "agent":
+                     result =  await provider.agentVerifyOtp(
+                       flagType: widget.flagType,
+                          context: context,
+                          emailAddress: widget.emailAddress,
+                          code: pin.toString());
+                      break;
+                  }
                 },
               ));
         }));
@@ -174,9 +201,9 @@ class _UserOtpVerificationState extends State<UserOtpVerification> {
 
   Widget _submitOtp() {
     return ChangeNotifierProvider(
-        create: (context) => UserOtpVerificationViewModel(),
-        child: Consumer<UserOtpVerificationViewModel>(
-            builder: (context, provider, _) {
+        create: (context) => OtpVerificationViewModel(),
+        child:
+            Consumer<OtpVerificationViewModel>(builder: (context, provider, _) {
           return SizedBox(
             width: 240,
             child: CustomButton(
@@ -184,10 +211,31 @@ class _UserOtpVerificationState extends State<UserOtpVerification> {
                 isLoading: provider.isLoading,
                 isGradient: true,
                 onTap: () async {
-                  bool result = await provider.verifyOtp(
-                      context: context,
-                      emailAddress: widget.emailAddress,
-                      code: otp);
+                  bool? result;
+
+                  switch (widget.flagType) {
+                    case "viewer":
+                      result = await provider.viewerVerifyOtp(
+                          flagType: widget.flagType,
+                          context: context,
+                          emailAddress: widget.emailAddress,
+                          code: otp.toString());
+                      break;
+                    case "sponsor":
+                      result = await provider.sponsorVerifyOtp(
+                          flagType: widget.flagType,
+                          context: context,
+                          emailAddress: widget.emailAddress,
+                          code: otp.toString());
+                      break;
+                    case "agent":
+                      result =  await provider.agentVerifyOtp(
+                          flagType: widget.flagType,
+                          context: context,
+                          emailAddress: widget.emailAddress,
+                          code: otp.toString());
+                      break;
+                  }
                 }),
           );
         }));
@@ -195,9 +243,9 @@ class _UserOtpVerificationState extends State<UserOtpVerification> {
 
   Widget _resendOtp() {
     return ChangeNotifierProvider(
-        create: (context) => UserForgetPasswordViewModel(),
-        child: Consumer<UserForgetPasswordViewModel>(
-            builder: (context, provider, _) {
+        create: (context) => ForgetPasswordViewModel(),
+        child:
+            Consumer<ForgetPasswordViewModel>(builder: (context, provider, _) {
           return SizedBox(
             width: 240,
             child: Padding(
@@ -220,9 +268,20 @@ class _UserOtpVerificationState extends State<UserOtpVerification> {
                             fontWeight: FontWeight.bold),
                         recognizer: _emailTapRecognizer
                           ..onTap = () {
-                            provider.sendOtp(
-                                context: context,
-                                emailAddress: widget.emailAddress);
+                            switch (widget.flagType) {
+                              case "viewer":
+                                provider.sendViewerOtp(
+                                    context: context,
+                                    emailAddress: widget.emailAddress);
+                              case "sponsor":
+                                provider.sendSponsorOtp(
+                                    context: context,
+                                    emailAddress: widget.emailAddress);
+                              case "agent":
+                                provider.sendAgentOtp(
+                                    context: context,
+                                    emailAddress: widget.emailAddress);
+                            }
                           })
                   ]),
                 )),
