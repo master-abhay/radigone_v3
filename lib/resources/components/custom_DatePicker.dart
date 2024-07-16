@@ -10,6 +10,8 @@ class CustomDatePicker extends StatefulWidget {
   String? initialValue;
   final void Function(String? value) onSaved;
   final void Function() onTap;
+   void Function(String? value)? onChanged;
+
   TextEditingController? textEditingController;
   bool? doValidation;
 
@@ -26,6 +28,7 @@ class CustomDatePicker extends StatefulWidget {
         this.initialValue,
         this.textEditingController,
        required this.onTap,
+        this.onChanged,
         this.doValidation
       });
 
@@ -38,6 +41,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   Widget build(BuildContext context) {
     return TextFormField(
 
+      onChanged: widget.onChanged,
       controller: widget.textEditingController,
       obscureText: widget.obscureText,
       onSaved: widget.onSaved,

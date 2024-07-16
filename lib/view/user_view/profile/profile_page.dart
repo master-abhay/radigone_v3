@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/models/user_models/profile_user.dart';
+import 'package:radigone_v3/view/user_view/profile/profile_edit_page.dart';
 
 import '../../../data/response/status.dart';
 import '../../../resources/components/background_designs.dart';
@@ -74,7 +77,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget edit() {
     return GestureDetector(onTap: () {
-      _navigationServices.pushNamed("/profileEditPage");
+      // _navigationServices.pushNamed("/profileEditPage");
+      _navigationServices.pushCupertinoPageRoute(CupertinoPageRoute(builder: (context)=>const ProfileEditPage()));
     },
       child: const Padding(padding:  EdgeInsets.only(top: 8, bottom: 8),
         child:  Row(mainAxisSize: MainAxisSize.max,
@@ -148,7 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         field: '${providerValue.profileInfo.data?.balance}',
                         context: context),
                     CustomBasicInformationField(title: "Status",
-                        field: providerValue.userProfileInformation?.status == 1
+                        field: providerValue.profileInfo.data?.status == 1
                             ? "Active"
                             : "Not Active",
                         context: context),

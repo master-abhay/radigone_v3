@@ -89,31 +89,25 @@ class _AgentSideBarState extends State<AgentSideBar> {
                       SizedBox(
                         width: MediaQuery.sizeOf(context).width / 28,
                       ),
-                      SizedBox(
-                        height: MediaQuery.sizeOf(context).width*0.12,
-                        width: MediaQuery.sizeOf(context).width*0.5,
+                      Flexible(
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                child: Text(
-                                  widget.agentName ?? "agent Name",
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white),
-                                ),
+                              Text(
+                                widget.agentName ?? "agent Name",
+                                style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white),
                               ),
-                              Expanded(
-                                child: SelectableText(
-                                  widget.agentEmail ?? "Email",
-                                  style: TextStyle(
-                                      color: Colors.white.withOpacity(0.65)),
-                                ),
+                              SelectableText(
+                                widget.agentEmail ?? "Email",
+                                style: TextStyle(
+                                    color: Colors.white.withOpacity(0.65)),
                               )
                             ],
                           ),

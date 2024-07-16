@@ -112,8 +112,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                         );
                                       case Status.COMPLETED:
                                         return Text(
-                                          providerValue.userPointsViewModel.data!.data
-                                              .toString(),
+                                          double.parse(providerValue.userPointsViewModel.data!.data.toString()).toStringAsFixed(0),
                                           style: const TextStyle(
                                               fontSize: 10, fontWeight: FontWeight.bold),
                                         );

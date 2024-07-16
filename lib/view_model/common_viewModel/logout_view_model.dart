@@ -24,7 +24,7 @@ class LogoutProvider with ChangeNotifier {
 
   Future<void> deleteUserDetails() async {
     if (kDebugMode) {
-      print("Deleting the user Details by loggin out");
+      print("Deleting the user Details by Logout");
     }
     await _authService.clearAllUserData();
 

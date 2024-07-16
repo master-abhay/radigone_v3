@@ -74,7 +74,7 @@ class _CustomHeaderWithBackButtonState
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin:  EdgeInsets.only(top: MediaQuery.of(context).size.width*0.14, bottom: 40),
+        margin:  EdgeInsets.only(top: MediaQuery.of(context).size.width*0.14, bottom: 10),
         padding: const EdgeInsets.only(left: 30, right: 30),
         child:
 

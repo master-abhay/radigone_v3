@@ -1,32 +1,29 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
-class CustomDropdown extends StatefulWidget {
-
-
-
- final void Function(String?) onSaved;
+class CustomDropdown extends StatelessWidget {
+  final void Function(String?) onSaved;
   final void Function(String?) onChanged;
   final List dropdownListData;
   final String hint;
   bool? doValidation;
-   CustomDropdown({super.key, required this.onSaved, required this.onChanged, required this.dropdownListData, required this.hint,this.doValidation});
+  String? value;
 
-  @override
-  State<CustomDropdown> createState() => _CustomDropdownState();
-}
-
-class _CustomDropdownState extends State<CustomDropdown> {
-
-
+  CustomDropdown(
+      {super.key,
+        this.value,
+      required this.onSaved,
+      required this.onChanged,
+      required this.dropdownListData,
+      required this.hint,
+      this.doValidation,});
 
   @override
   Widget build(BuildContext context) {
-    List dropdownListData = widget.dropdownListData;
-    String defaultValue = "";
-
-
     return Center(
       child: DropdownButtonFormField(
+        value: value,
         padding: EdgeInsets.zero,
         isExpanded: true,
         alignment: Alignment.center,
@@ -38,10 +35,6 @@ class _CustomDropdownState extends State<CustomDropdown> {
           color: Colors.white,
         ),
         items: [
-          // const DropdownMenuItem(
-          //   child: Text("Select Gender"),
-          //   value: "",
-          // ),
           ...dropdownListData
               .map<DropdownMenuItem<String>>((e) => DropdownMenuItem(
                     alignment: Alignment.centerLeft,
@@ -51,10 +44,10 @@ class _CustomDropdownState extends State<CustomDropdown> {
                       style: const TextStyle(color: Colors.white),
                     ),
                   ))
-              
         ],
-        onChanged: widget.onChanged,
-        onSaved: widget.onSaved,
+
+        onChanged: onChanged,
+        onSaved: onSaved,
         // validator: (value) {
         //   if (value != null && value.isNotEmpty) {
         //     return null;
@@ -66,9 +59,10 @@ class _CustomDropdownState extends State<CustomDropdown> {
         decoration: InputDecoration(
             errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
             contentPadding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.02),
+                horizontal: MediaQuery.of(context).size.width * 0.02,
+                vertical: MediaQuery.of(context).size.width * 0.01),
             alignLabelWithHint: true,
-            hintText: widget.hint.toLowerCase(),
+            hintText: hint.toLowerCase(),
             hintFadeDuration: const Duration(milliseconds: 500),
             hintStyle:
                 TextStyle(color: Colors.white.withOpacity(0.1), fontSize: 15),
@@ -87,7 +81,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: const BorderSide(color: Colors.white)),
-            labelText: widget.hint,
+            labelText: hint,
             labelStyle:
                 TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 15),
             filled: true,

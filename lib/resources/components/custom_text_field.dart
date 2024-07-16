@@ -48,7 +48,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       textCapitalization: widget.textCapitalization == true
           ? TextCapitalization.sentences
           : TextCapitalization.none,
-      decoration: InputDecoration(
+      decoration:
+
+      InputDecoration(
         errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
         contentPadding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.02,

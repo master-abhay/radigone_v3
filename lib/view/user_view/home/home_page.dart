@@ -178,8 +178,8 @@ Widget mainOutlinedContainer(BuildContext context) {
                     icon: SvgPicture.asset("images/total_balance.svg"),
                     iconRadius: 180,
                     text: "Total\nBalance",
-                    containerValue: providerValue
-                        .userRadigonePointViewModel.data!.user!.balance!);
+                    containerValue:
+                        "${double.parse(providerValue.userRadigonePointViewModel.data!.user!.balance!).toStringAsFixed(0)} INR");
               case null:
                 return DashboardInformationContainer(
                     icon: SvgPicture.asset("images/total_balance.svg"),
@@ -253,9 +253,8 @@ Widget mainOutlinedContainer(BuildContext context) {
                     icon: SvgPicture.asset("images/total_withdraw.svg"),
                     iconRadius: 180,
                     text: "Total\nWithdraw",
-                    containerValue: providerValue
-                        .userRadigonePointViewModel.data!.totalWithdraw
-                        .toString());
+                    containerValue:
+                        "${double.parse(providerValue.userRadigonePointViewModel.data!.totalWithdraw!.toString()).toStringAsFixed(0)} INR");
               case null:
                 return DashboardInformationContainer(
                     icon: SvgPicture.asset("images/total_withdraw.svg"),
@@ -347,16 +346,17 @@ Widget AdsSection(BuildContext context) {
                     return Container(
                         margin: const EdgeInsets.only(right: 13),
                         child: AdContainer(
-                          imageUrl: 'https://radigone.com${item?.image}',
-                          title: item?.name,
-                          subtitle: item?.pName,
-                          radigonePoints: item?.pMrp,
+                          imageUrl:
+                              'https://radigone.com${item?.image.toString()}',
+                          title: item?.name.toString(),
+                          subtitle: item?.pName.toString(),
+                          radigonePoints: item?.pMrp.toString(),
                           onTap: () {
                             _navigationServices.push(MaterialPageRoute(
                                 builder: (context) => VideoPlayerPage(
-                                      videoUrl: item?.videoUrl,
+                                      videoUrl: item?.videoUrl.toString(),
                                       thumbnail:
-                                          'https://radigone.com${item?.image}',
+                                          'https://radigone.com${item?.image.toString()}',
                                     )));
                           },
                         ));

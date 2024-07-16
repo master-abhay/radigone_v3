@@ -11,6 +11,7 @@ class CustomFormField extends StatefulWidget {
   bool? doValidation;
   final void Function(String? value) onSaved;
   TextEditingController? textEditingController;
+  FocusNode? focusNode;
 
   CustomFormField(
       {super.key,
@@ -23,7 +24,8 @@ class CustomFormField extends StatefulWidget {
         this.textCapitalization,
         this.initialValue,
         this.doValidation,
-        this.textEditingController
+        this.textEditingController,
+        this.focusNode
       });
 
   @override
@@ -35,6 +37,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
 
+      focusNode: widget.focusNode,
       controller: widget.textEditingController,
       obscureText: widget.obscureText,
       onSaved: widget.onSaved,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -48,6 +50,9 @@ class UserRadigonePointViewModel with ChangeNotifier {
     await setPassword();
     await setToken();
 
+
+
+
     Map headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       "Authorization": _token!,
@@ -59,14 +64,9 @@ class UserRadigonePointViewModel with ChangeNotifier {
       _myRepo.userRadigonePointApi(headers: headers).then((value) {
         setUserRadigonePointViewModel(ApiResponse.completed(value));
       }).onError((error, stackTrace) {
-        if (kDebugMode) {
-          print(error.toString());
-        }
+
         setUserRadigonePointViewModel(ApiResponse.error(error.toString()));
-        if (kDebugMode) {
-          print(error.toString());
-        }
-        _alertServices.flushBarErrorMessages(error.toString(), context);
+        _alertServices.showToast(message: error.toString());
       });
     }
   }

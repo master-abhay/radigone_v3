@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:radigone_v3/view/agent_view/agent_authentication/agent_registration_view.dart';
@@ -79,7 +80,7 @@ class NavigationServices {
     "/transactionView": (context) => const TransactionView(),
     "/redeemRadigonePoints": (context) => const RedeemRadigonePoints(),
     "/changePassword": (context) => const ChangePassword(),
-    "/profileEditPage": (context) => const ProfileEditPage(),
+    // "/profileEditPage": (context) => const ProfileEditPage(),
     // "/videoPlayerPage": (context) => const VideoPlayerPage(),
     "/selectRegistrationPage": (context) => const SelectRegistrationPage(),
     "/sponsorRegistrationView":(context)=> const SponsorRegistrationView(),
@@ -99,6 +100,9 @@ class NavigationServices {
   Map<String, Widget Function(BuildContext context)> get routes => _routes;
 
   void push(MaterialPageRoute route) {
+    _navigationStateKey.currentState!.push(route);
+  }
+  void pushCupertinoPageRoute(CupertinoPageRoute route) {
     _navigationStateKey.currentState!.push(route);
   }
 
