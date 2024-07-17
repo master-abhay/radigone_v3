@@ -928,26 +928,26 @@ class UserprofileUpdateProvider with ChangeNotifier {
       _alertServices.showToast(message: "Last Name cannot be empty");
       return;
     }
-    // if (_phoneNumber == null || _phoneNumber!.isEmpty) {
-    //   setUpdating(false);
-    //   _alertServices.showToast(message: "Phone Number cannot be empty");
-    //   return;
-    // }
-    // if (_gender == null || _gender!.isEmpty) {
-    //   setUpdating(false);
-    //   _alertServices.showToast(message: "Gender cannot be empty");
-    //   return;
-    // }
-    // if (_marital == null || _marital!.isEmpty) {
-    //   setUpdating(false);
-    //   _alertServices.showToast(message: "Marital Status cannot be empty");
-    //   return;
-    // }
-    // if (_anniversaryDate == null || _anniversaryDate!.isEmpty) {
-    //   setUpdating(false);
-    //   _alertServices.showToast(message: "Anniversary Date cannot be empty");
-    //   return;
-    // }
+    if (_phoneNumber == null || _phoneNumber!.isEmpty) {
+      setUpdating(false);
+      _alertServices.showToast(message: "Phone Number cannot be empty");
+      return;
+    }
+    if (_gender == null || _gender!.isEmpty) {
+      setUpdating(false);
+      _alertServices.showToast(message: "Gender cannot be empty");
+      return;
+    }
+    if (_marital == null || _marital!.isEmpty) {
+      setUpdating(false);
+      _alertServices.showToast(message: "Marital Status cannot be empty");
+      return;
+    }
+    if (_anniversaryDate == null || _anniversaryDate!.isEmpty) {
+      setUpdating(false);
+      _alertServices.showToast(message: "Anniversary Date cannot be empty");
+      return;
+    }
     // if (_profession == null || _profession!.isEmpty) {
     //   setUpdating(false);
     //   _alertServices.showToast(message: "Profession cannot be empty");
@@ -978,26 +978,26 @@ class UserprofileUpdateProvider with ChangeNotifier {
       _alertServices.showToast(message: "City cannot be empty");
       return;
     }
-    // if (_dob == null || _dob!.isEmpty) {
-    //   setUpdating(false);
-    //   _alertServices.showToast(message: "Date of Birth cannot be empty");
-    //   return;
-    // }
-    // if (_occupation == null || _occupation!.isEmpty) {
-    //   setUpdating(false);
-    //   _alertServices.showToast(message: "Occupation cannot be empty");
-    //   return;
-    // }
-    // if (_annualIncome == null || _annualIncome!.isEmpty) {
-    //   setUpdating(false);
-    //   _alertServices.showToast(message: "Annual Income cannot be empty");
-    //   return;
-    // }
-    // if (_panCardNumber == null || _panCardNumber!.isEmpty) {
-    //   setUpdating(false);
-    //   _alertServices.showToast(message: "PAN Card Number cannot be empty");
-    //   return;
-    // }
+    if (_dob == null || _dob!.isEmpty) {
+      setUpdating(false);
+      _alertServices.showToast(message: "Date of Birth cannot be empty");
+      return;
+    }
+    if (_occupation == null || _occupation!.isEmpty) {
+      setUpdating(false);
+      _alertServices.showToast(message: "Occupation cannot be empty");
+      return;
+    }
+    if (_annualIncome == null || _annualIncome!.isEmpty) {
+      setUpdating(false);
+      _alertServices.showToast(message: "Annual Income cannot be empty");
+      return;
+    }
+    if (_panCardNumber == null || _panCardNumber!.isEmpty) {
+      setUpdating(false);
+      _alertServices.showToast(message: "PAN Card Number cannot be empty");
+      return;
+    }
     if (_accountNumber == null || _accountNumber!.isEmpty) {
       setUpdating(false);
       _alertServices.showToast(message: "Account Number cannot be empty");
@@ -1008,11 +1008,18 @@ class UserprofileUpdateProvider with ChangeNotifier {
       _alertServices.showToast(message: "Re Account Number cannot be empty");
       return;
     }
-    // if (_bankIfsc == null || _bankIfsc!.isEmpty) {
-    //   setUpdating(false);
-    //   _alertServices.showToast(message: "Bank IFSC cannot be empty");
-    //   return;
-    // }
+
+    if (_accountNumber != _reAccountNumber) {
+      setUpdating(false);
+      _alertServices.showToast(message: "Account Number not match");
+      return;
+    }
+
+    if (_bankIfsc == null || _bankIfsc!.isEmpty) {
+      setUpdating(false);
+      _alertServices.showToast(message: "Bank IFSC cannot be empty");
+      return;
+    }
     // if (_balance == null || _balance!.isEmpty) {
     //   setUpdating(false);
     //   _alertServices.showToast(message: "Balance cannot be empty");
@@ -1087,9 +1094,9 @@ class UserprofileUpdateProvider with ChangeNotifier {
     _myRepo
         .userProfileUpdateApi(fields: fields, files: file, headers: header)
         .then((value) {
-      setUpdating(false);
       _navigationServices.goBack();
       _alertServices.showToast(message: "Profile Updated");
+      setUpdating(false);
     }).onError((error, stackTrace) {
       setUpdating(false);
       _alertServices.showToast(message: error.toString());

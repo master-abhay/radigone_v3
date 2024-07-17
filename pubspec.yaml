@@ -88,7 +88,6 @@ flutter:
     - images/images_user_sidebar/
     - images/images_sponser_sidebar/
     - images/images_agent_sidebar/
-    - assets/videos/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

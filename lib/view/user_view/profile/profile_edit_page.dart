@@ -45,10 +45,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     final provider =
         Provider.of<UserProfileInformationProvider>(context, listen: false);
     await provider.profileInformation(context);
+
+    //updating the dob and anniversary manual information
     _dobDateController.text = provider.profileInfo.data?.dob ?? '';
     _anniversaryDateController.text =
         provider.profileInfo.data?.anniversaryDate ?? '';
-    debugPrint("FetchedProfileInformation");
     setState(() {});
   }
 
@@ -87,15 +88,16 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     {'title': 'Student', 'value': 'Student'},
     {'title': 'Any Other', 'value': 'Any Other'},
   ];
+
   @override
   void initState() {
-    super.initState();
-
     final GetIt getIt = GetIt.instance;
 
     _navigationServices = getIt.get<NavigationServices>();
     _mediaServices = getIt.get<MediaServices>();
     _initializeData();
+
+    super.initState();
   }
 
   @override
@@ -129,7 +131,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       switch (profile.profileInfo.status) {
                         case Status.LOADING:
                           return const SizedBox(
-                            height: 300,
+                            height: 500,
                             child: Center(
                               child: CircularProgressIndicator(
                                 color: Colors.white,
@@ -241,10 +243,50 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     );
   }
 
+  //profile Image Field
+  Widget profileImage() {
+    return Consumer<UserProfileInformationProvider>(
+        builder: (context, infoProvider, _) {
+      return Consumer<UserprofileUpdateProvider>(
+          builder: (context, providerValue, _) {
+        return GestureDetector(
+            onTap: () async {
+              File? file = await _mediaServices.getImageFromGallery();
+              if (file != null) {
+                providerValue.setProfileImage(file);
+                setState(() {
+                  selectedProfileImage = file;
+                });
+              }
+            },
+            child: Material(
+              elevation: 1,
+              borderRadius: BorderRadius.circular(180),
+              color: Colors.grey,
+              child: Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(180),
+                ),
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundImage: selectedProfileImage != null
+                      ? FileImage(selectedProfileImage!)
+                      // :  NetworkImage(infoProvider.image!) as ImageProvider,
+                      : const NetworkImage(Constants.PLACEHOLDER_PFP)
+                          as ImageProvider,
+                ),
+              ),
+            ));
+      });
+    });
+  }
+
   // First and LastName:
   Widget _firstAndLastNameField(
       {required UserProfileInformationProvider profile}) {
-
     final update = Provider.of<UserprofileUpdateProvider>(context);
 
     return SizedBox(
@@ -354,7 +396,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           initialValue: profile.profileInfo.data?.whatsaap.toString(),
           hintText: "Whatsapp Number",
           onSaved: (value) {
-            update.setWhatsappNumber(value!.countryCode.toString()+value.number.toString());
+            update.setWhatsappNumber(
+                value!.countryCode.toString() + value.number.toString());
           },
           onChanged: (value) {},
         ));
@@ -475,7 +518,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
             if (dob != null) {
               setState(() {
-                _dobDateController.text = DateFormat('yyyy-MM-dd').format(dob).toString();
+                _dobDateController.text =
+                    DateFormat('yyyy-MM-dd').format(dob).toString();
               });
               // profileProvider.setDob(
               //     DateFormat(
@@ -563,7 +607,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
             if (anniversary != null) {
               setState(() {
-                _anniversaryDateController.text = DateFormat("yyyy-MM-dd").format(anniversary).toString();
+                _anniversaryDateController.text =
+                    DateFormat("yyyy-MM-dd").format(anniversary).toString();
               });
             }
           },
@@ -679,52 +724,19 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           if (_updateUserFormKey.currentState!.validate()) {
             _updateUserFormKey.currentState?.save();
 
-           await update.profileUpdate(context);
-            // Reloading the data:
-            // await _initializeData();
+            await update.profileUpdate(context);
+
           }
         },
       ),
     );
   }
 
-  Widget profileImage() {
-    return Consumer<UserProfileInformationProvider>(
-        builder: (context, infoProvider, _) {
-      return Consumer<UserprofileUpdateProvider>(
-          builder: (context, providerValue, _) {
-        return GestureDetector(
-            onTap: () async {
-              File? file = await _mediaServices.getImageFromGallery();
-              if (file != null) {
-                providerValue.setProfileImage(file);
-                setState(() {
-                  selectedProfileImage = file;
-                });
-              }
-            },
-            child: Material(
-              elevation: 1,
-              borderRadius: BorderRadius.circular(180),
-              color: Colors.grey,
-              child: Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(180),
-                ),
-                child: CircleAvatar(
-                  radius: 50,
-                  backgroundImage: selectedProfileImage != null
-                      ? FileImage(selectedProfileImage!)
-                      // :  NetworkImage(infoProvider.image!) as ImageProvider,
-                      : const NetworkImage(Constants.PLACEHOLDER_PFP)
-                          as ImageProvider,
-                ),
-              ),
-            ));
-      });
-    });
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final provider =
+        Provider.of<UserProfileInformationProvider>(context, listen: false);
+    provider.profileInformation(context);
   }
 }
