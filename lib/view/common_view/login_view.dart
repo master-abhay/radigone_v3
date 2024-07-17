@@ -7,13 +7,14 @@ import '../../resources/colors.dart';
 import '../../resources/components/custom_button.dart';
 import '../../resources/components/custom_form_field.dart';
 import '../../view_model/agent_view_model/agent_auth_viewModels/agent_login_viewModel.dart';
-import '../../view_model/user_view_model/user_auth_viewModels/login_view_model.dart';
 import '../../view_model/services/alert_services.dart';
 import '../../view_model/services/navigation_services.dart';
 import '../../view_model/sponsor_view_model/sponsor_auth_viewModel/sponsor_login_view_model.dart';
+import '../../view_model/user_view_model/user_auth_viewModels/login_view_model.dart';
 
 class LoginView extends StatefulWidget {
   final String flagType;
+
   const LoginView({super.key, required this.flagType});
 
   @override
@@ -24,6 +25,8 @@ class _LoginViewState extends State<LoginView> {
   late GlobalKey<FormState> _loginFormState;
 
   String? mobile, password;
+
+  bool isLoading = false;
 
   //Creating the instance of get_it package:
   final GetIt _getIt = GetIt.instance;
@@ -45,10 +48,6 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    print("Build");
-
-    // final _provider = Provider.of<LoginUserProvider>(context);
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: buildUI(),
@@ -186,10 +185,26 @@ class _LoginViewState extends State<LoginView> {
                                         width: 240,
                                         child: CustomButton(
                                             buttonName: "Login",
-                                            isLoading: provider.isLoading,
+                                            isLoading: widget.flagType ==
+                                                    "viewer"
+                                                ? provider.isLoading
+                                                : widget.flagType == "sponsor"
+                                                    ? Provider.of<
+                                                                LoginSponsorProvider>(
+                                                            context)
+                                                        .isLoading
+                                                    : widget.flagType == "agent"
+                                                        ? Provider.of<
+                                                                    AgentLoginViewModel>(
+                                                                context)
+                                                            .isLoading
+                                                        : false,
                                             isGradient: true,
                                             onTap: () async {
                                               //Implement Login Functionality
+                                              setState(() {
+                                                isLoading = true;
+                                              });
 
                                               if (_loginFormState.currentState!
                                                   .validate()) {
@@ -223,6 +238,9 @@ class _LoginViewState extends State<LoginView> {
                                                                 password!);
                                                 }
                                               }
+                                              setState(() {
+                                                isLoading = false;
+                                              });
                                             }),
                                       ),
                                       SizedBox(
