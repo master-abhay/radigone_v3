@@ -390,12 +390,9 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                   const SizedBox(height: 10),
                                   DependentDropdown(
                                     categories: _categories,
-                                    // initialBusinessCategory: _selectedBusinessCategory,
-                                    initialBusinessCategory:
-                                        _businessCategory.text.toString(),
-                                    initialSubCategory:
-                                        _businessSubcategory.text.toString(),
-                                    onBusinessCategoryChanged: (value) {
+                                    initialCategory: _businessCategory.text.toString(),
+                                    initialSubCategory: _businessSubcategory.text.toString(),
+                                    onCategoryChanged: (value) {
                                       setState(() {
                                         _businessCategory.text = value!;
                                       });
@@ -405,16 +402,14 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                         _businessSubcategory.text = value!;
                                       });
                                     },
-                                    onBusinessCategorySaved: (value) {
+                                    onCategorySaved: (value) {
                                       _businessCategory.text = value!;
                                     },
                                     onSubCategorySaved: (value) {
                                       _businessSubcategory.text = value!;
                                     },
-                                    businessCategoryFocusNode:
-                                        _businessCategoryFocusNode,
-                                    subCategoryFocusNode:
-                                        _businessSubcategoryFocusNode,
+                                    categoryFocusNode: _businessCategoryFocusNode,
+                                    subCategoryFocusNode: _businessSubcategoryFocusNode,
                                     nextFocusNode: _profilingServicesFocusNode,
                                   ),
                                   const SizedBox(height: 10),

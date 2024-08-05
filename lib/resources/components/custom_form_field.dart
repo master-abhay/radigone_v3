@@ -107,7 +107,7 @@ import '../../utils/utils.dart';
 
 
 class CustomFormField extends StatefulWidget {
-  final FocusNode currentFocusNode;
+   FocusNode? currentFocusNode;
   FocusNode? nextFocusNode;
     String? initialValue;
   bool? autofocus;
@@ -122,7 +122,7 @@ class CustomFormField extends StatefulWidget {
   dynamic leading;
   dynamic trailing;
    void Function(String? value)? onSaved;
-  final void Function(String? value) onChanged;
+   void Function(String? value)? onChanged;
   void Function()? onTap;
   String? errorText;
   List<TextInputFormatter>? inputFormat;
@@ -133,7 +133,7 @@ class CustomFormField extends StatefulWidget {
   CustomFormField(
       {super.key,
         this.readOnly,
-        required this.currentFocusNode,
+        this.currentFocusNode,
         this.nextFocusNode,
         this.autofocus,
         this.controller,
@@ -147,7 +147,7 @@ class CustomFormField extends StatefulWidget {
         this.leading,
         this.trailing,
         this.onSaved,
-        required this.onChanged,
+        this.onChanged,
         this.onTap,
         this.errorText,
         this.inputFormat,
@@ -282,9 +282,9 @@ class _CustomTextFieldState extends State<CustomFormField>
             : FocusScope.of(context).unfocus();
       },
 
-      onChanged: (value) {
-        widget.onChanged(value.trim());
-      },
+      onChanged:widget.onChanged != null ? (value) {
+        widget.onChanged!(value.trim());
+      } : null ,
     );
   }
 }

@@ -112,6 +112,12 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
   String? _passwordError;
   String? _confirmPasswordError;
 
+
+
+  void populateDropDown(){
+
+  }
+
   @override
   void initState() {
     _navigationServices = _getIt.get<NavigationServices>();
@@ -214,7 +220,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  // height: 500,
                   padding: EdgeInsets.symmetric(
                       vertical: MediaQuery.of(context).size.height * 0.04,
                       horizontal: MediaQuery.of(context).size.width * 0.05),
@@ -331,12 +336,10 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
 
   //*-----Gender Field------*
   Widget _genderField() {
-    return CustomDropdown(
-      currentFocusNode: _genderFocusNode,
+    return SingleDropdown(
+      focusNode: _genderFocusNode,
       dropdownListData: const [
-        {'title': 'Male', 'value': 'Male'},
-        {'title': 'Female', 'value': 'Female'},
-        {'title': 'Transgender', 'value': 'Transgender'},
+        'Male','Female'
       ],
       hintText: "Gender",
       onChanged: (value) {
@@ -404,12 +407,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
       focusNode: _phoneNumberFocusNode,
       nextFocusNode: _whatsappNumberFocusNode,
       hintText: "Phone Number",
-      // onSaved: (value) {
-      //   setState(() {
-      //     _phoneNumber = value!.number;
-      //     _countryCode = value.countryCode.substring(1);
-      //   });
-      // },
       onChanged: (value) {
         if (_phoneNumberFocusNode.hasFocus) {
           _phoneNumberController.text = value!.number;
@@ -428,12 +425,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
       focusNode: _whatsappNumberFocusNode,
       nextFocusNode: _emailFocusNode,
       hintText: "Whatsapp Number",
-      // onSaved: (value) {
-      //   setState(() {
-      //     _whatsappNumber = value!.number;
-      //     _whatsappCountryCode = value.countryCode.substring(1);
-      //   });
-      // },
       onChanged: (value) {
         if (_whatsappNumberFocusNode.hasFocus) {
           _whatsAppNumberController.text = value!.number;
@@ -452,11 +443,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
       currentFocusNode: _emailFocusNode,
       nextFocusNode: _addressFocusNode,
       hintText: "Email",
-      // onSaved: (value) {
-      //   setState(() {
-      //     _email = value;
-      //   });
-      // },
       textInputType: TextInputType.emailAddress,
       obscureText: false,
       errorText: _emailError,
@@ -477,11 +463,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
       currentFocusNode: _addressFocusNode,
       nextFocusNode: _cityFocusNode,
       hintText: "Address",
-      // onSaved: (value) {
-      //   setState(() {
-      //     _address = value;
-      //   });
-      // },
       obscureText: false,
       textInputType: TextInputType.text,
       errorText: _addressError,
@@ -502,11 +483,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
       currentFocusNode: _cityFocusNode,
       nextFocusNode: _pinCodeFocusNode,
       hintText: "City",
-      // onSaved: (value) {
-      //   setState(() {
-      //     _city = value;
-      //   });
-      // },
       obscureText: false,
       textInputType: TextInputType.text,
       errorText: _cityError,
@@ -527,11 +503,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
       currentFocusNode: _pinCodeFocusNode,
       nextFocusNode: _stateFocusNode,
       hintText: "Pin Code",
-      // onSaved: (value) {
-      //   setState(() {
-      //     _pinCode = value;
-      //   });
-      // },
       obscureText: false,
       textInputType: TextInputType.number,
       errorText: _pinCodeError,
@@ -552,11 +523,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
       currentFocusNode: _stateFocusNode,
       nextFocusNode: _countryFocusNode,
       hintText: "State",
-      // onSaved: (value) {
-      //   setState(() {
-      //     _state = value;
-      //   });
-      // },
       obscureText: false,
       textInputType: TextInputType.text,
       errorText: _stateError,
@@ -577,11 +543,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
       currentFocusNode: _countryFocusNode,
       nextFocusNode: _panCardFocusNode,
       hintText: "Country",
-      // onSaved: (value) {
-      //   setState(() {
-      //     _country = value;
-      //   });
-      // },
       obscureText: false,
       textInputType: TextInputType.text,
       errorText: _countryError,
@@ -602,11 +563,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
       currentFocusNode: _panCardFocusNode,
       nextFocusNode: _passwordFocusNode,
       hintText: "Pan Card Number",
-      // onSaved: (value) {
-      //   setState(() {
-      //     _panNumber = value;
-      //   });
-      // },
       obscureText: false,
       textInputType: TextInputType.text,
       textCapitalization: TextCapitalization.characters,
@@ -659,12 +615,16 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
                       color: Colors.white.withOpacity(0.65), fontSize: 15),
                 ),
                 Text(
+                  textAlign: TextAlign.center,
                   selectedAddressProof != null
                       ? selectedAddressProof!.path.split('/').last
-                      : "No file selected",
+                      : "'jpg', 'jpeg', 'png', 'pdf' allowed",
                   style: TextStyle(
-                      color: Colors.white.withOpacity(0.65), fontSize: 10),
-                ),
+                    color: Colors.white.withOpacity(0.65),
+                    fontSize: 10,
+                  ),
+                )
+
               ],
             ),
           ),
@@ -703,12 +663,15 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
                       color: Colors.white.withOpacity(0.65), fontSize: 15),
                 ),
                 Text(
-                  selectedPanProof != null
-                      ? selectedPanProof!.path.split('/').last
-                      : "No file selected",
+                  textAlign: TextAlign.center,
+                  selectedAddressProof != null
+                      ? selectedAddressProof!.path.split('/').last
+                      : "'jpg', 'jpeg', 'png', 'pdf' allowed",
                   style: TextStyle(
-                      color: Colors.white.withOpacity(0.65), fontSize: 10),
-                ),
+                    color: Colors.white.withOpacity(0.65),
+                    fontSize: 10,
+                  ),
+                )
               ],
             ),
           ),
@@ -729,11 +692,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
           errorText: _passwordError,
           hintText: "Password",
           textCapitalization: TextCapitalization.none,
-          // onSaved: (value) {
-          //   setState(() {
-          //     _password = value;
-          //   });
-          // },
           onChanged: (value) {
             if (_passwordFocusNode.hasFocus) {
               setState(() {
@@ -773,11 +731,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
           errorText: _confirmPasswordError,
           hintText: "Confirm Password",
           textCapitalization: TextCapitalization.none,
-          // onSaved: (value) {
-          //   setState(() {
-          //     _confirmPassword = value;
-          //   });
-          // },
           obscureText: _confirmPasswordVisibility.value,
           maxLines: 1,
           onChanged: (value) {
@@ -822,28 +775,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
 
                 final result = _validateForm(signup: provider, context: context);
 
-
-                debugPrint('First Name: ${_firstNameController.text}');
-                debugPrint('Last Name: ${_lastNameController.text}');
-                debugPrint('Username: ${_usernameController.text}');
-                debugPrint('Gender: ${_genderController.text}');
-                debugPrint('Marital Status: ${_maritalStatusController.text}');
-                debugPrint('Country Code: ${_countryCodeController.text}');
-                debugPrint('Phone Number: ${_phoneNumberController.text}');
-                debugPrint(
-                    'Whatsapp country Code: ${_whatsappCountryCodeController.text}');
-                debugPrint(
-                    'WhatsApp Number: ${_whatsAppNumberController.text}');
-                debugPrint('Email: ${_emailController.text}');
-                debugPrint('Address: ${_addressController.text}');
-                debugPrint('City: ${_cityController.text}');
-                debugPrint('Pin Code: ${_pinCodeController.text}');
-                debugPrint('State: ${_stateController.text}');
-                debugPrint('Country: ${_countryController.text}');
-                debugPrint('PAN Number: ${_panNumberController.text}');
-                debugPrint('Password: ${_passwordController.text}');
-                debugPrint(
-                    'Confirm Password: ${_confirmPasswordController.text}');
               });
         }));
   }
@@ -992,8 +923,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
     } else {
       signup.panCardProof = selectedPanProof;
     }
-
-
 
     if (_emailController.text.isEmpty || !_emailController.text.contains('@')) {
       _alertServices.flushBarErrorMessages(

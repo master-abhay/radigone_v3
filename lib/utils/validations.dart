@@ -169,6 +169,14 @@ class Validations {
     final regex = RegExp(r'^[A-Z]{5}\d{4}[A-Z]$');
     return regex.hasMatch(panCard);
   }
+
+  // GST Number Validation:
+  static bool isGstNumberValid(String gstNumber) {
+    // GST number should be exactly 15 characters long and follow the pattern:
+    // 2 letters, 10 digits, 1 letter, 1 digit (e.g., 12ABCDE3456F1Z5)
+    final regex = RegExp(r'^[A-Z0-9]{15}$');
+    return regex.hasMatch(gstNumber);
+  }
 }
 
 class ErrorText {
@@ -343,6 +351,19 @@ class ErrorText {
           "  - 4 digits\n"
           "  - 1 uppercase letter\n"
           "• Example: ABCDE1234F";
+    }
+    return null;
+  }
+
+  // GST Number error:
+  static String? getGstNumberError({required String gstNumber}) {
+    if (gstNumber.isEmpty) {
+      return "GST number can't be empty";
+    } else if (!Validations.isGstNumberValid(gstNumber)) {
+      return "Invalid GST number.\n"
+          "• Must be exactly 15 characters long.\n"
+          "• Should follow this pattern: 2 letters, 10 digits, 1 letter, 1 digit.\n"
+          "• Example: 12ABCDE3456F1Z5";
     }
     return null;
   }

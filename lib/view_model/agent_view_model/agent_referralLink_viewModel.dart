@@ -29,7 +29,7 @@ class AgentReferralLinkViewModel with ChangeNotifier {
   void copyUrl(BuildContext context) {
     Clipboard.setData(
         ClipboardData(text: _textEditingController.text.toString()));
-    _alertServices.snackBar("Url Copied Successfully.", context);
+    _alertServices.showSnackBar("Url Copied Successfully.", context);
 
     notifyListeners();
 

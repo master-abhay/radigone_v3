@@ -295,7 +295,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         }
                       } else {
                         // Show a snackBar or dialog to notify user about the password mismatch
-                        _alertServices.snackBar(
+                        _alertServices.showSnackBar(
                             "Password do not match", context);
                       }
                     });
