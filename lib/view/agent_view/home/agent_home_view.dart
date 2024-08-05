@@ -154,6 +154,12 @@ class _AgentHomeViewState extends State<AgentHomeView> {
                         iconRadius: 180,
                         text: "Total\nBalance",
                         containerValue: "Error");
+                  case Status.NONE:
+                    return DashboardInformationContainer(
+                        icon: SvgPicture.asset("images/total_balance.svg"),
+                        iconRadius: 180,
+                        text: "Total\nBalance",
+                        containerValue: "None");
                   case Status.COMPLETED:
                     return DashboardInformationContainer(
                         icon: SvgPicture.asset("images/total_balance.svg"),
@@ -188,6 +194,12 @@ class _AgentHomeViewState extends State<AgentHomeView> {
                         iconRadius: 180,
                         text: "Total\nReferrals",
                         containerValue: "Error");
+                  case Status.NONE:
+                    return DashboardInformationContainer(
+                        icon: SvgPicture.asset("images/total_balance.svg"),
+                        iconRadius: 180,
+                        text: "Total\nReferrals",
+                        containerValue: "None");
                   case Status.COMPLETED:
                     return DashboardInformationContainer(
                         icon: SvgPicture.asset("images/total_balance.svg"),
@@ -231,6 +243,12 @@ class _AgentHomeViewState extends State<AgentHomeView> {
                         iconRadius: 180,
                         text: "Total\nTransaction",
                         containerValue: "Error");
+                  case Status.NONE:
+                    return DashboardInformationContainer(
+                        icon: SvgPicture.asset('images/data_transfer.svg'),
+                        iconRadius: 180,
+                        text: "Total\nTransaction",
+                        containerValue: "None");
                   case Status.COMPLETED:
                     return DashboardInformationContainer(
                         icon: SvgPicture.asset('images/data_transfer.svg'),
@@ -265,6 +283,12 @@ class _AgentHomeViewState extends State<AgentHomeView> {
                         iconRadius: 180,
                         text: "Total Approved\nCampaign",
                         containerValue: "Error");
+                  case Status.NONE:
+                    return DashboardInformationContainer(
+                        icon: SvgPicture.asset("images/completed_survey.svg"),
+                        iconRadius: 180,
+                        text: "Total Approved\nCampaign",
+                        containerValue: "None");
                   case Status.COMPLETED:
                     return DashboardInformationContainer(
                         icon: SvgPicture.asset("images/completed_survey.svg"),
@@ -309,6 +333,12 @@ class _AgentHomeViewState extends State<AgentHomeView> {
                         iconRadius: 180,
                         text: "Pending\nSurvey",
                         containerValue: "Error");
+                  case Status.NONE:
+                    return DashboardInformationContainer(
+                        icon: SvgPicture.asset("images/completed_survey.svg"),
+                        iconRadius: 180,
+                        text: "Pending\nSurvey",
+                        containerValue: "None");
                   case Status.COMPLETED:
                     return DashboardInformationContainer(
                         icon: SvgPicture.asset("images/completed_survey.svg"),
@@ -343,6 +373,12 @@ class _AgentHomeViewState extends State<AgentHomeView> {
                         iconRadius: 180,
                         text: "Total\nEarned",
                         containerValue: "Error");
+                  case Status.NONE:
+                    return DashboardInformationContainer(
+                        icon: SvgPicture.asset("images/completed_survey.svg"),
+                        iconRadius: 180,
+                        text: "Total\nEarned",
+                        containerValue: "None");
                   case Status.COMPLETED:
                     return DashboardInformationContainer(
                         icon: SvgPicture.asset("images/completed_survey.svg"),

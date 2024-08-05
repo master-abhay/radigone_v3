@@ -27,15 +27,33 @@ class UserProfileRepository {
   //     throw e;
   //   }
   //
+
+
+  // Future<dynamic> userProfileUpdateApi({
+  //   required Map<String, String> fields,
+  //  required  List<http.MultipartFile> files,
+  //  required  Map<String, String> headers,
+  // }) async {
+  //   try {
+  //    dynamic response =  await _apiServices.getMultipartApiServices(url: AppUrls.userProfileUpdateUrl, field: fields, file: files, header: headers);
+  //
+  //    return response;
+  //   } catch (e) {
+  //     print("Error thrown ........");
+  //     print(e.toString());
+  //     throw e;
+  //   }
+  // }
+
   Future<dynamic> userProfileUpdateApi({
     required Map<String, String> fields,
-   required  List<http.MultipartFile> files,
-   required  Map<String, String> headers,
+    required  List<http.MultipartFile> files,
+    required  Map<String, String> headers,
   }) async {
     try {
-     dynamic response =  await _apiServices.getMultipartApiServices(url: AppUrls.userProfileUpdateUrl, field: fields, file: files, header: headers);
+      dynamic response =  await _apiServices.getMultipartApiServices(method: 'POST',url: AppUrls.userProfileUpdateUrl, fields: fields, files: files, headers: headers);
 
-     return response;
+      return response;
     } catch (e) {
       print("Error thrown ........");
       print(e.toString());

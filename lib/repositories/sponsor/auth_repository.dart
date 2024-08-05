@@ -13,20 +13,35 @@ class SponsorAuthRepository {
   Future<LoginSponsorModel> sponsorLoginApi({required dynamic header,required dynamic body}) async {
     try {
       dynamic response =
-      await _apiServices.getPostApiHeadersBodyServices( url: AppUrls.sponsorLoginUrl.toString(),headers: header,body:  body);
+      await _apiServices.getPostApiServices( url: AppUrls.sponsorLoginUrl.toString(),headers: header,body:  body);
       return LoginSponsorModel.fromJson(response);
     } catch (e) {
       throw e;
     }
   }
 
+  // Future<dynamic> sponsorRegisterApi({
+  //   required Map<String, String> fields,
+  //   required  List<http.MultipartFile> files,
+  //   required  Map<String, String> headers,
+  // }) async {
+  //   try {
+  //     dynamic response =  await _apiServices.getMultipartApiServices(url: AppUrls.sponsorRegisterUrl, field: fields, file: files, header: headers);
+  //
+  //     return response;
+  //   } catch (e) {
+  //     debugPrint("Error thrown ........");
+  //     debugPrint(e.toString());
+  //     throw e;
+  //   }
+  // }
   Future<dynamic> sponsorRegisterApi({
     required Map<String, String> fields,
     required  List<http.MultipartFile> files,
     required  Map<String, String> headers,
   }) async {
     try {
-      dynamic response =  await _apiServices.getMultipartApiServices(url: AppUrls.sponsorRegisterUrl, field: fields, file: files, header: headers);
+      dynamic response =  await _apiServices.getMultipartApiServices(method: 'POST',url: AppUrls.sponsorRegisterUrl, fields: fields, files: files, headers: headers);
 
       return response;
     } catch (e) {

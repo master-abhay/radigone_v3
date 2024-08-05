@@ -1,14 +1,17 @@
-
 import 'package:flutter/material.dart';
-class CustomCheckBoxTile extends StatelessWidget {
 
+class CustomCheckBoxTile extends StatelessWidget {
   bool isChecked;
   String title;
   ListTileControlAffinity? controlAffinity;
   void Function(bool? value) onChanged;
-    CustomCheckBoxTile({super.key,required this.isChecked,required this.title,required this.onChanged,this.controlAffinity});
 
-
+  CustomCheckBoxTile(
+      {super.key,
+      required this.isChecked,
+      required this.title,
+      required this.onChanged,
+      this.controlAffinity});
 
   WidgetStateProperty<Color?> _getFillColor() {
     return WidgetStateProperty.resolveWith((Set<WidgetState> states) {
@@ -27,17 +30,16 @@ class CustomCheckBoxTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-
-
-      CheckboxListTile(
-          controlAffinity: controlAffinity ??  ListTileControlAffinity.leading,
-          dense: true,
-          fillColor: _getFillColor(),
-          splashRadius: 10,
-          title: Text(title.toString(),style: const TextStyle(color: Colors.white),),
-          value: isChecked,
-          onChanged: onChanged
-          );
+    return CheckboxListTile(
+        controlAffinity: controlAffinity ?? ListTileControlAffinity.leading,
+        dense: true,
+        fillColor: _getFillColor(),
+        splashRadius: 10,
+        title: Text(
+          title.toString(),
+          style: const TextStyle(color: Colors.white),
+        ),
+        value: isChecked,
+        onChanged: onChanged);
   }
 }

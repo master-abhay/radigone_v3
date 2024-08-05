@@ -186,6 +186,20 @@ class _SponsorSidebarProfileViewState extends State<SponsorSidebarProfileView> {
                   ],
                 ),
               );
+            case Status.NONE:
+              return const Padding(
+                padding: EdgeInsets.only(top: 8, bottom: 8),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SizedBox(
+                        height: 300,
+                        child: Text("None"))
+                  ],
+                ),
+              );
 
             case Status.COMPLETED:
               return Padding(

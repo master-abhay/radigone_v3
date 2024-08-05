@@ -194,7 +194,7 @@ class _AdsPreferencesViewState extends State<AdsPreferencesView> {
         children: [
           const LowerBackgroundDesign(),
           const UpperBackgroundDesign(),
-          CustomHeaderWithBackButton(title: "Ads Preferences"),
+          const CustomHeaderWithBackButton(title: "Ads Preferences"),
           Consumer<UserAdsPreferencesViewModel>(
             builder: (context, provider, _) {
               return provider.isLoading

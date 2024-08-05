@@ -62,8 +62,8 @@ class NavigationServices {
     "/agentReferralView": (context) => const AgentReferralView(),
     "/agentEarningView": (context) => const AgentEarningView(),
     "/sponsorCalendarView": (context) => const SponsorCalendarView(),
-    "/sponsorMyTicketsView": (context) => const SponsorMyTicketsView(),
-    "/sponsorCreateTicketView": (context) => const SponsorCreateTicketView(),
+    // "/sponsorMyTicketsView": (context) => const SponsorMyTicketsView(),
+    // "/sponsorCreateTicketView": (context) => const SponsorCreateTicketView(),
     "/sponsorSidebarProfileView": (context) => const SponsorSidebarProfileView(),
     "/sponsorProfileView": (context) => const SponsorProfileView(),
     "/sponsorTransactionView": (context) => const SponsorTransactionView(),
@@ -74,22 +74,22 @@ class NavigationServices {
     "/sponsorDepositNowView": (context) => const SponsorDepositNowView(),
     "/agentMainView": (context) => const AgentMainView(),
     "/adsPreferencesView": (context) => const AdsPreferencesView(),
-    "/myTicketView": (context) => const MyTicketsView(),
-    "/createTicketView": (context) => const CreateTicketView(),
-    "/userProfilePage": (context) => const ProfilePage(),
+    // "/myTicketView": (context) => const MyTicketsView(),
+    // "/createTicketView": (context) => const CreateTicketView(),
+    // "/userProfilePage": (context) => const ProfilePage(),
     "/transactionView": (context) => const TransactionView(),
-    "/redeemRadigonePoints": (context) => const RedeemRadigonePoints(),
-    "/changePassword": (context) => const ChangePassword(),
+    // "/redeemRadigonePoints": (context) => const RedeemRadigonePoints(),
+    // "/changePassword": (context) => const ChangePassword(),
     // "/profileEditPage": (context) => const ProfileEditPage(),
     // "/videoPlayerPage": (context) => const VideoPlayerPage(),
     "/selectRegistrationPage": (context) => const SelectRegistrationPage(),
-    "/sponsorRegistrationView":(context)=> const SponsorRegistrationView(),
-    "/selectLoginPage" : (context) =>  const SelectLoginPage(),
+    // "/sponsorRegistrationView":(context)=> const SponsorRegistrationView(),
+    // "/selectLoginPage" : (context) =>  const SelectLoginPage(),
     "/sponsorMainView" : (context) => const SponsorMainView(),
     "/userMainView": (context) => const UserMainView(),
     // "/forgotPassword": (context) => const ForgotPassword(),
     // "/loginPage": (context) => const LoginPage(),
-    "/registrationPage": (context) => const RegistrationPage(),
+    "/registrationPage": (context) => const ViewerRegistrationView(),
     "/loginRegistration": (context) => const LoginRegistration(),
     "/splashScreen": (context) => const SplashScreen(),
     // "/home": (context) => const HomePage(),
@@ -100,21 +100,31 @@ class NavigationServices {
   Map<String, Widget Function(BuildContext context)> get routes => _routes;
 
   void push(MaterialPageRoute route) {
-    _navigationStateKey.currentState!.push(route);
+    _navigationStateKey.currentState?.push(route);
   }
-  void pushCupertinoPageRoute(CupertinoPageRoute route) {
-    _navigationStateKey.currentState!.push(route);
+
+  void pushSimpleWithAnimationRoute(Route route) {
+    _navigationStateKey.currentState?.push(route);
+  }
+
+
+  void pushCupertino(CupertinoPageRoute route) {
+    _navigationStateKey.currentState?.push(route);
+  }
+
+  void pushReplacementCupertino(CupertinoPageRoute route) {
+    _navigationStateKey.currentState?.pushReplacement(route);
   }
 
   void pushNamed(String route) {
-    _navigationStateKey.currentState!.pushNamed(route);
+    _navigationStateKey.currentState?.pushNamed(route);
   }
 
   void pushReplacementNamed(String route) {
-    _navigationStateKey.currentState!.pushReplacementNamed(route);
+    _navigationStateKey.currentState?.pushReplacementNamed(route);
   }
 
   void goBack() {
-    _navigationStateKey.currentState!.pop();
+    _navigationStateKey.currentState?.pop();
   }
 }

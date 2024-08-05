@@ -70,6 +70,11 @@ class _TransactionViewState extends State<TransactionView> {
                         child: Text("Something went Wrong"),
                       );
 
+                    case Status.NONE:
+                      return const Center(
+                        child: Text("None"),
+                      );
+
                     case Status.COMPLETED:
                       return ListView.builder(
                           shrinkWrap: true,

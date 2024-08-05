@@ -6,9 +6,9 @@
 <key>NSAppTransportSecurity</key>
 <string>Video Player Security</string>
 <key>NSCameraUsageDescription</key>
-<string>hello app camera description.</string>
+<string>We need access to your photo library to get the user information</string>
 <key>NSPhotoLibraryUsageDescription</key>
-<string>hello app photos description.</string>
+<string>We need access to your photo library</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

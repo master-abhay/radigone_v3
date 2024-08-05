@@ -173,6 +173,12 @@ Widget mainOutlinedContainer(BuildContext context) {
                     iconRadius: 180,
                     text: "Total\nBalance",
                     containerValue: "Error");
+              case Status.NONE:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/total_balance.svg"),
+                    iconRadius: 180,
+                    text: "Total\nBalance",
+                    containerValue: "None");
               case Status.COMPLETED:
                 return DashboardInformationContainer(
                     icon: SvgPicture.asset("images/total_balance.svg"),
@@ -206,6 +212,13 @@ Widget mainOutlinedContainer(BuildContext context) {
                     iconRadius: 2,
                     text: "Completed\nSurvey",
                     containerValue: "Error");
+
+              case Status.NONE:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/completed_survey.svg"),
+                    iconRadius: 2,
+                    text: "Completed\nSurvey",
+                    containerValue: "None");
               case Status.COMPLETED:
                 return DashboardInformationContainer(
                     icon: SvgPicture.asset("images/completed_survey.svg"),
@@ -248,6 +261,12 @@ Widget mainOutlinedContainer(BuildContext context) {
                     iconRadius: 180,
                     text: "Total\nWithdraw",
                     containerValue: "Error");
+              case Status.NONE:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset("images/total_withdraw.svg"),
+                    iconRadius: 180,
+                    text: "Total\nWithdraw",
+                    containerValue: "None");
               case Status.COMPLETED:
                 return DashboardInformationContainer(
                     icon: SvgPicture.asset("images/total_withdraw.svg"),
@@ -281,6 +300,12 @@ Widget mainOutlinedContainer(BuildContext context) {
                     iconRadius: 180,
                     text: "Completed\nTransaction",
                     containerValue: "Error");
+              case Status.NONE:
+                return DashboardInformationContainer(
+                    icon: SvgPicture.asset('images/data_transfer.svg'),
+                    iconRadius: 180,
+                    text: "Completed\nTransaction",
+                    containerValue: "None");
               case Status.COMPLETED:
                 return DashboardInformationContainer(
                     icon: SvgPicture.asset('images/data_transfer.svg'),
@@ -334,6 +359,12 @@ Widget AdsSection(BuildContext context) {
                 height: MediaQuery.of(context).size.width * 0.60,
                 child: const Center(
                     child: Text('Check Your Internet Connection')));
+
+          case Status.NONE:
+            return SizedBox(
+                height: MediaQuery.of(context).size.width * 0.60,
+                child: const Center(
+                    child: Text('None')));
           case Status.COMPLETED:
             return SizedBox(
               height: MediaQuery.of(context).size.width * 0.60,

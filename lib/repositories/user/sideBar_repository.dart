@@ -24,34 +24,56 @@ class userSidebarRepository {
   // }
 
   Future<RedeemRadigonePointsModel> userRedeemRadigonePointsApi(
-      {required dynamic header,required dynamic body}) async {
+      {required dynamic header, required dynamic body}) async {
     try {
-      dynamic response = await _apiServices.getPostApiHeadersBodyServices(
-          url: AppUrls.userRedeemRadigonePointsUrl,headers: header, body: body);
+      dynamic response = await _apiServices.getPostApiServices(
+          url: AppUrls.userRedeemRadigonePointsUrl,
+          headers: header,
+          body: body);
       return response = RedeemRadigonePointsModel.fromJson(response);
     } catch (e) {
       throw e;
     }
   }
 
-
   Future<UserTransactionModel> userTransactionApi(
       {required dynamic header}) async {
     try {
-      dynamic response = await _apiServices.getGetApiServices(url: AppUrls.userTransactionUrl, headers: header);
+      dynamic response = await _apiServices.getGetApiServices(
+          url: AppUrls.userTransactionUrl, headers: header);
       return response = UserTransactionModel.fromJson(response);
     } catch (e) {
       throw e;
     }
   }
 
+  // Future<dynamic> userCreateTicket({
+  //   required Map<String, String> fields,
+  //   required  List<http.MultipartFile> files,
+  //   required  Map<String, String> headers,
+  // }) async {
+  //   try {
+  //     dynamic response =  await _apiServices.getMultipartApiServices(url: AppUrls.userCreateSupportTicketUrl, field: fields, file: files, header: headers);
+  //
+  //     return response;
+  //   } catch (e) {
+  //     print("Error thrown ........");
+  //     print(e.toString());
+  //     throw e;
+  //   }
+  // }
   Future<dynamic> userCreateTicket({
     required Map<String, String> fields,
-    required  List<http.MultipartFile> files,
-    required  Map<String, String> headers,
+    required List<http.MultipartFile> files,
+    required Map<String, String> headers,
   }) async {
     try {
-      dynamic response =  await _apiServices.getMultipartApiServices(url: AppUrls.userCreateSupportTicketUrl, field: fields, file: files, header: headers);
+      dynamic response = await _apiServices.getMultipartApiServices(
+          method: 'POST',
+          url: AppUrls.userCreateSupportTicketUrl,
+          fields: fields,
+          files: files,
+          headers: headers);
 
       return response;
     } catch (e) {
@@ -61,10 +83,10 @@ class userSidebarRepository {
     }
   }
 
-  Future<UserMyTicketsModel> userMyTicketsApi(
-      {required dynamic header}) async {
+  Future<UserMyTicketsModel> userMyTicketsApi({required dynamic header}) async {
     try {
-      dynamic response = await _apiServices.getGetApiServices(url: AppUrls.userMyTicketsUrl, headers: header);
+      dynamic response = await _apiServices.getGetApiServices(
+          url: AppUrls.userMyTicketsUrl, headers: header);
       return response = UserMyTicketsModel.fromJson(response);
     } catch (e) {
       throw e;
@@ -72,9 +94,14 @@ class userSidebarRepository {
   }
 
   Future<dynamic> userCloseTicketsApi(
-      {required dynamic ticketId,required dynamic header,required dynamic body}) async {
+      {required dynamic ticketId,
+      required dynamic header,
+      required dynamic body}) async {
     try {
-      dynamic response = await _apiServices.getPostApiHeadersBodyServices(url: AppUrls.userCloseTicketUrl+ticketId, headers: header,body: body);
+      dynamic response = await _apiServices.getPostApiServices(
+          url: AppUrls.userCloseTicketUrl + ticketId,
+          headers: header,
+          body: body);
       return response = response;
     } catch (e) {
       throw e;
@@ -84,23 +111,22 @@ class userSidebarRepository {
   Future<UserAllAdsPreferencesModel> userAllAdsPreferencesApi(
       {required dynamic header}) async {
     try {
-      dynamic response = await _apiServices.getGetApiServices(url: AppUrls.userAllAdsPreferencesUrl, headers: header);
+      dynamic response = await _apiServices.getGetApiServices(
+          url: AppUrls.userAllAdsPreferencesUrl, headers: header);
       return response = UserAllAdsPreferencesModel.fromJson(response);
     } catch (e) {
       throw e;
     }
   }
 
-
   Future<UserSelectedAdsPreferencesModel> userSelectedAdsPreferencesApi(
       {required dynamic header}) async {
     try {
-      dynamic response = await _apiServices.getGetApiServices(url: AppUrls.userSelectedAdsPreferencesUrl, headers: header);
+      dynamic response = await _apiServices.getGetApiServices(
+          url: AppUrls.userSelectedAdsPreferencesUrl, headers: header);
       return response = UserSelectedAdsPreferencesModel.fromJson(response);
     } catch (e) {
       throw e;
     }
   }
-
-
 }

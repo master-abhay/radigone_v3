@@ -36,7 +36,7 @@ class UserHomeRepository {
       {required dynamic header,required dynamic body})async{
     try {
       dynamic response =
-      await _apiServices.getPostApiHeadersBodyServices(url: AppUrls.userUserPointUrl,headers:  header,body: body);
+      await _apiServices.getPostApiServices(url: AppUrls.userUserPointUrl,headers:  header,body: body);
       return UserPointsModel.fromJson(response);
     } catch (e) {
       throw e;

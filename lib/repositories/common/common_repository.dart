@@ -8,7 +8,7 @@ class CommonRepository {
   Future<dynamic> logoutApi(
       {required dynamic headers, required dynamic body}) async {
     try {
-      dynamic response = await _apiServices.getPostApiHeadersBodyServices(
+      dynamic response = await _apiServices.getPostApiServices(
           url: AppUrls.logoutUrl, headers: headers, body: body);
       return response;
     } catch (e) {

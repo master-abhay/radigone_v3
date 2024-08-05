@@ -11,7 +11,7 @@ class AgentAuthRepository {
       {required dynamic header, required dynamic body}) async {
     try {
       dynamic response =
-      await _apiServices.getPostApiHeadersBodyServices(
+      await _apiServices.getPostApiServices(
           url: AppUrls.agentLoginUrl, headers: header, body: body);
       return AgentLoginModel.fromJson(response);
     } catch (e) {

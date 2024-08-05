@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -98,20 +97,18 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => CloseReplyTicketViewmodel()),
         ChangeNotifierProvider(create: (_) => UserAdsPreferencesViewModel()),
         ChangeNotifierProvider(create: (_) => AgentLoginViewModel()),
-        ChangeNotifierProvider(
-            create: (_) => SponsorProfileInformationViewModel()),
+        ChangeNotifierProvider(create: (_) => SponsorProfileInformationViewModel()),
         ChangeNotifierProvider(create: (_) => SponsorDepositViewModel()),
         ChangeNotifierProvider(create: (_) => SponsorHistoryViewModel()),
         ChangeNotifierProvider(create: (_) => SponsorCreateTicketViewModel()),
         ChangeNotifierProvider(create: (_) => SponsorMyTicketsViewModel()),
-        ChangeNotifierProvider(
-            create: (_) => SponsorCloseReplyTicketViewModel()),
+        ChangeNotifierProvider(create: (_) => SponsorCloseReplyTicketViewModel()),
         ChangeNotifierProvider(create: (_) => AgentReferralLinkViewModel()),
         ChangeNotifierProvider(create: (_) => SponsorProfileUpdateViewModel()),
         ChangeNotifierProvider(create: (_) => FetchSponsorInformation()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Radigone',
         theme: ThemeData(
           textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme),
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

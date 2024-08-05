@@ -660,7 +660,7 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
           builder: (context, providerValue, _) {
             return GestureDetector(
               onTap: () async {
-                File? file = await _mediaServices.getImageFromGallery();
+                File? file = await _mediaServices.getSingleFileFromPicker(allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf']);
                 if (file != null) {
                   providerValue.setProfileImage(file);
                   setState(() {

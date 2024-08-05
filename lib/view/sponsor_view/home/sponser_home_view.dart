@@ -145,6 +145,12 @@ Widget mainOutlinedContainer(BuildContext context) {
                       iconRadius: 180,
                       text: "Total\nBalance",
                       containerValue: "Error");
+                case Status.NONE:
+                  return DashboardInformationContainer(
+                      icon: SvgPicture.asset("images/total_balance.svg"),
+                      iconRadius: 180,
+                      text: "Total\nBalance",
+                      containerValue: "None");
                 case Status.COMPLETED:
                   return DashboardInformationContainer(
                       icon: SvgPicture.asset("images/total_balance.svg"),
@@ -179,6 +185,13 @@ Widget mainOutlinedContainer(BuildContext context) {
                       iconRadius: 180,
                       text: "Total\nDeposit",
                       containerValue: "Error");
+
+                case Status.NONE:
+                  return DashboardInformationContainer(
+                      icon: SvgPicture.asset("images/total_balance.svg"),
+                      iconRadius: 180,
+                      text: "Total\nDeposit",
+                      containerValue: "None");
                 case Status.COMPLETED:
                   return DashboardInformationContainer(
                       icon: SvgPicture.asset("images/total_balance.svg"),
@@ -222,6 +235,12 @@ Widget mainOutlinedContainer(BuildContext context) {
                       iconRadius: 180,
                       text: "Total\nTransaction",
                       containerValue: "Error");
+                case Status.NONE:
+                  return DashboardInformationContainer(
+                      icon: SvgPicture.asset('images/data_transfer.svg'),
+                      iconRadius: 180,
+                      text: "Total\nTransaction",
+                      containerValue: "None");
                 case Status.COMPLETED:
                   return DashboardInformationContainer(
                       icon: SvgPicture.asset('images/data_transfer.svg'),
@@ -256,6 +275,12 @@ Widget mainOutlinedContainer(BuildContext context) {
                       iconRadius: 180,
                       text: "Total Approved\nCampaign",
                       containerValue: "Error");
+                case Status.NONE:
+                  return DashboardInformationContainer(
+                      icon: SvgPicture.asset("images/completed_survey.svg"),
+                      iconRadius: 180,
+                      text: "Total Approved\nCampaign",
+                      containerValue: "None");
                 case Status.COMPLETED:
                   return DashboardInformationContainer(
                       icon: SvgPicture.asset("images/completed_survey.svg"),
@@ -300,6 +325,12 @@ Widget mainOutlinedContainer(BuildContext context) {
                       iconRadius: 180,
                       text: "Total Pending\nCampaign",
                       containerValue: "Error");
+                case Status.NONE:
+                  return DashboardInformationContainer(
+                      icon: SvgPicture.asset("images/completed_survey.svg"),
+                      iconRadius: 180,
+                      text: "Total Pending\nCampaign",
+                      containerValue: "None");
                 case Status.COMPLETED:
                   return DashboardInformationContainer(
                       icon: SvgPicture.asset("images/completed_survey.svg"),
@@ -334,6 +365,12 @@ Widget mainOutlinedContainer(BuildContext context) {
                       iconRadius: 180,
                       text: "Total Rejected\nCampaign",
                       containerValue: "Error");
+                case Status.NONE:
+                  return DashboardInformationContainer(
+                      icon: SvgPicture.asset("images/completed_survey.svg"),
+                      iconRadius: 180,
+                      text: "Total Rejected\nCampaign",
+                      containerValue: "None");
                 case Status.COMPLETED:
                   return DashboardInformationContainer(
                       icon: SvgPicture.asset("images/completed_survey.svg"),
@@ -378,6 +415,14 @@ Widget mainOutlinedContainer(BuildContext context) {
                       iconRadius: 180,
                       text: "Bought\nViews",
                       containerValue: "Error");
+
+
+                case Status.NONE:
+                  return DashboardInformationContainer(
+                      icon: SvgPicture.asset("images/view.svg"),
+                      iconRadius: 180,
+                      text: "Bought\nViews",
+                      containerValue: "None");
                 case Status.COMPLETED:
                   return DashboardInformationContainer(
                       icon: SvgPicture.asset("images/view.svg"),
@@ -412,6 +457,12 @@ Widget mainOutlinedContainer(BuildContext context) {
                       iconRadius: 180,
                       text: "Pending\nViews",
                       containerValue: "Error");
+                case Status.NONE:
+                  return DashboardInformationContainer(
+                      icon: SvgPicture.asset("images/view.svg"),
+                      iconRadius: 180,
+                      text: "Pending\nViews",
+                      containerValue: "None");
                 case Status.COMPLETED:
                   return DashboardInformationContainer(
                       icon: SvgPicture.asset("images/view.svg"),
@@ -450,6 +501,12 @@ Widget mainOutlinedContainer(BuildContext context) {
                   iconRadius: 180,
                   text: "Total\nViews",
                   containerValue: "Error");
+            case Status.NONE:
+              return DashboardInformationContainer_1(
+                  icon: SvgPicture.asset("images/view.svg"),
+                  iconRadius: 180,
+                  text: "Total\nViews",
+                  containerValue: "None");
             case Status.COMPLETED:
               return DashboardInformationContainer_1(
                   icon: SvgPicture.asset("images/view.svg"),
