@@ -389,6 +389,8 @@ class _SponsorProfileUpdateViewState extends State<SponsorProfileUpdateView> {
                                   ),
                                   const SizedBox(height: 10),
                                   DependentDropdown(
+                                    hintText: "Select Business Category",
+                                    subDropdownHintText: "Select Business Sub Category",
                                     categories: _categories,
                                     initialCategory: _businessCategory.text.toString(),
                                     initialSubCategory: _businessSubcategory.text.toString(),

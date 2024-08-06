@@ -9,7 +9,7 @@ import 'package:radigone_v3/view/user_view/profile/profile_page.dart';
 import 'package:radigone_v3/view/user_view/user_side_menubar.dart';
 import 'package:radigone_v3/view_model/services/auth_services.dart';
 import '../../utils/constants.dart';
-import 'coupons/coupos_page.dart';
+import 'coupons/coupons_page.dart';
 import 'history/history_page.dart';
 import 'home/home_page.dart';
 

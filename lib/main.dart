@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/tester.dart';
+import 'package:radigone_v3/view/sponsor_view/side_menu_bar_view/sponsor_deposit_now_view.dart';
 import 'package:radigone_v3/view_model/agent_view_model/agent_auth_viewModels/agent_login_viewModel.dart';
 import 'package:radigone_v3/view_model/agent_view_model/agent_referralLink_viewModel.dart';
 import 'package:radigone_v3/view_model/common_viewModel/change_password_view_model.dart';
@@ -116,8 +118,8 @@ class _MyAppState extends State<MyApp> {
         ),
         navigatorKey: _navigationServices.navigationStateKey,
         routes: _navigationServices.routes,
-        // home:  AgentMainView(),
-        initialRoute: "/splashScreen",
+        home:  Tester(),
+        // initialRoute: "/splashScreen",
       ),
     );
   }

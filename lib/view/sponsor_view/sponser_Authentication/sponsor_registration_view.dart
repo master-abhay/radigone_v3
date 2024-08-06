@@ -46,122 +46,12 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
   late MediaServices _mediaServices;
   late AlertServices _alertServices;
 
-  // String _selectedbusinessCategory = 'others';
-  // var businessCategoryMap = {
-  //   'Test11': 'Test11',
-  //   'Online Services': 'Online Services',
-  //   'OTT Platform': 'OTT Platform',
-  //   'Sports': "Sports",
-  //   'Mobile and Laptops': 'Mobile and Laptops',
-  //   'Loans': 'Loans',
-  //   'Tour and Travels': 'Tour and Travels',
-  //   'Gold and Jewellery': 'Gold and Jewellery',
-  //   'Clothing': 'Clothing',
-  //   'Accessories': 'Accessories',
-  //   'Real Estate': 'Real Estate',
-  //   'Health': "Health",
-  //   'others': 'others',
-  // };
-  //
-  // final List<String> _businessCategoryList = [];
-  // String _selectedSubCategory = '';
-  // var subCategoryMap = {
-  //   'test1': 'Test11',
-  //   'test2': 'Test11',
-  //   'test3': 'Test11',
-  //   '123': 'Online Services',
-  //   "Netflix": 'OTT Platform',
-  //   "HotStar": 'OTT Platform',
-  //   "Prime Video": 'OTT Platform',
-  //   "Other": 'OTT Platform',
-  //   'Cricket': "Sports",
-  //   'Football': "Sports",
-  //   'Tennis': "Sports",
-  //   'BasketBall': "Sports",
-  //   'Hockey': "Sports",
-  //   'other': "Sports",
-  //   '456': 'Mobile and Laptops',
-  //   'Home Loan': 'Loans',
-  //   'Vehicle Loan': 'Loans',
-  //   "other": 'Loans',
-  //   'Tour': 'Tour and Travels',
-  //   'Travels': 'Tour and Travels',
-  //   'abc': 'Gold and Jewellery',
-  //   'Men': 'Clothing',
-  //   'Women': 'Clothing',
-  //   'Kids': 'Clothing',
-  //   'Access': 'Accessories',
-  //   'To': 'Accessories',
-  //   'Commercial': 'Real Estate',
-  //   'Residential': 'Real Estate',
-  //   'Rent': 'Real Estate',
-  //   'other': 'Real Estate',
-  //   'Wealth': "Health",
-  //   'abc': "others"
-  // };
-  // final List<String> _subCategoryList = [];
-  //
-  // void businessDependentDropdown() {
-  //   businessCategoryMap.forEach((key, value) {
-  //     _businessCategoryList.add(key);
-  //   });
-  // }
-  //
-  // void stateDependentDropdown(String? categoryShortName) {
-  //   _subCategoryList.clear(); // Clear previous states
-  //   subCategoryMap.forEach((key, value) {
-  //     if (categoryShortName == value) {
-  //       _subCategoryList.add(key);
-  //     }
-  //   });
-  //   // Select the first state if available
-  //   _selectedSubCategory =
-  //       _subCategoryList.isNotEmpty ? _subCategoryList[0] : '';
-  // }
-  //
-  // //Select No of login Required:
-  // String _selectedMultipleLoginRequired = 'No';
-  // var multipleLoginRequiredMap = {'Yes': 'Yes', 'No': 'No'};
-  //
-  // final List<String> _multipleLoginRequiredList = [];
-  //
-  // void multipleLoginSelectionMapDependentDropdown() {
-  //   multipleLoginRequiredMap.forEach((key, value) {
-  //     _multipleLoginRequiredList.add(key);
-  //   });
-  // }
-  //
-  // String? _selectedNumberOfLoginRequired;
-  // var numberOfLoginRequiredMap = {
-  //   '2': 'Yes',
-  //   '3': 'Yes',
-  //   '4': 'Yes',
-  // };
-  //
-  // final List<String> _numberOfLoginRequiredList = [];
-  //
-  // void numberOfMultipleLoginDependentDropdown(String? selectValues) {
-  //   _numberOfLoginRequiredList.clear();
-  //   numberOfLoginRequiredMap.forEach((key, value) {
-  //     if (selectValues == value) {
-  //       _numberOfLoginRequiredList.add(key);
-  //     }
-  //   });
-  //
-  //   if (_numberOfLoginRequiredList.isNotEmpty) {
-  //     _selectedNumberOfLoginRequired = _numberOfLoginRequiredList[0];
-  //   } else {
-  //     _selectedNumberOfLoginRequired = null;
-  //   }
-  // }
-
   // Define TextEditingControllers
   final TextEditingController _firmNameController = TextEditingController();
   final TextEditingController _firmTypeController = TextEditingController();
-  final TextEditingController _companyController = TextEditingController();
   final TextEditingController _gstNumberController = TextEditingController();
   final TextEditingController _designationController = TextEditingController();
-  final TextEditingController _proprietorController = TextEditingController();
+  final TextEditingController _selectedTitleController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
@@ -196,10 +86,8 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
   // Define FocusNodes
   final FocusNode _firmNameFocusNode = FocusNode();
   final FocusNode _firmTypeFocusNode = FocusNode();
-  final FocusNode _companyFocusNode = FocusNode();
   final FocusNode _gstNumberFocusNode = FocusNode();
   final FocusNode _designationFocusNode = FocusNode();
-  final FocusNode _proprietorFocusNode = FocusNode();
   final FocusNode _firstNameFocusNode = FocusNode();
   final FocusNode _lastNameFocusNode = FocusNode();
   final FocusNode _usernameFocusNode = FocusNode();
@@ -223,16 +111,12 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
   final FocusNode _confirmPasswordFocusNode = FocusNode();
   final FocusNode _noOfLoginsFocusNode = FocusNode();
 
-  // Boolean field
-  bool _multipleLoginRequired = false;
-
   // Error variables
   String? _firmNameError;
   String? _firmTypeError;
   String? _companyError;
   String? _gstNumberError;
   String? _designationError;
-  String? _proprietorError;
   String? _firstNameError;
   String? _lastNameError;
   String? _usernameError;
@@ -257,10 +141,8 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
     // Dispose all controllers and focus nodes
     _firmNameController.dispose();
     _firmTypeController.dispose();
-    _companyController.dispose();
     _gstNumberController.dispose();
     _designationController.dispose();
-    _proprietorController.dispose();
     _firstNameController.dispose();
     _lastNameController.dispose();
     _usernameController.dispose();
@@ -282,10 +164,8 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
 
     _firmNameFocusNode.dispose();
     _firmTypeFocusNode.dispose();
-    _companyFocusNode.dispose();
     _gstNumberFocusNode.dispose();
     _designationFocusNode.dispose();
-    _proprietorFocusNode.dispose();
     _firstNameFocusNode.dispose();
     _lastNameFocusNode.dispose();
     _usernameFocusNode.dispose();
@@ -308,15 +188,7 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
     super.dispose();
   }
 
-  @override
-  void initState() {
-    _navigationServices = _getIt.get<NavigationServices>();
-    _mediaServices = _getIt.get<MediaServices>();
-    _alertServices = _getIt.get<AlertServices>();
 
-    _signUpFormKey = GlobalKey<FormState>();
-    super.initState();
-  }
 
   final Map<String, List<String>> _categories = {
     'Test11': ['test1', 'test2', 'test3'],
@@ -343,19 +215,30 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
 
   // Define the map for Multiple Login Required options
   final Map<String, List<String>> _multipleLoginOptions = {
-    'Yes': ['2', '3', '4'],
     'No': [],
+    'Yes': ['2', '3', '4'],
+
   };
 
-// Define variables to manage selected options
-  String _selectedMultipleLoginRequired = 'No';
-  String? _selectedNumberOfLogins;
-  final List<String> _numberOfLoginsList = [];
 
+  final List<String> titleOptions = const ['Mr','Ms','Mrs','Dr'];
+
+
+  @override
+  void initState() {
+    _navigationServices = _getIt.get<NavigationServices>();
+    _mediaServices = _getIt.get<MediaServices>();
+    _alertServices = _getIt.get<AlertServices>();
+
+    _signUpFormKey = GlobalKey<FormState>();
+
+
+    _selectedTitleController.text = titleOptions[0];
+        super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       body: buildUI(),
     );
   }
@@ -401,648 +284,69 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
               ),
             ),
             SingleChildScrollView(
-              // physics: const ClampingScrollPhysics(),
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               padding:
                   EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
-              child: Column(
-                children: [
-                  SafeArea(
-                    child: Column(
-                      children: [
-                        Container(
-                          // margin: EdgeInsets.only(top: MediaQuery.of(context).size.height / 12),
-                          child: Center(
-                            child: Material(
-                              color: MyColorScheme.authContainerColor
-                                  .withOpacity(0.8),
-                              borderRadius: BorderRadius.circular(24),
-                              child: Container(
-                                // height: 500,
-                                padding: EdgeInsets.symmetric(
-                                    vertical:
-                                        MediaQuery.of(context).size.height *
-                                            0.04,
-                                    horizontal:
-                                        MediaQuery.of(context).size.width *
-                                            0.05),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(24)),
-                                child: Form(
-                                  key: _signUpFormKey,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.04,
+                      horizontal: MediaQuery.of(context).size.width * 0.05),
+                  decoration: BoxDecoration(
+                      color: MyColorScheme.authContainerColor.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(24)),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
 
-                                    children: [
-                                      _firmNameField(),
-                                      const SizedBox(height: 10),
-                                      _firmTypeField(),
-                                      const SizedBox(height: 10),
-                                      _gstNumberField(),
-                                      const SizedBox(height: 10),
-                                      _designationField(),
-                                      const SizedBox(height: 10),
-                                      _firstNameField(),
-                                      const SizedBox(height: 10),
-                                      _lastNameField(),
-                                      const SizedBox(height: 10),
-                                      _usernameField(),
-                                      const SizedBox(height: 10),
-                                      _phoneNumberField(),
-                                      const SizedBox(height: 10),
-                                      _businessCategoryField(),
-                                      const SizedBox(height: 10),
-                                      _registrationFeesField(),
-                                      const SizedBox(height: 10),
-                                      _multipleLoginRequiredField(),
-                                      const SizedBox(height: 10),
-                                      _postPaidArrangementField(),
-                                      const SizedBox(height: 10),
-                                      _emailField(),
-                                      const SizedBox(height: 10),
-                                      _addressField(),
-                                      const SizedBox(height: 10),
-                                      _cityField(),
-                                      const SizedBox(height: 10),
-                                      _stateField(),
-                                      const SizedBox(height: 10),
-                                      _pinCodeField(),
-                                      const SizedBox(height: 10),
-                                      _countryField(),
+                    children: [
+                      _firmNameField(),
+                      const SizedBox(height: 15),
+                      _firmTypeField(),
+                      const SizedBox(height: 15),
+                      _gstNumberField(),
+                      const SizedBox(height: 15),
+                      _designationField(),
+                      const SizedBox(height: 15),
+                      _firstNameField(),
+                      const SizedBox(height: 15),
+                      _lastNameField(),
+                      const SizedBox(height: 15),
+                      _usernameField(),
+                      const SizedBox(height: 15),
+                      _phoneNumberField(),
+                      const SizedBox(height: 15),
+                      _businessCategoryField(),
+                      const SizedBox(height: 15),
+                      _registrationFeesField(),
+                      const SizedBox(height: 15),
+                      _multipleLoginRequiredField(),
+                      const SizedBox(height: 15),
+                      _postPaidArrangementField(),
+                      const SizedBox(height: 15),
+                      _emailField(),
+                      const SizedBox(height: 15),
+                      _addressField(),
+                      const SizedBox(height: 15),
+                      _cityField(),
+                      const SizedBox(height: 15),
+                      _stateField(),
+                      const SizedBox(height: 15),
+                      _pinCodeField(),
+                      const SizedBox(height: 15),
+                      _countryField(),
+                      const SizedBox(height: 15),
+                      _panAndAddressProofField(),
+                      const SizedBox(height: 15),
+                      _passwordField(),
+                      const SizedBox(height: 15),
+                      _confirmPasswordField(),
+                      const SizedBox(height: 30),
+                      _submitButton(),
+                    ],
 
-                                      const SizedBox(height: 10),
-                                      _panAndAddressProofField(),
-                                      const SizedBox(height: 10),
-                                      _passwordField(),
-                                      const SizedBox(height: 10),
-                                      _confirmPasswordField(),
-                                      const SizedBox(height: 30),
-                                      _submitButton(),
-                                    ],
 
-                                    // children: [
-                                    //   SizedBox(
-                                    //     width: 295,
-                                    //     child: Row(
-                                    //       children: [
-                                    //         Expanded(
-                                    //           flex: 2,
-                                    //           child: SizedBox(
-                                    //             width: 150,
-                                    //             child: CustomFormField(
-                                    //                 hintText: "Firm name",
-                                    //                 onSaved: (value) {
-                                    //                   providerValue.firmName(value);
-                                    //                 },
-                                    //                 obscureText: false,
-                                    //        ),
-                                    //           ),
-                                    //         ),
-                                    //         const SizedBox(
-                                    //           width: 10,
-                                    //         ),
-                                    //         Expanded(
-                                    //           flex: 2,
-                                    //           child: SizedBox(
-                                    //               width: 150,
-                                    //               child: CustomDropdown(
-                                    //                 onSaved: (value) {
-                                    //                   providerValue.firmType(value);
-                                    //                 },
-                                    //                 onChanged: (value) {
-                                    //                   providerValue.firmType(value);
-                                    //
-                                    //                 },
-                                    //                 dropdownListData: const [
-                                    //                   {
-                                    //                     'title': 'Company',
-                                    //                     'value': 'Company'
-                                    //                   },
-                                    //                   {
-                                    //                     'title':
-                                    //                         'Private Limited',
-                                    //                     'value':
-                                    //                         'Private Limited'
-                                    //                   },
-                                    //                   {
-                                    //                     'title': 'Partnership',
-                                    //                     'value': 'Partnership'
-                                    //                   },
-                                    //                   {
-                                    //                     'title':
-                                    //                         'Proprietorship',
-                                    //                     'value':
-                                    //                         'Proprietorship'
-                                    //                   },
-                                    //                   {
-                                    //                     'title': 'LLP',
-                                    //                     'value': 'LLP'
-                                    //                   },
-                                    //                   {
-                                    //                     'title': 'OPC',
-                                    //                     'value': 'OPC'
-                                    //                   },
-                                    //                 ],
-                                    //                 hint: "Firm Type",
-                                    //               )),
-                                    //         ),
-                                    //       ],
-                                    //     ),
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //   SizedBox(
-                                    //     width: 295,
-                                    //     child: CustomFormField(
-                                    //         hintText: "Gst Number",
-                                    //         textCapitalization: false,
-                                    //         onSaved: (value) {
-                                    //           providerValue.gstNumber(value);
-                                    //         },
-                                    //         obscureText: false,
-                                    //         isNumber: false),
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //   SizedBox(
-                                    //       width: 295,
-                                    //       child: CustomDropdown(
-                                    //         onSaved: (value) {
-                                    //           providerValue.designation(value);
-                                    //         },
-                                    //         onChanged: (value) {
-                                    //           providerValue.designation(value);
-                                    //         },
-                                    //         dropdownListData: const [
-                                    //           {
-                                    //             'title': 'Proprietor',
-                                    //             'value': 'Proprietor'
-                                    //           },
-                                    //           {
-                                    //             'title': 'Director',
-                                    //             'value': 'Director'
-                                    //           },
-                                    //           {
-                                    //             'title': 'Authorized Person',
-                                    //             'value': 'Authorized Person'
-                                    //           },
-                                    //         ],
-                                    //         hint: "Designation",
-                                    //       )),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //   SizedBox(
-                                    //     width: 295,
-                                    //     child: Row(
-                                    //       children: [
-                                    //         Expanded(
-                                    //           flex: 2,
-                                    //           child: SizedBox(
-                                    //             width: 150,
-                                    //             child: CustomFormField(
-                                    //                 hintText: "First Name",
-                                    //                 onSaved: (value) {
-                                    //                   providerValue.firstName(value);
-                                    //                 },
-                                    //                 obscureText: false,
-                                    //                 isNumber: false),
-                                    //           ),
-                                    //         ),
-                                    //         const SizedBox(
-                                    //           width: 10,
-                                    //         ),
-                                    //         Expanded(
-                                    //           flex: 2,
-                                    //           child: SizedBox(
-                                    //             width: 150,
-                                    //             child: CustomFormField(
-                                    //                 hintText: "Last Name",
-                                    //                 onSaved: (value) {
-                                    //                   providerValue.lastName(value);
-                                    //                 },
-                                    //                 obscureText: false,
-                                    //                 isNumber: false),
-                                    //           ),
-                                    //         ),
-                                    //       ],
-                                    //     ),
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //   SizedBox(
-                                    //     width: 295,
-                                    //     child: CustomFormField(
-                                    //         hintText: "Username",
-                                    //         textCapitalization: false,
-                                    //         onSaved: (value) {
-                                    //          providerValue.userName(value);
-                                    //         },
-                                    //         obscureText: false,
-                                    //         isNumber: false),
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //   SizedBox(
-                                    //       width: 295,
-                                    //       child: CustomPhoneFormInputField(
-                                    //         hintText: "Phone Number",
-                                    //         onSaved: (value) {
-                                    //           providerValue.phoneNumber(value!.number);
-                                    //           providerValue.countryCode(value.countryCode);
-                                    //
-                                    //         },
-                                    //         onChanged: (value) {
-                                    //           providerValue.phoneNumber(value!.number);
-                                    //           providerValue.countryCode(value.countryCode);
-                                    //         },
-                                    //       )),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //
-                                    //   // business Category: Given Value
-                                    //   businessCategory(),
-                                    //
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //
-                                    //   //Registration Fees
-                                    //   SizedBox(
-                                    //     width: 295,
-                                    //     child: CustomFormField(
-                                    //         hintText: "Registration Fees",
-                                    //         onSaved: (value) {
-                                    //         providerValue.registrationFees(value);
-                                    //         },
-                                    //         obscureText: false,
-                                    //         isNumber: true),
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //
-                                    //   //Profile Services:
-                                    //
-                                    //   //Multiple Login Required: dropdown
-                                    //   requireNumberOfLoginDropdowns(),
-                                    //
-                                    //   // PostPaidArrangement
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //
-                                    //   postPaidArrangementRequired(),
-                                    //
-                                    //   //Email:
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //   SizedBox(
-                                    //     width: 295,
-                                    //     child: CustomFormField(
-                                    //         hintText: "Email",
-                                    //         onSaved: (value) {
-                                    //          providerValue.email(value);
-                                    //         },
-                                    //         obscureText: false,
-                                    //         isNumber: false),
-                                    //   ),
-                                    //
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //   SizedBox(
-                                    //     width: 295,
-                                    //     child: CustomFormField(
-                                    //         hintText: "Address",
-                                    //         onSaved: (value) {
-                                    //           providerValue.address(value);
-                                    //         },
-                                    //         obscureText: false,
-                                    //         isNumber: false),
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //   SizedBox(
-                                    //     width: 295,
-                                    //     child: Row(
-                                    //       children: [
-                                    //         Expanded(
-                                    //           flex: 2,
-                                    //           child: SizedBox(
-                                    //             width: 150,
-                                    //             child: CustomFormField(
-                                    //                 hintText: "City",
-                                    //                 onSaved: (value) {
-                                    //                   providerValue.city(value);
-                                    //                 },
-                                    //                 obscureText: false,
-                                    //                 isNumber: false),
-                                    //           ),
-                                    //         ),
-                                    //         const SizedBox(
-                                    //           width: 10,
-                                    //         ),
-                                    //         Expanded(
-                                    //           flex: 2,
-                                    //           child: SizedBox(
-                                    //             width: 150,
-                                    //             child: CustomFormField(
-                                    //                 hintText: "Pin Code",
-                                    //                 onSaved: (value) {
-                                    //                   providerValue.pinCode(value);
-                                    //                 },
-                                    //                 obscureText: false,
-                                    //                 isNumber: true),
-                                    //           ),
-                                    //         ),
-                                    //       ],
-                                    //     ),
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //   SizedBox(
-                                    //     width: 295,
-                                    //     child: Row(
-                                    //       children: [
-                                    //         Expanded(
-                                    //           flex: 2,
-                                    //           child: SizedBox(
-                                    //             width: 150,
-                                    //             child: CustomFormField(
-                                    //                 hintText: "State",
-                                    //                 onSaved: (value) {
-                                    //                  providerValue.state(value);
-                                    //                 },
-                                    //                 obscureText: false,
-                                    //                 isNumber: false),
-                                    //           ),
-                                    //         ),
-                                    //         const SizedBox(
-                                    //           width: 10,
-                                    //         ),
-                                    //         Expanded(
-                                    //           flex: 2,
-                                    //           child: SizedBox(
-                                    //             width: 150,
-                                    //             child: CustomFormField(
-                                    //                 hintText: "Country",
-                                    //                 onSaved: (value) {
-                                    //                   providerValue.country(value);
-                                    //                 },
-                                    //                 obscureText: false,
-                                    //                 isNumber: false),
-                                    //           ),
-                                    //         ),
-                                    //       ],
-                                    //     ),
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //
-                                    //   SizedBox(
-                                    //     width: 295,
-                                    //     child: CustomFormField(
-                                    //         hintText: "Pan Number",
-                                    //         onSaved: (value) {
-                                    //           providerValue.panNumber(value);
-                                    //         },
-                                    //         obscureText: false,
-                                    //         isNumber: false,
-                                    //     ),
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //
-                                    //   SizedBox(
-                                    //     width: 295,
-                                    //     child: Row(
-                                    //       mainAxisAlignment:
-                                    //           MainAxisAlignment.spaceBetween,
-                                    //       mainAxisSize: MainAxisSize.max,
-                                    //       crossAxisAlignment:
-                                    //           CrossAxisAlignment.center,
-                                    //       children: [
-                                    //         Expanded(
-                                    //           flex: 2,
-                                    //           child: Container(
-                                    //             padding: EdgeInsets.symmetric(
-                                    //                 vertical:
-                                    //                     MediaQuery.of(context)
-                                    //                             .size
-                                    //                             .width *
-                                    //                         0.02),
-                                    //             decoration: BoxDecoration(
-                                    //               color: Colors.black
-                                    //                   .withOpacity(0.3),
-                                    //               border: Border.all(
-                                    //                   color: MyColorScheme
-                                    //                       .lightGrey3),
-                                    //               borderRadius:
-                                    //                   BorderRadius.circular(8),
-                                    //             ),
-                                    //             child: Column(
-                                    //               children: [
-                                    //                 addressProofSelector(),
-                                    //                 Text(
-                                    //                   "Address Proof",
-                                    //                   style: TextStyle(
-                                    //                       color: Colors.white
-                                    //                           .withOpacity(
-                                    //                               0.65),
-                                    //                       fontSize: 15),
-                                    //                 )
-                                    //               ],
-                                    //             ),
-                                    //           ),
-                                    //         ),
-                                    //         const SizedBox(
-                                    //           width: 10,
-                                    //         ),
-                                    //         Expanded(
-                                    //           flex: 2,
-                                    //           child: SizedBox(
-                                    //             width: 150,
-                                    //             child: Container(
-                                    //               padding: EdgeInsets.symmetric(
-                                    //                   vertical:
-                                    //                       MediaQuery.of(context)
-                                    //                               .size
-                                    //                               .width *
-                                    //                           0.02),
-                                    //               decoration: BoxDecoration(
-                                    //                 color: Colors.black
-                                    //                     .withOpacity(0.3),
-                                    //                 border: Border.all(
-                                    //                     color: MyColorScheme
-                                    //                         .lightGrey3),
-                                    //                 borderRadius:
-                                    //                     BorderRadius.circular(
-                                    //                         8),
-                                    //               ),
-                                    //               child: Column(
-                                    //                 children: [
-                                    //                   panProofSelector(),
-                                    //                   Text(
-                                    //                     "Pan Card",
-                                    //                     style: TextStyle(
-                                    //                         color: Colors.white
-                                    //                             .withOpacity(
-                                    //                                 0.65),
-                                    //                         fontSize: 15),
-                                    //                   )
-                                    //                 ],
-                                    //               ),
-                                    //             ),
-                                    //           ),
-                                    //         ),
-                                    //       ],
-                                    //     ),
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //   SizedBox(
-                                    //     width: 295,
-                                    //     child: ValueListenableBuilder(
-                                    //       valueListenable: _passwordVisibilty,
-                                    //       builder:
-                                    //           (context, value, Widget? child) {
-                                    //         return CustomFormField(
-                                    //           hintText:
-                                    //               "Create 6 digit password",
-                                    //           textCapitalization: false,
-                                    //           onSaved: (value) {
-                                    //             providerValue.password(value);
-                                    //           },
-                                    //           obscureText:
-                                    //               _passwordVisibiltyObscure,
-                                    //           isNumber: false,
-                                    //           maxLines: 1,
-                                    //           icon: GestureDetector(
-                                    //             onTap: () {
-                                    //               _passwordVisibilty.value =
-                                    //                   !_passwordVisibilty.value;
-                                    //               _passwordVisibiltyObscure =
-                                    //                   !_passwordVisibiltyObscure;
-                                    //             },
-                                    //             child: _passwordVisibilty.value
-                                    //                 ? const Icon(
-                                    //                     Icons.visibility,
-                                    //                     color: Colors.white,
-                                    //                   )
-                                    //                 : const Icon(
-                                    //                     Icons.visibility_off,
-                                    //                     color: Colors.white,
-                                    //                   ),
-                                    //           ),
-                                    //         );
-                                    //       },
-                                    //     ),
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 10,
-                                    //   ),
-                                    //   SizedBox(
-                                    //     width: 295,
-                                    //     child: ValueListenableBuilder(
-                                    //       valueListenable:
-                                    //           _confirmPasswordVisibility,
-                                    //       builder:
-                                    //           (context, value, Widget? child) {
-                                    //         return CustomFormField(
-                                    //           hintText: "Confirm password",
-                                    //           textCapitalization: false,
-                                    //           onSaved: (value) {
-                                    //             providerValue.confirmPassword(value);
-                                    //           },
-                                    //           obscureText:
-                                    //               _confirmPasswordVisibilityObscure,
-                                    //           isNumber: false,
-                                    //           maxLines: 1,
-                                    //           icon: GestureDetector(
-                                    //             onTap: () {
-                                    //               _confirmPasswordVisibility
-                                    //                       .value =
-                                    //                   !_confirmPasswordVisibility
-                                    //                       .value;
-                                    //               _confirmPasswordVisibilityObscure =
-                                    //                   !_confirmPasswordVisibilityObscure;
-                                    //             },
-                                    //             child:
-                                    //                 _confirmPasswordVisibility
-                                    //                         .value
-                                    //                     ? const Icon(
-                                    //                         Icons.visibility,
-                                    //                         color: Colors.white,
-                                    //                       )
-                                    //                     : const Icon(
-                                    //                         Icons
-                                    //                             .visibility_off,
-                                    //                         color: Colors.white,
-                                    //                       ),
-                                    //           ),
-                                    //         );
-                                    //       },
-                                    //     ),
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 20,
-                                    //   ),
-                                    //   SizedBox(
-                                    //     width: 240,
-                                    //     child: CustomButton(
-                                    //         buttonName: "Sign Up",
-                                    //         isLoading: providerValue.loading,
-                                    //         isGradient: true,
-                                    //         onTap: () async{
-                                    //
-                                    //           if(_signUpFormKey.currentState!.validate()){
-                                    //             _signUpFormKey.currentState!.save();
-                                    //             await providerValue.SignUpSponsor();
-                                    //
-                                    //           }
-                                    //
-                                    //
-                                    //
-                                    //         }),
-                                    //   ),
-                                    //   const SizedBox(
-                                    //     height: 5,
-                                    //   ),
-                                    //   GestureDetector(
-                                    //     onTap: () {},
-                                    //     child: const Text(
-                                    //       "Have a referral code?",
-                                    //       style: TextStyle(
-                                    //           color: Colors.white,
-                                    //           fontSize: 12),
-                                    //     ),
-                                    //   ),
-                                    // ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
-                ],
+                ),
               ),
             ),
           ],
@@ -1050,438 +354,6 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
       },
     );
   }
-
-  // Widget businessCategory() {
-  //   return Consumer<RegisterSponsorProvider>(
-  //     builder: (context, providerValue, Widget? value) {
-  //       return SizedBox(
-  //         width: 295,
-  //         child: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           children: [
-  //             DropdownButtonFormField<String>(
-  //               hint: const Text("Select Business Category"),
-  //               value: _selectedbusinessCategory.isNotEmpty
-  //                   ? _selectedbusinessCategory
-  //                   : null,
-  //               items: _businessCategoryList.map((element) {
-  //                 return DropdownMenuItem(
-  //                   value: element,
-  //                   child: Text(
-  //                     element,
-  //                     style: const TextStyle(color: Colors.white),
-  //                   ),
-  //                 );
-  //               }).toList(),
-  //               onChanged: (newValue) {
-  //                 providerValue.businessCategory(newValue);
-  //                 setState(() {
-  //                   _selectedbusinessCategory = newValue!;
-  //                 if(kDebugMode){
-  //                   print(
-  //                       "--------printing the business Category $_selectedbusinessCategory");
-  //                 }
-  //                   stateDependentDropdown(
-  //                       businessCategoryMap[_selectedbusinessCategory]);
-  //                 });
-  //               },
-  //               validator: (value) {
-  //                 if (value != null && value.isNotEmpty) {
-  //                   return null;
-  //                 } else {
-  //                   return "Select Business Category";
-  //                   // return null;
-  //                 }
-  //               },
-  //               padding: EdgeInsets.zero,
-  //               isExpanded: true,
-  //               alignment: Alignment.center,
-  //               dropdownColor: Colors.black.withOpacity(0.65),
-  //               focusColor: Colors.black,
-  //               icon: const Icon(
-  //                 Icons.arrow_drop_down,
-  //                 color: Colors.white,
-  //               ),
-  //               decoration: InputDecoration(
-  //                   errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
-  //                   contentPadding: EdgeInsets.symmetric(
-  //                       horizontal: MediaQuery.of(context).size.width * 0.02),
-  //                   alignLabelWithHint: true,
-  //                   // hintText: widget.hint.toLowerCase(),
-  //                   hintText: "Select Business Category".toLowerCase(),
-  //                   hintFadeDuration: const Duration(milliseconds: 500),
-  //                   hintStyle: TextStyle(
-  //                       color: Colors.white.withOpacity(0.1), fontSize: 15),
-  //                   border: OutlineInputBorder(
-  //                       borderRadius: BorderRadius.circular(8),
-  //                       borderSide: BorderSide.none),
-  //                   focusedBorder: OutlineInputBorder(
-  //                       borderRadius: BorderRadius.circular(8),
-  //                       borderSide: const BorderSide(color: Colors.white)),
-  //                   errorBorder: UnderlineInputBorder(
-  //                       borderRadius: BorderRadius.circular(8),
-  //                       borderSide:
-  //                           BorderSide(color: Colors.red.withOpacity(0.8))),
-  //                   enabledBorder: OutlineInputBorder(
-  //                       borderRadius: BorderRadius.circular(8),
-  //                       borderSide:
-  //                           BorderSide(color: Colors.black.withOpacity(0.3))),
-  //                   focusedErrorBorder: OutlineInputBorder(
-  //                       borderRadius: BorderRadius.circular(8),
-  //                       borderSide: const BorderSide(color: Colors.white)),
-  //                   // labelText: widget.hint,
-  //                   labelText: "Select Business category",
-  //                   labelStyle: TextStyle(
-  //                       color: Colors.white.withOpacity(0.65), fontSize: 15),
-  //                   filled: true,
-  //                   fillColor: Colors.black.withOpacity(0.3)),
-  //             ),
-  //             const SizedBox(height: 10),
-  //             DropdownButtonFormField<String>(
-  //               value: _selectedSubCategory.isNotEmpty
-  //                   ? _selectedSubCategory
-  //                   : null,
-  //               items: _subCategoryList.map((state) {
-  //                 return DropdownMenuItem(
-  //                   value: state,
-  //                   child: Text(
-  //                     state,
-  //                     style: const TextStyle(color: Colors.white),
-  //                   ),
-  //                 );
-  //               }).toList(),
-  //               onChanged: (newValue) {
-  //                 providerValue.businessSubCategory(newValue);
-  //                 setState(() {
-  //                   _selectedSubCategory = newValue!;
-  //                   print(
-  //                       "--------printing the business Category $_selectedSubCategory");
-  //                 });
-  //               }
-  //
-  //              ,
-  //               padding: EdgeInsets.zero,
-  //               isExpanded: true,
-  //               alignment: Alignment.center,
-  //               dropdownColor: Colors.black.withOpacity(0.65),
-  //               focusColor: Colors.black,
-  //               icon: const Icon(
-  //                 Icons.arrow_drop_down,
-  //                 color: Colors.white,
-  //               ),
-  //               decoration: InputDecoration(
-  //                   errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
-  //                   contentPadding: EdgeInsets.symmetric(
-  //                       horizontal: MediaQuery.of(context).size.width * 0.02),
-  //                   alignLabelWithHint: true,
-  //                   // hintText: widget.hint.toLowerCase(),
-  //                   hintText: "Select Business Subcategory".toLowerCase(),
-  //                   hintFadeDuration: const Duration(milliseconds: 500),
-  //                   hintStyle: TextStyle(
-  //                       color: Colors.white.withOpacity(0.1), fontSize: 15),
-  //                   border: OutlineInputBorder(
-  //                       borderRadius: BorderRadius.circular(8),
-  //                       borderSide: BorderSide.none),
-  //                   focusedBorder: OutlineInputBorder(
-  //                       borderRadius: BorderRadius.circular(8),
-  //                       borderSide: const BorderSide(color: Colors.white)),
-  //                   errorBorder: UnderlineInputBorder(
-  //                       borderRadius: BorderRadius.circular(8),
-  //                       borderSide:
-  //                           BorderSide(color: Colors.red.withOpacity(0.8))),
-  //                   enabledBorder: OutlineInputBorder(
-  //                       borderRadius: BorderRadius.circular(8),
-  //                       borderSide:
-  //                           BorderSide(color: Colors.black.withOpacity(0.3))),
-  //                   focusedErrorBorder: OutlineInputBorder(
-  //                       borderRadius: BorderRadius.circular(8),
-  //                       borderSide: const BorderSide(color: Colors.white)),
-  //                   // labelText: widget.hint,
-  //                   labelText: "Select Business Subcategory",
-  //                   labelStyle: TextStyle(
-  //                       color: Colors.white.withOpacity(0.65), fontSize: 15),
-  //                   filled: true,
-  //                   fillColor: Colors.black.withOpacity(0.3)),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
-  // Widget requireNumberOfLoginDropdowns() {
-  //   return Consumer<RegisterSponsorProvider>(
-  //       builder: (context, providerValue, Widget? value) {
-  //     return SizedBox(
-  //       width: 295,
-  //       child: Column(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: [
-  //           DropdownButtonFormField<String>(
-  //             value: _selectedMultipleLoginRequired,
-  //             items: _multipleLoginRequiredList.map((element) {
-  //               return DropdownMenuItem(
-  //                 value: element,
-  //                 child: Text(
-  //                   element,
-  //                   style: const TextStyle(color: Colors.white),
-  //                 ),
-  //               );
-  //             }).toList(),
-  //             onChanged: (newValue) {
-  //               providerValue.multipleLoginRequired(newValue);
-  //               setState(() {
-  //                 _selectedMultipleLoginRequired = newValue!;
-  //                 numberOfMultipleLoginDependentDropdown(
-  //                     multipleLoginRequiredMap[_selectedMultipleLoginRequired]);
-  //               });
-  //             },
-  //             validator: (value) {
-  //               if (value != null && value.isNotEmpty) {
-  //                 return null;
-  //               } else {
-  //                 return "Select Field";
-  //                 // return null;
-  //               }
-  //             },
-  //             padding: EdgeInsets.zero,
-  //             isExpanded: true,
-  //             alignment: Alignment.center,
-  //             dropdownColor: Colors.black.withOpacity(0.65),
-  //             focusColor: Colors.black,
-  //             icon: const Icon(
-  //               Icons.arrow_drop_down,
-  //               color: Colors.white,
-  //             ),
-  //             decoration: InputDecoration(
-  //                 errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
-  //                 contentPadding: EdgeInsets.symmetric(
-  //                     horizontal: MediaQuery.of(context).size.width * 0.02),
-  //                 alignLabelWithHint: true,
-  //                 // hintText: widget.hint.toLowerCase(),
-  //                 hintText: "Multiple Login Required".toLowerCase(),
-  //                 hintFadeDuration: const Duration(milliseconds: 500),
-  //                 hintStyle: TextStyle(
-  //                     color: Colors.white.withOpacity(0.1), fontSize: 15),
-  //                 border: OutlineInputBorder(
-  //                     borderRadius: BorderRadius.circular(8),
-  //                     borderSide: BorderSide.none),
-  //                 focusedBorder: OutlineInputBorder(
-  //                     borderRadius: BorderRadius.circular(8),
-  //                     borderSide: const BorderSide(color: Colors.white)),
-  //                 errorBorder: UnderlineInputBorder(
-  //                     borderRadius: BorderRadius.circular(8),
-  //                     borderSide:
-  //                         BorderSide(color: Colors.red.withOpacity(0.8))),
-  //                 enabledBorder: OutlineInputBorder(
-  //                     borderRadius: BorderRadius.circular(8),
-  //                     borderSide:
-  //                         BorderSide(color: Colors.black.withOpacity(0.3))),
-  //                 focusedErrorBorder: OutlineInputBorder(
-  //                     borderRadius: BorderRadius.circular(8),
-  //                     borderSide: const BorderSide(color: Colors.white)),
-  //                 // labelText: widget.hint,
-  //                 labelText: "Multiple Login Required",
-  //                 labelStyle: TextStyle(
-  //                     color: Colors.white.withOpacity(0.65), fontSize: 15),
-  //                 filled: true,
-  //                 fillColor: Colors.black.withOpacity(0.3)),
-  //           ),
-  //           const SizedBox(height: 10),
-  //           DropdownButtonFormField<String>(
-  //             value: _selectedNumberOfLoginRequired,
-  //             items: _numberOfLoginRequiredList.map((element) {
-  //               return DropdownMenuItem(
-  //                 value: element,
-  //                 child: Text(
-  //                   element,
-  //                   style: const TextStyle(color: Colors.white),
-  //                 ),
-  //               );
-  //             }).toList(),
-  //             onChanged: (newValue) {
-  //               providerValue.numberOfLoginRequired(newValue);
-  //               setState(() {
-  //                 _selectedNumberOfLoginRequired = newValue;
-  //               });
-  //             },
-  //
-  //             padding: EdgeInsets.zero,
-  //             isExpanded: true,
-  //             alignment: Alignment.center,
-  //             dropdownColor: Colors.black.withOpacity(0.65),
-  //             focusColor: Colors.black,
-  //             icon: const Icon(
-  //               Icons.arrow_drop_down,
-  //               color: Colors.white,
-  //             ),
-  //             decoration: InputDecoration(
-  //                 errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
-  //                 contentPadding: EdgeInsets.symmetric(
-  //                     horizontal: MediaQuery.of(context).size.width * 0.02),
-  //                 alignLabelWithHint: true,
-  //                 // hintText: widget.hint.toLowerCase(),
-  //                 hintText: "Number of Required Login".toLowerCase(),
-  //                 hintFadeDuration: const Duration(milliseconds: 500),
-  //                 hintStyle: TextStyle(
-  //                     color: Colors.white.withOpacity(0.1), fontSize: 15),
-  //                 border: OutlineInputBorder(
-  //                     borderRadius: BorderRadius.circular(8),
-  //                     borderSide: BorderSide.none),
-  //                 focusedBorder: OutlineInputBorder(
-  //                     borderRadius: BorderRadius.circular(8),
-  //                     borderSide: const BorderSide(color: Colors.white)),
-  //                 errorBorder: UnderlineInputBorder(
-  //                     borderRadius: BorderRadius.circular(8),
-  //                     borderSide:
-  //                         BorderSide(color: Colors.red.withOpacity(0.8))),
-  //                 enabledBorder: OutlineInputBorder(
-  //                     borderRadius: BorderRadius.circular(8),
-  //                     borderSide:
-  //                         BorderSide(color: Colors.black.withOpacity(0.3))),
-  //                 focusedErrorBorder: OutlineInputBorder(
-  //                     borderRadius: BorderRadius.circular(8),
-  //                     borderSide: const BorderSide(color: Colors.white)),
-  //                 // labelText: widget.hint,
-  //                 labelText: "Number of Required Login",
-  //                 labelStyle: TextStyle(
-  //                     color: Colors.white.withOpacity(0.65), fontSize: 15),
-  //                 filled: true,
-  //                 fillColor: Colors.black.withOpacity(0.3)),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //   });
-  // }
-
-  // Widget postPaidArrangementRequired() {
-  //   return Consumer<RegisterSponsorProvider>(
-  //     builder: (context, providerValue, Widget? value) {
-  //       return SizedBox(
-  //         width: 295,
-  //         child: DropdownButtonFormField(
-  //           items: const [
-  //             DropdownMenuItem(
-  //               value: 'Yes',
-  //               child: Text(
-  //                 "Yes",
-  //                 style: TextStyle(color: Colors.white),
-  //               ),
-  //             ),
-  //             DropdownMenuItem(
-  //               value: 'No',
-  //               child: Text(
-  //                 "No",
-  //                 style: TextStyle(color: Colors.white),
-  //               ),
-  //             )
-  //           ],
-  //           onChanged: (value) {
-  //             providerValue.postPaidArrangementRequired(value);
-  //           },
-  //           validator: (value) {
-  //             if (value != null && value.isNotEmpty) {
-  //               return null;
-  //             } else {
-  //               return "Select Field";
-  //               // return null;
-  //             }
-  //           },
-  //           padding: EdgeInsets.zero,
-  //           isExpanded: true,
-  //           alignment: Alignment.center,
-  //           dropdownColor: Colors.black.withOpacity(0.65),
-  //           focusColor: Colors.black,
-  //           icon: const Icon(
-  //             Icons.arrow_drop_down,
-  //             color: Colors.white,
-  //           ),
-  //           decoration: InputDecoration(
-  //               errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
-  //               contentPadding: EdgeInsets.symmetric(
-  //                   horizontal: MediaQuery.of(context).size.width * 0.02),
-  //               alignLabelWithHint: true,
-  //               // hintText: widget.hint.toLowerCase(),
-  //               hintText: "Postpaid Arrangement Required".toLowerCase(),
-  //               hintFadeDuration: const Duration(milliseconds: 500),
-  //               hintStyle: TextStyle(
-  //                   color: Colors.white.withOpacity(0.1), fontSize: 15),
-  //               border: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.circular(8),
-  //                   borderSide: BorderSide.none),
-  //               focusedBorder: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.circular(8),
-  //                   borderSide: const BorderSide(color: Colors.white)),
-  //               errorBorder: UnderlineInputBorder(
-  //                   borderRadius: BorderRadius.circular(8),
-  //                   borderSide: BorderSide(color: Colors.red.withOpacity(0.8))),
-  //               enabledBorder: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.circular(8),
-  //                   borderSide:
-  //                       BorderSide(color: Colors.black.withOpacity(0.3))),
-  //               focusedErrorBorder: OutlineInputBorder(
-  //                   borderRadius: BorderRadius.circular(8),
-  //                   borderSide: const BorderSide(color: Colors.white)),
-  //               // labelText: widget.hint,
-  //               labelText: "Postpaid Arrangement Required",
-  //               labelStyle: TextStyle(
-  //                   color: Colors.white.withOpacity(0.65), fontSize: 15),
-  //               filled: true,
-  //               fillColor: Colors.black.withOpacity(0.3)),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
-  // Widget addressProofSelector() {
-  //   return Consumer<RegisterSponsorProvider>(
-  //     builder: (context, providerValue, Widget? value) {
-  //       return GestureDetector(
-  //         onTap: () async {
-  //           File? file = await _mediaServices.getImageFromGallery();
-  //           if (file != null) {
-  //             providerValue.addressProof(file);
-  //             setState(() {
-  //               selectedAddressProof = file;
-  //             });
-  //           }
-  //         },
-  //         child: CircleAvatar(
-  //           radius: 30,
-  //           backgroundImage: selectedAddressProof != null
-  //               ? FileImage(selectedAddressProof!)
-  //               : const NetworkImage(Constants.PLACEHOLDER_PFP) as ImageProvider,
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
-  // Widget panProofSelector() {
-  //   return Consumer<RegisterSponsorProvider>(
-  //       builder: (context, providerValue, Widget? value) {
-  //     return GestureDetector(
-  //       onTap: () async {
-  //         File? file = await _mediaServices.getImageFromGallery();
-  //         if (file != null) {
-  //           providerValue.panCard(file);
-  //           setState(() {
-  //             selectedPanProof = file;
-  //           });
-  //         }
-  //       },
-  //       child: CircleAvatar(
-  //         radius: 30,
-  //         backgroundImage: selectedPanProof != null
-  //             ? FileImage(selectedPanProof!)
-  //             : const NetworkImage(Constants.PLACEHOLDER_PFP) as ImageProvider,
-  //       ),
-  //     );
-  //   });
-  // }
 
   //*-----Firm Name Field------*
   Widget _firmNameField() {
@@ -1496,7 +368,7 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
       onChanged: (value) {
         if (_firmNameFocusNode.hasFocus) {
           setState(() {
-            _firstNameError = ErrorText.getNameError(name: value!);
+            _firmNameError = ErrorText.getNameError(name: value!);
           });
         }
       },
@@ -1518,7 +390,8 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
         'LLP',
         'OPC'
       ],
-      hintText: "Firm Type",
+      hintText: "Select Firm Type",
+      labelText: "Firm Type",
     );
   }
 
@@ -1548,7 +421,7 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
     return SingleDropdown(
       focusNode: _designationFocusNode,
       onChanged: (value) {
-        _firmTypeController.text = value.toString();
+        _designationController.text = value.toString();
         FocusScope.of(context).requestFocus(_firstNameFocusNode);
       },
       dropdownListData: const [
@@ -1556,7 +429,8 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
         'Director',
         'Authorized Person',
       ],
-      hintText: "Designation",
+      hintText: "Select Designation",
+      labelText: "Designation",
     );
   }
 
@@ -1570,6 +444,13 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
       obscureText: false,
       textInputType: TextInputType.text,
       errorText: _firstNameError,
+      titleOptions: titleOptions,
+      selectedTitleValue: _selectedTitleController.text,
+      onTitleChanged: (value){
+        setState(() {
+          _selectedTitleController.text = value!;
+        });
+      },
       onChanged: (value) {
         if (_firstNameFocusNode.hasFocus) {
           setState(() {
@@ -1641,6 +522,9 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
   //*-----Business Category Field------*
   Widget _businessCategoryField() {
     return DependentDropdown(
+      hintText: "Business Category",
+      subDropdownHintText: "Business Sub Category",
+      fillColor: Colors.black.withOpacity(0.3),
       categories: _categories,
       onCategoryChanged: (value) {
         setState(() {
@@ -1688,6 +572,9 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
   //*-----Multiple Login Required Field------*
   Widget _multipleLoginRequiredField() {
     return DependentDropdown(
+      hintText: "Multiple Login Required",
+      subDropdownHintText: "No. of Logins",
+      fillColor: Colors.black.withOpacity(0.3),
       categories: _multipleLoginOptions,
       onCategoryChanged: (value) {
         setState(() {
@@ -1714,11 +601,14 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
   //*-----Postpaid Arrangement Field------*
   Widget _postPaidArrangementField() {
     return SingleDropdown(
+      ignore: true,
       onChanged: (value) {
         _postPaidArrangementController.text = value.toString();
         FocusScope.of(context).requestFocus(_emailFocusNode);
       },
       dropdownListData: const ['No', 'Yes'],
+      labelText: "PostPaid Arrangement Required",
+      hintText: "Available after vintage of 1 year",
     );
   }
 
@@ -1767,7 +657,7 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
     return CustomFormField(
       controller: _cityController,
       currentFocusNode: _cityFocusNode,
-      nextFocusNode: _pinCodeFocusNode,
+      nextFocusNode: _stateFocusNode,
       hintText: "City",
       obscureText: false,
       textInputType: TextInputType.text,
@@ -1776,6 +666,26 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
         if (_cityFocusNode.hasFocus) {
           setState(() {
             _cityError = ErrorText.getCityError(city: value!);
+          });
+        }
+      },
+    );
+  }
+
+  //*-----State Field------*
+  Widget _stateField() {
+    return CustomFormField(
+      controller: _stateController,
+      currentFocusNode: _stateFocusNode,
+      nextFocusNode: _pinCodeFocusNode,
+      hintText: "State",
+      obscureText: false,
+      textInputType: TextInputType.text,
+      errorText: _stateError,
+      onChanged: (value) {
+        if (_stateFocusNode.hasFocus) {
+          setState(() {
+            _stateError = ErrorText.getStateError(state: value!);
           });
         }
       },
@@ -1802,25 +712,7 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
     );
   }
 
-  //*-----State Field------*
-  Widget _stateField() {
-    return CustomFormField(
-      controller: _stateController,
-      currentFocusNode: _stateFocusNode,
-      nextFocusNode: _countryFocusNode,
-      hintText: "State",
-      obscureText: false,
-      textInputType: TextInputType.text,
-      errorText: _stateError,
-      onChanged: (value) {
-        if (_stateFocusNode.hasFocus) {
-          setState(() {
-            _stateError = ErrorText.getStateError(state: value!);
-          });
-        }
-      },
-    );
-  }
+
 
   //*-----Country Field------*
   Widget _countryField() {
@@ -1844,99 +736,90 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
 
   //*----Pan and Address Field-----*
   Widget _panAndAddressProofField() {
-    return Row(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(
-          flex: 2,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.width * 0.02),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.3),
-              border: Border.all(color: MyColorScheme.lightGrey3),
-              borderRadius: BorderRadius.circular(8),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.width * 0.02),
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.3),
+            border: Border.all(color: MyColorScheme.lightGrey3),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: ListTile(
+            leading: _buildFileSelector(
+              file: selectedAddressProof,
+              onTap: () async {
+                File? file = await _mediaServices.getSingleFileFromPicker(
+                    allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf']);
+                if (file != null) {
+                  setState(() {
+                    selectedAddressProof = file;
+                  });
+                }
+              },
+              fileType: 'address_proof',
             ),
-            child: Column(
-              children: [
-                _buildFileSelector(
-                  file: selectedAddressProof,
-                  onTap: () async {
-                    File? file = await _mediaServices.getSingleFileFromPicker(
-                        allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf']);
-                    if (file != null) {
-                      setState(() {
-                        selectedAddressProof = file;
-                      });
-                    }
-                  },
-                  fileType: 'address_proof',
-                ),
-                Text(
-                  "Address Proof",
-                  style: TextStyle(
-                      color: Colors.white.withOpacity(0.65), fontSize: 15),
-                ),
-                Text(
-                  textAlign: TextAlign.center,
-                  selectedAddressProof != null
-                      ? selectedAddressProof!.path.split('/').last
-                      : "'jpg', 'jpeg', 'png', 'pdf' allowed",
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.65),
-                    fontSize: 10,
-                  ),
-                )
-              ],
+            title: Text(
+              "Address Proof",
+              style: TextStyle(
+                  color: Colors.white.withOpacity(0.65), fontSize: 15),
+            ),
+            titleAlignment: ListTileTitleAlignment.center,
+            subtitle: Text(
+              selectedAddressProof != null
+                  ? selectedAddressProof!.path.split('/').last
+                  : "Upload (jpg, jpeg, png, pdf) less then 2MB in size (Driving Licence/Voter Card/Masked Aadhaar Card/Passport/Job card issued Nrega duly signed by an officer of the state government)",
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.65),
+                fontSize: 10,
+              ),
             ),
           ),
         ),
         const SizedBox(
-          width: 10,
+          height: 10,
         ),
-        Expanded(
-          flex: 2,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.width * 0.02),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.3),
-              border: Border.all(color: MyColorScheme.lightGrey3),
-              borderRadius: BorderRadius.circular(8),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.width * 0.02),
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.3),
+            border: Border.all(color: MyColorScheme.lightGrey3),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: ListTile(
+            leading: _buildFileSelector(
+              file: selectedPanProof,
+              onTap: () async {
+                File? file = await _mediaServices.getSingleFileFromPicker(
+                    allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf']);
+                if (file != null) {
+                  setState(() {
+                    selectedPanProof = file;
+                  });
+                }
+              },
+              fileType: 'pan_card',
             ),
-            child: Column(
-              children: [
-                _buildFileSelector(
-                  file: selectedPanProof,
-                  onTap: () async {
-                    File? file = await _mediaServices.getSingleFileFromPicker(
-                        allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf']);
-                    if (file != null) {
-                      setState(() {
-                        selectedPanProof = file;
-                      });
-                    }
-                  },
-                  fileType: 'pan_card',
-                ),
-                Text(
-                  "Pan Card",
-                  style: TextStyle(
-                      color: Colors.white.withOpacity(0.65), fontSize: 15),
-                ),
-                Text(
-                  textAlign: TextAlign.center,
-                  selectedAddressProof != null
-                      ? selectedAddressProof!.path.split('/').last
-                      : "'jpg', 'jpeg', 'png', 'pdf' allowed",
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.65),
-                    fontSize: 10,
-                  ),
-                )
-              ],
+            title: Text(
+              "Pan Card",
+              style: TextStyle(
+                  color: Colors.white.withOpacity(0.65), fontSize: 15),
+            ),
+            subtitle: Text(
+              selectedPanProof != null
+                  ? selectedPanProof!.path.split('/').last
+                  : "Upload (jpg, jpeg, png, pdf) less then 2MB in size",
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.65),
+                fontSize: 10,
+              ),
             ),
           ),
         ),
@@ -2027,28 +910,30 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
 
   //*-----Submit Button------*
   Widget _submitButton() {
-    return  CustomButton(
+    return CustomButton(
         buttonName: "Submit",
         isLoading: false,
         isGradient: true,
         onTap: () {
           debugPrint('Firm Name: ${_firmNameController.text}');
           debugPrint('Firm Type: ${_firmTypeController.text}');
-          debugPrint('Company: ${_companyController.text}');
           debugPrint('GST Number: ${_gstNumberController.text}');
           debugPrint('Designation: ${_designationController.text}');
-          debugPrint('Proprietor: ${_proprietorController.text}');
           debugPrint('First Name: ${_firstNameController.text}');
           debugPrint('Last Name: ${_lastNameController.text}');
           debugPrint('Username: ${_usernameController.text}');
           debugPrint('Country Code: ${_countryCodeController.text}');
           debugPrint('Phone Number: ${_phoneNumberController.text}');
           debugPrint('Business Category: ${_businessCategoryController.text}');
-          debugPrint('Business Sub-Category: ${_businessSubCategoryController.text}');
+          debugPrint(
+              'Business Sub-Category: ${_businessSubCategoryController.text}');
           debugPrint('Registration Fees: ${_registrationFeesController.text}');
-          debugPrint('Multiple Login Required: ${_multipleLoginRequiredController.text}');
-          debugPrint('Number of Login Required: ${_numberOfLoginRequiredController.text}');
-          debugPrint('Post Paid Arrangement: ${_postPaidArrangementController.text}');
+          debugPrint(
+              'Multiple Login Required: ${_multipleLoginRequiredController.text}');
+          debugPrint(
+              'Number of Login Required: ${_numberOfLoginRequiredController.text}');
+          debugPrint(
+              'Post Paid Arrangement: ${_postPaidArrangementController.text}');
           debugPrint('Profile Services: ${_profileServicesController.text}');
           debugPrint('Address: ${_addressController.text}');
           debugPrint('City: ${_cityController.text}');
@@ -2059,9 +944,6 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
           debugPrint('Address Proof: ${_addressProofController.text}');
           debugPrint('Password: ${_passwordController.text}');
           debugPrint('Confirm Password: ${_confirmPasswordController.text}');
-          debugPrint('No Of Logins: ${_noOfLoginsController.text}');
-
-
         });
   }
 

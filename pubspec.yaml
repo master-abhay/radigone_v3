@@ -59,6 +59,7 @@ dependencies:
   table_calendar: ^3.1.2
   flutter_spinkit: ^5.2.1
   file_picker:
+  animated_segmented_tab_control: ^2.0.0
 
 
 dev_dependencies:

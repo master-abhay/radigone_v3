@@ -212,7 +212,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
           ),
         ),
         SingleChildScrollView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
           child: Column(
             children: [
@@ -341,7 +340,8 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
       dropdownListData: const [
         'Male','Female'
       ],
-      hintText: "Gender",
+      hintText: "Select Gender",
+      labelText: "Gender",
       onChanged: (value) {
         _genderController.text = value.toString();
         FocusScope.of(context).requestFocus(_phoneNumberFocusNode);
@@ -579,100 +579,90 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
 
   //*----Pan and Address Field-----*
   Widget _panAndAddressProofField() {
-    return Row(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(
-          flex: 2,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.width * 0.02),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.3),
-              border: Border.all(color: MyColorScheme.lightGrey3),
-              borderRadius: BorderRadius.circular(8),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.width * 0.02),
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.3),
+            border: Border.all(color: MyColorScheme.lightGrey3),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: ListTile(
+            leading: _buildFileSelector(
+              file: selectedAddressProof,
+              onTap: () async {
+                File? file = await _mediaServices.getSingleFileFromPicker(
+                    allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf']);
+                if (file != null) {
+                  setState(() {
+                    selectedAddressProof = file;
+                  });
+                }
+              },
+              fileType: 'address_proof',
             ),
-            child: Column(
-              children: [
-                _buildFileSelector(
-                  file: selectedAddressProof,
-                  onTap: () async {
-                    File? file = await _mediaServices.getSingleFileFromPicker(
-                        allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf']);
-                    if (file != null) {
-                      setState(() {
-                        selectedAddressProof = file;
-                      });
-                    }
-                  },
-                  fileType: 'address_proof',
-                ),
-                Text(
-                  "Address Proof",
-                  style: TextStyle(
-                      color: Colors.white.withOpacity(0.65), fontSize: 15),
-                ),
-                Text(
-                  textAlign: TextAlign.center,
-                  selectedAddressProof != null
-                      ? selectedAddressProof!.path.split('/').last
-                      : "'jpg', 'jpeg', 'png', 'pdf' allowed",
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.65),
-                    fontSize: 10,
-                  ),
-                )
-
-              ],
+            title: Text(
+              "Address Proof",
+              style: TextStyle(
+                  color: Colors.white.withOpacity(0.65), fontSize: 15),
+            ),
+            titleAlignment: ListTileTitleAlignment.center,
+            subtitle: Text(
+              selectedAddressProof != null
+                  ? selectedAddressProof!.path.split('/').last
+                  : "Upload (jpg, jpeg, png, pdf) less then 2MB in size (Driving Licence/Voter Card/Masked Aadhaar Card/Passport/Job card issued Nrega duly signed by an officer of the state government)",
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.65),
+                fontSize: 10,
+              ),
             ),
           ),
         ),
         const SizedBox(
-          width: 10,
+          height: 10,
         ),
-        Expanded(
-          flex: 2,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.width * 0.02),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.3),
-              border: Border.all(color: MyColorScheme.lightGrey3),
-              borderRadius: BorderRadius.circular(8),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.width * 0.02),
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.3),
+            border: Border.all(color: MyColorScheme.lightGrey3),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: ListTile(
+            leading: _buildFileSelector(
+              file: selectedPanProof,
+              onTap: () async {
+                File? file = await _mediaServices.getSingleFileFromPicker(
+                    allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf']);
+                if (file != null) {
+                  setState(() {
+                    selectedPanProof = file;
+                  });
+                }
+              },
+              fileType: 'pan_card',
             ),
-            child: Column(
-              children: [
-                _buildFileSelector(
-                  file: selectedPanProof,
-                  onTap: () async {
-                    File? file = await _mediaServices.getSingleFileFromPicker(
-                        allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf']);
-                    if (file != null) {
-                      setState(() {
-                        selectedPanProof = file;
-                      });
-                    }
-                  },
-                  fileType: 'pan_card',
-                ),
-                Text(
-                  "Pan Card",
-                  style: TextStyle(
-                      color: Colors.white.withOpacity(0.65), fontSize: 15),
-                ),
-                Text(
-                  textAlign: TextAlign.center,
-                  selectedAddressProof != null
-                      ? selectedAddressProof!.path.split('/').last
-                      : "'jpg', 'jpeg', 'png', 'pdf' allowed",
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.65),
-                    fontSize: 10,
-                  ),
-                )
-              ],
+            title: Text(
+              "Pan Card",
+              style: TextStyle(
+                  color: Colors.white.withOpacity(0.65), fontSize: 15),
+            ),
+            subtitle: Text(
+              selectedPanProof != null
+                  ? selectedPanProof!.path.split('/').last
+                  : "Upload (jpg, jpeg, png, pdf) less then 2MB in size",
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.65),
+                fontSize: 10,
+              ),
             ),
           ),
         ),

@@ -1,167 +1,82 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../utils/utils.dart';
-
-// class CustomFormField extends StatefulWidget {
-//   final bool isNumber;
-//   final String hintText;
-//   final bool obscureText;
-//   bool? textCapitalization;
-//   Widget? icon;
-//   int? maxLines;
-//   String? initialValue;
-//   bool? doValidation;
-//   final void Function(String? value) onSaved;
-//   TextEditingController? textEditingController;
-//   FocusNode? focusNode;
-//   FocusNode? nextFocusNode;
-//
-//   CustomFormField(
-//       {super.key,
-//       required this.hintText,
-//       required this.onSaved,
-//       required this.obscureText,
-//       required this.isNumber,
-//       this.icon,
-//       this.maxLines,
-//         this.textCapitalization,
-//         this.initialValue,
-//         this.doValidation,
-//         this.textEditingController,
-//         this.focusNode
-//       });
-//
-//   @override
-//   State<CustomFormField> createState() => _CustomFormFieldState();
-// }
-//
-// class _CustomFormFieldState extends State<CustomFormField> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextFormField(
-//
-//       focusNode: widget.focusNode,
-//       controller: widget.textEditingController,
-//       obscureText: widget.obscureText,
-//       onSaved: widget.onSaved,
-//       autofocus: false,
-//       obscuringCharacter: '*',
-//       textAlign: TextAlign.justify,
-//       textCapitalization: widget.textCapitalization == true ? TextCapitalization.sentences : TextCapitalization.none,
-//       initialValue: widget.initialValue,
-//
-//       decoration: InputDecoration(
-//           errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
-//           contentPadding: EdgeInsets.symmetric(
-//               horizontal: MediaQuery.of(context).size.width * 0.02),
-//           suffix: widget.icon,
-//           alignLabelWithHint: true,
-//           hintText: widget.hintText.toLowerCase(),
-//           hintFadeDuration: const Duration(milliseconds: 500),
-//           hintStyle:
-//               TextStyle(color: Colors.white.withOpacity(0.1), fontSize: 15),
-//           border: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(8),
-//               borderSide: BorderSide.none),
-//           focusedBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(8),
-//               borderSide: const BorderSide(color: Colors.white)),
-//           errorBorder: UnderlineInputBorder(
-//               borderRadius: BorderRadius.circular(8),
-//               borderSide: BorderSide(color: Colors.red.withOpacity(0.8))),
-//           enabledBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(8),
-//               borderSide: BorderSide(color: Colors.black.withOpacity(0.3))),
-//           focusedErrorBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(8),
-//               borderSide: const BorderSide(color: Colors.white)),
-//           labelText: widget.hintText,
-//           labelStyle:
-//               TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 15),
-//           filled: true,
-//           fillColor: Colors.black.withOpacity(0.3),
-//
-//       ),
-//       cursorColor: Colors.white,
-//       style: const TextStyle(color: Colors.white),
-//       keyboardType: widget.isNumber ? TextInputType.phone : TextInputType.text,
-//       validator:  widget.doValidation == null ?  (value) {
-//         if (value != null && value.isNotEmpty) {
-//           return null;
-//         } else {
-//           return "Enter ${widget.hintText}";
-//           // return null;
-//         }
-//       } : null,
-//       onFieldSubmitted: (_){
-//         FocusScope.of(context).unfocus();
-//       },
-//
-//     );
-//   }
-// }
-
-
-
-
 class CustomFormField extends StatefulWidget {
-   FocusNode? currentFocusNode;
-  FocusNode? nextFocusNode;
-    String? initialValue;
-  bool? autofocus;
-   TextEditingController? controller;
+  final FocusNode? currentFocusNode;
+  final FocusNode? nextFocusNode;
+  final String? initialValue;
+  final bool? autofocus;
+  final TextEditingController? controller;
   final bool obscureText;
   final String hintText;
-  TextCapitalization? textCapitalization;
-  Widget? icon;
-  bool? filled;
-  bool? readOnly;
-  TextInputType? textInputType;
-  dynamic leading;
-  dynamic trailing;
-   void Function(String? value)? onSaved;
-   void Function(String? value)? onChanged;
-  void Function()? onTap;
-  String? errorText;
-  List<TextInputFormatter>? inputFormat;
-  InputBorder? border;
-  int? maxLines;
+  final TextCapitalization? textCapitalization;
+  final Widget? icon;
+  final bool? filled;
+  final bool? readOnly;
+  final TextInputType? textInputType;
+  final dynamic leading;
+  final dynamic trailing;
+  final void Function(String? value)? onSaved;
+  final void Function(String? value)? onChanged;
+  final void Function(String? value)? onTitleChanged;
 
+  final void Function()? onTap;
+  final String? errorText;
+  final List<TextInputFormatter>? inputFormat;
+  final InputBorder? border;
+  final int? maxLines;
+  final List<String>? titleOptions;
+  final String? selectedTitleValue;
 
-  CustomFormField(
-      {super.key,
-        this.readOnly,
-        this.currentFocusNode,
-        this.nextFocusNode,
-        this.autofocus,
-        this.controller,
-        this.initialValue,
-        required this.obscureText,
-        required this.hintText,
-        this.textCapitalization,
-        this.icon,
-        this.filled,
-        this.textInputType,
-        this.leading,
-        this.trailing,
-        this.onSaved,
-        this.onChanged,
-        this.onTap,
-        this.errorText,
-        this.inputFormat,
-        this.border,
-        this.maxLines});
+  CustomFormField({
+    super.key,
+    this.readOnly,
+    this.currentFocusNode,
+    this.nextFocusNode,
+    this.autofocus,
+    this.controller,
+    this.initialValue,
+    required this.obscureText,
+    required this.hintText,
+    this.textCapitalization,
+    this.icon,
+    this.filled,
+    this.textInputType,
+    this.leading,
+    this.trailing,
+    this.onSaved,
+    this.onChanged,
+    this.onTitleChanged,
+    this.onTap,
+    this.errorText,
+    this.inputFormat,
+    this.border,
+    this.maxLines,
+    this.selectedTitleValue,
+    this.titleOptions,
+  });
 
   @override
   State<CustomFormField> createState() => _CustomTextFieldState();
 }
 
-class _CustomTextFieldState extends State<CustomFormField>
-    with MediaQueryMixin<CustomFormField> {
+class _CustomTextFieldState extends State<CustomFormField> {
+  String? _selectedTitle;
+
+  @override
+  void initState() {
+    super.initState();
+    // _selectedTitle = widget.selectedTitle ?? widget.titleOptions.isNotEmpty ? widget.titleOptions![0] : null;
+    _selectedTitle =
+        widget.titleOptions != null ? widget.titleOptions![0] : null;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final contentPaddingHorizontal = screenWidth * 0.03;
+    final hintFontSize = screenWidth * 0.04;
+    final labelFontSize = screenWidth * 0.045;
 
     return TextFormField(
       onTap: widget.onTap,
@@ -171,107 +86,87 @@ class _CustomTextFieldState extends State<CustomFormField>
       controller: widget.controller,
       autofocus: widget.autofocus ?? false,
       obscureText: widget.obscureText,
-      textCapitalization: widget.textCapitalization ?? TextCapitalization.sentences,
+      textCapitalization:
+          widget.textCapitalization ?? TextCapitalization.sentences,
       onSaved: widget.onSaved,
       initialValue: widget.initialValue,
-
-      // decoration: InputDecoration(
-      //   errorText: widget.errorText,
-      //   contentPadding: EdgeInsets.symmetric(
-      //     vertical: screenWidth * 0.03,
-      //     horizontal: widget.leading == null ? screenWidth * 0.03 : 0,
-      //   ),
-      //   prefixIcon: (widget.maxLines != null && widget.maxLines! > 1)
-      //       ? Padding(
-      //       padding: const EdgeInsets.only(bottom: 47),
-      //       child: widget.leading ?? Container())
-      //       : widget.leading,
-      //
-      //   // add a default widget if leading is null
-      //   prefixIconConstraints: const BoxConstraints(
-      //     minWidth: 30,
-      //     minHeight: 0,
-      //   ),
-      //   suffix: widget.icon,
-      //   suffixIcon: widget.trailing,
-      //   // isCollapsed: true,
-      //   isDense: true,
-      //   alignLabelWithHint: true,
-      //   hintText: widget.hintText,
-      //   hintFadeDuration: const Duration(milliseconds: 500),
-      //   hintStyle:
-      //   const TextStyle(color: AppColors.hintDarkGrey, fontSize: 14),
-      //   border: widget.border ??
-      //       const UnderlineInputBorder(
-      //           borderRadius: BorderRadius.zero,
-      //           borderSide: BorderSide(color: AppColors.darkGrey)),
-      //   focusedBorder: widget.border ??
-      //       const UnderlineInputBorder(
-      //           borderRadius: BorderRadius.zero,
-      //           borderSide: BorderSide(color: AppColors.darkGrey)),
-      //   errorBorder: widget.border ??
-      //       const UnderlineInputBorder(
-      //           borderRadius: BorderRadius.zero,
-      //           borderSide: BorderSide(color: Colors.red)),
-      //   enabledBorder: widget.border ??
-      //       const UnderlineInputBorder(
-      //           borderRadius: BorderRadius.zero,
-      //           borderSide: BorderSide(color: AppColors.darkGrey)),
-      //   focusedErrorBorder: widget.border ??
-      //       const UnderlineInputBorder(
-      //           borderRadius: BorderRadius.zero,
-      //           borderSide: BorderSide(color: AppColors.darkGrey)),
-      // ),
-
       decoration: InputDecoration(
-          errorText: widget.errorText,
+        errorText: widget.errorText,
+        prefixIcon: widget.titleOptions != null
+            ? Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: DropdownButton<String>(
+                  dropdownColor: Colors.black,
+                  hint: Text(
+                    widget.titleOptions![0].toString(),
+                    style: TextStyle(color: Colors.white.withOpacity(0.7)),
+                  ),
+                  value: widget.selectedTitleValue,
+                  items: widget.titleOptions!.map((String title) {
+                    return DropdownMenuItem<String>(
+                      value: title,
+                      child: Text(title,style:  TextStyle(color: Colors.white.withOpacity(0.9)),),
+                    );
+                  }).toList(),
+                  onChanged: widget.onTitleChanged,
+                  underline: const SizedBox(),
+                  // Removes the underline of the dropdown
+                  icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                ),
+              )
+            : widget.leading,
 
-          prefixIcon: (widget.maxLines != null && widget.maxLines! > 1)
-              ? Padding(
-              padding: const EdgeInsets.only(bottom: 47),
-              child: widget.leading ?? Container())
-              : widget.leading,
-
-          // add a default widget if leading is null
-          prefixIconConstraints: const BoxConstraints(
-            minWidth: 30,
-            minHeight: 0,
-          ),
-          suffixIcon: widget.trailing,
-          // isCollapsed: true,
-          isDense: false,
-      errorStyle:const  TextStyle(color: Colors.white),
+        // prefixIcon: (widget.maxLines != null && widget.maxLines! > 1)
+        //     ? Padding(
+        //         padding: const EdgeInsets.only(bottom: 47),
+        //         child: widget.leading ?? Container(),
+        //       )
+        //     : widget.leading,
+        prefixIconConstraints: const BoxConstraints(
+          minWidth: 30,
+          minHeight: 0,
+        ),
+        suffixIcon: widget.trailing,
+        isDense: false,
+        errorStyle: const TextStyle(color: Colors.white),
         contentPadding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.02),
+          horizontal: contentPaddingHorizontal,
+        ),
         suffix: widget.icon,
         alignLabelWithHint: true,
         hintText: widget.hintText.toLowerCase(),
-        hintFadeDuration: const Duration(milliseconds: 500),
-        hintStyle:
-        TextStyle(color: Colors.white.withOpacity(0.1), fontSize: 15),
+        hintStyle: TextStyle(
+          color: Colors.white.withOpacity(0.1),
+          fontSize: hintFontSize,
+        ),
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide.none),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.white)),
-        errorBorder: UnderlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Colors.amber.withOpacity(1))),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Colors.white),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.amber.withOpacity(1)),
+        ),
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Colors.black.withOpacity(0.3))),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(color: Colors.black.withOpacity(0.3)),
+        ),
         focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.white)),
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Colors.white),
+        ),
         labelText: widget.hintText,
-        labelStyle:
-        TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 15),
+        labelStyle: TextStyle(
+          color: Colors.white.withOpacity(0.65),
+          fontSize: labelFontSize,
+        ),
         filled: true,
         fillColor: Colors.black.withOpacity(0.3),
-
       ),
-
       inputFormatters: widget.inputFormat,
       cursorColor: Colors.white,
       style: const TextStyle(color: Colors.white),
@@ -281,10 +176,11 @@ class _CustomTextFieldState extends State<CustomFormField>
             ? FocusScope.of(context).requestFocus(widget.nextFocusNode)
             : FocusScope.of(context).unfocus();
       },
-
-      onChanged:widget.onChanged != null ? (value) {
-        widget.onChanged!(value.trim());
-      } : null ,
+      onChanged: widget.onChanged != null
+          ? (value) {
+              widget.onChanged!(value.trim());
+            }
+          : null,
     );
   }
 }

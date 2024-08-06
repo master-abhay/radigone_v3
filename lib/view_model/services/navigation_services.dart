@@ -12,6 +12,7 @@ import '../../view/common_view/login_registration_view.dart';
 import '../../view/common_view/select_login_view.dart';
 import '../../view/common_view/select_registration_view.dart';
 import '../../view/common_view/splash_view.dart';
+import '../../view/common_view/video_player_view.dart';
 import '../../view/sponsor_view/history/sponsor_history_view.dart';
 import '../../view/sponsor_view/profile/sponsor_profile_update_view.dart';
 import '../../view/sponsor_view/side_menu_bar_view/sponsor_buyView_view.dart';
@@ -63,7 +64,7 @@ class NavigationServices {
     "/agentEarningView": (context) => const AgentEarningView(),
     "/sponsorCalendarView": (context) => const SponsorCalendarView(),
     // "/sponsorMyTicketsView": (context) => const SponsorMyTicketsView(),
-    // "/sponsorCreateTicketView": (context) => const SponsorCreateTicketView(),
+    "/sponsorCreateTicketView": (context) => const SponsorCreateTicketView(),
     "/sponsorSidebarProfileView": (context) => const SponsorSidebarProfileView(),
     "/sponsorProfileView": (context) => const SponsorProfileView(),
     "/sponsorTransactionView": (context) => const SponsorTransactionView(),
@@ -74,17 +75,17 @@ class NavigationServices {
     "/sponsorDepositNowView": (context) => const SponsorDepositNowView(),
     "/agentMainView": (context) => const AgentMainView(),
     "/adsPreferencesView": (context) => const AdsPreferencesView(),
-    // "/myTicketView": (context) => const MyTicketsView(),
-    // "/createTicketView": (context) => const CreateTicketView(),
-    // "/userProfilePage": (context) => const ProfilePage(),
+    "/myTicketView": (context) => const MyTicketsView(),
+    "/createTicketView": (context) => const CreateTicketView(),
+    "/userProfilePage": (context) => const ProfilePage(),
     "/transactionView": (context) => const TransactionView(),
-    // "/redeemRadigonePoints": (context) => const RedeemRadigonePoints(),
-    // "/changePassword": (context) => const ChangePassword(),
-    // "/profileEditPage": (context) => const ProfileEditPage(),
-    // "/videoPlayerPage": (context) => const VideoPlayerPage(),
+    "/redeemRadigonePoints": (context) => const RedeemRadigonePoints(),
+    "/changePassword": (context) => const ChangePassword(),
+    "/profileEditPage": (context) => const ProfileEditPage(),
+    "/videoPlayerPage": (context) =>  VideoPlayerPage(),
     "/selectRegistrationPage": (context) => const SelectRegistrationPage(),
-    // "/sponsorRegistrationView":(context)=> const SponsorRegistrationView(),
-    // "/selectLoginPage" : (context) =>  const SelectLoginPage(),
+    "/sponsorRegistrationView":(context)=> const SponsorRegistrationView(),
+    "/selectLoginPage" : (context) =>  const SelectLoginPage(),
     "/sponsorMainView" : (context) => const SponsorMainView(),
     "/userMainView": (context) => const UserMainView(),
     // "/forgotPassword": (context) => const ForgotPassword(),
