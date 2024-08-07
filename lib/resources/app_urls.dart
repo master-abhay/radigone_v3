@@ -1,6 +1,6 @@
 class AppUrls {
-  static const String baseUrl = "https://radigone.com/api/";
-  static const String viewerBaseUrl = "https://radigone.com/api/v1/user/";
+  static const String baseUrl = "https://staging.radigone.com/api/";
+  static const String viewerBaseUrl = "https://staging.radigone.com/api/v1/user/";
 
 
 //<---------Common url start--------->
@@ -10,6 +10,12 @@ class AppUrls {
 
 
   //<-----------------User Start ---------------->
+
+
+  static get viewerRegistrationFees => "${baseUrl}v1/user/regestraionfees";
+
+  static get viewerRegister => '${viewerBaseUrl}register';
+
   static get userLoginUrl => '${viewerBaseUrl}login';
 
   static get userForgetPasswordUrl => '${viewerBaseUrl}forgetpassword';
@@ -57,16 +63,17 @@ class AppUrls {
 
 
 
-  static get sponsorRegisterUrl =>
-      'https://radigone.com/api/v1/surveys/register';
+  static get sponsorRegistrationFees => '${baseUrl}v1/surveyor/regestraionfees';
 
-  static get sponsorProfileInformationUrl =>
-      'https://radigone.com/api/v1/survey/survey-info';
+  static get sponsorRegisterUrl => '${baseUrl}/v1/surveys/register';
+
+  static get sponsorProfileInformationUrl => 'https://radigone.com/api/v1/survey/survey-info';
 
   //<------------Sponsor End------------>>
 
 
   //<------------Agent Start------------>>
   static get agentLoginUrl => 'https://radigone.com/api/v1/agent/login';
+  static get agentRegistrationFees => '${baseUrl}v1/agent/regestraionfees';
 //<------------Agent End------------>
 }

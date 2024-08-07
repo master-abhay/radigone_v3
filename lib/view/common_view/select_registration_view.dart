@@ -1,7 +1,7 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // import 'package:get_it/get_it.dart';
-// import 'package:radigone_v3/view/user_view/user_authentication_view/registration_view.dart';
+// import 'package:radigone_v3/view/user_view/user_authentication_view/viewer_registration_view.dart';
 //
 // import '../../resources/colors.dart';
 // import '../../resources/components/custom_button.dart';
@@ -163,12 +163,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:radigone_v3/view/sponsor_view/sponser_Authentication/sponsor_registration_view.dart';
-import 'package:radigone_v3/view/user_view/user_authentication_view/registration_view.dart';
+import 'package:radigone_v3/view/sponsor_view/sponser_Authentication/sponsor_registration_form_view.dart';
+import 'package:radigone_v3/view/user_view/user_authentication_view/viewer_registration_view.dart';
 
 import '../../resources/colors.dart';
 import '../../resources/components/custom_button.dart';
+import '../../tester.dart';
 import '../../view_model/services/navigation_services.dart';
+import '../sponsor_view/sponser_Authentication/sponsor_registration_view.dart';
 
 class SelectRegistrationPage extends StatefulWidget {
   const SelectRegistrationPage({super.key});

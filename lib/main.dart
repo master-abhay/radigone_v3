@@ -11,6 +11,7 @@ import 'package:radigone_v3/view_model/agent_view_model/agent_auth_viewModels/ag
 import 'package:radigone_v3/view_model/agent_view_model/agent_referralLink_viewModel.dart';
 import 'package:radigone_v3/view_model/common_viewModel/change_password_view_model.dart';
 import 'package:radigone_v3/view_model/common_viewModel/logout_view_model.dart';
+import 'package:radigone_v3/view_model/common_viewModel/registration_fees_viewModel.dart';
 import 'package:radigone_v3/view_model/services/getIt_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_auth_viewModel/sponsor_login_view_model.dart';
@@ -108,6 +109,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => AgentReferralLinkViewModel()),
         ChangeNotifierProvider(create: (_) => SponsorProfileUpdateViewModel()),
         ChangeNotifierProvider(create: (_) => FetchSponsorInformation()),
+        ChangeNotifierProvider(create: (_) => RegistrationFeesViewModel()),
+
       ],
       child: MaterialApp(
         title: 'Radigone',
@@ -118,8 +121,8 @@ class _MyAppState extends State<MyApp> {
         ),
         navigatorKey: _navigationServices.navigationStateKey,
         routes: _navigationServices.routes,
-        home:  Tester(),
-        // initialRoute: "/splashScreen",
+        // home:  (),
+        initialRoute: "/splashScreen",
       ),
     );
   }

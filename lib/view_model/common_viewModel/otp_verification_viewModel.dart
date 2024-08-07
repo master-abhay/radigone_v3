@@ -56,7 +56,7 @@ class OtpVerificationViewModel with ChangeNotifier {
       var headers = {
         'Content-Type': 'application/json',
       };
-      var body = jsonEncode({"email": _emailAddress!, "code": _code!});
+      var body = jsonEncode({"email": _emailAddress!, "token": _code!});
       await _userAuthRepository
           .userOtpVerificationApi(headers: headers, body: body)
           .then((value) {
@@ -103,7 +103,7 @@ class OtpVerificationViewModel with ChangeNotifier {
       var headers = {
         'Content-Type': 'application/json',
       };
-      var body = jsonEncode({"email": _emailAddress!, "code": _code!});
+      var body = jsonEncode({"email": _emailAddress!, "token": _code!});
       await _sponsorAuthRepository
           .sponsorOtpVerificationApi(headers: headers, body: body)
           .then((value) {
@@ -151,7 +151,7 @@ class OtpVerificationViewModel with ChangeNotifier {
       var headers = {
         'Content-Type': 'application/json',
       };
-      var body = jsonEncode({"email": _emailAddress!, "code": _code!});
+      var body = jsonEncode({"email": _emailAddress!, "token": _code!});
       await _agentAuthRepository
           .agentOtpVerificationApi(headers: headers, body: body)
           .then((value) {

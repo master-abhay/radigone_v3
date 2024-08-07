@@ -128,7 +128,7 @@ class Validations {
 
   // Username Validation:
   static bool isUsernameValid(String username) {
-    final regex = RegExp(r'^[a-zA-Z0-9_]{3,20}$');
+    final regex = RegExp(r'^[a-zA-Z0-9_]{6,50}$');
     return regex.hasMatch(username);
   }
 
@@ -276,7 +276,7 @@ class ErrorText {
       return "Username can't be empty";
     } else if (!Validations.isUsernameValid(username)) {
       return "Invalid username.\n"
-          "• Must be 3-20 characters long.\n"
+          "• Must be 6-50 characters long.\n"
           "• Can include letters, numbers, and underscores.";
     }
     return null;

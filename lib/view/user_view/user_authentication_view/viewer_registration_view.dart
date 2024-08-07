@@ -1,10 +1,14 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/resources/components/custom_button.dart';
+import 'package:radigone_v3/utils/utils.dart';
+import 'package:radigone_v3/view_model/common_viewModel/registration_fees_viewModel.dart';
 
+import '../../../data/response/status.dart';
 import '../../../resources/colors.dart';
 import '../../../resources/components/custom_dropdown.dart';
 import '../../../resources/components/custom_form_field.dart';
@@ -18,7 +22,7 @@ import '../../../view_model/user_view_model/user_auth_viewModels/viewer_registra
 enum MaritalStatus { single, married }
 
 //
-MaritalStatus? _maritalStatus;
+MaritalStatus _maritalStatus = MaritalStatus.single; // Default value
 
 final maritalStatusMap = {
   MaritalStatus.single: "single",
@@ -32,7 +36,7 @@ class ViewerRegistrationView extends StatefulWidget {
   State<ViewerRegistrationView> createState() => _ViewerRegistrationViewState();
 }
 
-class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
+class _ViewerRegistrationViewState extends State<ViewerRegistrationView> with MediaQueryMixin {
   //Going to integrate userRegistration Api:
 
   bool isLoading = false;
@@ -76,6 +80,8 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+  final TextEditingController _registrationFeesController =
+      TextEditingController();
 
   final FocusNode _firstNameFocusNode = FocusNode();
   final FocusNode _lastNameFocusNode = FocusNode();
@@ -94,6 +100,7 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
   final FocusNode _panCardFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _confirmPasswordFocusNode = FocusNode();
+  final FocusNode _registrationFeesFocusNode = FocusNode();
 
   String? _firstNameError;
   String? _lastNameError;
@@ -111,11 +118,26 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
   String? _panCardError;
   String? _passwordError;
   String? _confirmPasswordError;
+  String? _registrationFeesError;
 
+  Future<void> _initializeData() async {
+    try {
 
+      _maritalStatusController.text = _maritalStatus?.name ?? '';
 
-  void populateDropDown(){
+      final provider = Provider.of<RegistrationFeesViewModel>(context, listen: false);
+      bool result = await provider.getViewerRegistrationFees();
 
+      if (result) {
+        String? registrationFees = provider.registrationFees;
+        if (registrationFees != null) {
+          _registrationFeesController.text = registrationFees;
+        }
+      }
+
+    } catch (e) {
+      // Handle error if needed
+    }
   }
 
   @override
@@ -124,6 +146,14 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
     _mediaServices = _getIt.get<MediaServices>();
     _alertServices = _getIt.get<AlertServices>();
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((callback)async{
+      await _initializeData();
+      setState(() {
+
+      });
+    });
+
   }
 
   @override
@@ -147,6 +177,7 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
     _panNumberController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _registrationFeesController.dispose();
     _firstNameFocusNode.dispose();
     _lastNameFocusNode.dispose();
     _userNameFocusNode.dispose();
@@ -163,6 +194,7 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
     _panCardFocusNode.dispose();
     _passwordFocusNode.dispose();
     _confirmPasswordFocusNode.dispose();
+    _registrationFeesFocusNode.dispose();
     super.dispose();
   }
 
@@ -183,7 +215,7 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
         ),
         Container(
           width: double.infinity,
-          height: MediaQuery.of(context).size.height / 2.6,
+          height: screenHeight / 2.6,
           decoration: const BoxDecoration(
               gradient: MyColorScheme.yellowLinearGradient,
               borderRadius:
@@ -211,8 +243,22 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
             ),
           ),
         ),
-        SingleChildScrollView(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 4),
+        Center(child: mainForm(),)
+      ],
+    );
+  }
+
+  Widget mainForm() {
+
+    return Consumer<RegistrationFeesViewModel>(
+      builder: (context, provider, _) {
+        return provider.isLoading
+            ? const Center(
+            child: CupertinoActivityIndicator(
+              color: Colors.white,
+            ))
+            : SingleChildScrollView(
+          padding: EdgeInsets.only(top: screenHeight / 4),
           child: Column(
             children: [
               const SizedBox(height: 20),
@@ -220,8 +266,8 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.04,
-                      horizontal: MediaQuery.of(context).size.width * 0.05),
+                      vertical: screenHeight * 0.04,
+                      horizontal: screenWidth * 0.05),
                   decoration: BoxDecoration(
                       color: MyColorScheme.authContainerColor.withOpacity(0.8),
                       borderRadius: BorderRadius.circular(24)),
@@ -260,6 +306,8 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
                       _passwordField(),
                       const SizedBox(height: 10),
                       _confirmPasswordField(),
+                      const SizedBox(height: 10),
+                      _registrationFeesField(),
                       const SizedBox(height: 30),
                       _submitButton(),
                     ],
@@ -268,8 +316,8 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
               ),
             ],
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 
@@ -321,6 +369,7 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
       nextFocusNode: _genderFocusNode,
       hintText: "Username",
       textInputType: TextInputType.text,
+      textCapitalization: TextCapitalization.none,
       obscureText: false,
       errorText: _userNameError,
       onChanged: (value) {
@@ -337,9 +386,7 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
   Widget _genderField() {
     return SingleDropdown(
       focusNode: _genderFocusNode,
-      dropdownListData: const [
-        'Male','Female'
-      ],
+      dropdownListData: const ['Male', 'Female'],
       hintText: "Select Gender",
       labelText: "Gender",
       onChanged: (value) {
@@ -353,49 +400,48 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
   Widget _maritalStatusField() {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.black, width: 0.5)),
+        color: Colors.black.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.black, width: 0.5),
+      ),
       child: Row(
         children: [
           Expanded(
-              child: RadioListTile<MaritalStatus>(
-            title: Text(
-              "Single",
-              style: TextStyle(color: Colors.white.withOpacity(0.65)),
+            child: RadioListTile<MaritalStatus>(
+              title: Text(
+                "Single",
+                style: TextStyle(color: Colors.white.withOpacity(0.65)),
+              ),
+              value: MaritalStatus.single,
+              groupValue: _maritalStatus,
+              dense: true,
+              activeColor: Colors.white,
+              onChanged: (MaritalStatus? value) {
+                setState(() {
+                  _maritalStatus = value!;
+                  _maritalStatusController.text = _maritalStatus?.name ?? '';
+                });
+              },
             ),
-            value: MaritalStatus.single,
-            groupValue: _maritalStatus,
-            dense: true,
-            activeColor: Colors.white,
-            onChanged: (value) {
-              setState(() {
-                _maritalStatus = value;
-                // _marriageStatus = maritalStatusMap[value];
-                _maritalStatusController.text = _maritalStatus!.name;
-              });
-            },
-          )),
+          ),
           Expanded(
-              child: RadioListTile<MaritalStatus>(
-            title: Text(
-              "Married",
-              style: TextStyle(color: Colors.white.withOpacity(0.65)),
+            child: RadioListTile<MaritalStatus>(
+              title: Text(
+                "Married",
+                style: TextStyle(color: Colors.white.withOpacity(0.65)),
+              ),
+              value: MaritalStatus.married,
+              groupValue: _maritalStatus,
+              dense: true,
+              activeColor: Colors.white,
+              onChanged: (MaritalStatus? value) {
+                setState(() {
+                  _maritalStatus = value!;
+                  _maritalStatusController.text = _maritalStatus?.name ?? '';
+                });
+              },
             ),
-            value: MaritalStatus.married,
-            groupValue: _maritalStatus,
-            dense: true,
-            activeColor: Colors.white,
-
-            // tileColor: Colors.grey,
-            onChanged: (value) {
-              setState(() {
-                _maritalStatus = value;
-                // _marriageStatus = maritalStatusMap[value];
-                _maritalStatusController.text = _maritalStatus!.name;
-              });
-            },
-          )),
+          ),
         ],
       ),
     );
@@ -446,6 +492,7 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
       textInputType: TextInputType.emailAddress,
       obscureText: false,
       errorText: _emailError,
+      textCapitalization: TextCapitalization.none,
       onChanged: (value) {
         if (_emailFocusNode.hasFocus) {
           setState(() {
@@ -587,7 +634,7 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
         Container(
           width: double.infinity,
           padding: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).size.width * 0.02),
+              vertical: screenWidth * 0.02),
           decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.3),
             border: Border.all(color: MyColorScheme.lightGrey3),
@@ -630,7 +677,7 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
         Container(
           width: double.infinity,
           padding: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).size.width * 0.02),
+              vertical: screenWidth * 0.02),
           decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.3),
             border: Border.all(color: MyColorScheme.lightGrey3),
@@ -751,6 +798,27 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
     );
   }
 
+  //*-----Registration Fees Field------*
+  Widget _registrationFeesField() {
+    return CustomFormField(
+      readOnly: true,
+      controller: _registrationFeesController,
+      currentFocusNode: _registrationFeesFocusNode,
+      hintText: "Registration Fees",
+      textInputType: TextInputType.text,
+      obscureText: false,
+      errorText: _registrationFeesError,
+      onChanged: (value) {
+        if (_registrationFeesFocusNode.hasFocus) {
+          setState(() {
+            _registrationFeesError =
+                ErrorText.getEmptyFieldError(fieldName: value!);
+          });
+        }
+      },
+    );
+  }
+
   //*-----Submit Button-----*
   Widget _submitButton() {
     return ChangeNotifierProvider(
@@ -759,12 +827,15 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
             builder: (context, provider, _) {
           return CustomButton(
               buttonName: "Submit",
-              isLoading: false,
+              isLoading:
+                  provider.apiResponse.status == Status.LOADING ? true : false,
               isGradient: true,
-              onTap: () {
-
-                final result = _validateForm(signup: provider, context: context);
-
+              onTap: () async {
+                final result =
+                    _validateForm(signup: provider, context: context);
+                if (result) {
+                  await provider.signup(context);
+                }
               });
         }));
   }
@@ -824,6 +895,13 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
       return false;
     } else {
       signup.mobile = _phoneNumberController.text.trim();
+    }
+    if (_countryCodeController.text.isEmpty) {
+      _alertServices.flushBarErrorMessages(
+          "Please enter your Country Code", context);
+      return false;
+    } else {
+      signup.country_code = _countryCodeController.text.trim();
     }
 
     if (_whatsappCountryCodeController.text.isEmpty ||
@@ -911,6 +989,8 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> {
           "Please attach your pan image.", context);
       return false;
     } else {
+      print('_panCardProof: $selectedPanProof');
+
       signup.panCardProof = selectedPanProof;
     }
 

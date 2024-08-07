@@ -37,14 +37,14 @@ class _SponsorDepositNowViewState extends State<SponsorDepositNowView> {
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    _alertServices.showToast(message: "Payment Success: ${response.message!.toString()}");
+    _alertServices.showToast(message: "Payment Error: ${response.message!.toString()}");
 
     // Do something when payment fails
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     // Do something when an external wallet is selected
-    _alertServices.showToast(message: "Payment Success: ${response.walletName!.toString()}");
+    _alertServices.showToast(message: "Handle External: ${response.walletName!.toString()}");
 
   }
 

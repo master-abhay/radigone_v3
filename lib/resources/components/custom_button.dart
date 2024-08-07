@@ -43,10 +43,14 @@ class _CustomButtonState extends State<CustomButton> {
           ),
           child: Center(
             child: widget.isLoading
-                ? const CircularProgressIndicator(
-              color: Colors.white,
-              strokeWidth: 2.0,
-            )
+                ? SizedBox(
+              height: 25,
+                  width: 25,
+                  child: const CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2.0,
+                              ),
+                )
                 : Text(
               widget.buttonName,
               style: TextStyle(

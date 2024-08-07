@@ -153,14 +153,22 @@ class ViewerRegistrationViewmodel with ChangeNotifier {
   }
 
   set addressProof(File? file) {
-    _addressProof = file;
-    notifyListeners();
+    print('print _addressProof: $file');
+
+    if (file != null) {
+      _addressProof = file;
+      notifyListeners();
+    }
   }
 
   set panCardProof(File? file) {
-    _panCardProof = file;
-    notifyListeners();
+    print('print _panCardProof: $file');
+    if (file != null) {
+      _panCardProof = file;
+      notifyListeners();
+    }
   }
+
 
   //*------Accessing Api Services------*
   final UserAuthRepository _authenticationRepository = UserAuthRepository();
@@ -179,18 +187,28 @@ class ViewerRegistrationViewmodel with ChangeNotifier {
     try {
       setResponse = ApiResponse.loading();
 
+
+      print('_addressProof: $_addressProof');
+      print('_panCardProof: $_panCardProof');
+
+
+      // Check if the files are null before proceeding
+      if (_addressProof == null || _panCardProof == null) {
+        throw Exception('Address proof or Pan card proof is missing.');
+      }
+
       var addressProofStream = http.ByteStream(_addressProof!.openRead());
       var panCardStream = http.ByteStream(_panCardProof!.openRead());
       var addressProofLength = await _addressProof!.length();
       var panCardLength = await _panCardProof!.length();
 
       var panMultipartFile = http.MultipartFile(
-          'pan_card', panCardStream, panCardLength,
+          'pan card', panCardStream, panCardLength,
           filename: _panCardProof!.path.split('/').last,
           contentType: MediaType('application', 'octet-stream'));
 
       var addressMultipartFile = http.MultipartFile(
-          'address_proof', addressProofStream, addressProofLength,
+          'address proof', addressProofStream, addressProofLength,
           filename: _addressProof!.path.split('/').last,
           contentType: MediaType('application', 'octet-stream'));
 
@@ -198,36 +216,35 @@ class ViewerRegistrationViewmodel with ChangeNotifier {
 
       //*-----Create Headers Start-----*
       var headers = {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8',
       };
       //*-----Create Headers End-----*
 
       //*-----Create Fields Start----*
-
-      // Create fields
       var fields = {
-        'firstname': _firstname!,
-        'lastname': _lastname!,
-        'username': _username!,
-        'mobile': _mobile!,
-        'whatsapp': _whatsapp!,
-        'address': _address!,
-        'gender': _gender!,
-        'marital': _marital!,
-        'state': _state!,
-        'city': _city!,
-        'pincode': _pincode!,
-        'email': _email!,
-        'password': _password!,
-        'country_code': _country_code!,
-        'pan': _pan!,
-        'password_confirmation': _password_confirmation!,
-        'country': _country!,
-        'country_code_wp': _country_code_wp!,
-      }; // *-----Create Fields End-----*
+        'firstname': _firstname ?? '',
+        'lastname': _lastname ?? '',
+        'username': _username ?? '',
+        'mobile': _mobile ?? '',
+        'whatsaap': _whatsapp ?? '',
+        'address': _address ?? '',
+        'gender': (_gender ?? '').toLowerCase(),
+        'marital': (_marital ?? '').toLowerCase(),
+        'state': _state ?? '',
+        'city': _city ?? '',
+        'pincode': _pincode ?? '',
+        'email': (_email ?? '').toLowerCase(),
+        'password': _password ?? '',
+        'country_code': _country_code ?? '',
+        'pan': _pan ?? '',
+        'password_confirmation': _password_confirmation ?? '',
+        'country': _country ?? '',
+        'country_code_wp': _country_code_wp ?? '',
+        'title': 'Mr'
+      };
+      //*-----Create Fields End-----*
 
       //*-----Calling Api Start-----*
-
       var response = await _authenticationRepository.viewerRegistration(
           fields: fields, headers: headers, files: files);
 
@@ -243,4 +260,5 @@ class ViewerRegistrationViewmodel with ChangeNotifier {
       return false;
     }
   }
+
 }

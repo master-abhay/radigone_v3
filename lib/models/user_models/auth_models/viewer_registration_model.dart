@@ -1,13 +1,12 @@
-
 class ViewerRegistrationModel {
   ViewerRegistrationModel({
-      bool? success, 
-      String? message, 
-      Data? data,}){
+    bool? success,
+    String? message,
+    Data? data,}){
     _success = success;
     _message = message;
     _data = data;
-}
+  }
 
   ViewerRegistrationModel.fromJson(dynamic json) {
     _success = json['success'];
@@ -17,13 +16,13 @@ class ViewerRegistrationModel {
   bool? _success;
   String? _message;
   Data? _data;
-ViewerRegistrationModel copyWith({  bool? success,
-  String? message,
-  Data? data,
-}) => ViewerRegistrationModel(  success: success ?? _success,
-  message: message ?? _message,
-  data: data ?? _data,
-);
+  ViewerRegistrationModel copyWith({  bool? success,
+    String? message,
+    Data? data,
+  }) => ViewerRegistrationModel(  success: success ?? _success,
+    message: message ?? _message,
+    data: data ?? _data,
+  );
   bool? get success => _success;
   String? get message => _message;
   Data? get data => _data;
@@ -43,13 +42,13 @@ ViewerRegistrationModel copyWith({  bool? success,
 /// firstname : "Abhay"
 /// lastname : "Kumar"
 /// email : "abhay@gmail.com"
-/// username : "Abhay123"
+/// username : "abhayKumar"
 /// ref_by : null
-/// mobile : "1234567890"
+/// mobile : "8091771052"
 /// age : 0
 /// is_check : 1
 /// profession : null
-/// whatsaap : "1234567890"
+/// whatsaap : "8091771052"
 /// gander : "Male"
 /// marital : "Single"
 /// country_code : "91"
@@ -61,40 +60,44 @@ ViewerRegistrationModel copyWith({  bool? success,
 /// sv : 0
 /// ts : 0
 /// tv : 1
-/// updated_at : "2024-08-05T13:09:04.000000Z"
-/// created_at : "2024-08-05T13:09:04.000000Z"
-/// id : 22
-/// id_proof : "/uploads/user/pan_card/1722863344-pan_card.jpg"
-/// address_proof : "/uploads/user/address_proof/1722863344-address_proof.jpg"
+/// ver_code : 613449
+/// ver_code_send_at : "2024-08-07T07:42:57.000000Z"
+/// updated_at : "2024-08-07T07:42:57.000000Z"
+/// created_at : "2024-08-07T07:42:57.000000Z"
+/// id : 1
+/// id_proof : "/uploads/user/pan_card/1723016577-pan_card.jpg"
+/// address_proof : "/uploads/user/address_proof/1723016577-address_proof.jpg"
 
 class Data {
   Data({
-      String? firstname, 
-      String? lastname, 
-      String? email, 
-      String? username, 
-      dynamic refBy, 
-      String? mobile, 
-      num? age, 
-      num? isCheck, 
-      dynamic profession, 
-      String? whatsaap, 
-      String? gander, 
-      String? marital, 
-      String? countryCode, 
-      String? whatsaapCountryCode, 
-      String? pan, 
-      Address? address, 
-      num? status, 
-      num? ev, 
-      num? sv, 
-      num? ts, 
-      num? tv, 
-      String? updatedAt, 
-      String? createdAt, 
-      num? id, 
-      String? idProof, 
-      String? addressProof,}){
+    String? firstname,
+    String? lastname,
+    String? email,
+    String? username,
+    dynamic refBy,
+    String? mobile,
+    num? age,
+    num? isCheck,
+    dynamic profession,
+    String? whatsaap,
+    String? gander,
+    String? marital,
+    String? countryCode,
+    String? whatsaapCountryCode,
+    String? pan,
+    Address? address,
+    num? status,
+    num? ev,
+    num? sv,
+    num? ts,
+    num? tv,
+    num? verCode,
+    String? verCodeSendAt,
+    String? updatedAt,
+    String? createdAt,
+    num? id,
+    String? idProof,
+    String? addressProof,}){
     _firstname = firstname;
     _lastname = lastname;
     _email = email;
@@ -116,12 +119,14 @@ class Data {
     _sv = sv;
     _ts = ts;
     _tv = tv;
+    _verCode = verCode;
+    _verCodeSendAt = verCodeSendAt;
     _updatedAt = updatedAt;
     _createdAt = createdAt;
     _id = id;
     _idProof = idProof;
     _addressProof = addressProof;
-}
+  }
 
   Data.fromJson(dynamic json) {
     _firstname = json['firstname'];
@@ -145,6 +150,8 @@ class Data {
     _sv = json['sv'];
     _ts = json['ts'];
     _tv = json['tv'];
+    _verCode = json['ver_code'];
+    _verCodeSendAt = json['ver_code_send_at'];
     _updatedAt = json['updated_at'];
     _createdAt = json['created_at'];
     _id = json['id'];
@@ -172,64 +179,70 @@ class Data {
   num? _sv;
   num? _ts;
   num? _tv;
+  num? _verCode;
+  String? _verCodeSendAt;
   String? _updatedAt;
   String? _createdAt;
   num? _id;
   String? _idProof;
   String? _addressProof;
-Data copyWith({  String? firstname,
-  String? lastname,
-  String? email,
-  String? username,
-  dynamic refBy,
-  String? mobile,
-  num? age,
-  num? isCheck,
-  dynamic profession,
-  String? whatsaap,
-  String? gander,
-  String? marital,
-  String? countryCode,
-  String? whatsaapCountryCode,
-  String? pan,
-  Address? address,
-  num? status,
-  num? ev,
-  num? sv,
-  num? ts,
-  num? tv,
-  String? updatedAt,
-  String? createdAt,
-  num? id,
-  String? idProof,
-  String? addressProof,
-}) => Data(  firstname: firstname ?? _firstname,
-  lastname: lastname ?? _lastname,
-  email: email ?? _email,
-  username: username ?? _username,
-  refBy: refBy ?? _refBy,
-  mobile: mobile ?? _mobile,
-  age: age ?? _age,
-  isCheck: isCheck ?? _isCheck,
-  profession: profession ?? _profession,
-  whatsaap: whatsaap ?? _whatsaap,
-  gander: gander ?? _gander,
-  marital: marital ?? _marital,
-  countryCode: countryCode ?? _countryCode,
-  whatsaapCountryCode: whatsaapCountryCode ?? _whatsaapCountryCode,
-  pan: pan ?? _pan,
-  address: address ?? _address,
-  status: status ?? _status,
-  ev: ev ?? _ev,
-  sv: sv ?? _sv,
-  ts: ts ?? _ts,
-  tv: tv ?? _tv,
-  updatedAt: updatedAt ?? _updatedAt,
-  createdAt: createdAt ?? _createdAt,
-  id: id ?? _id,
-  idProof: idProof ?? _idProof,
-  addressProof: addressProof ?? _addressProof,
-);
+  Data copyWith({  String? firstname,
+    String? lastname,
+    String? email,
+    String? username,
+    dynamic refBy,
+    String? mobile,
+    num? age,
+    num? isCheck,
+    dynamic profession,
+    String? whatsaap,
+    String? gander,
+    String? marital,
+    String? countryCode,
+    String? whatsaapCountryCode,
+    String? pan,
+    Address? address,
+    num? status,
+    num? ev,
+    num? sv,
+    num? ts,
+    num? tv,
+    num? verCode,
+    String? verCodeSendAt,
+    String? updatedAt,
+    String? createdAt,
+    num? id,
+    String? idProof,
+    String? addressProof,
+  }) => Data(  firstname: firstname ?? _firstname,
+    lastname: lastname ?? _lastname,
+    email: email ?? _email,
+    username: username ?? _username,
+    refBy: refBy ?? _refBy,
+    mobile: mobile ?? _mobile,
+    age: age ?? _age,
+    isCheck: isCheck ?? _isCheck,
+    profession: profession ?? _profession,
+    whatsaap: whatsaap ?? _whatsaap,
+    gander: gander ?? _gander,
+    marital: marital ?? _marital,
+    countryCode: countryCode ?? _countryCode,
+    whatsaapCountryCode: whatsaapCountryCode ?? _whatsaapCountryCode,
+    pan: pan ?? _pan,
+    address: address ?? _address,
+    status: status ?? _status,
+    ev: ev ?? _ev,
+    sv: sv ?? _sv,
+    ts: ts ?? _ts,
+    tv: tv ?? _tv,
+    verCode: verCode ?? _verCode,
+    verCodeSendAt: verCodeSendAt ?? _verCodeSendAt,
+    updatedAt: updatedAt ?? _updatedAt,
+    createdAt: createdAt ?? _createdAt,
+    id: id ?? _id,
+    idProof: idProof ?? _idProof,
+    addressProof: addressProof ?? _addressProof,
+  );
   String? get firstname => _firstname;
   String? get lastname => _lastname;
   String? get email => _email;
@@ -251,6 +264,8 @@ Data copyWith({  String? firstname,
   num? get sv => _sv;
   num? get ts => _ts;
   num? get tv => _tv;
+  num? get verCode => _verCode;
+  String? get verCodeSendAt => _verCodeSendAt;
   String? get updatedAt => _updatedAt;
   String? get createdAt => _createdAt;
   num? get id => _id;
@@ -282,6 +297,8 @@ Data copyWith({  String? firstname,
     map['sv'] = _sv;
     map['ts'] = _ts;
     map['tv'] = _tv;
+    map['ver_code'] = _verCode;
+    map['ver_code_send_at'] = _verCodeSendAt;
     map['updated_at'] = _updatedAt;
     map['created_at'] = _createdAt;
     map['id'] = _id;
@@ -300,17 +317,17 @@ Data copyWith({  String? firstname,
 
 class Address {
   Address({
-      String? address, 
-      String? state, 
-      String? zip, 
-      String? country, 
-      String? city,}){
+    String? address,
+    String? state,
+    String? zip,
+    String? country,
+    String? city,}){
     _address = address;
     _state = state;
     _zip = zip;
     _country = country;
     _city = city;
-}
+  }
 
   Address.fromJson(dynamic json) {
     _address = json['address'];
@@ -324,17 +341,17 @@ class Address {
   String? _zip;
   String? _country;
   String? _city;
-Address copyWith({  String? address,
-  String? state,
-  String? zip,
-  String? country,
-  String? city,
-}) => Address(  address: address ?? _address,
-  state: state ?? _state,
-  zip: zip ?? _zip,
-  country: country ?? _country,
-  city: city ?? _city,
-);
+  Address copyWith({  String? address,
+    String? state,
+    String? zip,
+    String? country,
+    String? city,
+  }) => Address(  address: address ?? _address,
+    state: state ?? _state,
+    zip: zip ?? _zip,
+    country: country ?? _country,
+    city: city ?? _city,
+  );
   String? get address => _address;
   String? get state => _state;
   String? get zip => _zip;

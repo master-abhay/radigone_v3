@@ -1,17 +1,31 @@
 import 'package:http/http.dart';
 import 'package:radigone_v3/data/network/BaseApiServices.dart';
 import 'package:radigone_v3/data/network/NetworkApiServices.dart';
-import 'package:radigone_v3/models/user_models/auth_models/user_OTP_verification_model.dart';
-import 'package:radigone_v3/models/user_models/auth_models/user_reset_password_model.dart';
+import 'package:radigone_v3/models/common/user_reset_password_model.dart';
+import 'package:radigone_v3/models/common/registration_fees_model.dart';
 import 'package:radigone_v3/models/user_models/auth_models/viewer_registration_model.dart';
 import 'package:radigone_v3/resources/app_urls.dart';
+import 'package:radigone_v3/view_model/user_view_model/user_auth_viewModels/viewer_registration_viewModel.dart';
 
-import '../../models/user_models/auth_models/user_forget_password_model.dart';
+import '../../models/common/user_OTP_verification_model.dart';
+import '../../models/common/user_forget_password_model.dart';
 
 class UserAuthRepository {
   final BaseApiServices _apiServices = NetworkApiServices();
 
 
+
+
+  //*------get Viewer Registration Fees------*
+  Future<RegistrationFeesModel> getRegistrationFees({required dynamic headers}) async {
+    try {
+      dynamic response =
+      await _apiServices.getGetApiServices(url: AppUrls.viewerRegistrationFees, headers: null,);
+      return RegistrationFeesModel.fromJson(response);
+    } catch (e) {
+      throw e;
+    }
+  }
 
 
   //*------Register User-------*
@@ -23,7 +37,7 @@ class UserAuthRepository {
       }) async {
     dynamic response = await _apiServices.getMultipartApiServices(
         method: 'POST',
-        url: "URL",
+        url: AppUrls.viewerRegister,
         headers: headers,
         files: files,
         fields: fields);

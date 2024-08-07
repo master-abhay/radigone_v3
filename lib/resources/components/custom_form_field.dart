@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:radigone_v3/resources/colors.dart';
 
 class CustomFormField extends StatefulWidget {
   final FocusNode? currentFocusNode;
@@ -94,9 +95,11 @@ class _CustomTextFieldState extends State<CustomFormField> {
         errorText: widget.errorText,
         prefixIcon: widget.titleOptions != null
             ? Padding(
-                padding: const EdgeInsets.only(left: 8.0),
+                padding: const EdgeInsets.only(left: 8.0,right: 2),
                 child: DropdownButton<String>(
-                  dropdownColor: Colors.black,
+                  isDense: false,
+                  borderRadius: BorderRadius.circular(10),
+                  dropdownColor: Colors.black.withOpacity(0.8),
                   hint: Text(
                     widget.titleOptions![0].toString(),
                     style: TextStyle(color: Colors.white.withOpacity(0.7)),

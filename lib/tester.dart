@@ -1,15 +1,15 @@
 // import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 // import 'package:flutter/material.dart';
-// import 'package:radigone_v3/view/sponsor_view/sponser_Authentication/sponsor_registration_view.dart';
+// import 'package:radigone_v3/view/sponsor_view/sponser_Authentication/sponsor_registration_form_view.dart';
 //
-// class Tester extends StatefulWidget {
-//   const Tester({super.key});
+// class SponsorRegistrationView extends StatefulWidget {
+//   const SponsorRegistrationView({super.key});
 //
 //   @override
-//   State<Tester> createState() => _TesterState();
+//   State<SponsorRegistrationView> createState() => _SponsorRegistrationViewState();
 // }
 //
-// class _TesterState extends State<Tester> {
+// class _SponsorRegistrationViewState extends State<SponsorRegistrationView> {
 //
 //
 //   @override
@@ -70,48 +70,4 @@
 //   }
 // }
 //
-import 'package:flutter/material.dart';
-import 'package:radigone_v3/view/sponsor_view/sponser_Authentication/sponsor_registration_view.dart';
 
-class Tester extends StatefulWidget {
-  const Tester({super.key});
-
-  @override
-  State<Tester> createState() => _TesterState();
-}
-
-class _TesterState extends State<Tester> with TickerProviderStateMixin{
-  @override
-  Widget build(BuildContext context) {
-
-    TabController tabController = TabController(length: 2, vsync: this);
-
-    return Scaffold(
-
-
-      body: Column(
-
-        children: [
-          TabBar(
-              controller: tabController,
-              tabs: [
-            Tab(icon: Icon(Icons.account_circle), child: Text('Account')),
-            Tab(icon: Icon(Icons.home), child: Text('Home')),
-          ]),
-
-          Expanded(
-
-
-              child: TabBarView(
-            children: [
-              SponsorRegistrationView(),
-              SponsorRegistrationView(),
-
-            ],
-          ))
-        ],
-
-      ),
-    );
-  }
-}
