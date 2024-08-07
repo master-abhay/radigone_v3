@@ -99,7 +99,10 @@ class _TesterState extends State<Tester> with TickerProviderStateMixin{
             Tab(icon: Icon(Icons.home), child: Text('Home')),
           ]),
 
-          Expanded(child: TabBarView(
+          Expanded(
+
+
+              child: TabBarView(
             children: [
               SponsorRegistrationView(),
               SponsorRegistrationView(),
