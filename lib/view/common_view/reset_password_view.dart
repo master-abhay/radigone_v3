@@ -8,14 +8,16 @@ import 'package:radigone_v3/view_model/services/alert_services.dart';
 import '../../resources/colors.dart';
 import '../../resources/components/custom_button.dart';
 import '../../resources/components/custom_text_field.dart';
+import '../../utils/constants.dart';
 import '../../view_model/common_viewModel/reset_password_viewModel.dart';
 import '../../view_model/services/navigation_services.dart';
 
 class ResetPassword extends StatefulWidget {
-  final String flagType, emailAddress, token;
+  final  emailAddress, token;
+  final UserType userType;
   const ResetPassword(
       {super.key,
-      required this.flagType,
+      required this.userType,
       required this.emailAddress,
       required this.token});
 
@@ -270,22 +272,22 @@ class _ResetPasswordState extends State<ResetPassword> {
                               _confirmPasswordController.text) {
                         // Implement save password functionality here
 
-                        switch (widget.flagType) {
-                          case "viewer":
+                        switch (widget.userType) {
+                          case UserType.viewer:
                             provider.userResetPassword(
                                 context: context,
                                 emailAddress: widget.emailAddress,
                                 token: widget.token,
                                 newPassword: _passwordController.text);
                             break;
-                          case "sponsor":
+                          case UserType.sponsor:
                             provider.sponsorResetPassword(
                                 context: context,
                                 emailAddress: widget.emailAddress,
                                 token: widget.token,
                                 newPassword: _passwordController.text);
                             break;
-                          case "agent":
+                          case UserType.agent:
                             provider.agentResetPassword(
                                 context: context,
                                 emailAddress: widget.emailAddress,
@@ -320,16 +322,16 @@ class _ResetPasswordState extends State<ResetPassword> {
                 GestureDetector(
                     onTap: () {
                       // Implement go to Register functionality here:
-                      switch (widget.flagType) {
-                        case "viewer":
+                      switch (widget.userType) {
+                        case UserType.viewer:
                           _navigationServices
                               .pushReplacementNamed("/registrationPage");
                           break;
-                        case "sponsor":
+                        case UserType.sponsor:
                           _navigationServices
                               .pushReplacementNamed("/sponsorRegistrationView");
                           break;
-                        case "agent":
+                        case UserType.agent:
                           _navigationServices
                               .pushReplacementNamed("/agentRegistrationView");
                           break;

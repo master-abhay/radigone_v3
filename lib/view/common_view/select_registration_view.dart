@@ -163,12 +163,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:radigone_v3/view/sponsor_view/sponser_Authentication/sponsor_registration_form_view.dart';
 import 'package:radigone_v3/view/user_view/user_authentication_view/viewer_registration_view.dart';
 
 import '../../resources/colors.dart';
 import '../../resources/components/custom_button.dart';
-import '../../tester.dart';
+import '../../utils/constants.dart';
 import '../../view_model/services/navigation_services.dart';
 import '../sponsor_view/sponser_Authentication/sponsor_registration_view.dart';
 
@@ -199,8 +198,8 @@ class _SelectRegistrationPageState extends State<SelectRegistrationPage> {
       isLoadingViewer = true;
     });
     await Future.delayed(const Duration(seconds: 1)); // Simulate loading delay
-    _navigationServices.pushCupertino(
-        CupertinoPageRoute(builder: (context) => const ViewerRegistrationView()));
+    _navigationServices.pushCupertino(CupertinoPageRoute(
+        builder: (context) => const ViewerRegistrationView()));
     setState(() {
       isLoadingViewer = false;
     });
@@ -211,7 +210,9 @@ class _SelectRegistrationPageState extends State<SelectRegistrationPage> {
       isLoadingSponsor = true;
     });
     await Future.delayed(const Duration(seconds: 1)); // Simulate loading delay
-    _navigationServices.pushCupertino(CupertinoPageRoute(builder: (context) => const SponsorRegistrationView()));
+    _navigationServices.pushCupertino(CupertinoPageRoute(
+        builder: (context) =>
+            const SponsorRegistrationView(userType: UserType.sponsor)));
     setState(() {
       isLoadingSponsor = false;
     });
@@ -222,7 +223,10 @@ class _SelectRegistrationPageState extends State<SelectRegistrationPage> {
       isLoadingAgent = true;
     });
     await Future.delayed(const Duration(seconds: 1)); // Simulate loading delay
-    _navigationServices.pushReplacementNamed("/agentRegistrationView");
+    _navigationServices.pushCupertino(CupertinoPageRoute(
+        builder: (context) => const SponsorRegistrationView(
+              userType: UserType.agent,
+            )));
     setState(() {
       isLoadingAgent = false;
     });
@@ -249,7 +253,7 @@ class _SelectRegistrationPageState extends State<SelectRegistrationPage> {
           decoration: const BoxDecoration(
               gradient: MyColorScheme.yellowLinearGradient,
               borderRadius:
-              BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
+                  BorderRadius.vertical(bottom: Radius.elliptical(150, 40))),
           child: Image.asset("images/login_registraion.png"),
         ),
         Container(
@@ -321,4 +325,3 @@ class _SelectRegistrationPageState extends State<SelectRegistrationPage> {
     );
   }
 }
-

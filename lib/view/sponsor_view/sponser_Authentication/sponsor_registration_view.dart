@@ -1,9 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:radigone_v3/resources/colors.dart';
+import 'package:radigone_v3/utils/utils.dart';
 import 'package:radigone_v3/view/sponsor_view/sponser_Authentication/sponsor_registration_form_view.dart';
 
+import '../../../utils/constants.dart';
+import '../../../view_model/common_viewModel/registration_fees_viewModel.dart';
+
 class SponsorRegistrationView extends StatefulWidget {
-  const SponsorRegistrationView({super.key});
+  final UserType userType;
+  const SponsorRegistrationView({super.key, required this.userType});
 
   @override
   State<SponsorRegistrationView> createState() =>
@@ -11,13 +18,49 @@ class SponsorRegistrationView extends StatefulWidget {
 }
 
 class _SponsorRegistrationViewState extends State<SponsorRegistrationView>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, MediaQueryMixin {
   late TabController _tabController;
+
+  String _registrationFees = '';
+
+  Future<void> _initializeData() async {
+    try {
+      final provider =
+          Provider.of<RegistrationFeesViewModel>(context, listen: false);
+
+      if (widget.userType == UserType.sponsor) {
+        _registrationFees =
+            await _getRegistrationFees(provider.getSponsorRegistrationFees) ??
+                '';
+      } else if (widget.userType == UserType.agent) {
+        _registrationFees =
+            await _getRegistrationFees(provider.getAgentRegistrationFees) ?? '';
+      }
+    } catch (e) {
+      // Handle error if needed
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<String?> _getRegistrationFees(
+      Future<bool> Function() getFeesMethod) async {
+    bool result = await getFeesMethod();
+    if (result) {
+      final provider =
+          Provider.of<RegistrationFeesViewModel>(context, listen: false);
+      return provider.registrationFees;
+    }
+    return null;
+  }
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    WidgetsBinding.instance.addPostFrameCallback((callback) async {
+      await _initializeData();
+      setState(() {});
+    });
   }
 
   @override
@@ -37,7 +80,7 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView>
           ),
           Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.height / 2.6,
+            height: screenHeight / 2.6,
             decoration: const BoxDecoration(
                 gradient: MyColorScheme.yellowLinearGradient,
                 borderRadius:
@@ -91,28 +134,52 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView>
                           fontWeight: FontWeight.w600,
                           fontSize: 16),
                       unselectedLabelColor: Colors.grey.shade600,
-                      tabs: const [
-                        Tab(child: Text('Company Sponsor')),
-                        Tab(child: Text('Individual Sponsor')),
+                      tabs: [
+                        Tab(
+                            child: Text(widget.userType == UserType.sponsor
+                                ? 'Company Sponsor'
+                                : 'Company Agent')),
+                        Tab(
+                            child: Text(widget.userType == UserType.sponsor
+                                ? 'Individual Sponsor'
+                                : 'Individual Agent')),
                       ],
                     ),
                   ),
                 ),
                 Expanded(
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: const [
-                      SponsorRegistrationFormView(
-                        key: PageStorageKey('companySponsor'),
-                        isCompanySponsor: true,
-                      ),
-                      SponsorRegistrationFormView(
-                        key: PageStorageKey('individualSponsor'),
-                        isCompanySponsor: false,
-                      ),
-                    ],
-                  ),
-                ),
+                  child: Consumer<RegistrationFeesViewModel>(
+                      builder: (context, provider, _) {
+                    return provider.isLoading
+                        ? const Center(
+                            child: CupertinoActivityIndicator(
+                            color: Colors.white,
+                          ))
+                        : TabBarView(
+                            controller: _tabController,
+                            children: [
+                              SponsorRegistrationFormView(
+                                key: PageStorageKey(
+                                    widget.userType == UserType.sponsor
+                                        ? 'companySponsor'
+                                        : 'companyAgent'),
+                                isCompany: true,
+                                registrationFees: _registrationFees,
+                                userType: widget.userType,
+                              ),
+                              SponsorRegistrationFormView(
+                                key: PageStorageKey(
+                                    widget.userType == UserType.sponsor
+                                        ? 'individualSponsor'
+                                        : 'individualAgent'),
+                                isCompany: false,
+                                registrationFees: _registrationFees,
+                                userType: widget.userType,
+                              ),
+                            ],
+                          );
+                  }),
+                )
               ],
             ),
           ),

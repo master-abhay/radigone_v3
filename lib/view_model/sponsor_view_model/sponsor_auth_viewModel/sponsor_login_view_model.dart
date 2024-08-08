@@ -16,10 +16,21 @@ import '../../services/flutter_secure_storage/secure_storage.dart';
 import '../../services/navigation_services.dart';
 
 class LoginSponsorProvider with ChangeNotifier {
+  String? _countryCode;
   String? _mobile;
   String? _password;
 
-  void setMobile(String? mobile) {
+  set setCountryCode(String? countryCode) {
+    if (countryCode != null && countryCode.isNotEmpty) {
+      _countryCode = countryCode;
+      if (kDebugMode) {
+        print("countryCode set..");
+      }
+      notifyListeners();
+    }
+  }
+
+  set setMobile(String? mobile) {
     if (mobile != null && mobile.isNotEmpty) {
       _mobile = mobile;
       if (kDebugMode) {
@@ -29,11 +40,11 @@ class LoginSponsorProvider with ChangeNotifier {
     }
   }
 
-  void setPassword(String? password) {
+  set setPassword(String? password){
     if (password != null && password.isNotEmpty) {
       _password = password;
       if (kDebugMode) {
-        print("password set..");
+        print("Password set..");
       }
       notifyListeners();
     }
@@ -61,13 +72,24 @@ class LoginSponsorProvider with ChangeNotifier {
 
   final _myRepo = SponsorAuthRepository();
 
-  Future<bool> loginSponsor({required BuildContext context, required String mobile,required String password}) async {
+  Future<bool> loginSponsor({
+    required BuildContext context,
+    required String countryCode,
+    required String mobile,
+    required String password,
+  }) async {
     setLoading(true);
-     setMobile(mobile);
-     setPassword(password);
+    setCountryCode = countryCode;
+    setMobile = mobile;
+    setPassword = password;
+
 
     var header = {'Content-Type': 'application/json; charset=UTF-8'};
-    var body = jsonEncode({"mobile": _mobile, "password": _password});
+    var body = jsonEncode({
+      "country_code": _countryCode,
+      "mobile": _mobile,
+      "password": _password,
+    });
 
     _myRepo.sponsorLoginApi(body: body, header: header).then((value) async {
       // saveDetails(value);
@@ -87,11 +109,24 @@ class LoginSponsorProvider with ChangeNotifier {
       await _authService.saveSponsorEmail('${value.data!.email}');
       await _authService.saveSponsorImageLink('${value.data!.image}');
 
+
+
+      if(value.data!.sv! != 1){
+        //go for sms verification:
+
+      }
+
+      if(value.data!.rv! != 1){
+        //go for registration payment:
+
+      }
+
       //<----------------------------------------------------------------Initialization of Data------------------------>
       await Provider.of<SponsorProfileInformationViewModel>(context,
               listen: false)
           .fetchProfileInformation(context);
 //<----------------------------------------------------------------Data Initialized>---------------------------------------------------------------->
+
 
       _navigationServices.pushReplacementNamed('/sponsorMainView');
       // _navigationServices.push(MaterialPageRoute(builder: (context)=>const SponsorMainScreen(sponsorHome: true, sponsorDeposit: false, sponsorHistory: false, sponsorProfile: false)));

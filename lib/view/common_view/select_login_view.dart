@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:radigone_v3/utils/constants.dart';
 import 'package:radigone_v3/view/common_view/login_view.dart';
 
 import '../../resources/colors.dart';
@@ -106,7 +107,7 @@ class _SelectLoginPageState extends State<SelectLoginPage> {
                                 //     .pushReplacementNamed("/loginPage");
                                 _navigationServices.push(MaterialPageRoute(
                                     builder: (context) =>
-                                        const LoginView(flagType: "viewer")));
+                                        const LoginView(userType: UserType.viewer,)));
 
                                 setState(() {
                                   isLoadingLogin = false;
@@ -125,7 +126,7 @@ class _SelectLoginPageState extends State<SelectLoginPage> {
 
                                 _navigationServices.push(MaterialPageRoute(
                                     builder: (context) =>
-                                        const LoginView(flagType: "sponsor")));
+                                        const LoginView(userType: UserType.sponsor,)));
 
                                 setState(() {
                                   isLoadingLogin = false;
@@ -144,7 +145,7 @@ class _SelectLoginPageState extends State<SelectLoginPage> {
 
                                 _navigationServices.push(MaterialPageRoute(
                                     builder: (context) =>
-                                        const LoginView(flagType: "agent")));
+                                        const LoginView(userType: UserType.agent)));
 
                                 setState(() {
                                   isLoadingLogin = false;

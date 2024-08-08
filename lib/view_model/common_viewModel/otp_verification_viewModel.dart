@@ -9,6 +9,7 @@ import 'package:radigone_v3/view_model/services/alert_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
 
 import '../../repositories/agent/agent_auth_repository.dart';
+import '../../utils/constants.dart';
 
 class OtpVerificationViewModel with ChangeNotifier {
   late NavigationServices _navigationServices;
@@ -45,7 +46,7 @@ class OtpVerificationViewModel with ChangeNotifier {
 
   Future<bool> viewerVerifyOtp(
       {required BuildContext context,
-        required String flagType,
+        required UserType userType,
       String? emailAddress,
       String? code}) async {
     setIsLoading(true);
@@ -70,7 +71,7 @@ class OtpVerificationViewModel with ChangeNotifier {
             context,
             MaterialPageRoute(
                 builder: (context) => ResetPassword(
-                  flagType: flagType,
+                  userType: userType,
                       emailAddress: _emailAddress!,
                       token: value.token!,
                     )));
@@ -91,7 +92,7 @@ class OtpVerificationViewModel with ChangeNotifier {
 
   Future<bool> sponsorVerifyOtp(
       {required BuildContext context,
-        required String flagType,
+        required UserType userType,
 
         String? emailAddress,
       String? code}) async {
@@ -118,7 +119,7 @@ class OtpVerificationViewModel with ChangeNotifier {
             context,
             MaterialPageRoute(
                 builder: (context) => ResetPassword(
-                  flagType: flagType,
+                  userType: userType,
                       emailAddress: _emailAddress!,
                       token: value.token!,
 
@@ -140,7 +141,7 @@ class OtpVerificationViewModel with ChangeNotifier {
 
   Future<bool> agentVerifyOtp(
       {required BuildContext context,
-        required String flagType,
+        required UserType userType,
         String? emailAddress,
       String? code}) async {
     setIsLoading(true);
@@ -166,7 +167,7 @@ class OtpVerificationViewModel with ChangeNotifier {
             context,
             MaterialPageRoute(
                 builder: (context) => ResetPassword(
-                  flagType: flagType,
+                  userType: userType,
                       emailAddress: _emailAddress!,
                       token: value.token!,
                     )));

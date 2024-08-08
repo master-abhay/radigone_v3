@@ -36,7 +36,8 @@ class ViewerRegistrationView extends StatefulWidget {
   State<ViewerRegistrationView> createState() => _ViewerRegistrationViewState();
 }
 
-class _ViewerRegistrationViewState extends State<ViewerRegistrationView> with MediaQueryMixin {
+class _ViewerRegistrationViewState extends State<ViewerRegistrationView>
+    with MediaQueryMixin {
   //Going to integrate userRegistration Api:
 
   bool isLoading = false;
@@ -122,10 +123,10 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> with Me
 
   Future<void> _initializeData() async {
     try {
-
       _maritalStatusController.text = _maritalStatus?.name ?? '';
 
-      final provider = Provider.of<RegistrationFeesViewModel>(context, listen: false);
+      final provider =
+          Provider.of<RegistrationFeesViewModel>(context, listen: false);
       bool result = await provider.getViewerRegistrationFees();
 
       if (result) {
@@ -134,7 +135,6 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> with Me
           _registrationFeesController.text = registrationFees;
         }
       }
-
     } catch (e) {
       // Handle error if needed
     }
@@ -147,13 +147,10 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> with Me
     _alertServices = _getIt.get<AlertServices>();
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((callback)async{
+    WidgetsBinding.instance.addPostFrameCallback((callback) async {
       await _initializeData();
-      setState(() {
-
-      });
+      setState(() {});
     });
-
   }
 
   @override
@@ -243,80 +240,80 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> with Me
             ),
           ),
         ),
-        Center(child: mainForm(),)
+        Center(
+          child: mainForm(),
+        )
       ],
     );
   }
 
   Widget mainForm() {
-
     return Consumer<RegistrationFeesViewModel>(
       builder: (context, provider, _) {
         return provider.isLoading
             ? const Center(
-            child: CupertinoActivityIndicator(
-              color: Colors.white,
-            ))
+                child: CupertinoActivityIndicator(
+                color: Colors.white,
+              ))
             : SingleChildScrollView(
-          padding: EdgeInsets.only(top: screenHeight / 4),
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: screenHeight * 0.04,
-                      horizontal: screenWidth * 0.05),
-                  decoration: BoxDecoration(
-                      color: MyColorScheme.authContainerColor.withOpacity(0.8),
-                      borderRadius: BorderRadius.circular(24)),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _firstNameField(),
-                      const SizedBox(height: 10),
-                      _lastNameField(),
-                      const SizedBox(height: 10),
-                      _usernameField(),
-                      const SizedBox(height: 10),
-                      _genderField(),
-                      const SizedBox(height: 10),
-                      _maritalStatusField(),
-                      const SizedBox(height: 10),
-                      _phoneNumberField(),
-                      const SizedBox(height: 10),
-                      _whatsAppNumberField(),
-                      _emailField(),
-                      const SizedBox(height: 10),
-                      _addressField(),
-                      const SizedBox(height: 10),
-                      _cityField(),
-                      const SizedBox(height: 10),
-                      _pinCodeField(),
-                      const SizedBox(height: 10),
-                      _stateField(),
-                      const SizedBox(height: 10),
-                      _countryField(),
-                      const SizedBox(height: 10),
-                      _panNumberField(),
-                      const SizedBox(height: 10),
-                      _panAndAddressProofField(),
-                      const SizedBox(height: 10),
-                      _passwordField(),
-                      const SizedBox(height: 10),
-                      _confirmPasswordField(),
-                      const SizedBox(height: 10),
-                      _registrationFeesField(),
-                      const SizedBox(height: 30),
-                      _submitButton(),
-                    ],
-                  ),
+                padding: EdgeInsets.only(top: screenHeight / 4),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(kPadding),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: screenHeight * 0.04,
+                            horizontal: kPadding),
+                        decoration: BoxDecoration(
+                            color: MyColorScheme.authContainerColor
+                                .withOpacity(0.8),
+                            borderRadius: BorderRadius.circular(24)),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _firstNameField(),
+                            kFormFieldHeight,
+                            _lastNameField(),
+                            kFormFieldHeight,
+                            _usernameField(),
+                            kFormFieldHeight,
+                            _genderField(),
+                            kFormFieldHeight,
+                            _maritalStatusField(),
+                            kFormFieldHeight,
+                            _phoneNumberField(),
+                            _whatsAppNumberField(),
+                            _emailField(),
+                            kFormFieldHeight,
+                            _addressField(),
+                            kFormFieldHeight,
+                            _cityField(),
+                            kFormFieldHeight,
+                            _pinCodeField(),
+                            kFormFieldHeight,
+                            _stateField(),
+                            kFormFieldHeight,
+                            _countryField(),
+                            kFormFieldHeight,
+                            _panNumberField(),
+                            kFormFieldHeight,
+                            _panAndAddressProofField(),
+                            kFormFieldHeight,
+                            _passwordField(),
+                            kFormFieldHeight,
+                            _confirmPasswordField(),
+                            kFormFieldHeight,
+                            _registrationFeesField(),
+                            const SizedBox(height: 30),
+                            _submitButton(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        );
+              );
       },
     );
   }
@@ -633,8 +630,7 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> with Me
       children: [
         Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(
-              vertical: screenWidth * 0.02),
+          padding: EdgeInsets.symmetric(vertical: screenWidth * 0.02),
           decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.3),
             border: Border.all(color: MyColorScheme.lightGrey3),
@@ -676,8 +672,7 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView> with Me
         ),
         Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(
-              vertical: screenWidth * 0.02),
+          padding: EdgeInsets.symmetric(vertical: screenWidth * 0.02),
           decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.3),
             border: Border.all(color: MyColorScheme.lightGrey3),

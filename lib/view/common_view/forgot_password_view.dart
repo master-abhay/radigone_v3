@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/resources/components/custom_text_field.dart';
+import 'package:radigone_v3/utils/constants.dart';
 
 import '../../resources/colors.dart';
 import '../../resources/components/custom_button.dart';
@@ -10,8 +11,8 @@ import '../../view_model/services/navigation_services.dart';
 import 'otp_verification_view.dart';
 
 class ForgotPassword extends StatefulWidget {
-  final String flagType;
-  const ForgotPassword({super.key, required this.flagType});
+  final UserType userType;
+  const ForgotPassword({super.key, required this.userType});
 
   @override
   State<ForgotPassword> createState() => _ForgotPasswordState();
@@ -173,18 +174,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   onTap: () async {
                     bool? result;
 
-                    switch (widget.flagType) {
-                      case "viewer":
+                    switch (widget.userType) {
+                      case UserType.viewer:
                         result = await provider.sendViewerOtp(
                             context: context,
                             emailAddress: _emailController.text);
                         break;
-                      case "sponsor":
+                      case UserType.sponsor:
                         result = await provider.sendSponsorOtp(
                             context: context,
                             emailAddress: _emailController.text);
                         break;
-                      case "agent":
+                      case UserType.agent:
                         result = await provider.sendAgentOtp(
                             context: context,
                             emailAddress: _emailController.text);
@@ -195,7 +196,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => UserOtpVerificationView(
-                                    flagType: widget.flagType,
+                                    userType: widget.userType,
                                     emailAddress: _emailController.text,
                                   )));
                     }

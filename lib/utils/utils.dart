@@ -33,6 +33,9 @@ mixin MediaQueryMixin<T extends StatefulWidget> on State<T> {
   double get horizontalPadding => MediaQuery.of(context).padding.horizontal;
 
   double get verticalPadding => MediaQuery.of(context).padding.vertical;
+
+  double get kPadding => 20;
+  Widget get kFormFieldHeight => const SizedBox(height: 16,);
 }
 
 

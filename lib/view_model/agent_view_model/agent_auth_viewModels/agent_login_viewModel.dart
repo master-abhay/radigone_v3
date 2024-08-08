@@ -13,14 +13,24 @@ import '../../services/auth_services.dart';
 import '../../services/flutter_secure_storage/secure_storage.dart';
 import '../../services/navigation_services.dart';
 
-
 class AgentLoginViewModel with ChangeNotifier {
+  String? _countryCode;
   String? _mobile;
   String? _password;
 
-  void setUsername(String? mobile) {
+  set setCountryCode(String? countryCode) {
+    if (countryCode != null && countryCode.isNotEmpty) {
+      _countryCode = countryCode;
+      if (kDebugMode) {
+        print("countryCode set..");
+      }
+      notifyListeners();
+    }
+  }
+
+  set setMobile(String? mobile) {
     if (mobile != null && mobile.isNotEmpty) {
-      _mobile = '91$mobile';
+      _mobile = mobile;
       if (kDebugMode) {
         print("Mobile set..");
       }
@@ -28,11 +38,11 @@ class AgentLoginViewModel with ChangeNotifier {
     }
   }
 
-  void setPassword(String? password) {
+  set setPassword(String? password){
     if (password != null && password.isNotEmpty) {
       _password = password;
       if (kDebugMode) {
-        print("password set..");
+        print("Password set..");
       }
       notifyListeners();
     }
@@ -59,7 +69,6 @@ class AgentLoginViewModel with ChangeNotifier {
   }
 
   Future<void> saveDetails(AgentLoginModel value) async {
-
     await SecureStorage().writeSecureData('username', value.data!.username!);
     await SecureStorage().writeSecureData('password', _password!);
     await SecureStorage()
@@ -70,8 +79,8 @@ class AgentLoginViewModel with ChangeNotifier {
     //Saving token in sharedPreferences:
     await _authService.saveAgentToken(
         '${value.tokenType.toString()} ${value.token.toString()}');
-    await _authService.saveAgentName(
-        '${value.data!.firstname} ${value.data!.lastname}');
+    await _authService
+        .saveAgentName('${value.data!.firstname} ${value.data!.lastname}');
     await _authService.saveAgentEmail('${value.data!.email}');
     await _authService.saveAgentImageLink('${value.data!.image}');
 
@@ -86,17 +95,26 @@ class AgentLoginViewModel with ChangeNotifier {
 
   final _myRepo = AgentAuthRepository();
 
-  Future<bool> loginAgent({required BuildContext context, required String mobile,required String password}) async {
+  Future<bool> loginAgent({
+    required BuildContext context,
+    required String countryCode,
+    required String mobile,
+    required String password,
+  }) async {
     setLoading(true);
-    setUsername(mobile);
-    setPassword(password);
 
-    var header = {
-      'Content-Type': 'application/json; charset=UTF-8',
-    };
-    var body = jsonEncode({"mobile": _mobile, "password": _password});
+    setCountryCode = countryCode;
+    setMobile = mobile;
+    setPassword = password;
 
-    _myRepo.agentLoginApi(body: body,header: header).then((value) async{
+    var header = {'Content-Type': 'application/json; charset=UTF-8'};
+    var body = jsonEncode({
+      "country_code": _countryCode,
+      "mobile": _mobile,
+      "password": _password,
+    });
+
+    _myRepo.agentLoginApi(body: body, header: header).then((value) async {
       // saveDetails(value);
       await SecureStorage().writeSecureData('username', value.data!.username!);
       await SecureStorage().writeSecureData('password', _password!);
@@ -108,10 +126,22 @@ class AgentLoginViewModel with ChangeNotifier {
       //Saving token in sharedPreferences:
       await _authService.saveAgentToken(
           '${value.tokenType.toString()} ${value.token.toString()}');
-      await _authService.saveAgentName(
-          '${value.data!.firstname} ${value.data!.lastname}');
+      await _authService
+          .saveAgentName('${value.data!.firstname} ${value.data!.lastname}');
       await _authService.saveAgentEmail('${value.data!.email}');
       await _authService.saveAgentImageLink('${value.data!.image}');
+
+
+
+      if(value.data!.sv! != 1){
+        //go for sms verification:
+
+      }
+
+      if(value.data!.rv! != 1){
+        //go for registration payment:
+
+      }
       _navigationServices.pushReplacementNamed('/agentMainView');
       if (kDebugMode) {
         print("Agent logged in Successfully");

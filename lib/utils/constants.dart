@@ -1,4 +1,9 @@
 class Constants {
+
+
+
+
+
  static final RegExp EMAIL_VALIDATION_REGEX =
   RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
 
@@ -10,4 +15,12 @@ class Constants {
   static const  String PLACEHOLDER_PFP =
       "https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg";
 
+
+
+
+
+
 }
+
+enum UserType {viewer,sponsor,agent}
+

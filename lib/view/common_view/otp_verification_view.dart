@@ -7,6 +7,7 @@ import 'package:radigone_v3/resources/components/background_designs.dart';
 
 import '../../resources/colors.dart';
 import '../../resources/components/custom_button.dart';
+import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 import '../../view_model/common_viewModel/forget_password_viewModel.dart';
 import '../../view_model/common_viewModel/otp_verification_viewModel.dart';
@@ -14,10 +15,10 @@ import '../../view_model/services/navigation_services.dart';
 
 class UserOtpVerificationView extends StatefulWidget {
   final String emailAddress;
-  final String flagType;
+  final UserType userType;
 
   const UserOtpVerificationView(
-      {super.key, required this.emailAddress, required this.flagType});
+      {super.key, required this.emailAddress, required this.userType});
 
   @override
   State<UserOtpVerificationView> createState() =>
@@ -171,24 +172,24 @@ class _UserOtpVerificationViewState extends State<UserOtpVerificationView> {
                   });
                   bool? result;
 
-                  switch (widget.flagType) {
-                    case "viewer":
+                  switch (widget.userType) {
+                    case UserType.viewer:
                       result = await provider.viewerVerifyOtp(
-                        flagType: widget.flagType,
+                        userType: widget.userType,
                           context: context,
                           emailAddress: widget.emailAddress,
                           code: pin.toString());
                       break;
-                    case "sponsor":
+                    case UserType.sponsor:
                       result = await provider.sponsorVerifyOtp(
-                        flagType: widget.flagType,
+                        userType: widget.userType,
                           context: context,
                           emailAddress: widget.emailAddress,
                           code: pin.toString());
                       break;
-                    case "agent":
+                    case UserType.agent:
                      result =  await provider.agentVerifyOtp(
-                       flagType: widget.flagType,
+                       userType: widget.userType,
                           context: context,
                           emailAddress: widget.emailAddress,
                           code: pin.toString());
@@ -213,24 +214,24 @@ class _UserOtpVerificationViewState extends State<UserOtpVerificationView> {
                 onTap: () async {
                   bool? result;
 
-                  switch (widget.flagType) {
-                    case "viewer":
+                  switch (widget.userType) {
+                    case UserType.viewer:
                       result = await provider.viewerVerifyOtp(
-                          flagType: widget.flagType,
+                          userType: widget.userType,
                           context: context,
                           emailAddress: widget.emailAddress,
                           code: otp.toString());
                       break;
-                    case "sponsor":
+                    case UserType.sponsor:
                       result = await provider.sponsorVerifyOtp(
-                          flagType: widget.flagType,
+                          userType: widget.userType,
                           context: context,
                           emailAddress: widget.emailAddress,
                           code: otp.toString());
                       break;
-                    case "agent":
+                    case UserType.agent:
                       result =  await provider.agentVerifyOtp(
-                          flagType: widget.flagType,
+                          userType: widget.userType,
                           context: context,
                           emailAddress: widget.emailAddress,
                           code: otp.toString());
@@ -268,16 +269,16 @@ class _UserOtpVerificationViewState extends State<UserOtpVerificationView> {
                             fontWeight: FontWeight.bold),
                         recognizer: _emailTapRecognizer
                           ..onTap = () {
-                            switch (widget.flagType) {
-                              case "viewer":
+                            switch (widget.userType) {
+                              case UserType.viewer:
                                 provider.sendViewerOtp(
                                     context: context,
                                     emailAddress: widget.emailAddress);
-                              case "sponsor":
+                              case UserType.sponsor:
                                 provider.sendSponsorOtp(
                                     context: context,
                                     emailAddress: widget.emailAddress);
-                              case "agent":
+                              case UserType.agent:
                                 provider.sendAgentOtp(
                                     context: context,
                                     emailAddress: widget.emailAddress);

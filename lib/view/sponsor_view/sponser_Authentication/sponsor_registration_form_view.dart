@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -12,17 +11,23 @@ import '../../../resources/components/custom_dependent_dropdown.dart';
 import '../../../resources/components/custom_dropdown.dart';
 import '../../../resources/components/custom_form_field.dart';
 import '../../../resources/components/custom_phone_input.dart';
+import '../../../utils/constants.dart';
 import '../../../utils/validations.dart';
-import '../../../view_model/common_viewModel/registration_fees_viewModel.dart';
 import '../../../view_model/services/alert_services.dart';
 import '../../../view_model/services/media_services.dart';
 import '../../../view_model/services/navigation_services.dart';
 import '../../../view_model/sponsor_view_model/sponsor_register_viewModel.dart';
 
 class SponsorRegistrationFormView extends StatefulWidget {
-  final bool isCompanySponsor;
+  final bool isCompany;
+  final String registrationFees;
+  final UserType userType;
+
   const SponsorRegistrationFormView(
-      {super.key, required this.isCompanySponsor});
+      {super.key,
+      required this.userType,
+      required this.isCompany,
+      required this.registrationFees});
 
   @override
   State<SponsorRegistrationFormView> createState() =>
@@ -231,27 +236,6 @@ class _SponsorRegistrationFormViewState
 
   final List<String> titleOptions = const ['Mr', 'Ms', 'Mrs', 'Dr'];
 
-
-
-  Future<void> _initializeData() async {
-    try {
-
-
-      final provider = Provider.of<RegistrationFeesViewModel>(context, listen: false);
-      bool result = await provider.getSponsorRegistrationFees();
-
-      if (result) {
-        String? registrationFees = provider.registrationFees;
-        if (registrationFees != null) {
-          _registrationFeesController.text = registrationFees;
-        }
-      }
-
-    } catch (e) {
-      // Handle error if needed
-    }
-  }
-
   @override
   void initState() {
     _navigationServices = _getIt.get<NavigationServices>();
@@ -261,15 +245,8 @@ class _SponsorRegistrationFormViewState
     _signUpFormKey = GlobalKey<FormState>();
 
     _selectedTitleController.text = titleOptions[0];
+    _registrationFeesController.text = widget.registrationFees;
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((callback)async{
-      await _initializeData();
-      setState(() {
-
-      });
-    });
-
   }
 
   @override
@@ -287,104 +264,87 @@ class _SponsorRegistrationFormViewState
     );
   }
 
-
   Widget mainForm() {
-
-    return Consumer<RegistrationFeesViewModel>(
-      builder: (context, provider, _) {
-        return provider.isLoading
-            ? const Center(
-            child: CupertinoActivityIndicator(
-              color: Colors.white,
-            ))
-            : SingleChildScrollView(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).size.height / 8),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.height * 0.04,
-                  horizontal: MediaQuery.of(context).size.width * 0.05),
-              decoration: BoxDecoration(
-                  color: MyColorScheme.authContainerColor.withOpacity(0.8),
-                  borderRadius: BorderRadius.circular(24)),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Visibility(
-                      visible: widget.isCompanySponsor,
-                      child: _firmNameField()),
-                  Visibility(
-                      visible: widget.isCompanySponsor,
-                      child: const SizedBox(height: 15)),
-                  Visibility(
-                      visible: widget.isCompanySponsor,
-                      child: _firmTypeField()),
-                  Visibility(
-                      visible: widget.isCompanySponsor,
-                      child: const SizedBox(height: 15)),
-                  Visibility(
-                      visible: widget.isCompanySponsor,
-                      child: _gstNumberField()),
-                  Visibility(
-                      visible: widget.isCompanySponsor,
-                      child: const SizedBox(height: 15)),
-                  Visibility(
-                      visible: widget.isCompanySponsor,
-                      child: _designationField()),
-                  Visibility(
-                      visible: widget.isCompanySponsor,
-                      child: const SizedBox(height: 15)),
-                  _firstNameField(),
-                  const SizedBox(height: 15),
-                  _lastNameField(),
-                  const SizedBox(height: 15),
-                  _usernameField(),
-                  const SizedBox(height: 15),
-                  _phoneNumberField(),
-                  const SizedBox(height: 15),
-                  _businessCategoryField(),
-                  const SizedBox(height: 15),
-                  _registrationFeesField(),
-                  const SizedBox(height: 15),
-                  _multipleLoginRequiredField(),
-                  const SizedBox(height: 15),
-                  _postPaidArrangementField(),
-                  const SizedBox(height: 15),
-                  _emailField(),
-                  const SizedBox(height: 15),
-                  _addressField(),
-                  const SizedBox(height: 15),
-                  _cityField(),
-                  const SizedBox(height: 15),
-                  _stateField(),
-                  const SizedBox(height: 15),
-                  _pinCodeField(),
-                  const SizedBox(height: 15),
-                  _countryField(),
-                  const SizedBox(height: 15),
-                  Visibility(
-                      visible: !widget.isCompanySponsor,
-                      child: _panCardNumberField()),
-                  Visibility(
-                      visible: !widget.isCompanySponsor,
-                      child: const SizedBox(height: 15)),
-                  _panAndAddressProofField(),
-                  const SizedBox(height: 15),
-                  _passwordField(),
-                  const SizedBox(height: 15),
-                  _confirmPasswordField(),
-                  const SizedBox(height: 30),
-                  _submitButton(),
-                ],
+    return SingleChildScrollView(
+      padding: EdgeInsets.only(top: screenHeight / 8),
+      child: Padding(
+        padding: EdgeInsets.all(kPadding),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+              vertical: screenHeight * 0.04, horizontal: screenWidth * 0.05),
+          decoration: BoxDecoration(
+              color: MyColorScheme.authContainerColor.withOpacity(0.8),
+              borderRadius: BorderRadius.circular(24)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Visibility(visible: widget.isCompany, child: _firmNameField()),
+              Visibility(
+                visible: widget.isCompany,
+                child: kFormFieldHeight,
               ),
-            ),
+              Visibility(visible: widget.isCompany, child: _firmTypeField()),
+              Visibility(
+                visible: widget.isCompany,
+                child: kFormFieldHeight,
+              ),
+              Visibility(visible: widget.isCompany, child: _gstNumberField()),
+              Visibility(
+                visible: widget.isCompany,
+                child: kFormFieldHeight,
+              ),
+              Visibility(visible: widget.isCompany, child: _designationField()),
+              Visibility(
+                visible: widget.isCompany,
+                child: kFormFieldHeight,
+              ),
+              _firstNameField(),
+              kFormFieldHeight,
+              _lastNameField(),
+              kFormFieldHeight,
+              _usernameField(),
+              kFormFieldHeight,
+              _phoneNumberField(),
+              kFormFieldHeight,
+              _businessCategoryField(),
+              kFormFieldHeight,
+              _registrationFeesField(),
+              kFormFieldHeight,
+              _multipleLoginRequiredField(),
+              kFormFieldHeight,
+              _postPaidArrangementField(),
+              kFormFieldHeight,
+              _emailField(),
+              kFormFieldHeight,
+              _addressField(),
+              kFormFieldHeight,
+              _cityField(),
+              kFormFieldHeight,
+              _stateField(),
+              kFormFieldHeight,
+              _pinCodeField(),
+              kFormFieldHeight,
+              _countryField(),
+              kFormFieldHeight,
+              Visibility(
+                  visible: !widget.isCompany, child: _panCardNumberField()),
+              Visibility(
+                visible: !widget.isCompany,
+                child: kFormFieldHeight,
+              ),
+              _panAndAddressProofField(),
+              kFormFieldHeight,
+              _passwordField(),
+              kFormFieldHeight,
+              _confirmPasswordField(),
+              const SizedBox(height: 30),
+              _submitButton(),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
-
 
   //*-----Firm Name Field------*
   Widget _firmNameField() {
@@ -591,8 +551,7 @@ class _SponsorRegistrationFormViewState
       obscureText: false,
       onChanged: (value) {
         if (_registrationFeesFocusNode.hasFocus) {
-          setState(() {
-          });
+          setState(() {});
         }
       },
     );
@@ -746,7 +705,8 @@ class _SponsorRegistrationFormViewState
     return CustomFormField(
       controller: _countryController,
       currentFocusNode: _countryFocusNode,
-      nextFocusNode: widget.isCompanySponsor ?  _passwordFocusNode : _panNumberFocusNode,
+      nextFocusNode:
+          widget.isCompany ? _passwordFocusNode : _panNumberFocusNode,
       hintText: "Country",
       obscureText: false,
       textInputType: TextInputType.text,
