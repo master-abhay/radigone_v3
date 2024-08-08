@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:radigone_v3/utils/constants.dart';
@@ -105,9 +106,11 @@ class _SelectLoginPageState extends State<SelectLoginPage> {
 
                                 // _navigationServices
                                 //     .pushReplacementNamed("/loginPage");
-                                _navigationServices.push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const LoginView(userType: UserType.viewer,)));
+                                _navigationServices.pushReplacementCupertino(
+                                    CupertinoPageRoute(
+                                        builder: (context) => const LoginView(
+                                              userType: UserType.viewer,
+                                            )));
 
                                 setState(() {
                                   isLoadingLogin = false;
@@ -124,9 +127,11 @@ class _SelectLoginPageState extends State<SelectLoginPage> {
                                   isLoadingLogin = true;
                                 });
 
-                                _navigationServices.push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const LoginView(userType: UserType.sponsor,)));
+                                _navigationServices.pushReplacementCupertino(
+                                    CupertinoPageRoute(
+                                        builder: (context) => const LoginView(
+                                              userType: UserType.sponsor,
+                                            )));
 
                                 setState(() {
                                   isLoadingLogin = false;
@@ -143,9 +148,10 @@ class _SelectLoginPageState extends State<SelectLoginPage> {
                                   isLoadingLogin = true;
                                 });
 
-                                _navigationServices.push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const LoginView(userType: UserType.agent)));
+                                _navigationServices.pushReplacementCupertino(
+                                    CupertinoPageRoute(
+                                        builder: (context) => const LoginView(
+                                            userType: UserType.agent)));
 
                                 setState(() {
                                   isLoadingLogin = false;

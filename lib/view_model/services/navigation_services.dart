@@ -36,11 +36,11 @@ import '../../view/user_view/side_menu_bar_views/my_tickets_view.dart';
 import '../../view/user_view/side_menu_bar_views/redeem_radigone_points_view.dart';
 import '../../view/user_view/side_menu_bar_views/transaction_view.dart';
 import '../../view/common_view/change_password_view.dart';
-import '../../view/common_view/forgot_password_view.dart';
+import '../../view/common_view/forgot_password_view(enter email).dart';
 import '../../view/common_view/login_view.dart';
-import '../../view/common_view/otp_verification_view.dart';
+import '../../view/common_view/forgot_password_otp_verification_view.dart';
 import '../../view/user_view/user_authentication_view/viewer_registration_view.dart';
-import '../../view/common_view/reset_password_view.dart';
+import '../../view/common_view/forgot_password_reset_password_view.dart';
 
 class NavigationServices {
 //Creating the global key for navigation State:

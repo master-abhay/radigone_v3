@@ -3,6 +3,7 @@ import 'package:radigone_v3/data/network/BaseApiServices.dart';
 import 'package:radigone_v3/data/network/NetworkApiServices.dart';
 import 'package:radigone_v3/models/common/user_reset_password_model.dart';
 import 'package:radigone_v3/models/common/registration_fees_model.dart';
+import 'package:radigone_v3/models/user_models/auth_models/login_viewer_model.dart';
 import 'package:radigone_v3/models/user_models/auth_models/viewer_registration_model.dart';
 import 'package:radigone_v3/resources/app_urls.dart';
 import 'package:radigone_v3/view_model/user_view_model/user_auth_viewModels/viewer_registration_viewModel.dart';
@@ -45,11 +46,11 @@ class UserAuthRepository {
   }
 
 
-  Future<dynamic> userLoginApi({required dynamic headers,required dynamic body}) async {
+  Future<LoginViewerModel> userLoginApi({required dynamic headers,required dynamic body}) async {
     try {
       dynamic response =
       await _apiServices.getPostApiServices(url: AppUrls.userLoginUrl, headers: headers, body: body);
-      return response;
+      return LoginViewerModel.fromJson(response);
     } catch (e) {
       throw e;
     }

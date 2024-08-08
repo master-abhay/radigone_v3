@@ -8,7 +8,7 @@ import '../../resources/colors.dart';
 import '../../resources/components/custom_button.dart';
 import '../../view_model/common_viewModel/forget_password_viewModel.dart';
 import '../../view_model/services/navigation_services.dart';
-import 'otp_verification_view.dart';
+import 'forgot_password_otp_verification_view.dart';
 
 class ForgotPassword extends StatefulWidget {
   final UserType userType;

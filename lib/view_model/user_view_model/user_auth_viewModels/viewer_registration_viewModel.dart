@@ -10,10 +10,10 @@ import 'package:radigone_v3/repositories/user/auth_repository.dart';
 import '../../../data/response/ApiResponse.dart';
 import '../../services/alert_services.dart';
 
-class ViewerRegistrationViewmodel with ChangeNotifier {
+class ViewerRegistrationViewModel with ChangeNotifier {
   late AlertServices _alertServices;
 
-  ViewerRegistrationViewmodel() {
+  ViewerRegistrationViewModel() {
     final GetIt getIt = GetIt.instance;
     _alertServices = getIt.get<AlertServices>();
   }

@@ -128,7 +128,7 @@ class _UserMainViewState extends State<UserMainView> {
     const HomePage(),
     const CouponsPage(),
     const HistoryPage(),
-    // const ProfilePage()
+    const ProfilePage()
   ];
 
   int currentIndex = 0;

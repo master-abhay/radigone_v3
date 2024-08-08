@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/resources/components/custom_button.dart';
+import 'package:radigone_v3/utils/constants.dart';
 import 'package:radigone_v3/utils/utils.dart';
 import 'package:radigone_v3/view_model/common_viewModel/registration_fees_viewModel.dart';
+import 'package:radigone_v3/view_model/user_view_model/user_auth_viewModels/login_view_model.dart';
 
 import '../../../data/response/status.dart';
 import '../../../resources/colors.dart';
@@ -814,26 +816,54 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView>
     );
   }
 
-  //*-----Submit Button-----*
+//*-----Submit Button-----*
   Widget _submitButton() {
     return ChangeNotifierProvider(
-        create: (context) => ViewerRegistrationViewmodel(),
-        child: Consumer<ViewerRegistrationViewmodel>(
-            builder: (context, provider, _) {
+      create: (context) => ViewerRegistrationViewModel(),
+      child: Consumer<ViewerRegistrationViewModel>(
+        builder: (context, provider, _) {
           return CustomButton(
-              buttonName: "Submit",
-              isLoading:
-                  provider.apiResponse.status == Status.LOADING ? true : false,
-              isGradient: true,
-              onTap: () async {
-                final result =
-                    _validateForm(signup: provider, context: context);
-                if (result) {
-                  await provider.signup(context);
+            buttonName: "Submit",
+            isLoading: provider.apiResponse.status == Status.LOADING,
+            isGradient: true,
+            onTap: () async {
+              if (_validateForm(signup: provider, context: context)) {
+                try {
+                  bool registered = await provider.signup(context);
+
+                  if (registered) {
+                    // Provide feedback that the user is registered
+                    _alertServices.showSimpleToast("Registration successful!");
+
+                    final loginProvider = Provider.of<LoginUserProvider>(context, listen: false);
+                    bool loginResult = await loginProvider.loginUser(
+                      context: context,
+                      userType: UserType.viewer,
+                      countryCode: _countryCodeController.text,
+                      mobile: _phoneNumberController.text,
+                      password: _confirmPasswordController.text,
+                    );
+
+                    // Optionally, handle loginResult if needed
+                    if (loginResult) {
+                      // Handle successful login
+                    } else {
+                      // Handle failed login
+                    }
+                  } else {
+                    _alertServices.showSimpleToast("Registration failed. Please try again.");
+                  }
+                } catch (e) {
+                  _alertServices.showSimpleToast("An error occurred: ${e.toString()}");
                 }
-              });
-        }));
+              }
+            },
+          );
+        },
+      ),
+    );
   }
+
 
   Widget _buildFileSelector(
       {File? file, required VoidCallback onTap, required String fileType}) {
@@ -858,7 +888,7 @@ class _ViewerRegistrationViewState extends State<ViewerRegistrationView>
 
   // Form extra validations
   bool _validateForm(
-      {required ViewerRegistrationViewmodel signup,
+      {required ViewerRegistrationViewModel signup,
       required BuildContext context}) {
     if (_firstNameController.text.isEmpty) {
       _alertServices.flushBarErrorMessages(

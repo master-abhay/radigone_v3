@@ -3,56 +3,58 @@ class AppUrls {
   static const String viewerBaseUrl = "https://staging.radigone.com/api/v1/user/";
 
 
-//<---------Common url start--------->
-  static get logoutUrl => "${baseUrl}v1/logout";
+  static get logoutUrl => "https://staging.radigone.com/api/v1/user/logout";
 
-  //<---------Common url end-------->
 
 
   //<-----------------User Start ---------------->
 
 
-  static get viewerRegistrationFees => "${baseUrl}v1/user/regestraionfees";
+  static get viewerRegistrationFees => "https://staging.radigone.com/api/v1/user/regestraionfees";
 
-  static get viewerRegister => '${viewerBaseUrl}register';
+  static get viewerRegister => 'https://staging.radigone.com/api/v1/user/register';
 
-  static get userLoginUrl => '${viewerBaseUrl}login';
+  static get userLoginUrl => 'https://staging.radigone.com/api/v1/user/login';
 
-  static get userForgetPasswordUrl => '${viewerBaseUrl}forgetpassword';
+  static get userForgetPasswordUrl => 'https://staging.radigone.com/api/v1/user/forgetpassword';
 
-  static get userVerifyCode => '${viewerBaseUrl}verifycode';
+  static get userVerifyCode => 'https://staging.radigone.com/api/v1/user/verifycode';
 
-  static get userResetPassword => '${viewerBaseUrl}resetpassword';
+  static get userResetPassword => 'https://staging.radigone.com/api/v1/user/resetpassword';
 
 
-  static get userDashboardAdsUrl => '${viewerBaseUrl}dashboard';
+  static get userDashboardAdsUrl => 'https://staging.radigone.com/api/v1/user/dashboard';
 
-  static get userProfileUrl => '${viewerBaseUrl}profile-info';
+  static get userProfileUrl => 'https://staging.radigone.com/api/v1/user/profile-info';
 
-  static get userProfileUpdateUrl => '${viewerBaseUrl}profile-update';
+  static get userProfileUpdateUrl => 'https://staging.radigone.com/api/v1/user/profile-update';
 
-  static get userChangePasswordUrl => '${viewerBaseUrl}change-password';
+  static get userChangePasswordUrl => 'https://staging.radigone.com/api/v1/user/change-password';
 
-  static get userRadigonePointUrl => '${viewerBaseUrl}radigone-point';
+  static get userRadigonePointUrl => 'https://staging.radigone.com/api/v1/user/radigone-point';
 
   static get userUserPointUrl => '${baseUrl}user-points';
 
   static get userRedeemRadigonePointsUrl => '${baseUrl}redeeme-points';
 
-  static get userTransactionUrl => '${viewerBaseUrl}transaction/history';
+  static get userTransactionUrl => 'https://staging.radigone.com/api/v1/user/transaction/history';
 
   static get userCreateSupportTicketUrl =>
-      '${viewerBaseUrl}support-ticket/store';
+      'https://staging.radigone.com/api/v1/user/support-ticket/store';
 
-  static get userMyTicketsUrl => '${viewerBaseUrl}support-tickets';
+  static get userMyTicketsUrl => 'https://staging.radigone.com/api/v1/user/support-tickets';
 
-  static get userCloseTicketUrl => '${viewerBaseUrl}reply-ticket/';
+  static get userCloseTicketUrl => 'https://staging.radigone.com/api/v1/user/reply-ticket/';
 
-  static get userAllAdsPreferencesUrl =>
-      'http://radigone.com/api/v1/all-ad-preferences';
+  static get userAllAdsPreferencesUrl => 'http://radigone.com/api/v1/all-ad-preferences';
 
-  static get userSelectedAdsPreferencesUrl =>
-      '${viewerBaseUrl}ad-preference/list';
+  static get userSelectedAdsPreferencesUrl => 'https://staging.radigone.com/api/v1/user/ad-preference/list';
+
+  static get viewerSmsVerification => 'https://staging.radigone.com/api/v1/user/verify-smscode';
+
+
+
+
 
 //<-----------------User End---------------->
 
@@ -63,17 +65,23 @@ class AppUrls {
 
 
 
-  static get sponsorRegistrationFees => '${baseUrl}v1/surveyor/regestraionfees';
+  static get sponsorRegistrationFees => 'https://staging.radigone.com/api/v1/surveyor/regestraionfees';
 
-  static get sponsorRegisterUrl => '${baseUrl}/v1/surveys/register';
+  static get sponsorRegisterUrl => 'https://staging.radigone.com/api/v1/surveys/register';
 
   static get sponsorProfileInformationUrl => 'https://radigone.com/api/v1/survey/survey-info';
+  static get sponsorSmsVerification => 'https://staging.radigone.com/api/v1/surveys/verify-smscode';
+
+
+
 
   //<------------Sponsor End------------>>
 
 
   //<------------Agent Start------------>>
   static get agentLoginUrl => 'https://radigone.com/api/v1/agent/login';
-  static get agentRegistrationFees => '${baseUrl}v1/agent/regestraionfees';
+  static get agentRegistrationFees => 'https://staging.radigone.com/api/v1/agent/regestraionfees';
+  static get agentSmsVerification => 'https://staging.radigone.com/api/v1/agent/verify-smscode';
+
 //<------------Agent End------------>
 }

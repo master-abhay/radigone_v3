@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:radigone_v3/resources/components/custom_phone_input.dart';
 import 'package:radigone_v3/utils/utils.dart';
-import 'package:radigone_v3/view/common_view/forgot_password_view.dart';
+import 'package:radigone_v3/view/common_view/forgot_password_view(enter email).dart';
 
 import '../../resources/colors.dart';
 import '../../resources/components/custom_button.dart';
@@ -166,14 +166,16 @@ class _LoginViewState extends State<LoginView> with MediaQueryMixin {
                                   width: 240,
                                   child: CustomButton(
                                       buttonName: "Login",
-                                      isLoading: widget.userType == UserType.viewer
+                                      isLoading: widget.userType ==
+                                              UserType.viewer
                                           ? provider.isLoading
                                           : widget.userType == UserType.sponsor
                                               ? Provider.of<
                                                           LoginSponsorProvider>(
                                                       context)
                                                   .isLoading
-                                              : widget.userType == UserType.agent
+                                              : widget.userType ==
+                                                      UserType.agent
                                                   ? Provider.of<
                                                               AgentLoginViewModel>(
                                                           context)
@@ -195,10 +197,13 @@ class _LoginViewState extends State<LoginView> with MediaQueryMixin {
                                             case UserType.viewer:
                                               await provider.loginUser(
                                                   context: context,
+                                                  userType: widget.userType,
                                                   countryCode:
                                                       _countryCode ?? '',
                                                   mobile: _mobile ?? "",
                                                   password: _password ?? "");
+                                              break;
+
                                             case UserType.sponsor:
                                               Provider.of<LoginSponsorProvider>(
                                                       context,

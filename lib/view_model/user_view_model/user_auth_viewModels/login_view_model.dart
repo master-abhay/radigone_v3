@@ -4,8 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/models/user_models/auth_models/login_viewer_model.dart';
 
 import '../../../repositories/user/auth_repository.dart';
+import '../../../utils/constants.dart';
+import '../../../view/common_view/sms_verification_view.dart';
 import '../../services/alert_services.dart';
 import '../../services/auth_services.dart';
 import '../../services/flutter_secure_storage/secure_storage.dart';
@@ -40,7 +43,7 @@ class LoginUserProvider with ChangeNotifier {
     }
   }
 
-  set setPassword(String? password){
+  set setPassword(String? password) {
     if (password != null && password.isNotEmpty) {
       _password = password;
       if (kDebugMode) {
@@ -74,6 +77,7 @@ class LoginUserProvider with ChangeNotifier {
 
   Future<bool> loginUser({
     required BuildContext context,
+    required UserType userType,
     required String countryCode,
     required String mobile,
     required String password,
@@ -83,7 +87,9 @@ class LoginUserProvider with ChangeNotifier {
     setMobile = mobile;
     setPassword = password;
 
-    final Map<String, String> headers = {'Content-Type': 'application/json; charset=UTF-8'};
+    final Map<String, String> headers = {
+      'Content-Type': 'application/json; charset=UTF-8'
+    };
     final Map<String, String?> body = {
       "country_code": _countryCode,
       "mobile": _mobile,
@@ -96,7 +102,68 @@ class LoginUserProvider with ChangeNotifier {
         body: jsonEncode(body),
       );
 
-      await _handleLoginResponse(response, context);
+
+      await SecureStorage().writeSecureData(
+          'username', response.data?.username.toString() ?? '');
+      await SecureStorage().writeSecureData('password', _password!);
+      await SecureStorage().writeSecureData('token',
+          '${response.tokenType.toString()} ${response.token.toString()}');
+      await SecureStorage().writeSecureData(
+          'mobile', response.data?.mobile.toString() ?? '');
+      await SecureStorage().writeSecureData(
+          'id', '${response.data?.id.toString()}');
+
+
+      await _authService.saveUserName(
+          '${response.data?.firstname.toString()} ${response.data?.lastname
+              .toString()}');
+      await _authService.saveUserToken(
+          '${response.tokenType.toString()} ${response.token.toString()}');
+      await _authService.saveUserEmail('${response.data?.email.toString()}');
+      await _authService.saveUserImageLink(
+          '${response.data?.image.toString()}');
+
+
+      debugPrint("sms verified: ${response.data?.sv.toString()}");
+      debugPrint("razorpay payment verified: ${response.data?.rv.toString()}");
+
+      if (response.data?.sv != 1) {
+        // Redirect to SMS verification
+        _navigationServices.goBack();
+        _navigationServices.pushReplacementCupertino(CupertinoPageRoute(
+            builder: (context) => SmsVerificationView(
+                countryCode: response.data!.countryCode!,
+                number: response.data!.mobile!,
+                password: _password!,
+                userType: userType)));
+
+
+
+        setLoading(false);
+
+        return false;
+      }
+
+      // if (response.data?.rv != 1) {
+      //   // Redirect to registration payment
+      //
+      //
+      //   setLoading(false);
+      //   return false;
+      // }
+
+      // Initialize data
+      await Provider.of<DashboardUserProvider>(context, listen: false)
+          .loginUserDashboard(context);
+      await Provider.of<UserRadigonePointViewModel>(context, listen: false)
+          .fetchUserRadigonePoint(context);
+      await Provider.of<UserPointsViewModel>(context, listen: false)
+          .fetchUserPoints(context);
+      await Provider.of<UserProfileInformationProvider>(context, listen: false)
+          .profileInformation(context);
+
+
+      _navigationServices.pushReplacementNamed('/userMainView');
 
       setLoading(false);
       return true;
@@ -110,32 +177,5 @@ class LoginUserProvider with ChangeNotifier {
     }
   }
 
-  Future<void> _handleLoginResponse(Map<String, dynamic> response, BuildContext context) async {
-    await SecureStorage().writeSecureData('username', response['data']['username']);
-    await SecureStorage().writeSecureData('password', _password!);
-    await SecureStorage().writeSecureData('token', '${response['token_type']} ${response['token']}');
-    await SecureStorage().writeSecureData('mobile', '${response['data']['mobile']}');
-    await SecureStorage().writeSecureData('id', '${response['data']['id']}');
-
-    await _authService.saveUserToken('${response['token_type']} ${response['token']}');
-    await _authService.saveUserName('${response['data']['firstname']} ${response['data']['lastname']}');
-    await _authService.saveUserEmail('${response['data']['email']}');
-    await _authService.saveUserImageLink('${response['data']['image']}');
-
-    if (response['data']['sv'] != 1) {
-      // Redirect to SMS verification
-    }
-
-    if (response['data']['rv'] != 1) {
-      // Redirect to registration payment
-    }
-
-    // Initialize data
-    await Provider.of<DashboardUserProvider>(context, listen: false).loginUserDashboard(context);
-    await Provider.of<UserRadigonePointViewModel>(context, listen: false).fetchUserRadigonePoint(context);
-    await Provider.of<UserPointsViewModel>(context, listen: false).fetchUserPoints(context);
-    await Provider.of<UserProfileInformationProvider>(context, listen: false).profileInformation(context);
-
-    _navigationServices.pushReplacementNamed('/userMainView');
-  }
 }
+

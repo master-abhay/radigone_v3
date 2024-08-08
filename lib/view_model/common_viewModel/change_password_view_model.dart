@@ -82,8 +82,8 @@ class ChangePasswordUserProvider with ChangeNotifier {
 
     var body = jsonEncode({
       'current_password': _currentPassword ?? '',
-      'password': _password ?? '',
-      'password_confirmation': _confirmPassword ?? '',
+      'new_password': _password ?? '',
+      'new_password_confirmation': _confirmPassword ?? '',
     });
 
 

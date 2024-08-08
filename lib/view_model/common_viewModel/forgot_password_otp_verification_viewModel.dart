@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:radigone_v3/repositories/sponsor/auth_repository.dart';
 import 'package:radigone_v3/repositories/user/auth_repository.dart';
-import 'package:radigone_v3/view/common_view/reset_password_view.dart';
+import 'package:radigone_v3/view/common_view/forgot_password_reset_password_view.dart';
 import 'package:radigone_v3/view_model/services/alert_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
 

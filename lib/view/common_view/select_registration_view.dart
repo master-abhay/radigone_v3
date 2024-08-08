@@ -198,7 +198,7 @@ class _SelectRegistrationPageState extends State<SelectRegistrationPage> {
       isLoadingViewer = true;
     });
     await Future.delayed(const Duration(seconds: 1)); // Simulate loading delay
-    _navigationServices.pushCupertino(CupertinoPageRoute(
+    _navigationServices.pushReplacementCupertino(CupertinoPageRoute(
         builder: (context) => const ViewerRegistrationView()));
     setState(() {
       isLoadingViewer = false;
@@ -210,7 +210,7 @@ class _SelectRegistrationPageState extends State<SelectRegistrationPage> {
       isLoadingSponsor = true;
     });
     await Future.delayed(const Duration(seconds: 1)); // Simulate loading delay
-    _navigationServices.pushCupertino(CupertinoPageRoute(
+    _navigationServices.pushReplacementCupertino(CupertinoPageRoute(
         builder: (context) =>
             const SponsorRegistrationView(userType: UserType.sponsor)));
     setState(() {
@@ -223,7 +223,7 @@ class _SelectRegistrationPageState extends State<SelectRegistrationPage> {
       isLoadingAgent = true;
     });
     await Future.delayed(const Duration(seconds: 1)); // Simulate loading delay
-    _navigationServices.pushCupertino(CupertinoPageRoute(
+    _navigationServices.pushReplacementCupertino(CupertinoPageRoute(
         builder: (context) => const SponsorRegistrationView(
               userType: UserType.agent,
             )));

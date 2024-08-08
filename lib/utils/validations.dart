@@ -157,7 +157,7 @@ class Validations {
   // PIN Code Validation:
   static bool isPinCodeValid(String pinCode) {
     // Validate if the PIN code is exactly 5 or 6 digits long
-    final regex = RegExp(r'^\d{5,6}$');
+    final regex = RegExp(r'^\d{6}$');
     return regex.hasMatch(pinCode);
   }
 
@@ -333,7 +333,7 @@ class ErrorText {
       return "PIN code can't be empty";
     } else if (!Validations.isPinCodeValid(pinCode)) {
       return "Invalid PIN code.\n"
-          "• Must be 5 or 6 digits long.\n"
+          "• Must be at least 6 digits long.\n"
           "• Please ensure the PIN code is numeric.";
     }
     return null;

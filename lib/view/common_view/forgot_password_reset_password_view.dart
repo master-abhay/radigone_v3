@@ -9,7 +9,7 @@ import '../../resources/colors.dart';
 import '../../resources/components/custom_button.dart';
 import '../../resources/components/custom_text_field.dart';
 import '../../utils/constants.dart';
-import '../../view_model/common_viewModel/reset_password_viewModel.dart';
+import '../../view_model/common_viewModel/forgot_password_reset_password_viewModel.dart';
 import '../../view_model/services/navigation_services.dart';
 
 class ResetPassword extends StatefulWidget {
