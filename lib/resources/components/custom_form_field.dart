@@ -77,7 +77,7 @@ class _CustomTextFieldState extends State<CustomFormField> {
     final screenWidth = MediaQuery.of(context).size.width;
     final contentPaddingHorizontal = screenWidth * 0.03;
     final hintFontSize = screenWidth * 0.04;
-    final labelFontSize = screenWidth * 0.045;
+    final labelFontSize = screenWidth * 0.035;
 
     return TextFormField(
       onTap: widget.onTap,
@@ -91,7 +91,9 @@ class _CustomTextFieldState extends State<CustomFormField> {
           widget.textCapitalization ?? TextCapitalization.sentences,
       onSaved: widget.onSaved,
       initialValue: widget.initialValue,
-      decoration: InputDecoration(
+      decoration:
+
+      InputDecoration(
         errorText: widget.errorText,
         prefixIcon: widget.titleOptions != null
             ? Padding(
@@ -162,10 +164,9 @@ class _CustomTextFieldState extends State<CustomFormField> {
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: Colors.white),
         ),
-        labelText: widget.hintText,
-        labelStyle: TextStyle(
-          color: Colors.white.withOpacity(0.65),
-          fontSize: labelFontSize,
+        label: Text(
+          widget.hintText,
+          style: TextStyle(color: Colors.white.withOpacity(0.65), fontSize: labelFontSize),
         ),
         filled: true,
         fillColor: Colors.black.withOpacity(0.3),

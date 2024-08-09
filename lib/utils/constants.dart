@@ -20,6 +20,28 @@ class Constants {
 
 
 
+ // Define the list of Firm types as static
+ static const List<String> firmTypes = [
+  'Company',
+  'Private Limited',
+  'Partnership',
+  'Proprietorship',
+  'LLP',
+  'OPC'
+ ];
+
+ // Define the map for Multiple Login Required options as static
+ static const Map<String, List<String>> multipleLoginOptions = {
+  'No': [],
+  'Yes': ['2', '3', '4'],
+ };
+
+ // Define the list of title options as static
+ static const List<String> titleOptions = ['Mr', 'Ms', 'Mrs', 'Dr'];
+
+
+
+
 }
 
 enum UserType {viewer,sponsor,agent}

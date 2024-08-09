@@ -38,6 +38,10 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    final labelFontSize = screenWidth * 0.035;
+
     return TextField(
       readOnly: widget.readOnly ?? false,
       focusNode: widget.currentFocusNode,
@@ -76,9 +80,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
         focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: const BorderSide(color: Colors.white)),
-        labelText: widget.hintText,
-        labelStyle:
-            TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 15),
+        label: Text(
+          widget.hintText,
+          style: TextStyle(color: Colors.white.withOpacity(0.65), fontSize: labelFontSize),
+        ),
         filled: widget.filled ?? true,
         fillColor: Colors.black12,
       ),

@@ -1,10 +1,9 @@
 /// success : true
 /// message : "surveyor Registered Successfully"
-/// data : {"firstname":"Abhay","lastname":"Kumar","email":"abhay71052@gmail.com","username":"abhayKumarMaster","ref_by":null,"mobile":"+918091771052","agent_id":0,"is_check":1,"address":{"address":null,"state":null,"zip":null,"country":null,"city":null},"bought_views":100000,"total_views":0,"status":1,"ev":1,"sv":0,"ts":0,"tv":1,"post_arrangement":0,"post_arrangement_mode":0,"title":null,"business_cat":null,"business_subcat":null,"profiling_service":null,"multi_login":0,"num_login":0,"registration_fees":1,"firm_name":null,"firm_type":null,"firm_gstin":null,"designation":null,"pan":null,"isfirm":0,"user_id":"AbhKum000","updated_at":"2024-05-21T08:58:03.000000Z","created_at":"2024-05-21T08:58:03.000000Z","id":26,"id_proof":"/uploads/pan_card/1716281883-pan_card.png","address_proof":"/uploads/address_proof/1716281883-address_proof.png"}
-library;
+/// data : {"firstname":"Abhay","lastname":"Kumar","email":"abhay@gmail.com","username":"abhay123","ref_by":null,"mobile":"0000000009","country_code":"91","agent_id":0,"is_check":1,"address":{"address":"sector 82 mohali,punjab","state":"Punjab","zip":"251001","country":"India","city":"Mohali"},"bought_views":100000,"total_views":0,"status":1,"ev":1,"sv":0,"ts":0,"tv":1,"ver_code":813599,"ver_code_send_at":"2024-08-09T08:28:33.000000Z","post_arrangement":0,"post_arrangement_mode":0,"title":"MR","business_cat":"3","business_subcat":"hockey","profiling_service":"ggwtwtrgwg","multi_login":1,"dynamic_login":3,"registration_fees":1,"firm_name":"grtgwer","firm_type":"Company","firm_gstin":"gerwgwvvrgwe","designation":"vrwgwg","pan":null,"isfirm":1,"user_id":"AbhKum251","updated_at":"2024-08-09T08:28:33.000000Z","created_at":"2024-08-09T08:28:33.000000Z","id":28,"id_proof":"/uploads/pan_card/1723192113-pan_card.jpg","address_proof":"/uploads/address_proof/1723192113-address_proof.jpg"}
 
-class SponserRegistrationModel {
-  SponserRegistrationModel({
+class SponsorRegisterModel {
+  SponsorRegisterModel({
     bool? success,
     String? message,
     Data? data,}){
@@ -13,7 +12,7 @@ class SponserRegistrationModel {
     _data = data;
   }
 
-  SponserRegistrationModel.fromJson(dynamic json) {
+  SponsorRegisterModel.fromJson(dynamic json) {
     _success = json['success'];
     _message = json['message'];
     _data = json['data'] != null ? Data.fromJson(json['data']) : null;
@@ -21,10 +20,10 @@ class SponserRegistrationModel {
   bool? _success;
   String? _message;
   Data? _data;
-  SponserRegistrationModel copyWith({  bool? success,
+  SponsorRegisterModel copyWith({  bool? success,
     String? message,
     Data? data,
-  }) => SponserRegistrationModel(  success: success ?? _success,
+  }) => SponsorRegisterModel(  success: success ?? _success,
     message: message ?? _message,
     data: data ?? _data,
   );
@@ -46,13 +45,14 @@ class SponserRegistrationModel {
 
 /// firstname : "Abhay"
 /// lastname : "Kumar"
-/// email : "abhay71052@gmail.com"
-/// username : "abhayKumarMaster"
+/// email : "abhay@gmail.com"
+/// username : "abhay123"
 /// ref_by : null
-/// mobile : "+918091771052"
+/// mobile : "0000000009"
+/// country_code : "91"
 /// agent_id : 0
 /// is_check : 1
-/// address : {"address":null,"state":null,"zip":null,"country":null,"city":null}
+/// address : {"address":"sector 82 mohali,punjab","state":"Punjab","zip":"251001","country":"India","city":"Mohali"}
 /// bought_views : 100000
 /// total_views : 0
 /// status : 1
@@ -60,27 +60,29 @@ class SponserRegistrationModel {
 /// sv : 0
 /// ts : 0
 /// tv : 1
+/// ver_code : 813599
+/// ver_code_send_at : "2024-08-09T08:28:33.000000Z"
 /// post_arrangement : 0
 /// post_arrangement_mode : 0
-/// title : null
-/// business_cat : null
-/// business_subcat : null
-/// profiling_service : null
-/// multi_login : 0
-/// num_login : 0
+/// title : "MR"
+/// business_cat : "3"
+/// business_subcat : "hockey"
+/// profiling_service : "ggwtwtrgwg"
+/// multi_login : 1
+/// dynamic_login : 3
 /// registration_fees : 1
-/// firm_name : null
-/// firm_type : null
-/// firm_gstin : null
-/// designation : null
+/// firm_name : "grtgwer"
+/// firm_type : "Company"
+/// firm_gstin : "gerwgwvvrgwe"
+/// designation : "vrwgwg"
 /// pan : null
-/// isfirm : 0
-/// user_id : "AbhKum000"
-/// updated_at : "2024-05-21T08:58:03.000000Z"
-/// created_at : "2024-05-21T08:58:03.000000Z"
-/// id : 26
-/// id_proof : "/uploads/pan_card/1716281883-pan_card.png"
-/// address_proof : "/uploads/address_proof/1716281883-address_proof.png"
+/// isfirm : 1
+/// user_id : "AbhKum251"
+/// updated_at : "2024-08-09T08:28:33.000000Z"
+/// created_at : "2024-08-09T08:28:33.000000Z"
+/// id : 28
+/// id_proof : "/uploads/pan_card/1723192113-pan_card.jpg"
+/// address_proof : "/uploads/address_proof/1723192113-address_proof.jpg"
 
 class Data {
   Data({
@@ -90,35 +92,38 @@ class Data {
     String? username,
     dynamic refBy,
     String? mobile,
-    num? agentId,
-    num? isCheck,
+    String? countryCode,
+    dynamic? agentId,
+    dynamic? isCheck,
     Address? address,
-    num? boughtViews,
-    num? totalViews,
-    num? status,
-    num? ev,
-    num? sv,
-    num? ts,
-    num? tv,
-    num? postArrangement,
-    num? postArrangementMode,
-    dynamic title,
-    dynamic businessCat,
-    dynamic businessSubcat,
-    dynamic profilingService,
-    num? multiLogin,
-    num? numLogin,
-    num? registrationFees,
-    dynamic firmName,
-    dynamic firmType,
-    dynamic firmGstin,
-    dynamic designation,
+    dynamic? boughtViews,
+    dynamic? totalViews,
+    dynamic? status,
+    dynamic? ev,
+    dynamic? sv,
+    dynamic? ts,
+    dynamic? tv,
+    dynamic? verCode,
+    String? verCodeSendAt,
+    dynamic? postArrangement,
+    dynamic? postArrangementMode,
+    String? title,
+    String? businessCat,
+    String? businessSubcat,
+    String? profilingService,
+    dynamic? multiLogin,
+    dynamic? dynamicLogin,
+    dynamic? registrationFees,
+    String? firmName,
+    String? firmType,
+    String? firmGstin,
+    String? designation,
     dynamic pan,
-    num? isfirm,
+    dynamic? isfirm,
     String? userId,
     String? updatedAt,
     String? createdAt,
-    num? id,
+    dynamic? id,
     String? idProof,
     String? addressProof,}){
     _firstname = firstname;
@@ -127,6 +132,7 @@ class Data {
     _username = username;
     _refBy = refBy;
     _mobile = mobile;
+    _countryCode = countryCode;
     _agentId = agentId;
     _isCheck = isCheck;
     _address = address;
@@ -137,6 +143,8 @@ class Data {
     _sv = sv;
     _ts = ts;
     _tv = tv;
+    _verCode = verCode;
+    _verCodeSendAt = verCodeSendAt;
     _postArrangement = postArrangement;
     _postArrangementMode = postArrangementMode;
     _title = title;
@@ -144,7 +152,7 @@ class Data {
     _businessSubcat = businessSubcat;
     _profilingService = profilingService;
     _multiLogin = multiLogin;
-    _numLogin = numLogin;
+    _dynamicLogin = dynamicLogin;
     _registrationFees = registrationFees;
     _firmName = firmName;
     _firmType = firmType;
@@ -167,6 +175,7 @@ class Data {
     _username = json['username'];
     _refBy = json['ref_by'];
     _mobile = json['mobile'];
+    _countryCode = json['country_code'];
     _agentId = json['agent_id'];
     _isCheck = json['is_check'];
     _address = json['address'] != null ? Address.fromJson(json['address']) : null;
@@ -177,6 +186,8 @@ class Data {
     _sv = json['sv'];
     _ts = json['ts'];
     _tv = json['tv'];
+    _verCode = json['ver_code'];
+    _verCodeSendAt = json['ver_code_send_at'];
     _postArrangement = json['post_arrangement'];
     _postArrangementMode = json['post_arrangement_mode'];
     _title = json['title'];
@@ -184,7 +195,7 @@ class Data {
     _businessSubcat = json['business_subcat'];
     _profilingService = json['profiling_service'];
     _multiLogin = json['multi_login'];
-    _numLogin = json['num_login'];
+    _dynamicLogin = json['dynamic_login'];
     _registrationFees = json['registration_fees'];
     _firmName = json['firm_name'];
     _firmType = json['firm_type'];
@@ -205,35 +216,38 @@ class Data {
   String? _username;
   dynamic _refBy;
   String? _mobile;
-  num? _agentId;
-  num? _isCheck;
+  String? _countryCode;
+  dynamic? _agentId;
+  dynamic? _isCheck;
   Address? _address;
-  num? _boughtViews;
-  num? _totalViews;
-  num? _status;
-  num? _ev;
-  num? _sv;
-  num? _ts;
-  num? _tv;
-  num? _postArrangement;
-  num? _postArrangementMode;
-  dynamic _title;
-  dynamic _businessCat;
-  dynamic _businessSubcat;
-  dynamic _profilingService;
-  num? _multiLogin;
-  num? _numLogin;
-  num? _registrationFees;
-  dynamic _firmName;
-  dynamic _firmType;
-  dynamic _firmGstin;
-  dynamic _designation;
+  dynamic? _boughtViews;
+  dynamic? _totalViews;
+  dynamic? _status;
+  dynamic? _ev;
+  dynamic? _sv;
+  dynamic? _ts;
+  dynamic? _tv;
+  dynamic? _verCode;
+  String? _verCodeSendAt;
+  dynamic? _postArrangement;
+  dynamic? _postArrangementMode;
+  String? _title;
+  String? _businessCat;
+  String? _businessSubcat;
+  String? _profilingService;
+  dynamic? _multiLogin;
+  dynamic? _dynamicLogin;
+  dynamic? _registrationFees;
+  String? _firmName;
+  String? _firmType;
+  String? _firmGstin;
+  String? _designation;
   dynamic _pan;
-  num? _isfirm;
+  dynamic? _isfirm;
   String? _userId;
   String? _updatedAt;
   String? _createdAt;
-  num? _id;
+  dynamic? _id;
   String? _idProof;
   String? _addressProof;
   Data copyWith({  String? firstname,
@@ -242,35 +256,38 @@ class Data {
     String? username,
     dynamic refBy,
     String? mobile,
-    num? agentId,
-    num? isCheck,
+    String? countryCode,
+    dynamic? agentId,
+    dynamic? isCheck,
     Address? address,
-    num? boughtViews,
-    num? totalViews,
-    num? status,
-    num? ev,
-    num? sv,
-    num? ts,
-    num? tv,
-    num? postArrangement,
-    num? postArrangementMode,
-    dynamic title,
-    dynamic businessCat,
-    dynamic businessSubcat,
-    dynamic profilingService,
-    num? multiLogin,
-    num? numLogin,
-    num? registrationFees,
-    dynamic firmName,
-    dynamic firmType,
-    dynamic firmGstin,
-    dynamic designation,
+    dynamic? boughtViews,
+    dynamic? totalViews,
+    dynamic? status,
+    dynamic? ev,
+    dynamic? sv,
+    dynamic? ts,
+    dynamic? tv,
+    dynamic? verCode,
+    String? verCodeSendAt,
+    dynamic? postArrangement,
+    dynamic? postArrangementMode,
+    String? title,
+    String? businessCat,
+    String? businessSubcat,
+    String? profilingService,
+    dynamic? multiLogin,
+    dynamic? dynamicLogin,
+    dynamic? registrationFees,
+    String? firmName,
+    String? firmType,
+    String? firmGstin,
+    String? designation,
     dynamic pan,
-    num? isfirm,
+    dynamic? isfirm,
     String? userId,
     String? updatedAt,
     String? createdAt,
-    num? id,
+    dynamic? id,
     String? idProof,
     String? addressProof,
   }) => Data(  firstname: firstname ?? _firstname,
@@ -279,6 +296,7 @@ class Data {
     username: username ?? _username,
     refBy: refBy ?? _refBy,
     mobile: mobile ?? _mobile,
+    countryCode: countryCode ?? _countryCode,
     agentId: agentId ?? _agentId,
     isCheck: isCheck ?? _isCheck,
     address: address ?? _address,
@@ -289,6 +307,8 @@ class Data {
     sv: sv ?? _sv,
     ts: ts ?? _ts,
     tv: tv ?? _tv,
+    verCode: verCode ?? _verCode,
+    verCodeSendAt: verCodeSendAt ?? _verCodeSendAt,
     postArrangement: postArrangement ?? _postArrangement,
     postArrangementMode: postArrangementMode ?? _postArrangementMode,
     title: title ?? _title,
@@ -296,7 +316,7 @@ class Data {
     businessSubcat: businessSubcat ?? _businessSubcat,
     profilingService: profilingService ?? _profilingService,
     multiLogin: multiLogin ?? _multiLogin,
-    numLogin: numLogin ?? _numLogin,
+    dynamicLogin: dynamicLogin ?? _dynamicLogin,
     registrationFees: registrationFees ?? _registrationFees,
     firmName: firmName ?? _firmName,
     firmType: firmType ?? _firmType,
@@ -317,35 +337,38 @@ class Data {
   String? get username => _username;
   dynamic get refBy => _refBy;
   String? get mobile => _mobile;
-  num? get agentId => _agentId;
-  num? get isCheck => _isCheck;
+  String? get countryCode => _countryCode;
+  dynamic? get agentId => _agentId;
+  dynamic? get isCheck => _isCheck;
   Address? get address => _address;
-  num? get boughtViews => _boughtViews;
-  num? get totalViews => _totalViews;
-  num? get status => _status;
-  num? get ev => _ev;
-  num? get sv => _sv;
-  num? get ts => _ts;
-  num? get tv => _tv;
-  num? get postArrangement => _postArrangement;
-  num? get postArrangementMode => _postArrangementMode;
-  dynamic get title => _title;
-  dynamic get businessCat => _businessCat;
-  dynamic get businessSubcat => _businessSubcat;
-  dynamic get profilingService => _profilingService;
-  num? get multiLogin => _multiLogin;
-  num? get numLogin => _numLogin;
-  num? get registrationFees => _registrationFees;
-  dynamic get firmName => _firmName;
-  dynamic get firmType => _firmType;
-  dynamic get firmGstin => _firmGstin;
-  dynamic get designation => _designation;
+  dynamic? get boughtViews => _boughtViews;
+  dynamic? get totalViews => _totalViews;
+  dynamic? get status => _status;
+  dynamic? get ev => _ev;
+  dynamic? get sv => _sv;
+  dynamic? get ts => _ts;
+  dynamic? get tv => _tv;
+  dynamic? get verCode => _verCode;
+  String? get verCodeSendAt => _verCodeSendAt;
+  dynamic? get postArrangement => _postArrangement;
+  dynamic? get postArrangementMode => _postArrangementMode;
+  String? get title => _title;
+  String? get businessCat => _businessCat;
+  String? get businessSubcat => _businessSubcat;
+  String? get profilingService => _profilingService;
+  dynamic? get multiLogin => _multiLogin;
+  dynamic? get dynamicLogin => _dynamicLogin;
+  dynamic? get registrationFees => _registrationFees;
+  String? get firmName => _firmName;
+  String? get firmType => _firmType;
+  String? get firmGstin => _firmGstin;
+  String? get designation => _designation;
   dynamic get pan => _pan;
-  num? get isfirm => _isfirm;
+  dynamic? get isfirm => _isfirm;
   String? get userId => _userId;
   String? get updatedAt => _updatedAt;
   String? get createdAt => _createdAt;
-  num? get id => _id;
+  dynamic? get id => _id;
   String? get idProof => _idProof;
   String? get addressProof => _addressProof;
 
@@ -357,6 +380,7 @@ class Data {
     map['username'] = _username;
     map['ref_by'] = _refBy;
     map['mobile'] = _mobile;
+    map['country_code'] = _countryCode;
     map['agent_id'] = _agentId;
     map['is_check'] = _isCheck;
     if (_address != null) {
@@ -369,6 +393,8 @@ class Data {
     map['sv'] = _sv;
     map['ts'] = _ts;
     map['tv'] = _tv;
+    map['ver_code'] = _verCode;
+    map['ver_code_send_at'] = _verCodeSendAt;
     map['post_arrangement'] = _postArrangement;
     map['post_arrangement_mode'] = _postArrangementMode;
     map['title'] = _title;
@@ -376,7 +402,7 @@ class Data {
     map['business_subcat'] = _businessSubcat;
     map['profiling_service'] = _profilingService;
     map['multi_login'] = _multiLogin;
-    map['num_login'] = _numLogin;
+    map['dynamic_login'] = _dynamicLogin;
     map['registration_fees'] = _registrationFees;
     map['firm_name'] = _firmName;
     map['firm_type'] = _firmType;
@@ -395,19 +421,19 @@ class Data {
 
 }
 
-/// address : null
-/// state : null
-/// zip : null
-/// country : null
-/// city : null
+/// address : "sector 82 mohali,punjab"
+/// state : "Punjab"
+/// zip : "251001"
+/// country : "India"
+/// city : "Mohali"
 
 class Address {
   Address({
-    dynamic address,
-    dynamic state,
-    dynamic zip,
-    dynamic country,
-    dynamic city,}){
+    String? address,
+    String? state,
+    String? zip,
+    String? country,
+    String? city,}){
     _address = address;
     _state = state;
     _zip = zip;
@@ -422,27 +448,27 @@ class Address {
     _country = json['country'];
     _city = json['city'];
   }
-  dynamic _address;
-  dynamic _state;
-  dynamic _zip;
-  dynamic _country;
-  dynamic _city;
-  Address copyWith({  dynamic address,
-    dynamic state,
-    dynamic zip,
-    dynamic country,
-    dynamic city,
+  String? _address;
+  String? _state;
+  String? _zip;
+  String? _country;
+  String? _city;
+  Address copyWith({  String? address,
+    String? state,
+    String? zip,
+    String? country,
+    String? city,
   }) => Address(  address: address ?? _address,
     state: state ?? _state,
     zip: zip ?? _zip,
     country: country ?? _country,
     city: city ?? _city,
   );
-  dynamic get address => _address;
-  dynamic get state => _state;
-  dynamic get zip => _zip;
-  dynamic get country => _country;
-  dynamic get city => _city;
+  String? get address => _address;
+  String? get state => _state;
+  String? get zip => _zip;
+  String? get country => _country;
+  String? get city => _city;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

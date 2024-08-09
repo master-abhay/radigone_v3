@@ -67,7 +67,7 @@ class AppUrls {
 
   static get sponsorRegistrationFees => 'https://staging.radigone.com/api/v1/surveyor/regestraionfees';
 
-  static get sponsorRegisterUrl => 'https://staging.radigone.com/api/v1/surveys/register';
+  static get registerSponsor => 'https://staging.radigone.com/api/v1/surveys/register';
 
   static get sponsorProfileInformationUrl => 'https://radigone.com/api/v1/survey/survey-info';
   static get sponsorSmsVerification => 'https://staging.radigone.com/api/v1/surveys/verify-smscode';
@@ -84,4 +84,9 @@ class AppUrls {
   static get agentSmsVerification => 'https://staging.radigone.com/api/v1/agent/verify-smscode';
 
 //<------------Agent End------------>
+
+
+  static get getBusinessCategories => 'https://staging.radigone.com/api/v1/surveys/categories';
+
+
 }

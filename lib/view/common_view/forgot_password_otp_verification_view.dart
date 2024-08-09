@@ -174,21 +174,21 @@ class _UserOtpVerificationViewState extends State<UserOtpVerificationView> {
 
                   switch (widget.userType) {
                     case UserType.viewer:
-                      result = await provider.viewerVerifyOtp(
+                      result = await provider.verifyOtpForUser(
                         userType: widget.userType,
                           context: context,
                           emailAddress: widget.emailAddress,
                           code: pin.toString());
                       break;
                     case UserType.sponsor:
-                      result = await provider.sponsorVerifyOtp(
+                      result = await provider.verifyOtpForSponsor(
                         userType: widget.userType,
                           context: context,
                           emailAddress: widget.emailAddress,
                           code: pin.toString());
                       break;
                     case UserType.agent:
-                     result =  await provider.agentVerifyOtp(
+                     result =  await provider.verifyOtpForAgent(
                        userType: widget.userType,
                           context: context,
                           emailAddress: widget.emailAddress,
@@ -216,21 +216,21 @@ class _UserOtpVerificationViewState extends State<UserOtpVerificationView> {
 
                   switch (widget.userType) {
                     case UserType.viewer:
-                      result = await provider.viewerVerifyOtp(
+                      result = await provider.verifyOtpForUser(
                           userType: widget.userType,
                           context: context,
                           emailAddress: widget.emailAddress,
                           code: otp.toString());
                       break;
                     case UserType.sponsor:
-                      result = await provider.sponsorVerifyOtp(
+                      result = await provider.verifyOtpForSponsor(
                           userType: widget.userType,
                           context: context,
                           emailAddress: widget.emailAddress,
                           code: otp.toString());
                       break;
                     case UserType.agent:
-                      result =  await provider.agentVerifyOtp(
+                      result =  await provider.verifyOtpForAgent(
                           userType: widget.userType,
                           context: context,
                           emailAddress: widget.emailAddress,

@@ -9,6 +9,13 @@ class CustomInputDecoration {
     Color fillColor = Colors.black12,
     bool alignLabelWithHint = true,
   }) {
+
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    final contentPaddingHorizontal = screenWidth * 0.02;
+    final contentPaddingVertical = screenWidth * 0.01;
+    final fontSize = screenWidth * 0.04;
+    final labelFontSize = screenWidth * 0.035;
     return InputDecoration(
       errorStyle: TextStyle(color: Colors.white.withOpacity(1)),
       contentPadding: EdgeInsets.symmetric(
@@ -40,10 +47,14 @@ class CustomInputDecoration {
         borderRadius: BorderRadius.circular(8),
         borderSide: const BorderSide(color: Colors.white),
       ),
-      labelText: hintText,
-      labelStyle: TextStyle(color: Colors.white.withOpacity(0.65), fontSize: 15),
+      label: Text(
+        hintText,
+        style: TextStyle(color: Colors.white.withOpacity(0.65), fontSize: labelFontSize),
+      ),
       filled: filled,
       fillColor: fillColor,
+
+
     );
   }
 }

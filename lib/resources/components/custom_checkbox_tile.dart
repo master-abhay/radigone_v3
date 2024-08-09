@@ -35,6 +35,11 @@ class CustomCheckBoxTile extends StatelessWidget {
         dense: true,
         fillColor: _getFillColor(),
         splashRadius: 10,
+        activeColor: Colors.white,
+        overlayColor: MaterialStateProperty.resolveWith((states) {
+          return Colors.blueAccent;
+        }),
+        side: const BorderSide(color: Colors.white),
         title: Text(
           title.toString(),
           style: const TextStyle(color: Colors.white),

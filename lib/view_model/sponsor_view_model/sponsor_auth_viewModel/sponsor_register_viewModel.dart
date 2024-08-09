@@ -10,9 +10,9 @@
 // import '../services/alert_services.dart';
 //
 //
-// class RegisterSponsorProvider with ChangeNotifier {
+// class SponsorRegisterViewModel with ChangeNotifier {
 //   late AlertServices _alertServices;
-//   RegisterSponsorProvider() {
+//   SponsorRegisterViewModel() {
 //     final GetIt getIt = GetIt.instance;
 //     _alertServices = getIt.get<AlertServices>();
 //   }
@@ -331,7 +331,6 @@
 //   }
 // }
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -339,284 +338,333 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
+import 'package:radigone_v3/models/sponsor_models/sponsor_register_model.dart';
 import 'package:radigone_v3/repositories/sponsor/auth_repository.dart';
 
-import '../services/alert_services.dart';
+import '../../../data/response/ApiResponse.dart';
+import '../../services/alert_services.dart';
 
-
-class RegisterSponsorProvider with ChangeNotifier {
+class SponsorRegisterViewModel with ChangeNotifier {
   late AlertServices _alertServices;
-  RegisterSponsorProvider() {
+
+  SponsorRegisterViewModel() {
     final GetIt getIt = GetIt.instance;
     _alertServices = getIt.get<AlertServices>();
   }
 
-  String? _firmName,
-      _firmType,
-      _gstNumber,
-      _designation,
-      _firstName,
-      _lastName,
-      _userName,
-      _phoneNumber,
-      _registrationFees,
-      _postpaidArrangementRequired,
-      _address,
-      _city,
-      _state,
-      _pinCode,
-      _country,
-      _countryCode,
-      _email,
-      _panNumber,
-      _password,
-      _confirmPassword;
-  String _businessCategory = "Not Selected";
-  String _businessSubCategory = "Not Selected";
-  String _multipleLoginRequired = "Not Selected";
-  String _numberOfLoginRequired = "Not Selected";
+// Variables for storing values
+  String? _firmName;
+  String? _firmType;
+  String? _gstNumber;
+  String? _designation;
+  String? _selectedTitle;
+  String? _firstName;
+  String? _lastName;
+  String? _username;
+  String? _countryCode;
+  String? _phoneNumber;
+  String? _businessCategory;
+  String? _businessSubCategory;
+  String? _multipleLoginRequired;
+  String? _numberOfLoginRequired;
+  String? _postPaidArrangement;
+  String? _profileServices;
+  String? _address;
+  String? _city;
+  String? _state;
+  String? _pinCode;
+  String? _country;
+  String? _email;
+  String? _password;
+  String? _confirmPassword;
+  String? _panNumber;
 
-  // String? _businessCategory,_businessSubCategory;
+  File? _panCardFile;
+  File? _addressProofFile;
 
-  File? _addressProof, _panCard;
+  // Getters
+  String? get firmName => _firmName;
 
-  bool _isLoading = false;
+  String? get firmType => _firmType;
 
-  bool get loading => _isLoading;
+  String? get gstNumber => _gstNumber;
 
-  void isLoading(bool value) {
-    _isLoading = value;
+  String? get designation => _designation;
+
+  String? get selectedTitle => _selectedTitle;
+
+  String? get firstName => _firstName;
+
+  String? get lastName => _lastName;
+
+  String? get username => _username;
+
+  String? get countryCode => _countryCode;
+
+  String? get phoneNumber => _phoneNumber;
+
+  String? get businessCategory => _businessCategory;
+
+  String? get businessSubCategory => _businessSubCategory;
+
+  String? get multipleLoginRequired => _multipleLoginRequired;
+
+  String? get numberOfLoginRequired => _numberOfLoginRequired;
+
+  String? get postPaidArrangement => _postPaidArrangement;
+
+  String? get profileServices => _profileServices;
+
+  String? get address => _address;
+
+  String? get city => _city;
+
+  String? get state => _state;
+
+  String? get pinCode => _pinCode;
+
+  String? get country => _country;
+
+  String? get email => _email;
+
+  String? get password => _password;
+
+  String? get confirmPassword => _confirmPassword;
+
+  String? get panNumber => _panNumber;
+
+  // Setters using set syntax with names like setFirmName
+  set setFirmName(String? value) {
+    _firmName = value;
     notifyListeners();
   }
 
-  void firmName(String? element) {
-    _firmName = element;
+  set setFirmType(String? value) {
+    _firmType = value;
     notifyListeners();
   }
 
-  void firmType(String? element) {
-    _firmType = element;
+  set setGstNumber(String? value) {
+    _gstNumber = value;
     notifyListeners();
   }
 
-  void gstNumber(String? element) {
-    _gstNumber = element;
+  set setDesignation(String? value) {
+    _designation = value;
     notifyListeners();
   }
 
-  void designation(String? element) {
-    _designation = element;
+  set setSelectedTitle(String? value) {
+    _selectedTitle = value;
     notifyListeners();
   }
 
-  void firstName(String? element) {
-    _firstName = element;
+  set setFirstName(String? value) {
+    _firstName = value;
     notifyListeners();
   }
 
-  void lastName(String? element) {
-    _lastName = element;
+  set setLastName(String? value) {
+    _lastName = value;
     notifyListeners();
   }
 
-  void userName(String? element) {
-    _userName = element;
+  set setUsername(String? value) {
+    _username = value;
     notifyListeners();
   }
 
-  void phoneNumber(String? element) {
-    _phoneNumber = element;
+  set setCountryCode(String? value) {
+    _countryCode = value;
     notifyListeners();
   }
 
-  void businessCategory(String? element) {
-    _businessCategory = element ?? "Others";
+  set setPhoneNumber(String? value) {
+    _phoneNumber = value;
     notifyListeners();
   }
 
-  void businessSubCategory(String? element) {
-    _businessSubCategory = element ?? "Others";
+  set setBusinessCategory(String? value) {
+    _businessCategory = value;
     notifyListeners();
   }
 
-  void registrationFees(String? element) {
-    _registrationFees = element;
+  set setBusinessSubCategory(String? value) {
+    _businessSubCategory = value;
     notifyListeners();
   }
 
-  void multipleLoginRequired(String? element) {
-    _multipleLoginRequired = element ?? '';
+  // set setRegistrationFees(String? value) {
+  //   _registrationFees = value;
+  //   notifyListeners();
+  // }
+
+  set setMultipleLoginRequired(String? value) {
+    _multipleLoginRequired = value;
     notifyListeners();
   }
 
-  void numberOfLoginRequired(String? element) {
-    _numberOfLoginRequired = element ?? '';
+  set setNumberOfLoginRequired(String? value) {
+    _numberOfLoginRequired = value;
     notifyListeners();
   }
 
-  void postPaidArrangementRequired(String? element) {
-    _postpaidArrangementRequired = element;
+  set setPostPaidArrangement(String? value) {
+    _postPaidArrangement = value;
     notifyListeners();
   }
 
-  void address(String? element) {
-    _address = element;
+  set setProfileServices(String? value) {
+    _profileServices = value;
     notifyListeners();
   }
 
-  void pinCode(String? element) {
-    _pinCode = element;
+  set setAddress(String? value) {
+    _address = value;
     notifyListeners();
   }
 
-  void city(String? element) {
-    _city = element;
+  set setCity(String? value) {
+    _city = value;
     notifyListeners();
   }
 
-  void state(String? element) {
-    _state = element;
+  set setState(String? value) {
+    _state = value;
     notifyListeners();
   }
 
-  void country(String? element) {
-    _country = element;
+  set setPinCode(String? value) {
+    _pinCode = value;
     notifyListeners();
   }
 
-  void countryCode(String? element) {
-    _countryCode = element;
+  set setCountry(String? value) {
+    _country = value;
     notifyListeners();
   }
 
-  void email(String? element) {
-    _email = element;
+  set setEmail(String? value) {
+    _email = value;
     notifyListeners();
   }
 
-  void panNumber(String? element) {
-    _panNumber = element;
+  set setPassword(String? value) {
+    _password = value;
     notifyListeners();
   }
 
-  void panCard(File? element) {
-    _panCard = element;
+  set setConfirmPassword(String? value) {
+    _confirmPassword = value;
     notifyListeners();
   }
 
-  void addressProof(File? element) {
-    _addressProof = element;
+  set setPanNumber(String? value) {
+    _panNumber = value;
     notifyListeners();
   }
 
-  void password(String? element) {
-    _password = element;
+  set setPanProofFile(File? panProofFile) {
+    _panCardFile = panProofFile;
     notifyListeners();
   }
 
-  void confirmPassword(String? element) {
-    _confirmPassword = element;
+  set setAddressProofFile(File? addressProofFile) {
+    _addressProofFile = addressProofFile;
     notifyListeners();
   }
-
 
   final _myRepo = SponsorAuthRepository();
 
+  //*------Accessing Api Services------*
+  final SponsorAuthRepository _authenticationRepository =
+      SponsorAuthRepository();
+  ApiResponse<SponsorRegisterModel> _apiResponse = ApiResponse.none();
 
-  Future<void> SignUpSponsor() async {
+  ApiResponse<SponsorRegisterModel> get apiResponse => _apiResponse;
 
-    _phoneNumber == null
-        ? _alertServices.showToast(
-        message: "Select Country first then enter 10 digit phone Number")
-        : null;
+  set setResponse(ApiResponse<SponsorRegisterModel> response) {
+    _apiResponse = response;
+    notifyListeners();
+  }
 
-    _countryCode == null
-        ? _alertServices.showToast(
-        message:
-        "Select Country Code from Phone Number Field first then enter 10 digit phone Number")
-        : null;
+  //*------Submitting Registration Form------*
 
-    _addressProof == null
-        ? _alertServices.showToast(message: "Upload Address Proof")
-        : null;
-    _panCard == null
-        ? _alertServices.showToast(message: "Upload pan card")
-        : null;
-
+  Future<bool> registerSponsor() async {
     try {
-      isLoading(true);
+      setResponse = ApiResponse.loading();
 
-      var addressProofStream = http.ByteStream(_addressProof!.openRead());
-      var panCardStream = http.ByteStream(_panCard!.openRead());
-      var addressProofLength = await _addressProof!.length();
-      var panCardLength = await _panCard!.length();
-      var headers = {
-        'Content-Type': 'application/json',
-      };
+      // Check if the files are null before proceeding
+      if (_addressProofFile == null || _panCardFile == null) {
+        throw Exception('Address proof or Pan card proof is missing.');
+      }
 
-      var fields = {
-        'firstname': _firstName ?? "Not Selected",
-        'lastname': _lastName ?? "Not Selected",
-        'firm_name': _firmName ?? "Not Selected",
-        'firm_type': _firmType ?? "Not Selected",
-        'email': _email ?? "Not Selected",
-        'username': _userName ?? "Not Selected",
-        'mobile': _phoneNumber ?? "Not Selected",
-        'address': _address ?? "Not Selected",
-        'state': _state ?? "Not Selected",
-        'zip': _pinCode ?? "Not Selected",
-        'country_code': _countryCode ?? "Not Selected",
-        'country': _country ?? "Not Selected",
-        'city': _city ?? "Not Selected",
-        'business_cat': _businessCategory ?? "Not Selected",
-        'business_subcat': _businessSubCategory ?? "Not Selected",
-        'multi_login': _multipleLoginRequired ?? "Not Selected",
-        'num_login': _numberOfLoginRequired ?? "Not Selected",
-        'designation': _designation ?? "Not Selected",
-        'pan': _panNumber ?? "Not Selected",
-        'password': _password ?? "Not Selected",
-      };
+      var addressProofStream = http.ByteStream(_addressProofFile!.openRead());
+      var panCardStream = http.ByteStream(_panCardFile!.openRead());
+      var addressProofLength = await _addressProofFile!.length();
+      var panCardLength = await _panCardFile!.length();
 
       var panMultipartFile = http.MultipartFile(
           'pan_card', panCardStream, panCardLength,
-          filename: _panCard!.path.split('/').last,
+          filename: _panCardFile!.path.split('/').last,
           contentType: MediaType('application', 'octet-stream'));
-
 
       var addressMultipartFile = http.MultipartFile(
           'address_proof', addressProofStream, addressProofLength,
-          filename: _addressProof!.path.split('/').last,
+          filename: _addressProofFile!.path.split('/').last,
           contentType: MediaType('application', 'octet-stream'));
 
-      var files = <http.MultipartFile>[panMultipartFile,addressMultipartFile];
+      var files = <http.MultipartFile>[panMultipartFile, addressMultipartFile];
 
-      if(_password == _confirmPassword){
-        _myRepo.sponsorRegisterApi(fields: fields, files: files, headers: headers).then((value){
-          if(kDebugMode){
-            print("Api Hit Successfully");
-          }
-          isLoading(false);
-          _alertServices.showToast(message: "Sponsor Register Successfully");
-        }).onError((error,stackTrace){
-          if(kDebugMode){
-            print(error.toString());
-          }
-          _alertServices.showToast(message: error.toString());
+      //*-----Create Headers Start-----*
+      var headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+      };
+      //*-----Create Headers End-----*
 
-        });
-      }else{
-        _alertServices.showToast(message: "Password Doesn't match");
-      }
+      var fields = <String, String>{
+        'firstname': _firstName ?? '',
+        'lastname': _lastName ?? '',
+        'username': _username ?? '',
+        'mobile': _phoneNumber ?? '',
+        'address': _address ?? '',
+        'city': _city ?? '',
+        'country': _country ?? '',
+        'state': _state ?? '',
+        'email': (_email ?? '').toLowerCase(),
+        'password': _password ?? '',
+        'password_confirmation': _confirmPassword ?? '',
+        'country_code': _countryCode ?? '',
+        'zip': _pinCode ?? '',
+        'firm_name': _firmName ?? '',
+        'firm_type': _firmType ?? '',
+        'gstin': _gstNumber ?? '',
+        'designation': _designation ?? '',
+        'business': _businessCategory ?? '',
+        'subcategory': _businessSubCategory ?? '',
+        'multilogins': _multipleLoginRequired ?? '',
+        'title': _selectedTitle ?? '',
+        'numlogins': _numberOfLoginRequired ?? '',
+        'profileservices': _profileServices ?? '',
+        'post_arrangement': _postPaidArrangement ?? '',
+        'pan': _panNumber ?? '',
+      };
 
+      var response = await _authenticationRepository.registerSponsor(
+          fields: fields, files: files, headers: headers);
 
-
-
+      setResponse = ApiResponse.completed(response);
+      _alertServices.showSimpleToast(response.message.toString());
+      return true;
     } catch (e) {
-      print("Error: $e");
-      isLoading(false);
-    } finally {
-      isLoading(false);
-    }
-  }
-}
+      debugPrint("Error: $e");
 
+
+      setResponse = ApiResponse.error(e.toString());
+      _alertServices.showSimpleToast(e.toString());
+      return false;
+    }
+
+  }
+
+}

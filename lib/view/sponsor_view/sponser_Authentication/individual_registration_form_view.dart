@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/models/common/business_category_model.dart';
+import 'package:radigone_v3/resources/components/custom_checkbox_tile.dart';
 import 'package:radigone_v3/utils/utils.dart';
 
 import '../../../resources/colors.dart';
@@ -11,38 +13,41 @@ import '../../../resources/components/custom_dependent_dropdown.dart';
 import '../../../resources/components/custom_dropdown.dart';
 import '../../../resources/components/custom_form_field.dart';
 import '../../../resources/components/custom_phone_input.dart';
+import '../../../resources/components/dropdowns/business_category_dependent_dropdown.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/validations.dart';
 import '../../../view_model/services/alert_services.dart';
 import '../../../view_model/services/media_services.dart';
 import '../../../view_model/services/navigation_services.dart';
-import '../../../view_model/sponsor_view_model/sponsor_register_viewModel.dart';
+import '../../../view_model/sponsor_view_model/sponsor_auth_viewModel/sponsor_register_viewModel.dart';
 
-class SponsorRegistrationFormView extends StatefulWidget {
-  final bool isCompany;
+class IndividualRegistrationFormView extends StatefulWidget {
   final String registrationFees;
+  final List<Categories> businessCategories;
   final UserType userType;
 
-  const SponsorRegistrationFormView(
-      {super.key,
-      required this.userType,
-      required this.isCompany,
-      required this.registrationFees});
+  const IndividualRegistrationFormView({
+    super.key,
+    required this.userType,
+    required this.registrationFees,
+    required this.businessCategories,
+  });
 
   @override
-  State<SponsorRegistrationFormView> createState() =>
-      _SponsorRegistrationFormViewState();
+  State<IndividualRegistrationFormView> createState() =>
+      _IndividualRegistrationFormViewState();
 }
 
-class _SponsorRegistrationFormViewState
-    extends State<SponsorRegistrationFormView> with MediaQueryMixin {
+class _IndividualRegistrationFormViewState
+    extends State<IndividualRegistrationFormView>
+    with MediaQueryMixin, AutomaticKeepAliveClientMixin {
   //Going to integrate userRegistration Api:
 
   bool isLoading = false;
 
-  File? selectedAddressProof;
+  File? _selectedAddressProof;
 
-  File? selectedPanProof;
+  File? _selectedPanProof;
 
   bool showSpinner = false;
 
@@ -50,7 +55,6 @@ class _SponsorRegistrationFormViewState
   final ValueNotifier<bool> _confirmPasswordVisibility =
       ValueNotifier<bool>(false);
 
-  late GlobalKey<FormState> _signUpFormKey;
   final GetIt _getIt = GetIt.instance;
 
   late NavigationServices _navigationServices;
@@ -69,7 +73,7 @@ class _SponsorRegistrationFormViewState
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _countryCodeController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
-  final TextEditingController _businessCategoryController =
+  final TextEditingController _businessCategoryIdController =
       TextEditingController();
   final TextEditingController _businessSubCategoryController =
       TextEditingController();
@@ -89,18 +93,12 @@ class _SponsorRegistrationFormViewState
   final TextEditingController _pinCodeController = TextEditingController();
   final TextEditingController _countryController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _addressProofController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-  final TextEditingController _noOfLoginsController = TextEditingController();
   final TextEditingController _panNumberController = TextEditingController();
 
-  // Define FocusNodes
-  final FocusNode _firmNameFocusNode = FocusNode();
-  final FocusNode _firmTypeFocusNode = FocusNode();
-  final FocusNode _gstNumberFocusNode = FocusNode();
-  final FocusNode _designationFocusNode = FocusNode();
+
   final FocusNode _firstNameFocusNode = FocusNode();
   final FocusNode _lastNameFocusNode = FocusNode();
   final FocusNode _usernameFocusNode = FocusNode();
@@ -119,36 +117,24 @@ class _SponsorRegistrationFormViewState
   final FocusNode _pinCodeFocusNode = FocusNode();
   final FocusNode _countryFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
-  final FocusNode _addressProofFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _confirmPasswordFocusNode = FocusNode();
   final FocusNode _noOfLoginsFocusNode = FocusNode();
   final FocusNode _panNumberFocusNode = FocusNode();
 
   // Error variables
-  String? _firmNameError;
-  String? _firmTypeError;
-  String? _companyError;
-  String? _gstNumberError;
-  String? _designationError;
+
   String? _firstNameError;
   String? _lastNameError;
   String? _usernameError;
-  String? _phoneNumberError;
-  String? _businessCategoryError;
-  String? _businessSubCategoryError;
-  String? _registrationFeesError;
-  String? _profileServicesError;
   String? _addressError;
   String? _cityError;
   String? _stateError;
   String? _pinCodeError;
   String? _countryError;
   String? _emailError;
-  String? _addressProofError;
   String? _passwordError;
   String? _confirmPasswordError;
-  String? _noOfLoginsError;
   String? _panNumberError;
 
   @override
@@ -162,7 +148,7 @@ class _SponsorRegistrationFormViewState
     _lastNameController.dispose();
     _usernameController.dispose();
     _phoneNumberController.dispose();
-    _businessCategoryController.dispose();
+    _businessCategoryIdController.dispose();
     _businessSubCategoryController.dispose();
     _registrationFeesController.dispose();
     _profileServicesController.dispose();
@@ -172,16 +158,10 @@ class _SponsorRegistrationFormViewState
     _pinCodeController.dispose();
     _countryController.dispose();
     _emailController.dispose();
-    _addressProofController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
-    _noOfLoginsController.dispose();
     _panNumberController.dispose();
 
-    _firmNameFocusNode.dispose();
-    _firmTypeFocusNode.dispose();
-    _gstNumberFocusNode.dispose();
-    _designationFocusNode.dispose();
     _firstNameFocusNode.dispose();
     _lastNameFocusNode.dispose();
     _usernameFocusNode.dispose();
@@ -196,7 +176,6 @@ class _SponsorRegistrationFormViewState
     _pinCodeFocusNode.dispose();
     _countryFocusNode.dispose();
     _emailFocusNode.dispose();
-    _addressProofFocusNode.dispose();
     _passwordFocusNode.dispose();
     _confirmPasswordFocusNode.dispose();
     _noOfLoginsFocusNode.dispose();
@@ -205,63 +184,30 @@ class _SponsorRegistrationFormViewState
     super.dispose();
   }
 
-  final Map<String, List<String>> _categories = {
-    'Test11': ['test1', 'test2', 'test3'],
-    'Online Services': ['123'],
-    'OTT Platform': ['Netflix', 'HotStar', 'Prime Video', 'Other'],
-    'Sports': [
-      'Cricket',
-      'Football',
-      'Tennis',
-      'BasketBall',
-      'Hockey',
-      'other'
-    ],
-    'Mobile and Laptops': ['456'],
-    'Loans': ['Home Loan', 'Vehicle Loan', 'other'],
-    'Tour and Travels': ['Tour', 'Travels'],
-    'Gold and Jewellery': ['abc'],
-    'Clothing': ['Men', 'Women', 'Kids'],
-    'Accessories': ['Access', 'To'],
-    'Real Estate': ['Commercial', 'Residential', 'Rent', 'other'],
-    'Health': ['Wealth'],
-    'others': ['abc'],
-  };
 
-  // Define the map for Multiple Login Required options
-  final Map<String, List<String>> _multipleLoginOptions = {
-    'No': [],
-    'Yes': ['2', '3', '4'],
-  };
-
-  final List<String> titleOptions = const ['Mr', 'Ms', 'Mrs', 'Dr'];
+  bool _profileServicesCheck = false;
 
   @override
   void initState() {
     _navigationServices = _getIt.get<NavigationServices>();
     _mediaServices = _getIt.get<MediaServices>();
     _alertServices = _getIt.get<AlertServices>();
-
-    _signUpFormKey = GlobalKey<FormState>();
-
-    _selectedTitleController.text = titleOptions[0];
+    _selectedTitleController.text = Constants.titleOptions[0];
     _registrationFeesController.text = widget.registrationFees;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context); // Required for AutomaticKeepAliveClientMixin
+
     return SizedBox(
       child: buildUI(),
     );
   }
 
   Widget buildUI() {
-    return Consumer<RegisterSponsorProvider>(
-      builder: (context, providerValue, Widget? child) {
-        return mainForm();
-      },
-    );
+    return mainForm();
   }
 
   Widget mainForm() {
@@ -278,26 +224,6 @@ class _SponsorRegistrationFormViewState
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Visibility(visible: widget.isCompany, child: _firmNameField()),
-              Visibility(
-                visible: widget.isCompany,
-                child: kFormFieldHeight,
-              ),
-              Visibility(visible: widget.isCompany, child: _firmTypeField()),
-              Visibility(
-                visible: widget.isCompany,
-                child: kFormFieldHeight,
-              ),
-              Visibility(visible: widget.isCompany, child: _gstNumberField()),
-              Visibility(
-                visible: widget.isCompany,
-                child: kFormFieldHeight,
-              ),
-              Visibility(visible: widget.isCompany, child: _designationField()),
-              Visibility(
-                visible: widget.isCompany,
-                child: kFormFieldHeight,
-              ),
               _firstNameField(),
               kFormFieldHeight,
               _lastNameField(),
@@ -314,6 +240,8 @@ class _SponsorRegistrationFormViewState
               kFormFieldHeight,
               _postPaidArrangementField(),
               kFormFieldHeight,
+              _profileServicesField(),
+              kFormFieldHeight,
               _emailField(),
               kFormFieldHeight,
               _addressField(),
@@ -326,12 +254,8 @@ class _SponsorRegistrationFormViewState
               kFormFieldHeight,
               _countryField(),
               kFormFieldHeight,
-              Visibility(
-                  visible: !widget.isCompany, child: _panCardNumberField()),
-              Visibility(
-                visible: !widget.isCompany,
-                child: kFormFieldHeight,
-              ),
+              _panCardNumberField(),
+              kFormFieldHeight,
               _panAndAddressProofField(),
               kFormFieldHeight,
               _passwordField(),
@@ -346,84 +270,6 @@ class _SponsorRegistrationFormViewState
     );
   }
 
-  //*-----Firm Name Field------*
-  Widget _firmNameField() {
-    return CustomFormField(
-      controller: _firmNameController,
-      currentFocusNode: _firmNameFocusNode,
-      nextFocusNode: _firmTypeFocusNode,
-      hintText: "Firm Name",
-      obscureText: false,
-      textInputType: TextInputType.text,
-      errorText: _firmNameError,
-      onChanged: (value) {
-        if (_firmNameFocusNode.hasFocus) {
-          setState(() {
-            _firmNameError = ErrorText.getNameError(name: value!);
-          });
-        }
-      },
-    );
-  }
-
-  Widget _firmTypeField() {
-    return SingleDropdown(
-      focusNode: _firmTypeFocusNode,
-      onChanged: (value) {
-        _firmTypeController.text = value.toString();
-        FocusScope.of(context).requestFocus(_gstNumberFocusNode);
-      },
-      dropdownListData: const [
-        'Company',
-        'Private Limited',
-        'Partnership',
-        'Proprietorship',
-        'LLP',
-        'OPC'
-      ],
-      hintText: "Select Firm Type",
-      labelText: "Firm Type",
-    );
-  }
-
-//*-----Gst Number Field------*
-
-  Widget _gstNumberField() {
-    return CustomFormField(
-      controller: _gstNumberController,
-      currentFocusNode: _gstNumberFocusNode,
-      nextFocusNode: _designationFocusNode,
-      hintText: "Gst Number",
-      obscureText: false,
-      textInputType: TextInputType.text,
-      textCapitalization: TextCapitalization.characters,
-      errorText: _gstNumberError,
-      onChanged: (value) {
-        if (_gstNumberFocusNode.hasFocus) {
-          setState(() {
-            _gstNumberError = ErrorText.getGstNumberError(gstNumber: value!);
-          });
-        }
-      },
-    );
-  }
-
-  Widget _designationField() {
-    return SingleDropdown(
-      focusNode: _designationFocusNode,
-      onChanged: (value) {
-        _designationController.text = value.toString();
-        FocusScope.of(context).requestFocus(_firstNameFocusNode);
-      },
-      dropdownListData: const [
-        'Proprietor',
-        'Director',
-        'Authorized Person',
-      ],
-      hintText: "Select Designation",
-      labelText: "Designation",
-    );
-  }
 
   //*-----First Name Field------*
   Widget _firstNameField() {
@@ -435,7 +281,7 @@ class _SponsorRegistrationFormViewState
       obscureText: false,
       textInputType: TextInputType.text,
       errorText: _firstNameError,
-      titleOptions: titleOptions,
+      titleOptions: Constants.titleOptions,
       selectedTitleValue: _selectedTitleController.text,
       onTitleChanged: (value) {
         setState(() {
@@ -481,6 +327,7 @@ class _SponsorRegistrationFormViewState
       hintText: "Username",
       textInputType: TextInputType.text,
       obscureText: false,
+      textCapitalization: TextCapitalization.none,
       errorText: _usernameError,
       onChanged: (value) {
         if (_usernameFocusNode.hasFocus) {
@@ -503,8 +350,6 @@ class _SponsorRegistrationFormViewState
           _phoneNumberController.text = value!.number;
           _countryCodeController.text = value.countryCode.substring(1);
 
-          _phoneNumberError =
-              ErrorText.getPhoneNumberError(phoneNumber: value.number);
         }
       },
     );
@@ -512,32 +357,54 @@ class _SponsorRegistrationFormViewState
 
   //*-----Business Category Field------*
   Widget _businessCategoryField() {
-    return DependentDropdown(
+    return BusinessCategoryDependentDropdown(
+      categories: widget.businessCategories,
       hintText: "Business Category",
       subDropdownHintText: "Business Sub Category",
-      fillColor: Colors.black.withOpacity(0.3),
-      categories: _categories,
-      onCategoryChanged: (value) {
-        setState(() {
-          _businessCategoryController.text = value.toString();
-        });
-      },
-      onSubCategoryChanged: (value) {
-        setState(() {
-          _businessSubCategoryController.text = value.toString();
-        });
-      },
-      onCategorySaved: (value) {
-        _businessCategoryController.text = value.toString();
-      },
-      onSubCategorySaved: (value) {
-        _businessSubCategoryController.text = value.toString();
-      },
       categoryFocusNode: _businessCategoryFocusNode,
       subCategoryFocusNode: _businessSubCategoryFocusNode,
-      nextFocusNode: _registrationFeesFocusNode,
+      nextFocusNode: _multipleLoginRequiredFocusNode,
+      fillColor: Colors.black.withOpacity(0.3),
+      initialCategory: null,
+      // Pass initial values if available
+      initialSubCategory: null,
+      onCategoryChanged: (categoryId) {
+        // Handle category change
+        _businessCategoryIdController.text = categoryId.toString();
+      },
+      onSubCategoryChanged: (subCategory) {
+        // Handle subcategory change
+        _businessSubCategoryController.text = subCategory.toString();
+      },
     );
   }
+
+  //   return DependentDropdown(
+  //     hintText: "Business Category",
+  //     subDropdownHintText: "Business Sub Category",
+  //     fillColor: Colors.black.withOpacity(0.3),
+  //     categories: _categories,
+  //     onCategoryChanged: (value) {
+  //       setState(() {
+  //         _businessCategoryIdController.text = value.toString();
+  //       });
+  //     },
+  //     onSubCategoryChanged: (value) {
+  //       setState(() {
+  //         _businessSubCategoryController.text = value.toString();
+  //       });
+  //     },
+  //     onCategorySaved: (value) {
+  //       _businessCategoryIdController.text = value.toString();
+  //     },
+  //     onSubCategorySaved: (value) {
+  //       _businessSubCategoryController.text = value.toString();
+  //     },
+  //     categoryFocusNode: _businessCategoryFocusNode,
+  //     subCategoryFocusNode: _businessSubCategoryFocusNode,
+  //     nextFocusNode: _registrationFeesFocusNode,
+  //   );
+  // }
 
   //*-----Registration Fees Field------*
   Widget _registrationFeesField() {
@@ -563,7 +430,7 @@ class _SponsorRegistrationFormViewState
       hintText: "Multiple Login Required",
       subDropdownHintText: "No. of Logins",
       fillColor: Colors.black.withOpacity(0.3),
-      categories: _multipleLoginOptions,
+      categories: Constants.multipleLoginOptions,
       onCategoryChanged: (value) {
         setState(() {
           _multipleLoginRequiredController.text = value.toString();
@@ -591,12 +458,53 @@ class _SponsorRegistrationFormViewState
     return SingleDropdown(
       ignore: true,
       onChanged: (value) {
-        _postPaidArrangementController.text = value.toString();
+        // _postPaidArrangementController.text = value.toString();
+        _postPaidArrangementController.text = 'No';
         FocusScope.of(context).requestFocus(_emailFocusNode);
       },
       dropdownListData: const ['No', 'Yes'],
       labelText: "PostPaid Arrangement Required",
       hintText: "Available after vintage of 1 year",
+    );
+  }
+
+  //*----Profile Services Field----*
+  Widget _profileServicesField() {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Text(
+            "Profile Services",
+            style: TextStyle(color: Colors.white.withOpacity(0.9)),
+          ),
+        ),
+        CustomCheckBoxTile(
+            isChecked: _profileServicesCheck,
+            title: "Contact details of viewers",
+            onChanged: (value) {
+              setState(() {
+                _profileServicesCheck = !_profileServicesCheck;
+                if (_profileServicesCheck) {
+                  _profileServicesController.text =
+                      "Contact details of viewers";
+                } else {
+                  _profileServicesController.text = "";
+                }
+              });
+            }),
+        CustomCheckBoxTile(
+            isChecked: false,
+            title: "Discount coupons to boost sales",
+            onChanged: (value) {}),
+        CustomCheckBoxTile(
+            isChecked: false,
+            title: "Radigone Points deposit time- 7/10/15/20 Days",
+            onChanged: (value) {})
+      ],
     );
   }
 
@@ -608,6 +516,7 @@ class _SponsorRegistrationFormViewState
       nextFocusNode: _addressFocusNode,
       hintText: "Email",
       textInputType: TextInputType.emailAddress,
+      textCapitalization: TextCapitalization.none,
       obscureText: false,
       errorText: _emailError,
       onChanged: (value) {
@@ -705,8 +614,7 @@ class _SponsorRegistrationFormViewState
     return CustomFormField(
       controller: _countryController,
       currentFocusNode: _countryFocusNode,
-      nextFocusNode:
-          widget.isCompany ? _passwordFocusNode : _panNumberFocusNode,
+      nextFocusNode: _panNumberFocusNode,
       hintText: "Country",
       obscureText: false,
       textInputType: TextInputType.text,
@@ -760,13 +668,13 @@ class _SponsorRegistrationFormViewState
           ),
           child: ListTile(
             leading: _buildFileSelector(
-              file: selectedAddressProof,
+              file: _selectedAddressProof,
               onTap: () async {
                 File? file = await _mediaServices.getSingleFileFromPicker(
                     allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf']);
                 if (file != null) {
                   setState(() {
-                    selectedAddressProof = file;
+                    _selectedAddressProof = file;
                   });
                 }
               },
@@ -779,8 +687,8 @@ class _SponsorRegistrationFormViewState
             ),
             titleAlignment: ListTileTitleAlignment.center,
             subtitle: Text(
-              selectedAddressProof != null
-                  ? selectedAddressProof!.path.split('/').last
+              _selectedAddressProof != null
+                  ? _selectedAddressProof!.path.split('/').last
                   : "Upload (jpg, jpeg, png, pdf) less then 2MB in size (Driving Licence/Voter Card/Masked Aadhaar Card/Passport/Job card issued Nrega duly signed by an officer of the state government)",
               style: TextStyle(
                 color: Colors.white.withOpacity(0.65),
@@ -803,13 +711,13 @@ class _SponsorRegistrationFormViewState
           ),
           child: ListTile(
             leading: _buildFileSelector(
-              file: selectedPanProof,
+              file: _selectedPanProof,
               onTap: () async {
                 File? file = await _mediaServices.getSingleFileFromPicker(
                     allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf']);
                 if (file != null) {
                   setState(() {
-                    selectedPanProof = file;
+                    _selectedPanProof = file;
                   });
                 }
               },
@@ -821,8 +729,8 @@ class _SponsorRegistrationFormViewState
                   color: Colors.white.withOpacity(0.65), fontSize: 15),
             ),
             subtitle: Text(
-              selectedPanProof != null
-                  ? selectedPanProof!.path.split('/').last
+              _selectedPanProof != null
+                  ? _selectedPanProof!.path.split('/').last
                   : "Upload (jpg, jpeg, png, pdf) less then 2MB in size",
               style: TextStyle(
                 color: Colors.white.withOpacity(0.65),
@@ -918,41 +826,65 @@ class _SponsorRegistrationFormViewState
 
   //*-----Submit Button------*
   Widget _submitButton() {
-    return CustomButton(
-        buttonName: "Submit",
-        isLoading: false,
-        isGradient: true,
-        onTap: () {
-          debugPrint('Firm Name: ${_firmNameController.text}');
-          debugPrint('Firm Type: ${_firmTypeController.text}');
-          debugPrint('GST Number: ${_gstNumberController.text}');
-          debugPrint('Designation: ${_designationController.text}');
-          debugPrint('First Name: ${_firstNameController.text}');
-          debugPrint('Last Name: ${_lastNameController.text}');
-          debugPrint('Username: ${_usernameController.text}');
-          debugPrint('Country Code: ${_countryCodeController.text}');
-          debugPrint('Phone Number: ${_phoneNumberController.text}');
-          debugPrint('Business Category: ${_businessCategoryController.text}');
-          debugPrint(
-              'Business Sub-Category: ${_businessSubCategoryController.text}');
-          debugPrint('Registration Fees: ${_registrationFeesController.text}');
-          debugPrint(
-              'Multiple Login Required: ${_multipleLoginRequiredController.text}');
-          debugPrint(
-              'Number of Login Required: ${_numberOfLoginRequiredController.text}');
-          debugPrint(
-              'Post Paid Arrangement: ${_postPaidArrangementController.text}');
-          debugPrint('Profile Services: ${_profileServicesController.text}');
-          debugPrint('Address: ${_addressController.text}');
-          debugPrint('City: ${_cityController.text}');
-          debugPrint('State: ${_stateController.text}');
-          debugPrint('Pin Code: ${_pinCodeController.text}');
-          debugPrint('Country: ${_countryController.text}');
-          debugPrint('Email: ${_emailController.text}');
-          debugPrint('Address Proof: ${_addressProofController.text}');
-          debugPrint('Password: ${_passwordController.text}');
-          debugPrint('Confirm Password: ${_confirmPasswordController.text}');
-        });
+    return ChangeNotifierProvider(
+      create: (context) => SponsorRegisterViewModel(),
+      child: Consumer<SponsorRegisterViewModel>(
+        builder: (context, signup, _) {
+          return CustomButton(
+              buttonName: "Submit",
+              isLoading: false,
+              isGradient: true,
+              onTap: () async {
+                //*----Setting Hard Values----*
+                _postPaidArrangementController.text = "No";
+
+                debugPrint('Firm Name: ${_firmNameController.text}');
+                debugPrint('Firm Type: ${_firmTypeController.text}');
+                debugPrint('GST Number: ${_gstNumberController.text}');
+                debugPrint('Designation: ${_designationController.text}');
+                debugPrint('First Name: ${_firstNameController.text}');
+                debugPrint('Last Name: ${_lastNameController.text}');
+                debugPrint('Username: ${_usernameController.text}');
+                debugPrint('Country Code: ${_countryCodeController.text}');
+                debugPrint('Phone Number: ${_phoneNumberController.text}');
+                debugPrint(
+                    'Business Category: ${_businessCategoryIdController.text}');
+                debugPrint(
+                    'Business Sub-Category: ${_businessSubCategoryController.text}');
+                debugPrint(
+                    'Registration Fees: ${_registrationFeesController.text}');
+                debugPrint(
+                    'Multiple Login Required: ${_multipleLoginRequiredController.text}');
+                debugPrint(
+                    'Number of Login Required: ${_numberOfLoginRequiredController.text}');
+                debugPrint(
+                    'Post Paid Arrangement: ${_postPaidArrangementController.text}');
+                debugPrint(
+                    'Profile Services: ${_profileServicesController.text}');
+                debugPrint('Address: ${_addressController.text}');
+                debugPrint('City: ${_cityController.text}');
+                debugPrint('State: ${_stateController.text}');
+                debugPrint('Pin Code: ${_pinCodeController.text}');
+                debugPrint('Country: ${_countryController.text}');
+                debugPrint('Email: ${_emailController.text}');
+                debugPrint('Password: ${_passwordController.text}');
+                debugPrint(
+                    'Confirm Password: ${_confirmPasswordController.text}');
+                debugPrint(
+                    'addressFile:${_selectedAddressProof?.path.split('/').last.toString()}');
+                debugPrint(
+                    'panFile:${_selectedPanProof?.path.split('/').last.toString()}');
+
+                bool validate =
+                    await _validateForm(signup: signup, context: context);
+
+                if (validate) {
+                  await signup.registerSponsor();
+                }
+              });
+        },
+      ),
+    );
   }
 
   Widget _buildFileSelector(
@@ -975,4 +907,201 @@ class _SponsorRegistrationFormViewState
     final String extension = path.split('.').last.toLowerCase();
     return ['jpg', 'jpeg', 'png'].contains(extension);
   }
+
+  Future<bool> _validateForm(
+      {required SponsorRegisterViewModel signup,
+      required BuildContext context}) async {
+    // Utility function to show error messages
+    void showError(String message) {
+      _alertServices.flushBarErrorMessages(message, context);
+    }
+
+    // Validate selected title
+    if (_selectedTitleController.text.isEmpty) {
+      showError("Please select your title.");
+      return false;
+    } else {
+      signup.setSelectedTitle = _selectedTitleController.text.trim();
+    }
+
+    // Validate first name
+    if (_firstNameController.text.isEmpty) {
+      showError("Please enter your first name.");
+      return false;
+    } else {
+      signup.setFirstName = _firstNameController.text.trim();
+    }
+
+    // Validate last name
+    if (_lastNameController.text.isEmpty) {
+      showError("Please enter your last name.");
+      return false;
+    } else {
+      signup.setLastName = _lastNameController.text.trim();
+    }
+
+    // Validate username
+    if (_usernameController.text.isEmpty) {
+      showError("Please enter your username.");
+      return false;
+    } else {
+      signup.setUsername = _usernameController.text.trim();
+    }
+
+    // Validate phone number
+    if (_phoneNumberController.text.isEmpty) {
+      showError("Please enter your phone number.");
+      return false;
+    } else {
+      signup.setPhoneNumber = _phoneNumberController.text.trim();
+    }
+
+    // Validate country code
+    if (_countryCodeController.text.isEmpty) {
+      showError("Please enter your country code.");
+      return false;
+    } else {
+      signup.setCountryCode = _countryCodeController.text.trim();
+    }
+
+    // Validate business category
+    if (_businessCategoryIdController.text.isEmpty) {
+      showError("Please select a business category.");
+      return false;
+    } else {
+      signup.setBusinessCategory = _businessCategoryIdController.text.trim();
+    }
+
+    // Validate business sub-category
+    if (_businessSubCategoryController.text.isEmpty) {
+      showError("Please select a business sub-category.");
+      return false;
+    } else {
+      signup.setBusinessSubCategory =
+          _businessSubCategoryController.text.trim();
+    }
+
+    // Validate multiple login required
+    if (_multipleLoginRequiredController.text.isEmpty) {
+      showError("Please specify if multiple logins are required.");
+      return false;
+    } else {
+      signup.setMultipleLoginRequired =
+          _multipleLoginRequiredController.text.trim();
+    }
+
+    // Validate number of logins required
+    if (!(_multipleLoginRequiredController.text == 'No') &&
+        _numberOfLoginRequiredController.text.isEmpty) {
+      showError("Please enter the number of logins required.");
+      return false;
+    } else {
+      signup.setNumberOfLoginRequired =
+          _numberOfLoginRequiredController.text.trim();
+    }
+
+    // Validate post-paid arrangement
+    if (_postPaidArrangementController.text.isEmpty) {
+      showError("Please specify the post-paid arrangement.");
+      return false;
+    } else {
+      signup.setPostPaidArrangement =
+          _postPaidArrangementController.text.trim();
+    }
+
+    // Validate address
+    if (_addressController.text.isEmpty) {
+      showError("Please enter your address.");
+      return false;
+    } else {
+      signup.setAddress = _addressController.text.trim();
+    }
+
+    // Validate city
+    if (_cityController.text.isEmpty) {
+      showError("Please enter your city.");
+      return false;
+    } else {
+      signup.setCity = _cityController.text.trim();
+    }
+
+    // Validate state
+    if (_stateController.text.isEmpty) {
+      showError("Please enter your state.");
+      return false;
+    } else {
+      signup.setState = _stateController.text.trim();
+    }
+
+    // Validate pin code
+    if (_pinCodeController.text.isEmpty) {
+      showError("Please enter your pin code.");
+      return false;
+    } else {
+      signup.setPinCode = _pinCodeController.text.trim();
+    }
+
+    // Validate country
+    if (_countryController.text.isEmpty) {
+      showError("Please enter your country.");
+      return false;
+    } else {
+      signup.setCountry = _countryController.text.trim();
+    }
+
+    // Validate email
+    if (_emailController.text.isEmpty || !_emailController.text.contains('@')) {
+      showError("Please enter a valid email address.");
+      return false;
+    } else {
+      signup.setEmail = _emailController.text.trim().toLowerCase();
+    }
+
+    // Validate password
+    if (_passwordController.text.isEmpty ||
+        _passwordController.text.length < 8) {
+      showError("Password must be at least 8 characters long.");
+      return false;
+    } else {
+      signup.setPassword = _passwordController.text.trim();
+    }
+
+    // Validate confirm password
+    if (_confirmPasswordController.text.isEmpty ||
+        _confirmPasswordController.text != _passwordController.text) {
+      showError("Passwords do not match.");
+      return false;
+    } else {
+      signup.setConfirmPassword = _confirmPasswordController.text.trim();
+    }
+
+    // Validate PAN number
+    if (_panNumberController.text.isEmpty) {
+      showError("Please enter your PAN number.");
+      return false;
+    } else {
+      signup.setPanNumber = _panNumberController.text.trim();
+    }
+
+    // Validate address proof file
+    if (_selectedAddressProof == null) {
+      showError("Please attach your address proof.");
+      return false;
+    } else {
+      signup.setAddressProofFile = _selectedAddressProof;
+    }
+
+    // Validate pan proof file
+    if (_selectedPanProof == null) {
+      showError("Please attach your Pan card proof.");
+      return false;
+    } else {
+      signup.setPanProofFile = _selectedPanProof;
+    }
+
+    return true;
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 }

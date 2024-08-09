@@ -9,6 +9,7 @@ import 'package:radigone_v3/tester.dart';
 import 'package:radigone_v3/view/sponsor_view/side_menu_bar_view/sponsor_deposit_now_view.dart';
 import 'package:radigone_v3/view_model/agent_view_model/agent_auth_viewModels/agent_login_viewModel.dart';
 import 'package:radigone_v3/view_model/agent_view_model/agent_referralLink_viewModel.dart';
+import 'package:radigone_v3/view_model/common_viewModel/business_categories_viewModel.dart';
 import 'package:radigone_v3/view_model/common_viewModel/change_password_view_model.dart';
 import 'package:radigone_v3/view_model/common_viewModel/logout_view_model.dart';
 import 'package:radigone_v3/view_model/common_viewModel/registration_fees_viewModel.dart';
@@ -16,7 +17,7 @@ import 'package:radigone_v3/view_model/services/getIt_services.dart';
 import 'package:radigone_v3/view_model/services/navigation_services.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_auth_viewModel/sponsor_login_view_model.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_profile_information_viewModel.dart';
-import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_register_viewModel.dart';
+import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_auth_viewModel/sponsor_register_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_close_reply_ticket_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_create_ticket_viewModel.dart';
 import 'package:radigone_v3/view_model/sponsor_view_model/sponsor_sidebar_view_models/sponsor_deposit_viewModel.dart';
@@ -86,7 +87,6 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => LoginUserProvider()),
         ChangeNotifierProvider(create: (_) => LogoutProvider()),
         ChangeNotifierProvider(create: (_) => LoginSponsorProvider()),
-        ChangeNotifierProvider(create: (_) => RegisterSponsorProvider()),
         ChangeNotifierProvider(create: (_) => DashboardUserProvider()),
         ChangeNotifierProvider(create: (_) => UserRadigonePointViewModel()),
         ChangeNotifierProvider(create: (_) => UserPointsViewModel()),
@@ -110,6 +110,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => SponsorProfileUpdateViewModel()),
         ChangeNotifierProvider(create: (_) => FetchSponsorInformation()),
         ChangeNotifierProvider(create: (_) => RegistrationFeesViewModel()),
+        ChangeNotifierProvider(create: (_) => BusinessCategoryViewModel()),
+
 
       ],
       child: MaterialApp(
@@ -121,7 +123,7 @@ class _MyAppState extends State<MyApp> {
         ),
         navigatorKey: _navigationServices.navigationStateKey,
         routes: _navigationServices.routes,
-        // home:  (),
+        // home:  DependentDropdownsScreen(),
         initialRoute: "/splashScreen",
       ),
     );

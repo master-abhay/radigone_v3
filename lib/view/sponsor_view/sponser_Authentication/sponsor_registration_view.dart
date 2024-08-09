@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:radigone_v3/models/common/business_category_model.dart';
 import 'package:radigone_v3/resources/colors.dart';
 import 'package:radigone_v3/utils/utils.dart';
-import 'package:radigone_v3/view/sponsor_view/sponser_Authentication/sponsor_registration_form_view.dart';
+import 'package:radigone_v3/view/sponsor_view/sponser_Authentication/company_registration_form_view.dart';
+import 'package:radigone_v3/view/sponsor_view/sponser_Authentication/individual_registration_form_view.dart';
+import 'package:radigone_v3/view_model/common_viewModel/business_categories_viewModel.dart';
 
 import '../../../utils/constants.dart';
 import '../../../view_model/common_viewModel/registration_fees_viewModel.dart';
@@ -22,9 +25,18 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView>
   late TabController _tabController;
 
   String _registrationFees = '';
+  List<Categories> _categories = [];
 
   Future<void> _initializeData() async {
     try {
+
+
+      final businessCategoriesProvider =  Provider.of<BusinessCategoryViewModel>(context,listen: false);
+      await businessCategoriesProvider.getBusinessCategories();
+       _categories = businessCategoriesProvider.businessCategory?.data?.categories ?? [];
+
+
+
       final provider =
           Provider.of<RegistrationFeesViewModel>(context, listen: false);
 
@@ -36,6 +48,12 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView>
         _registrationFees =
             await _getRegistrationFees(provider.getAgentRegistrationFees) ?? '';
       }
+
+
+
+
+
+
     } catch (e) {
       // Handle error if needed
       debugPrint(e.toString());
@@ -149,35 +167,43 @@ class _SponsorRegistrationViewState extends State<SponsorRegistrationView>
                 ),
                 Expanded(
                   child: Consumer<RegistrationFeesViewModel>(
-                      builder: (context, provider, _) {
-                    return provider.isLoading
-                        ? const Center(
+                      builder: (context, registrationFeesViewModel, _) {
+                    return Consumer<BusinessCategoryViewModel>(
+                      builder: (context,businessCategoryViewModel,_){
+                        return  (registrationFeesViewModel.isLoading || businessCategoryViewModel.isLoading)
+                            ? const Center(
                             child: CupertinoActivityIndicator(
-                            color: Colors.white,
-                          ))
-                        : TabBarView(
-                            controller: _tabController,
-                            children: [
-                              SponsorRegistrationFormView(
-                                key: PageStorageKey(
-                                    widget.userType == UserType.sponsor
-                                        ? 'companySponsor'
-                                        : 'companyAgent'),
-                                isCompany: true,
-                                registrationFees: _registrationFees,
-                                userType: widget.userType,
-                              ),
-                              SponsorRegistrationFormView(
-                                key: PageStorageKey(
-                                    widget.userType == UserType.sponsor
-                                        ? 'individualSponsor'
-                                        : 'individualAgent'),
-                                isCompany: false,
-                                registrationFees: _registrationFees,
-                                userType: widget.userType,
-                              ),
-                            ],
-                          );
+                              color: Colors.white,
+                            ))
+                            : TabBarView(
+                          controller: _tabController,
+                          children: [
+                           CompanyRegistrationFormView(
+                              key: PageStorageKey(
+                                  widget.userType == UserType.sponsor
+                                      ? 'companySponsor'
+                                      : 'companyAgent'),
+                              registrationFees: _registrationFees,
+                              userType: widget.userType,
+                              businessCategories : _categories,
+                            ),
+                            IndividualRegistrationFormView(
+                              key: PageStorageKey(
+                                  widget.userType == UserType.sponsor
+                                      ? 'individualSponsor'
+                                      : 'individualAgent'),
+                              registrationFees: _registrationFees,
+                              userType: widget.userType,
+                              businessCategories : _categories,
+                            ),
+                          ],
+                        );
+                      },
+                    );
+
+
+
+
                   }),
                 )
               ],

@@ -25,7 +25,7 @@ import '../../view/sponsor_view/side_menu_bar_view/sponsor_myTickets_view.dart';
 import '../../view/sponsor_view/side_menu_bar_view/sponsor_report_view.dart';
 import '../../view/sponsor_view/side_menu_bar_view/sponsor_sidebar_profile_view.dart';
 import '../../view/sponsor_view/side_menu_bar_view/sponsor_transaction_view.dart';
-import '../../view/sponsor_view/sponser_Authentication/sponsor_registration_form_view.dart';
+import '../../view/sponsor_view/sponser_Authentication/company_registration_form_view.dart';
 import '../../view/sponsor_view/sponsor_main_screens_with_bottom_bar.dart';
 import '../../view/user_view/profile/profile_edit_page.dart';
 import '../../view/user_view/profile/profile_page.dart';

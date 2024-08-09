@@ -38,7 +38,7 @@ class SingleDropdown extends StatelessWidget {
     final contentPaddingHorizontal = screenWidth * 0.02;
     final contentPaddingVertical = screenWidth * 0.01;
     final fontSize = screenWidth * 0.04;
-    final labelFontSize = screenWidth * 0.045;
+    final labelFontSize = screenWidth * 0.035;
 
     return IgnorePointer(
       ignoring: ignore ?? false,

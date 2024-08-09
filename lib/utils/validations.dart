@@ -166,17 +166,16 @@ class Validations {
   static bool isPanCardValid(String panCard) {
     // PAN card should be exactly 10 characters long and match the pattern:
     // 5 letters, 4 digits, 1 letter (e.g., ABCDE1234F)
-    final regex = RegExp(r'^[A-Z]{5}\d{4}[A-Z]$');
+    final regex = RegExp(r'^[A-Z]{5}[0-9]{4}[A-Z]{1}');
     return regex.hasMatch(panCard);
   }
 
-  // GST Number Validation:
+// GST Number Validation
   static bool isGstNumberValid(String gstNumber) {
-    // GST number should be exactly 15 characters long and follow the pattern:
-    // 2 letters, 10 digits, 1 letter, 1 digit (e.g., 12ABCDE3456F1Z5)
-    final regex = RegExp(r'^[A-Z0-9]{15}$');
-    return regex.hasMatch(gstNumber);
+    final gstPattern = RegExp(r'^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$');
+    return gstPattern.hasMatch(gstNumber);
   }
+
 }
 
 class ErrorText {
@@ -355,15 +354,19 @@ class ErrorText {
     return null;
   }
 
-  // GST Number error:
+// GST Number Error Handling
   static String? getGstNumberError({required String gstNumber}) {
     if (gstNumber.isEmpty) {
-      return "GST number can't be empty";
+      return "GST number required.";
     } else if (!Validations.isGstNumberValid(gstNumber)) {
-      return "Invalid GST number.\n"
-          "• Must be exactly 15 characters long.\n"
-          "• Should follow this pattern: 2 letters, 10 digits, 1 letter, 1 digit.\n"
-          "• Example: 12ABCDE3456F1Z5";
+      return "Invalid GST number. It should be:\n\n"
+          "• Exactly 15 characters long\n"
+          "• Format:\n"
+          "  - 2 uppercase letters (state code)\n"
+          "  - 10 digits (PAN number)\n"
+          "  - 1 uppercase letter (entity code)\n"
+          "  - 1 digit (checksum digit)\n\n"
+          "Example: 12ABCDE3456F1Z5";
     }
     return null;
   }

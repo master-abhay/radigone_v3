@@ -187,11 +187,6 @@ class ViewerRegistrationViewModel with ChangeNotifier {
     try {
       setResponse = ApiResponse.loading();
 
-
-      print('_addressProof: $_addressProof');
-      print('_panCardProof: $_panCardProof');
-
-
       // Check if the files are null before proceeding
       if (_addressProof == null || _panCardProof == null) {
         throw Exception('Address proof or Pan card proof is missing.');
